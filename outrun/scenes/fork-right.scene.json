@@ -1,0 +1,58 @@
+{
+  "$schemaVersion": 2,
+  "id": "fork-right",
+  "resources": {
+    "ForkPreviewState": { "active": true, "side": 1, "previousTick": 0, "tick": 0, "durationTicks": 180 },
+    "RoadProofState": { "fixtureId": 3, "distance": 33000, "previousDistance": 33000, "speed": 7200, "playing": true },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Projected Road Camera",
+      "id": "camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] },
+      "MeshRenderer": {
+        "mesh": "dynamic:fork-backgrounds",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Road Proof Mesh",
+      "id": "road",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:road-proof",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Hill Diagnostic Objects",
+      "id": "hill-objects",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/hill-proof.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:hill-objects",
+        "material": "materials/hill-objects.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Hill Background Order Diagnostic",
+      "id": "hill-backdrop",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/hill-proof.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:hill-backdrop",
+        "material": "materials/hill-objects.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    }
+  ]
+}

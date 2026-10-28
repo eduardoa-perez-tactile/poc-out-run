@@ -1,0 +1,10 @@
+{
+  "replay": "tests/replays/road_fork_left_preview_reaches_successor_without_changing_proof_speed.greplay",
+  "structural": {
+    "drawCallsMax": 10,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 32,
+    "repeat": 1
+  }
+}
