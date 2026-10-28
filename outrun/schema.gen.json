@@ -4,42 +4,130 @@
   "enums": [],
   "types": [
     {
-      "name": "Bubble",
-      "kind": "component",
+      "name": "RoadFixtureRequested",
+      "kind": "event",
       "sim": true,
       "fields": [
         {
-          "name": "radius",
+          "name": "fixtureId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "distance",
           "kind": "f32",
           "scalar": "f32",
-          "lanes": 1
+          "lanes": 1,
+          "default": 45000
         },
         {
           "name": "speed",
           "kind": "f32",
           "scalar": "f32",
           "lanes": 1,
-          "doc": "Units per step"
+          "default": 7200
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
     },
     {
-      "name": "Game",
+      "name": "RoadProofState",
       "kind": "resource",
       "sim": true,
       "fields": [
         {
-          "name": "score",
+          "name": "fixtureId",
           "kind": "u32",
           "scalar": "u32",
           "lanes": 1,
-          "doc": "Bubbles popped"
+          "default": 1
         },
         {
-          "name": "spawned",
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousDistance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 0
+        },
+        {
+          "name": "speed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 7200
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        },
+        {
+          "name": "spaceHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RoadProofVisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "fixtureId",
           "kind": "u32",
           "scalar": "u32",
+          "lanes": 1,
+          "default": 4294967295
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aspect",
+          "kind": "f32",
+          "scalar": "f32",
           "lanes": 1
         }
       ],

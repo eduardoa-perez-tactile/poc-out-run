@@ -17,6 +17,6 @@
   "bundles": [{ "name": "base", "include": ["**"], "delivery": "in-app" }],
   "targets": ["ios", "android"],
   "platforms": ["mobile", "web"],
-  "startScene": "scenes/main.scene.json",
+  "startScene": "scenes/road-proof.scene.json",
   "check": { "smoke": { "frames": 120 } }
 }
