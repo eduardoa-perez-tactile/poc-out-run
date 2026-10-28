@@ -83,9 +83,25 @@ def safe_extract(archive, directory):
             require(target == root or root in target.parents, 'Archive path escapes runner directory')
             if member.issym() or member.islnk():
                 link_path = PurePosixPath(member.linkname)
-                require(member.linkname and not link_path.is_absolute() and '..' not in link_path.parts
+                require(member.linkname and not link_path.is_absolute()
                         and '\\' not in member.linkname, 'Archive link escapes runner directory')
-                link = (target.parent/member.linkname).resolve() if member.issym() else (root/member.linkname).resolve()
+                # Official Node bin links use ../lib/node_modules/.... Permit parent
+                # components only in relative symlink targets, without ever walking
+                # lexically above root. Member paths and hardlink paths stay strict.
+                if member.issym():
+                    parts = list(member_path.parent.parts)
+                    for part in link_path.parts:
+                        if part == '..':
+                            require(parts, 'Archive link escapes runner directory')
+                            parts.pop()
+                        elif part != '.':
+                            parts.append(part)
+                    # Resolve from the destination's actual parent, not target.parent:
+                    # target may follow an existing final symlink that extract replaces.
+                    link = (root/member.name).parent.joinpath(member.linkname).resolve()
+                else:
+                    require('..' not in link_path.parts, 'Archive link escapes runner directory')
+                    link = (root/member.linkname).resolve()
                 require(link == root or root in link.parents, 'Archive link escapes runner directory')
             require(member.isfile() or member.isdir() or member.issym() or member.islnk(), 'Archive special entry rejected')
             if target == root:
@@ -93,6 +109,20 @@ def safe_extract(archive, directory):
                 continue # A root-directory entry must not relax our private 0700 permissions.
             member.mode &= 0o755 # Never restore setuid/setgid or group/world write bits.
             tar.extract(member,root)
+    # A later symlink can change an earlier link's resolution (b/../target
+    # with b initially absent, followed by b -> .). Check the completed tree
+    # before config.sh or any other extracted binary can be executed. Do not
+    # follow directory symlinks while walking; validate each link itself.
+    for parent, directories, files in os.walk(root,followlinks=False):
+        for name in directories + files:
+            path = Path(parent)/name
+            if path.is_symlink():
+                try:
+                    resolved = path.resolve()
+                except (OSError,RuntimeError) as error:
+                    raise RuntimeError('Archive final link cannot resolve safely') from error
+                require(resolved == root or root in resolved.parents,
+                        'Archive final link escapes runner directory')
 
 def child_env():
     # Deliberately do not forward API/admin tokens to the runner or job processes.

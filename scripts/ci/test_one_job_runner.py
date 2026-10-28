@@ -93,6 +93,60 @@ class BoundaryTests(unittest.TestCase):
                 info=tarfile.TarInfo('link');info.type=tarfile.SYMTYPE;info.linkname='/outside';tar.addfile(info)
             dest=Path(d)/'dest';dest.mkdir()
             with self.assertRaisesRegex(RuntimeError,'link escapes'):runner.safe_extract(archive,dest)
+    def test_official_node_relative_bin_links_extract_and_resolve(self):
+        with tempfile.TemporaryDirectory() as d:
+            archive=Path(d)/'node-links.tar.gz'
+            with tarfile.open(archive,'w:gz') as tar:
+                for version in ('node20','node24'):
+                    for name,script in [('corepack','corepack/dist/corepack.js'),('npm','npm/bin/npm-cli.js'),('npx','npm/bin/npx-cli.js')]:
+                        content=(version+'/'+name).encode()
+                        info=tarfile.TarInfo('./externals/'+version+'/lib/node_modules/'+script)
+                        info.size=len(content);tar.addfile(info,io.BytesIO(content))
+                        info=tarfile.TarInfo('./externals/'+version+'/bin/'+name)
+                        info.type=tarfile.SYMTYPE;info.linkname='../lib/node_modules/'+script;tar.addfile(info)
+            dest=Path(d)/'dest';dest.mkdir(mode=0o700)
+            runner.safe_extract(archive,dest)
+            for version in ('node20','node24'):
+                for name in ('corepack','npm','npx'):
+                    link=dest/'externals'/version/'bin'/name
+                    self.assertTrue(link.is_symlink())
+                    self.assertEqual(link.read_bytes(),(version+'/'+name).encode())
+                    self.assertIn(dest.resolve(),link.resolve().parents)
+    def test_archive_relative_symlink_cannot_walk_above_root(self):
+        with tempfile.TemporaryDirectory() as d:
+            archive=Path(d)/'bad.tar.gz'
+            with tarfile.open(archive,'w:gz') as tar:
+                info=tarfile.TarInfo('bin/link');info.type=tarfile.SYMTYPE
+                info.linkname='../../escaped';tar.addfile(info)
+            dest=Path(d)/'dest';dest.mkdir()
+            with self.assertRaisesRegex(RuntimeError,'link escapes'):runner.safe_extract(archive,dest)
+            self.assertFalse((dest/'bin/link').is_symlink())
+    def test_archive_relative_link_resolves_against_existing_symlink_chain(self):
+        with tempfile.TemporaryDirectory() as d:
+            archive=Path(d)/'bad.tar.gz'
+            with tarfile.open(archive,'w:gz') as tar:
+                info=tarfile.TarInfo('a');info.type=tarfile.SYMTYPE;info.linkname='.';tar.addfile(info)
+                info=tarfile.TarInfo('dir/link');info.type=tarfile.SYMTYPE
+                info.linkname='../a/../escaped';tar.addfile(info)
+            dest=Path(d)/'dest';dest.mkdir()
+            with self.assertRaisesRegex(RuntimeError,'link escapes'):runner.safe_extract(archive,dest)
+            self.assertTrue((dest/'a').is_symlink())
+            self.assertFalse((dest/'dir/link').is_symlink())
+            self.assertFalse((Path(d)/'escaped').exists())
+    def test_archive_later_symlink_cannot_redirect_earlier_link_outside(self):
+        with tempfile.TemporaryDirectory() as d:
+            archive=Path(d)/'bad.tar.gz'
+            with tarfile.open(archive,'w:gz') as tar:
+                for name,target in [('config.sh','b/../outside-config'),('b','.')]:
+                    info=tarfile.TarInfo(name);info.type=tarfile.SYMTYPE
+                    info.linkname=target;tar.addfile(info)
+            dest=Path(d)/'dest';dest.mkdir(mode=0o700)
+            with self.assertRaisesRegex(RuntimeError,'final link escapes'):
+                runner.safe_extract(archive,dest)
+            self.assertTrue((dest/'config.sh').is_symlink())
+            self.assertTrue((dest/'b').is_symlink())
+            self.assertEqual((dest/'config.sh').resolve(),(Path(d)/'outside-config').resolve())
+            self.assertFalse((Path(d)/'outside-config').exists())
     def test_archive_symlink_chain_cannot_change_parent_resolution(self):
         with tempfile.TemporaryDirectory() as d:
             archive=Path(d)/'bad.tar.gz'
