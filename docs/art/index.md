@@ -46,7 +46,8 @@ projection, cropping and palette transitions must be evaluated in-engine.
 ## Rebuild the reference boards
 
 Use a local checkout of the pinned source and Python with Pillow (boards were built with
-Pillow 11.3.0). No engine installation is needed. The generator rejects another source commit.
+Pillow 11.3.0). No engine installation is needed. The generator rejects another source commit
+and tracked modifications under Resources, so changed artwork cannot inherit the pinned label.
 
 ```sh
 python3 docs/art/build_references.py --source /path/to/OutRun
@@ -59,7 +60,7 @@ The SVG layout proposal is authored separately and is not overwritten by that sc
 
 Validate guide links, PNG board headers, the SVG and palette-table consistency without Pillow
 or the engine. Add --source to compare all recorded specimen dimensions and map RGBA values
-against the pinned checkout:
+against the pinned checkout. Source comparison also rejects tracked Resources modifications:
 
 ```sh
 python3 docs/art/validate_references.py
@@ -70,9 +71,11 @@ python3 docs/art/validate_references.py --source /path/to/OutRun
 
 Art-production PRs should link their brief, relevant guide and reference family. Review native
 pixels, approved projected sizes, alpha edges, pose/anchor consistency and mobile readability.
-Once art enters the game, use the workflow's affected render/cooked checks and actual browser/
-phone observation. Documentation boards and the layout diagram have no runtime rendering cost;
-mobile memory/draw targets concern future imported assets.
+Once art enters the game, use the workflow's affected render/cooked checks, native previews and
+browser mobile-size/touch emulation with safe-area and phone-low residency checks. Physical-phone
+testing is outside this fast-iteration workflow. Documentation boards and the layout diagram have
+no runtime rendering cost; mobile memory/draw budgets remain targets for future imported assets,
+and desktop/emulated observations do not establish hardware frame time or thermal performance.
 
 These guides belong to issue #26. PR #1 carries the development harness and landscape config;
 commands requiring that harness apply after it lands. The guide-only branch starts from the

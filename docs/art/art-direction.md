@@ -75,7 +75,9 @@ primarily outside the driveable road. Start/goal dressing may form a special gat
 but its important opening and race signal must remain clear.
 
 Place HUD and touch controls within the current safe area, not inside a painted screenshot.
-Review a narrow-height wide phone, a notched phone, a tablet and resized browser windows.
+Review native/browser mobile-size emulations of a narrow-height wide phone, a notched phone
+and a tablet, plus resized browser windows. Include rotated safe-area insets and touch emulation;
+physical-phone testing is not required by this fast-iteration art workflow.
 Backgrounds may extend or wrap; important signs and vehicles must not be cropped merely to
 fill the screen. Widening the composition does not authorize changing collision geometry.
 

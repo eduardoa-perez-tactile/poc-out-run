@@ -15,6 +15,12 @@ a = p.parse_args()
 revision = subprocess.check_output(['git', '-C', str(a.source), 'rev-parse', 'HEAD'], text=True).strip()
 if revision != PIN:
     raise SystemExit(f'Expected source {PIN}; found {revision}')
+modified = subprocess.check_output(
+    ['git', '-C', str(a.source), 'status', '--porcelain=v1', '--untracked-files=no', '--', 'Resources'],
+    text=True,
+).strip()
+if modified:
+    raise SystemExit(f'Source Resources has tracked modifications; restore the pinned artwork before rebuilding:\n{modified}')
 r = a.source / 'Resources'
 a.out.mkdir(parents=True, exist_ok=True)
 font = ImageFont.load_default(size=16)

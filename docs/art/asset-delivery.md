@@ -188,6 +188,9 @@ to verify actual imports. A documentation review alone certifies no mobile frame
 engine rendering, browser input or memory limit.
 
 Changes to collision/state/timing data also require native/web parity. Changes to images,
-atlas layout, materials or animation appearance require reviewed T1 samples and real moving
-near/far observations when the renderer exists. Do not reapprove a changed golden solely
+atlas layout, materials or animation appearance require reviewed T1 samples and moving near/far
+observations in native/browser mobile-size previews when the renderer exists. Check safe-area
+layout, emulated touch states and phone-low residency; physical-phone testing is outside this
+fast-iteration workflow. Those checks do not establish hardware frame time or thermals.
+Do not reapprove a changed golden solely
 because the file was intentionally replaced; verify the new art meets the category brief.

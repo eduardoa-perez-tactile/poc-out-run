@@ -13,7 +13,9 @@ p.add_argument('--source', type=Path)
 a = p.parse_args()
 root = Path(__file__).resolve().parent
 index = json.loads((root/'references/source-index.json').read_text())
-assert index['sourceCommit'] == '6882721c99bc79365f815f68d389bf5078129e68'
+pin = '6882721c99bc79365f815f68d389bf5078129e68'
+if index['sourceCommit'] != pin:
+    raise SystemExit(f'Expected reference source {pin}; found {index["sourceCommit"]}')
 assert len(index['boards']) == 7 and len(index['palettes']) == 15
 
 def slug(text):
@@ -48,7 +50,14 @@ for line in (root/'environments.md').read_text().splitlines():
 assert rows==15
 if a.source:
     revision=subprocess.check_output(['git','-C',str(a.source),'rev-parse','HEAD'],text=True).strip()
-    assert revision==index['sourceCommit'],revision
+    if revision != index['sourceCommit']:
+        raise SystemExit(f'Expected source {index["sourceCommit"]}; found {revision}')
+    modified = subprocess.check_output(
+        ['git', '-C', str(a.source), 'status', '--porcelain=v1', '--untracked-files=no', '--', 'Resources'],
+        text=True,
+    ).strip()
+    if modified:
+        raise SystemExit(f'Source Resources has tracked modifications; restore the pinned artwork before validating:\n{modified}')
     resources=a.source/'Resources'
     for specimen in index['specimens'].values():
         path=resources/specimen['path']; data=path.read_bytes()

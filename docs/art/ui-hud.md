@@ -96,5 +96,7 @@ awarded.
 Review at real small-screen size, not only zoomed in: can the player read time, speed and gear
 against bright sky, snow, dark road and dense scenery? Can both thumbs hold controls without
 hiding traffic? Are focus, held, disabled and modal states visually distinct? Inspect all
-landscape sizes and safe areas, then perform actual phone and browser input checks when the
-UI exists. These checks are future implementation acceptance, not coverage claimed by this guide.
+landscape sizes and safe areas in native previews and browser mobile-size/touch emulation when
+the UI exists. Exercise simultaneous held controls, cancellation and focus loss there; no
+physical-phone run is required for this fast-iteration workflow. These checks are future
+implementation acceptance, not coverage claimed by this guide, and do not measure device speed.
