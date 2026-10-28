@@ -9,6 +9,15 @@
    }
   },
   {
+   "r": "2d",
+   "key": {
+    "Shape": {
+     "samples": 1,
+     "format": 22
+    }
+   }
+  },
+  {
    "r": "3d-program",
    "program": "builtin:standard"
   },
@@ -94,6 +103,15 @@
    "key": {
     "Blit": {
      "format": 22
+    }
+   }
+  },
+  {
+   "r": "2d",
+   "key": {
+    "Shape": {
+     "samples": 4,
+     "format": 40
     }
    }
   },
@@ -284,6 +302,15 @@
    "r": "2d",
    "key": {
     "Blit": {
+     "format": 22
+    }
+   }
+  },
+  {
+   "r": "2d",
+   "key": {
+    "Shape": {
+     "samples": 1,
      "format": 22
     }
    }
