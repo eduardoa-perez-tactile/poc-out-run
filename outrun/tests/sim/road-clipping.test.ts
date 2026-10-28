@@ -1,5 +1,5 @@
 import { worldTest, expect } from '@gameengine/test';
-import { RoadProofState } from '../../src/schema.gen.ts';
+import { RoadProofState, RoadFixtureRequested } from '../../src/schema.gen.ts';
 import { hillHeight, OBJECT_CAPACITY } from '../../src/render/hill-fixture.ts';
 import { buildRoadBuffers, projected } from '../../src/render/road-projection.ts';
 import { buildObjectBuffers, visibleFraction, objectProofStats, objectFullHeights, objectVisibility } from '../../src/render/hill-objects.ts';
@@ -56,9 +56,11 @@ worldTest('road.clipping mesh UV cropping and painter depths remain bounded acro
   expect(partial).toBeGreaterThan(0);expect(hidden).toBeGreaterThan(0);expect(reappeared).toBe(true);
 });
 
-worldTest('road.clipping dense preview advances across the crest', async({world,step})=>{
+worldTest('road.clipping dense preview advances across the crest', async({world,input,step})=>{
+  // Structural replay playback starts the configured scene; record the full setup.
+  input.emit(RoadFixtureRequested, { fixtureId: 3, distance: 33000, lateral: 0, speed: 7200, playing: true });
+  await step(180);
   expect(world.resource(RoadProofState).fixtureId).toBe(3);
   expect(world.resource(RoadProofState).playing).toBe(true);
-  await step(180);
   expect(world.resource(RoadProofState).distance).toBeCloseTo(54600,1);
-},{scene:'scenes/hill-proof.scene.json'});
+},{scene:'scenes/road-proof.scene.json'});
