@@ -138,6 +138,83 @@ export const schemaIr = {
         }
       ],
       "package": "OutRun"
+    },
+    {
+      "name": "VehiclePreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pose",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "sample",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "effect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "scale",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 3.2
+        },
+        {
+          "name": "placeholder",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "autoplay",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "VehicleVisualSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
     }
   ],
   "commands": [],
@@ -198,3 +275,37 @@ export interface RoadProofVisualCacheValue {
 }
 /** RoadProofVisualCache (resource, presentation-only) */
 export const RoadProofVisualCache = typeToken<RoadProofVisualCacheViews, RoadProofVisualCacheValue>('RoadProofVisualCache', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,lateral:f32:1,aspect:f32:1', read: (v: RoadProofVisualCacheViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
+
+export interface VehiclePreviewViews {
+  enabled: Uint8Array;
+  pose: Uint32Array;
+  sample: Uint32Array;
+  effect: Uint32Array;
+  scale: Float32Array;
+  placeholder: Uint8Array;
+  autoplay: Uint8Array;
+  loaded: Uint8Array;
+  reconciled: Uint8Array;
+}
+export interface VehiclePreviewValue {
+  enabled: boolean;
+  pose: number;
+  sample: number;
+  effect: number;
+  scale: number;
+  placeholder: boolean;
+  autoplay: boolean;
+  loaded: boolean;
+  reconciled: boolean;
+}
+/** VehiclePreview (resource, presentation-only) */
+export const VehiclePreview = typeToken<VehiclePreviewViews, VehiclePreviewValue>('VehiclePreview', 'resource', { sig: 'enabled:bool:1,pose:u32:1,sample:u32:1,effect:u32:1,scale:f32:1,placeholder:bool:1,autoplay:bool:1,loaded:bool:1,reconciled:bool:1', read: (v: VehiclePreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.pose = v.pose[i]; o.sample = v.sample[i]; o.effect = v.effect[i]; o.scale = v.scale[i]; o.placeholder = v.placeholder[i] !== 0; o.autoplay = v.autoplay[i] !== 0; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; return o; } });
+
+export interface VehicleVisualSlotViews {
+  slot: Uint32Array;
+}
+export interface VehicleVisualSlotValue {
+  slot: number;
+}
+/** VehicleVisualSlot (component, presentation-only) */
+export const VehicleVisualSlot = typeToken<VehicleVisualSlotViews, VehicleVisualSlotValue>('VehicleVisualSlot', 'component', { sig: 'slot:u32:1', read: (v: VehicleVisualSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
