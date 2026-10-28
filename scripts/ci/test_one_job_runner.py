@@ -141,7 +141,14 @@ class BoundaryTests(unittest.TestCase):
                     info=tarfile.TarInfo(name);info.type=tarfile.SYMTYPE
                     info.linkname=target;tar.addfile(info)
             dest=Path(d)/'dest';dest.mkdir(mode=0o700)
-            with self.assertRaisesRegex(RuntimeError,'final link escapes'):
+            # Newer Python data filters normalize b/../target before creating
+            # the link. Disable only that test-local filter so the completed-tree
+            # guard is exercised against actual unsafe ordering on every version.
+            extraction_filter = (patch.object(tarfile.TarFile,'extraction_filter',
+                                 staticmethod(tarfile.fully_trusted_filter))
+                                 if hasattr(tarfile,'fully_trusted_filter')
+                                 else contextlib.nullcontext())
+            with extraction_filter, self.assertRaisesRegex(RuntimeError,'final link escapes'):
                 runner.safe_extract(archive,dest)
             self.assertTrue((dest/'config.sh').is_symlink())
             self.assertTrue((dest/'b').is_symlink())
