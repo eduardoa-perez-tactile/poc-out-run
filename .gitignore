@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+.artifacts/
+build/
+# Engine installations, generated machine paths, and caches stay local.
+outrun/.gameengine/
+outrun/.agents/
+outrun/.claude/
+outrun/.codex/agents/
+outrun/AGENTS.md
+outrun/CLAUDE.md
