@@ -6,6 +6,11 @@ are refreshed locally with `npm run setup`; never commit the SDK, caches, or cop
 
 This is an internal personal prototype for mobile and web in landscape. Keep work focused on
 the game and its development harness. Do not import upstream README or legal documents.
+Prioritize fast desktop iteration. Physical-phone testing is excluded unless the user later
+requests it: do not install, run, profile or capture games on connected phones, or build phone
+probes solely to satisfy validation. Keep mobile viewport/safe-area tests, desktop phone-low
+residency and structural budgets, native/web parity, and targeted real-browser checks. Hardware
+frame-time, memory and thermal budgets remain design targets, never claimed measurements.
 
 ## Autonomous ticket coordination
 
@@ -24,7 +29,7 @@ and completion. Subagents must not independently switch shared branches, merge o
 Use a separate reviewer subagent after integration; it must not review its own implementation.
 Resolve blocking findings and obtain review of material follow-up changes before merging.
 The coordinator runs the final gates on the integrated candidate and records the tested head
-SHA, commands/results, review outcome and applicable visual/device evidence in the PR. Serialize
+SHA, commands/results, review outcome and applicable visual/browser evidence in the PR. Serialize
 engine commands across all agents and wait for any editor native build. If subagents or required
 validation cannot run, report the blocker rather than silently treating the ticket as complete.
 
@@ -46,12 +51,14 @@ Repairs follow the same fix-to-develop-to-main path. When needed after promotion
 main back into develop through a validated merge-commit PR; never squash shared history.
 
 For a docs-only candidate, repository policy and harness tests are the applicable checks.
-For a game-bearing main promotion, run `gate:milestone` plus the required browser/device
+For a game-bearing main promotion, run `gate:milestone` plus the targeted real-browser
 evidence from the matrix; a narrow ticket gate or hosted repo-policy alone is insufficient.
 Unavailable required tooling, missing required evidence or blocking review findings prevent
-merge/promotion. The bootstrap PR #1's missing wasm-host lane remains a blocker until actually
-resolved and rerun. Once merged and promoted, update the issue with evidence and resulting
-commits/PRs; do not close a ticket merely because implementation was written.
+merge/promotion. The bootstrap wasm-host gap has been resolved with native/web parity and an
+actual headed WebGPU startup/resize check; see `docs/engine-setup.md` for reproducible setup.
+Physical-phone evidence is not a merge or promotion requirement. Once merged and promoted,
+update the issue with evidence and resulting commits/PRs; do not close a ticket merely because
+implementation was written.
 
 Before editing, run `npm run test:plan -- --base origin/develop` (use the actual PR base).
 While iterating, run a focused T0 test and inspect hot reload. At handoff, run `npm run gate:pr`

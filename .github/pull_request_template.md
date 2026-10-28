@@ -13,7 +13,8 @@ Describe the trigger and resulting behavior. Keep this PR to one independently t
 - For game/engine main promotion: `npm run gate:milestone` result for the complete candidate:
 - Focused test command/result:
 - Additional render/web/cooked checks selected by the plan:
-- Screenshot/replay or browser/device evidence when relevant:
+- Screenshot/replay or targeted browser evidence when relevant:
+- Desktop mobile viewport/safe-area and phone-low residency/structural checks when relevant:
 - Unrun or blocked checks and why:
 
 ## Integration
@@ -26,6 +27,8 @@ Describe the trigger and resulting behavior. Keep this PR to one independently t
 The coordinator has standing permission to merge/promote once all applicable requirements pass.
 Keep incomplete work in draft; missing required tooling/evidence blocks integration. Never bypass
 checks or reuse stale head/base evidence to merge.
+Physical-phone testing is excluded unless the user requests it. Hardware performance budgets
+are design targets; do not present desktop measurements as physical-phone results.
 
 ## Baselines
 

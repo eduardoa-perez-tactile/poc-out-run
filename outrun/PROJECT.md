@@ -12,6 +12,10 @@ specific guidance.
 
 Internal personal OutRun prototype on Game Engine, targeting mobile and web in landscape.
 The current code is the engine starter; OutRun gameplay is migrated in small playable slices.
+Fast desktop iteration is the priority. Physical-phone testing is excluded unless the user
+later requests it; do not use connected phones for installs, runs, profiling or screenshots.
+Use simulated mobile viewports/safe areas, desktop phone-low residency and structural checks,
+native/web parity and targeted real-browser checks. Hardware budgets remain design targets.
 
 ## Conventions
 
@@ -39,18 +43,20 @@ candidate, not just the most recent ticket; do not promote unrelated unverified 
 branches are never directly pushed, force-pushed or merged by bypassing required checks.
 
 Docs-only candidates require repository-policy/harness checks; game-bearing main promotions
-require gate:milestone plus applicable real-browser/device evidence. Required tooling or evidence
+require gate:milestone plus applicable real-browser evidence. Required tooling or evidence
 that is unavailable blocks integration/promotion; a green hosted repo-policy check alone does
-not prove game validation. PR #1's current missing wasm-host lane must be resolved and rerun.
+not prove game validation. The bootstrap wasm-host gap is resolved; reproduce the native/web
+and headed-browser setup through ../docs/engine-setup.md. Physical-phone evidence is not a gate.
 During edits run focused V8 tests; at handoff run the root gate:pr harness against the PR base.
 The harness adds visual, web and cooked checks based on changed paths. See the test matrix for
-manual browser/device evidence. Missing tooling is a blocked lane, never a pass.
+targeted browser evidence. Missing required tooling is a blocked lane, never a pass.
 
 This is a personal internal project. Do not import upstream README or legal documents, and do
-not add store/public deployment work. Native and browser/device validation still matter.
+not add store/public deployment work. Native and browser validation still matter.
 
 ## Links
 
 Repository: https://github.com/eduardoa-perez-tactile/poc-out-run
 Workflow: ../docs/workflow.md
 Behavior checks and coverage status: ../docs/test-matrix.md
+Reproducible engine/web setup: ../docs/engine-setup.md

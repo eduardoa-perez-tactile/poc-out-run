@@ -46,3 +46,10 @@ test('renames include old and new paths so moving a render file cannot hide it',
   assert.deepEqual(paths, ['outrun/src/render/road.ts', 'outrun/src/sim/road.ts', 'outrun/assets/tree.png']);
   assert.equal(classifyPaths(paths).visual, true);
 });
+test('manual hints retain browser and desktop mobile checks without requiring physical phones', () => {
+  const p = classifyPaths(['harness.config.json', 'outrun/src/render/road.ts', 'outrun/input.json']);
+  assert.equal(p.visual && p.web && p.cooked, true);
+  assert.ok(p.manual.some((hint) => hint.includes('desktop')));
+  assert.ok(p.manual.some((hint) => hint.includes('real browser') || hint.includes('WebGPU browser')));
+  assert.ok(p.manual.every((hint) => !/browser and phone|phone checks|phone run|physical.phone/i.test(hint)));
+});

@@ -3,7 +3,14 @@
 This is a personal internal prototype: mobile and web, landscape, deterministic TypeScript
 gameplay on Game Engine 0.1.21. The working game is `outrun/`. Commands below run at the repo root.
 The current game is still the engine's bubble starter. Its passing tests are bootstrap evidence,
-not OutRun driving, road, UI, browser, or device coverage.
+not OutRun driving, road, or UI coverage. Targeted browser bootstrap evidence is recorded in
+[engine setup](engine-setup.md).
+
+Fast iteration takes priority. Physical-phone testing is excluded unless the user later requests
+it: do not install/run/profile/capture a game on a connected phone, or build a phone probe solely
+for validation. Mobile remains a target through desktop viewport/safe-area tests, phone-low
+residency and structural budgets, native/web parity and targeted real-browser checks. Physical
+phone frame-time, memory and thermal budgets remain design targets, not measured guarantees.
 
 ## Branches and integration
 
@@ -57,14 +64,14 @@ owns scope, integration, validation and completion; delegation does not transfer
    changes sequentially through the coordinator; keep every save compiling.
 3. Use a separate reviewer subagent to inspect the integrated diff against the ticket's
    acceptance criteria and engine boundaries. The reviewer must not approve its own
-   implementation. Include architecture or measured mobile-performance review when relevant;
-   use the engine's reviewer instructions for those reviews.
+   implementation. Include architecture or measured desktop structural/performance review when
+   relevant; use the engine's reviewer instructions for those reviews.
 4. Resolve actionable review findings, run focused checks during edits, and have the coordinator
    run the required integration gates against the actual candidate. Serialize engine commands
    across agents and wait for editor native builds; subagents must coordinate before starting
    tests that share the host, session or SDK checkout.
 5. Record subagent contributions/findings, resolved findings, exact tested head/base SHAs,
-   commands/results and required screenshots/replays/browser/device observations in the PR.
+   commands/results and required screenshots/replays/targeted browser observations in the PR.
    Any implementation or base change requires the affected checks and review to be refreshed.
 6. When the ticket's applicable gates, review and evidence pass, mark its PR ready and squash
    merge into develop through GitHub. Verify the resulting develop commit and issue acceptance
@@ -74,7 +81,9 @@ owns scope, integration, validation and completion; delegation does not transfer
 Do not bypass protected-branch requirements, force a merge, disable a required check, silently
 skip an unavailable lane or regenerate a failing baseline merely to integrate. Missing required
 tooling or evidence blocks the affected merge/promotion; it is not a request for renewed merge
-permission. PR #1 remains draft while its wasm-host gate is blocked.
+permission. The original PR #1 wasm-host gap has been resolved through a pinned external source
+build, passing native/web parity and actual headed-browser startup/resize evidence. See engine-setup.md.
+A future missing required host still blocks the relevant gate.
 
 ## Autonomous promotion to main
 
@@ -83,10 +92,11 @@ Do not promote unrelated unfinished or unverified work just because the current 
 Open a develop-to-main PR and use a merge commit, never squash or direct-push to main.
 
 For game-code/content, engine or integration candidates, run `npm run gate:milestone` on the
-full candidate and obtain the relevant real-browser/device evidence from the behavior matrix.
+full candidate and obtain the relevant real-browser and desktop mobile-viewport/phone-low
+evidence from the behavior matrix.
 Use native and web hashes, cooked/render checks and required CI for the exact candidate and
 current main base. A candidate whose complete diff is documentation-only needs repository
-policy/harness checks and independent document review, without redundant engine/device runs.
+policy/harness checks and independent document review, without redundant engine/browser runs.
 Harness changes retain the game-integrity checks required by their scope.
 
 Check that the base and head have not moved before merging. If either changes, update the
@@ -112,11 +122,12 @@ Setup refreshes local engine skills and regenerates bindings. Inspect any genera
 Commit schema.gen.json, src/schema.gen.ts, asset .gmeta files, goldens and accepted replays.
 Do not commit the engine installation, caches, cooked bundles or local screenshots/logs.
 
-The installed desktop app supports this machine's V8/Hermes checks. Web parity additionally
-needs the engine's wasm test host. A real web build currently needs an engine source checkout,
-its pinned Rust toolchain and Emscripten toolchain. In that checkout, follow its setup and
-`pnpm wasm:host` instructions; then select it with GAMEENGINE_ROOT and run setup again.
-Do not silently substitute native tests for the unavailable web lane.
+The installed desktop app supports V8/Hermes checks. Web parity uses the separately built wasm
+host through the officially supported GAMEENGINE_HOST_WEB override; the installed CLI/native
+hosts can remain unchanged. Real web exports use the pinned engine source CLI and Rust/Emscripten
+toolchains, with supported native cooker overrides. Follow [engine setup](engine-setup.md) for
+portable commands and the headed-WebGPU requirement on this Mac. Do not substitute native tests
+for an unavailable web lane.
 
 ## The edit loop
 
@@ -151,7 +162,7 @@ started outside the harness. Remove a stale engine.lock only after confirming it
 | Sim/schema/input change | PR gate adds `test:web` | V8/wasm hash parity; not a real browser test |
 | Presentation/UI/material change | PR gate adds `test:visual` and `test:web` | T1 at mobile + compat with phone-low residency; browser observation still required |
 | Assets/scenes/prefabs/load paths | PR gate adds visual, cooked, web | Import/loading references and cooked behavior |
-| Before game/engine main promotion or integration milestone | `npm run gate:milestone` + relevant manual evidence | Core, both render tiers, cooked T0, web parity, plus actual browser and phone validation |
+| Before game/engine main promotion or integration milestone | `npm run gate:milestone` + relevant manual evidence | Core, both render tiers, cooked T0, web parity, plus targeted actual-browser validation; no physical-phone test |
 
 The path classifier is conservative for unknown paths. `src/sim/` contains simulation-only
 files. Put presentation in `src/presentation/`, `src/render/`, and `src/ui/`. A change affecting
@@ -184,7 +195,7 @@ runner on a developer laptop as part of this task.
 Until automatic trusted engine PR jobs are provisioned, hosted branch rules enforce repo-policy
 only. The PR author supplies local gate logs for the current head; engine evidence is a workflow
 requirement, not falsely advertised as remotely enforced. Any subsequent code edit invalidates
-that evidence. Browser/device observations are recorded separately from automated results.
+that evidence. Browser observations are recorded separately from automated results.
 
 ## PR evidence and completion
 
@@ -196,6 +207,8 @@ Review golden differences visually before approving specific shots. Record/re-pi
 hashes only for an intended simulation change and explain it in the PR. Before a behavior-
 preserving refactor, record a hash trace; afterward compare it with --hash-trace-baseline.
 
-For game/engine main promotion, add an actual WebGPU browser playthrough and a sustained low-end-phone run.
-These validate the personal prototype; no store, public deployment or upstream-document
-migration is part of this workflow.
+For game/engine main promotion, add a targeted actual WebGPU browser playthrough of the changed
+flows and the desktop mobile-viewport/phone-low checks from the matrix. Keep it short and
+repeatable; do not require physical-phone runs or sustained hardware profiling. These validate
+the personal prototype within the chosen desktop/browser scope; no store, public deployment
+or upstream-document migration is part of this workflow.

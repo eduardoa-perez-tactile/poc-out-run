@@ -153,7 +153,7 @@ try {
     else if (mode === 'pr' || mode === 'milestone') {
       verify();
       run('harness-tests', process.execPath, ['--test', 'scripts/plan.test.mjs'], root);
-      const plan = mode === 'milestone' ? { core: true, visual: true, web: true, cooked: true, manual: ['Real WebGPU browser playtest and sustained low-end phone run required.'] } : selectedPlan;
+      const plan = mode === 'milestone' ? { core: true, visual: true, web: true, cooked: true, manual: ['Targeted real WebGPU browser playtest required; validate mobile viewports/phone-low budgets on desktop. Physical-phone testing is excluded.'] } : selectedPlan;
       console.log(JSON.stringify(plan, null, 2));
       if (plan.core) nativeGate();
       if (plan.visual) visual();

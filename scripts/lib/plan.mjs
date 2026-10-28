@@ -6,7 +6,7 @@ export function classifyPaths(paths) {
   for (const p of plan.paths) {
     if (p === 'harness.config.json') {
       plan.core = plan.visual = plan.web = plan.cooked = true;
-      plan.manual.push('Engine pin or platform/budget policy changed: run milestone browser and phone checks.');
+      plan.manual.push('Engine pin or platform/budget policy changed: run milestone browser and desktop mobile-viewport/phone-low checks.');
       continue;
     }
     if (doc(p) || infra(p)) continue;
@@ -17,7 +17,7 @@ export function classifyPaths(paths) {
     } else if (/^(src\/(presentation|render|ui)\/|ui\/|materials\/|effects\/|tests\/(render|goldens)\/)/.test(relative)) {
       plan.visual = true;
       plan.web = true;
-      plan.manual.push('Inspect changed frames on landscape phone/tablet and in a real WebGPU browser.');
+      plan.manual.push('Inspect changed frames at desktop landscape mobile/tablet viewports and in a real WebGPU browser.');
     } else if (/^(assets\/|scenes\/|prefabs\/|tests\/content\/|pipelines\.json$)/.test(relative)) {
       plan.visual = plan.web = plan.cooked = true;
     } else if (/^(tests\/.*\.test\.ts$|tests\/replays\/|tests\/budgets\/)/.test(relative)) {
@@ -28,7 +28,7 @@ export function classifyPaths(paths) {
       plan.visual = plan.web = plan.cooked = true;
     }
     if (/input|touch|controls|lifecycle|project\.gameengine|native\//i.test(relative)) {
-      plan.manual.push('Check simultaneous controls, cancellation, focus loss, background/resume on browser and phone.');
+      plan.manual.push('Check simultaneous controls, cancellation, focus loss and background/resume through recorded input and a real browser.');
     }
   }
   if (plan.paths.some(infra)) plan.core = true;
