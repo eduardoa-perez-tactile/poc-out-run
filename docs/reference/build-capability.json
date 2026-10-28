@@ -1,0 +1,21 @@
+{
+  "cmake": "/opt/homebrew/bin/cmake",
+  "sfmlPkgConfigAvailable": false,
+  "sfmlProbeStderr": "Package sfml-graphics was not found in the pkg-config search path.\nPerhaps you should add the directory containing `sfml-graphics.pc'\nto the PKG_CONFIG_PATH environment variable\nPackage 'sfml-graphics' not found",
+  "originalGameBuilt": true,
+  "originalGameRun": false,
+  "reason": "Original executable built successfully but direct desktop startup with copied Resources crashes immediately during static HudCheckPoint/SFML OpenGL resource initialization. No windowed input/playback or gameplay elapsed-time observations were obtained.",
+  "originalGameConfigured": true,
+  "originalGameBinary": "/tmp/outrun-reference-task/build/OutRun",
+  "binarySha256": "884d237a35f7e43fa8a58b4ba4da5814cf71469d8dfacbbeda854ea940414aa7",
+  "hostArchitecture": "arm64",
+  "configureCommand": "cmake -S /tmp/outrun-migration-source-20261028 -B /tmp/outrun-reference-task/build -DCMAKE_BUILD_TYPE=Release",
+  "buildCommand": "cmake --build /tmp/outrun-reference-task/build --parallel 4",
+  "buildExitCode": 0,
+  "sfmlVersionFetched": "2.6.2",
+  "originalLaunchAttempted": true,
+  "originalWindowObserved": false,
+  "originalGameplayObserved": false,
+  "originalLaunchExitCode": 139,
+  "windowedEvidence": "windowed/attempt.json"
+}

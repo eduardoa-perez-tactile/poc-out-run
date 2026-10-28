@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "binary": "/tmp/outrun-reference-task/build/OutRun",
+  "cwd": "/tmp/outrun-reference-task/windowed/runtime",
+  "resources": "Disposable copy of pinned-source Resources; original source unchanged",
+  "launchAttempted": true,
+  "exitCode": 139,
+  "windowObserved": false,
+  "gameplayObserved": false,
+  "screenshotCaptured": false,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "crashReport": "OutRun-2026-10-28-115334.ips",
+  "exception": "EXC_BAD_ACCESS / SIGSEGV / KERN_INVALID_ADDRESS at 0x0",
+  "faultingThread": 0,
+  "topFrames": [
+    "pthread_mutex_lock",
+    "sf::priv::GlContext::initResource()",
+    "sf::Texture::Texture()",
+    "HudCheckPoint::HudCheckPoint()",
+    "_GLOBAL__sub_I_HudCheckPoint.cpp"
+  ],
+  "interpretation": "Source executable crashes during static HUD texture/OpenGL resource initialization before main; this is startup failure evidence, not a gameplay recording. No CUA input was sent because no source window survived startup.",
+  "sourceProcessesRemaining": 0,
+  "scope": "Short desktop source reference attempt only; no phone work, engine changes, original-source patching or prolonged benchmark"
+}

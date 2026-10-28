@@ -1,0 +1,7982 @@
+{
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "evidence": "static-parser-calculation-not-original-game-run",
+  "maps": [
+    {
+      "mapId": 1,
+      "timeSeconds": 160,
+      "terrain": 1,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4123,
+      "originalAfterOneAppendSegments": 6083,
+      "continuousAfterOneAppendSegments": 5323,
+      "checkpointLinesAuthored": [],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            8.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            10,
+            10
+          ],
+          "sourceSegmentCount": 30,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            5.0,
+            5.0,
+            5.0,
+            50.0,
+            7.0,
+            28.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            5,
+            140,
+            5
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 15
+        },
+        {
+          "sourceLine": 29,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            -1.5,
+            0.0,
+            7.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            200,
+            100
+          ],
+          "sourceSegmentCount": 400,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 30,
+          "command": "STRAIGHT",
+          "arguments": [
+            26.0,
+            26.0,
+            26.0,
+            0.0,
+            7.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            26,
+            26,
+            26
+          ],
+          "sourceSegmentCount": 78,
+          "authoredSimpleSegmentCount": 78
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            0.0,
+            1.5,
+            0.0,
+            7.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            0
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            0.0,
+            100.0,
+            0.0,
+            20.0,
+            1.5,
+            0.0,
+            7.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            0,
+            100,
+            0
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 33,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            0.0,
+            50.0,
+            100.0,
+            -10.0,
+            1.5,
+            0.0,
+            7.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            0,
+            50,
+            0
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            20.0,
+            6.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            60.0,
+            0.0,
+            -15.0,
+            6.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            60,
+            0
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 36,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            0.0,
+            170.0,
+            85.0,
+            -1.5,
+            0.0,
+            6.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            0,
+            170,
+            85
+          ],
+          "sourceSegmentCount": 255,
+          "authoredSimpleSegmentCount": 255
+        },
+        {
+          "sourceLine": 37,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 38,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            -3.0,
+            0.0,
+            6.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            120,
+            60
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 39,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            70.0,
+            70.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            70,
+            70
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 40,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            3.0,
+            0.0,
+            6.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            160,
+            20
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            25.0,
+            25.0,
+            25.0,
+            -10.0,
+            6.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            25,
+            50,
+            25
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 75
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_LEFT",
+          "arguments": [
+            20.0,
+            40.0,
+            0.0,
+            10.0,
+            -3.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            40,
+            20
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_LEFT",
+          "arguments": [
+            0.0,
+            80.0,
+            0.0,
+            -5.0,
+            -3.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            0,
+            80,
+            0
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_LEFT",
+          "arguments": [
+            0.0,
+            70.0,
+            0.0,
+            15.0,
+            -3.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            0,
+            70,
+            0
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 45,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            0.0,
+            50.0,
+            20.0,
+            -3.0,
+            0.0,
+            6.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            0,
+            50,
+            20
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 46,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            6.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            60,
+            30
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 48,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 49,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 50,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            -3.5,
+            0.0,
+            5.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            60,
+            20
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 51,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            10.0,
+            60.0,
+            10.0,
+            20.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            60,
+            10
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 52,
+          "command": "HILL_LEFT",
+          "arguments": [
+            10.0,
+            90.0,
+            10.0,
+            25.0,
+            -3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            90,
+            10
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 53,
+          "command": "STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            10,
+            10
+          ],
+          "sourceSegmentCount": 30,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 54,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 55,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 56,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 57,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        }
+      ]
+    },
+    {
+      "mapId": 2,
+      "timeSeconds": 170,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4605,
+      "originalAfterOneAppendSegments": 6565,
+      "continuousAfterOneAppendSegments": 5805,
+      "checkpointLinesAuthored": [
+        203
+      ],
+      "commands": [
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 27,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 28,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            -1.5,
+            0.0,
+            3.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 29,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 30,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            2.5,
+            0.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            200,
+            50
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 31,
+          "command": "STRAIGHT",
+          "arguments": [
+            75.0,
+            45.0,
+            35.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            75,
+            45,
+            35
+          ],
+          "sourceSegmentCount": 155,
+          "authoredSimpleSegmentCount": 155
+        },
+        {
+          "sourceLine": 32,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            50.0,
+            40.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            1.0,
+            0.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 34,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            3.0,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            50,
+            10
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            70.0,
+            50.0,
+            4.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            70
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 36,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            60.0,
+            70.0,
+            60.0,
+            -40.0,
+            4.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            70,
+            60
+          ],
+          "sourceSegmentCount": 190,
+          "authoredSimpleSegmentCount": 190
+        },
+        {
+          "sourceLine": 38,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            70.0,
+            50.0,
+            -70.0,
+            1.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            70,
+            60
+          ],
+          "sourceSegmentCount": 190,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_LEFT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            80.0,
+            -1.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            60,
+            60
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 40,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.5,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 41,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            70.0,
+            50.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            70,
+            50
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            80.0,
+            70.0,
+            60.0,
+            60.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            140,
+            60
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_LEFT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            -60.0,
+            -2.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            60,
+            60
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            60.0,
+            2.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            60,
+            60
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 45,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            70.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 230,
+          "authoredSimpleSegmentCount": 230
+        },
+        {
+          "sourceLine": 46,
+          "command": "STRAIGHT",
+          "arguments": [
+            60.0,
+            70.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            70,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            3.5,
+            0.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            100,
+            60
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 48,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            -3.5,
+            0.0,
+            3.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            250,
+            60
+          ],
+          "sourceSegmentCount": 370,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 49,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            70.0,
+            60.0,
+            80.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            140,
+            60
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 170
+        }
+      ]
+    },
+    {
+      "mapId": 3,
+      "timeSeconds": 160,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4920,
+      "originalAfterOneAppendSegments": 6880,
+      "continuousAfterOneAppendSegments": 6120,
+      "checkpointLinesAuthored": [
+        203
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            130.0,
+            120.0,
+            110.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            130,
+            120,
+            110
+          ],
+          "sourceSegmentCount": 360,
+          "authoredSimpleSegmentCount": 360
+        },
+        {
+          "sourceLine": 26,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -1.5,
+            0.0,
+            3.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            250,
+            40
+          ],
+          "sourceSegmentCount": 330,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 27,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            80.0,
+            70.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 220
+        },
+        {
+          "sourceLine": 28,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            1.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            250,
+            60
+          ],
+          "sourceSegmentCount": 370,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 29,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            10.0,
+            30.0,
+            4.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            50,
+            30
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 30,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            60.0,
+            50.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -1.8,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            250,
+            40
+          ],
+          "sourceSegmentCount": 330,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            20.0,
+            6.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 33,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            20.0,
+            7.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            20.0,
+            8.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 35,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            20.0,
+            40.0,
+            3.5,
+            0.0,
+            8.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            100,
+            40
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 36,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            90.0,
+            80.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            90,
+            80
+          ],
+          "sourceSegmentCount": 250,
+          "authoredSimpleSegmentCount": 250
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_LEFT",
+          "arguments": [
+            50.0,
+            60.0,
+            80.0,
+            35.0,
+            -4.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 190
+        },
+        {
+          "sourceLine": 38,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            80.0,
+            -35.0,
+            4.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 190
+        },
+        {
+          "sourceLine": 39,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            90.0,
+            80.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            90,
+            80
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 240
+        },
+        {
+          "sourceLine": 40,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            20.0,
+            40.0,
+            2.5,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            160,
+            40
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 41,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            20.0,
+            40.0,
+            -2.5,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            160,
+            40
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            20.0,
+            40.0,
+            40.0,
+            8.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            60,
+            40
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            20.0,
+            40.0,
+            -40.0,
+            8.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            60,
+            40
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 44,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            30.0,
+            40.0,
+            -1.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            150,
+            40
+          ],
+          "sourceSegmentCount": 230,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 45,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            30.0,
+            50.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            30,
+            50
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 46,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            3.5,
+            0.0,
+            4.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 47,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            40.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            40,
+            50
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 140
+        }
+      ]
+    },
+    {
+      "mapId": 4,
+      "timeSeconds": 160,
+      "terrain": 1,
+      "roadTerrain": 1,
+      "baseSegmentCountSourceCompatibility": 4420,
+      "originalAfterOneAppendSegments": 6380,
+      "continuousAfterOneAppendSegments": 5620,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -30.0,
+            5.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            30.0,
+            5.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 29,
+          "command": "STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            10,
+            10
+          ],
+          "sourceSegmentCount": 30,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -30.0,
+            5.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 31,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            30.0,
+            5.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 32,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            -3.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            250,
+            30
+          ],
+          "sourceSegmentCount": 310,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            3.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            250,
+            30
+          ],
+          "sourceSegmentCount": 310,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_LEFT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            -20.0,
+            -3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_LEFT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            -3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 36,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            -20.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 38,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            20,
+            30
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 39,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 40,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 41,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 42,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 43,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            30.0,
+            5.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 46,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            -20.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            -1.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            250,
+            50
+          ],
+          "sourceSegmentCount": 350,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 48,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            80.0,
+            5.0,
+            1.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 49,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            -80.0,
+            3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 50,
+          "command": "HILL_LEFT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            80.0,
+            -3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 51,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 52,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        }
+      ]
+    },
+    {
+      "mapId": 5,
+      "timeSeconds": 160,
+      "terrain": 3,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4220,
+      "originalAfterOneAppendSegments": 6180,
+      "continuousAfterOneAppendSegments": 5420,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 27,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            -4.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            100,
+            10
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 28,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 29,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            40.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            50,
+            20
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            30.0,
+            40.0,
+            -40.0,
+            -4.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            30,
+            40
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -2.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            200,
+            30
+          ],
+          "sourceSegmentCount": 260,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 32,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            1.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            100,
+            20
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 33,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 34,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            2.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            250,
+            40
+          ],
+          "sourceSegmentCount": 330,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            60.0,
+            2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 36,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            60.0,
+            -2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 37,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            4.5,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            50,
+            20
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 38,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            -80.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            70.0,
+            -2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -70.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            80.0,
+            -3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -80.0,
+            3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 43,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            100.0,
+            100.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            100,
+            100
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 300
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            90.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            100,
+            30
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 45,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            4.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 46,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -4.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 47,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 48,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        }
+      ]
+    },
+    {
+      "mapId": 6,
+      "timeSeconds": 170,
+      "terrain": 1,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4190,
+      "originalAfterOneAppendSegments": 6150,
+      "continuousAfterOneAppendSegments": 5390,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            70.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            70,
+            70
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 26,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            30.0,
+            40.0,
+            -4.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            40.0,
+            3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_LEFT",
+          "arguments": [
+            50.0,
+            40.0,
+            40.0,
+            -40.0,
+            -2.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            40,
+            50
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 29,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            50.0,
+            3.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 30,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            4.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            80,
+            10
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 31,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            60.0,
+            50.0,
+            40.0,
+            -3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            60,
+            40
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 33,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            60.0,
+            50.0,
+            40.0,
+            -3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            60,
+            40
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 34,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            30,
+            20
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 35,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            10.0,
+            4.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            80,
+            10
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 36,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            20.0,
+            10.0,
+            -4.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            80,
+            10
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 37,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            1.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            80,
+            30
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 38,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 39,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.5,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            160,
+            30
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_LEFT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            40.0,
+            -1.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            40.0,
+            1.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 42,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            50,
+            30
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            30.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            40,
+            20
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            -30.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            40,
+            20
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 45,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            30,
+            20
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 46,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            -4.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            80,
+            20
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            1.0,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            80,
+            20
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 48,
+          "command": "HILL_LEFT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            20.0,
+            -4.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            30,
+            20
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 49,
+          "command": "STRAIGHT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 50,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            10.0,
+            30.0,
+            30.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 51,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            10.0,
+            30.0,
+            -30.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 52,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 53,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            50.0,
+            30.0,
+            50.0,
+            -3.0,
+            0.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            120,
+            50
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 54,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            50.0,
+            30.0,
+            50.0,
+            3.0,
+            0.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            120,
+            50
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 55,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 56,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 57,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 58,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 59,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        }
+      ]
+    },
+    {
+      "mapId": 7,
+      "timeSeconds": 165,
+      "terrain": 4,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4520,
+      "originalAfterOneAppendSegments": 6480,
+      "continuousAfterOneAppendSegments": 5720,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            100.0,
+            80.0,
+            100.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            100,
+            80,
+            100
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 280
+        },
+        {
+          "sourceLine": 26,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            1.5,
+            0.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            80,
+            10
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 27,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            40.0,
+            50.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            40,
+            50
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 140
+        },
+        {
+          "sourceLine": 28,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            -3.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            120,
+            10
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 29,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 31,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 32,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            -3.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            180,
+            20
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 33,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            25.0,
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 35,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            2.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            240,
+            30
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 36,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -35.0,
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 38,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            2.0,
+            0.0,
+            6.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            240,
+            30
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -35.0,
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -35.0,
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 43,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -2.5,
+            0.0,
+            6.0,
+            7.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            70,
+            10
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            -35.0,
+            -4.0,
+            0.0,
+            7.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            50,
+            30
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            35.0,
+            -4.0,
+            0.0,
+            7.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            50,
+            30
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 46,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            60.0,
+            -1.0,
+            0.0,
+            8.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            60
+          ],
+          "sourceSegmentCount": 400,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            60.0,
+            -1.0,
+            0.0,
+            8.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            60
+          ],
+          "sourceSegmentCount": 400,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 48,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            40.0,
+            30.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 49,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            40.0,
+            50.0,
+            8.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 190,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 50,
+          "command": "HILL_LEFT",
+          "arguments": [
+            50.0,
+            50.0,
+            40.0,
+            -60.0,
+            -3.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            50,
+            50
+          ],
+          "sourceSegmentCount": 150,
+          "authoredSimpleSegmentCount": 140
+        },
+        {
+          "sourceLine": 51,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            70.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            70,
+            80
+          ],
+          "sourceSegmentCount": 230,
+          "authoredSimpleSegmentCount": 230
+        }
+      ]
+    },
+    {
+      "mapId": 8,
+      "timeSeconds": 180,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 3930,
+      "originalAfterOneAppendSegments": 5890,
+      "continuousAfterOneAppendSegments": 5130,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            40.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            40,
+            50
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 140
+        },
+        {
+          "sourceLine": 26,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            40.0,
+            0.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            120,
+            40
+          ],
+          "sourceSegmentCount": 190,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -20.0,
+            1.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            50,
+            40
+          ],
+          "sourceSegmentCount": 130,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            30.0,
+            40.0,
+            30.0,
+            -3.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            30,
+            40
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 29,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 31,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            3.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 34,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -1.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 35,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            120,
+            20
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 36,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -15.0,
+            -3.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            15.0,
+            -3.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 38,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            1.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 39,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 43,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 44,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            35.0,
+            2.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            60,
+            60
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 46,
+          "command": "HILL_LEFT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            -35.0,
+            -2.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            60,
+            60
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            1.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            300,
+            60
+          ],
+          "sourceSegmentCount": 420,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 48,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        }
+      ]
+    },
+    {
+      "mapId": 9,
+      "timeSeconds": 165,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4250,
+      "originalAfterOneAppendSegments": 6210,
+      "continuousAfterOneAppendSegments": 5450,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            70.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            70,
+            70
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 27,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            1.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            20.0,
+            -3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 29,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            60.0,
+            40.0,
+            130.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 140
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            60.0,
+            40.0,
+            -110.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 140
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -3.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 32,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            2.5,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            100,
+            20
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            30.0,
+            40.0,
+            3.5,
+            0.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            60,
+            40
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 34,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            30,
+            20
+          ],
+          "sourceSegmentCount": 70,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            50.0,
+            40.0,
+            70.0,
+            4.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 270,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 36,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 37,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            -3.5,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            100,
+            20
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 38,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            3.5,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            100,
+            20
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 42,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            4.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 46,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 47,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -35.0,
+            -3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 48,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            2.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 49,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            35.0,
+            -3.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 50,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -35.0,
+            2.5,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 51,
+          "command": "STRAIGHT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 52,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.5,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 53,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.5,
+            0.0,
+            4.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            150,
+            30
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 54,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            70.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            160,
+            40
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 120
+        }
+      ]
+    },
+    {
+      "mapId": 10,
+      "timeSeconds": 160,
+      "terrain": 2,
+      "roadTerrain": 4,
+      "baseSegmentCountSourceCompatibility": 4080,
+      "originalAfterOneAppendSegments": 6040,
+      "continuousAfterOneAppendSegments": 5280,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            70.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            70,
+            80
+          ],
+          "sourceSegmentCount": 230,
+          "authoredSimpleSegmentCount": 230
+        },
+        {
+          "sourceLine": 26,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            30.0,
+            4.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -30.0,
+            -4.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 28,
+          "command": "STRAIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 29,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -3.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 30,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            3.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 32,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            0.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 34,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            30.0,
+            3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 36,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -30.0,
+            -3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            20.0,
+            1.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 38,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 39,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -0.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 40,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            1.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            120,
+            20
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -30.0,
+            -3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            30.0,
+            3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -30.0,
+            3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -30.0,
+            -3.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 46,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 47,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 48,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 49,
+          "command": "STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            10,
+            10
+          ],
+          "sourceSegmentCount": 30,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 50,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            -2.0,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            180,
+            20
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 51,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            30.0,
+            20.0,
+            2.0,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            180,
+            20
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 52,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        }
+      ]
+    },
+    {
+      "mapId": 11,
+      "timeSeconds": 165,
+      "terrain": 1,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4260,
+      "originalAfterOneAppendSegments": 6220,
+      "continuousAfterOneAppendSegments": 5460,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            80,
+            80
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 240
+        },
+        {
+          "sourceLine": 26,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            20.0,
+            2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            -20.0,
+            -2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            30.0,
+            2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 29,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            30.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            40.0,
+            20.0,
+            1.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            240,
+            20
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 32,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            40.0,
+            20.0,
+            -1.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            240,
+            20
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 33,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            -30.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            60.0,
+            40.0,
+            60.0,
+            60.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            80,
+            60
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 36,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            40.0,
+            20.0,
+            -1.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            240,
+            20
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            20.0,
+            -2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 38,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -20.0,
+            -2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            20.0,
+            2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -20.0,
+            2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 41,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 46,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            20.0,
+            40.0,
+            20.0,
+            -2.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            240,
+            20
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 47,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            40.0,
+            20.0,
+            2.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            240,
+            20
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 48,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 49,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 50,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 51,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 52,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -10.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 53,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            10.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            10,
+            20
+          ],
+          "sourceSegmentCount": 50,
+          "authoredSimpleSegmentCount": 50
+        },
+        {
+          "sourceLine": 54,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 55,
+          "command": "HILL_LEFT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            -2.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 56,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            50.0,
+            40.0,
+            50.0,
+            -60.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            80,
+            50
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 140
+        },
+        {
+          "sourceLine": 57,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            -3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            120,
+            10
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 58,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            10.0,
+            20.0,
+            10.0,
+            3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            120,
+            10
+          ],
+          "sourceSegmentCount": 140,
+          "authoredSimpleSegmentCount": 40
+        },
+        {
+          "sourceLine": 59,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        }
+      ]
+    },
+    {
+      "mapId": 12,
+      "timeSeconds": 160,
+      "terrain": 1,
+      "roadTerrain": 4,
+      "baseSegmentCountSourceCompatibility": 4300,
+      "originalAfterOneAppendSegments": 6260,
+      "continuousAfterOneAppendSegments": 5500,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 27,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            -2.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 28,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            2.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 29,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            -3.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 30,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            3.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            -3.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            240,
+            40
+          ],
+          "sourceSegmentCount": 320,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            40.0,
+            2.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 33,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            -40.0,
+            2.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_LEFT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            -40.0,
+            -2.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_LEFT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            40.0,
+            -2.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            60,
+            50
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 36,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 37,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 38,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.0,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 39,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            120.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -80.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            120.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 43,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -3.5,
+            0.0,
+            4.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            60,
+            10
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 44,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        },
+        {
+          "sourceLine": 45,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            40.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            40,
+            30
+          ],
+          "sourceSegmentCount": 100,
+          "authoredSimpleSegmentCount": 100
+        }
+      ]
+    },
+    {
+      "mapId": 13,
+      "timeSeconds": 165,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4070,
+      "originalAfterOneAppendSegments": 6030,
+      "continuousAfterOneAppendSegments": 5270,
+      "checkpointLinesAuthored": [
+        202
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            80,
+            80
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 240
+        },
+        {
+          "sourceLine": 26,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 29,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 31,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            100.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            30.0,
+            20.0,
+            2.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            20,
+            30
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 80
+        },
+        {
+          "sourceLine": 36,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            80.0,
+            40.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            320,
+            80
+          ],
+          "sourceSegmentCount": 480,
+          "authoredSimpleSegmentCount": 240
+        },
+        {
+          "sourceLine": 37,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            50.0,
+            50.0,
+            50.0,
+            20.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            200,
+            50
+          ],
+          "sourceSegmentCount": 300,
+          "authoredSimpleSegmentCount": 150
+        },
+        {
+          "sourceLine": 38,
+          "command": "HILL_LEFT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            20.0,
+            -3.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            20.0,
+            3.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            50.0,
+            60.0,
+            -70.0,
+            3.0,
+            0.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            50,
+            60
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 170
+        },
+        {
+          "sourceLine": 41,
+          "command": "STRAIGHT",
+          "arguments": [
+            40.0,
+            40.0,
+            40.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            40,
+            40
+          ],
+          "sourceSegmentCount": 120,
+          "authoredSimpleSegmentCount": 120
+        },
+        {
+          "sourceLine": 42,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            15.0,
+            2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 43,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            -15.0,
+            2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 44,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            15.0,
+            2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_LEFT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            -45.0,
+            -2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 46,
+          "command": "HILL_LEFT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            45.0,
+            -2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 47,
+          "command": "HILL_LEFT",
+          "arguments": [
+            70.0,
+            60.0,
+            70.0,
+            -45.0,
+            -2.5,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            60,
+            70
+          ],
+          "sourceSegmentCount": 200,
+          "authoredSimpleSegmentCount": 200
+        },
+        {
+          "sourceLine": 48,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -3.0,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            60,
+            10
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 49,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            80,
+            80
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 240
+        }
+      ]
+    },
+    {
+      "mapId": 14,
+      "timeSeconds": 170,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4720,
+      "originalAfterOneAppendSegments": 6680,
+      "continuousAfterOneAppendSegments": 5920,
+      "checkpointLinesAuthored": [
+        203
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            80,
+            80
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 240
+        },
+        {
+          "sourceLine": 26,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            2.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            120,
+            20
+          ],
+          "sourceSegmentCount": 160,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            90.0,
+            90.0,
+            90.0,
+            90.0,
+            1.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            90,
+            90,
+            90
+          ],
+          "sourceSegmentCount": 270,
+          "authoredSimpleSegmentCount": 270
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_LEFT",
+          "arguments": [
+            90.0,
+            90.0,
+            90.0,
+            -90.0,
+            -1.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            90,
+            90,
+            90
+          ],
+          "sourceSegmentCount": 270,
+          "authoredSimpleSegmentCount": 270
+        },
+        {
+          "sourceLine": 29,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            90.0,
+            90.0,
+            90.0,
+            90.0,
+            1.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            90,
+            90,
+            90
+          ],
+          "sourceSegmentCount": 270,
+          "authoredSimpleSegmentCount": 270
+        },
+        {
+          "sourceLine": 30,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            2.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            60,
+            10
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 32,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            80.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 220
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 34,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            60.0,
+            3.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            60,
+            60
+          ],
+          "sourceSegmentCount": 180,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 35,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            80.0,
+            3.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            200,
+            40
+          ],
+          "sourceSegmentCount": 280,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 36,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            -3.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 37,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            40.0,
+            50.0,
+            40.0,
+            3.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            40,
+            300,
+            40
+          ],
+          "sourceSegmentCount": 380,
+          "authoredSimpleSegmentCount": 130
+        },
+        {
+          "sourceLine": 38,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            80.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 220
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 40,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            5.0,
+            3.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 42,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            3.5,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 43,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -2.0,
+            0.0,
+            3.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            60,
+            10
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 44,
+          "command": "STRAIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            30,
+            30
+          ],
+          "sourceSegmentCount": 90,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 45,
+          "command": "HILL_LEFT",
+          "arguments": [
+            90.0,
+            90.0,
+            90.0,
+            90.0,
+            -1.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            90,
+            90,
+            90
+          ],
+          "sourceSegmentCount": 270,
+          "authoredSimpleSegmentCount": 270
+        },
+        {
+          "sourceLine": 46,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            90.0,
+            90.0,
+            90.0,
+            -90.0,
+            1.5,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            90,
+            90,
+            90
+          ],
+          "sourceSegmentCount": 270,
+          "authoredSimpleSegmentCount": 270
+        },
+        {
+          "sourceLine": 47,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            80.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 220
+        }
+      ]
+    },
+    {
+      "mapId": 15,
+      "timeSeconds": 160,
+      "terrain": 2,
+      "roadTerrain": 0,
+      "baseSegmentCountSourceCompatibility": 4370,
+      "originalAfterOneAppendSegments": 6330,
+      "continuousAfterOneAppendSegments": 5570,
+      "checkpointLinesAuthored": [
+        203
+      ],
+      "commands": [
+        {
+          "sourceLine": 25,
+          "command": "STRAIGHT",
+          "arguments": [
+            80.0,
+            80.0,
+            80.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            80,
+            80,
+            80
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 240
+        },
+        {
+          "sourceLine": 26,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            70.0,
+            70.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            70,
+            70
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 27,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            8.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 28,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -8.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 29,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            8.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 30,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -8.0,
+            5.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            20,
+            10
+          ],
+          "sourceSegmentCount": 40,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 31,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 32,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            50.0,
+            60.0,
+            50.0,
+            -90.0,
+            5.0,
+            4.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            50,
+            240,
+            50
+          ],
+          "sourceSegmentCount": 340,
+          "authoredSimpleSegmentCount": 160
+        },
+        {
+          "sourceLine": 33,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            2.0,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 34,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            10.0,
+            10.0,
+            10.0,
+            -3.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            10,
+            60,
+            10
+          ],
+          "sourceSegmentCount": 80,
+          "authoredSimpleSegmentCount": 30
+        },
+        {
+          "sourceLine": 35,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            2.0,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 36,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -1.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 37,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            70.0,
+            70.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            70,
+            70
+          ],
+          "sourceSegmentCount": 210,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 38,
+          "command": "HILL_LEFT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            35.0,
+            -3.5,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            50,
+            30
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 39,
+          "command": "HILL_RIGHT",
+          "arguments": [
+            30.0,
+            50.0,
+            30.0,
+            -35.0,
+            3.5,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            50,
+            30
+          ],
+          "sourceSegmentCount": 110,
+          "authoredSimpleSegmentCount": 110
+        },
+        {
+          "sourceLine": 40,
+          "command": "STRAIGHT",
+          "arguments": [
+            20.0,
+            20.0,
+            20.0,
+            0.0,
+            8.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            20,
+            20,
+            20
+          ],
+          "sourceSegmentCount": 60,
+          "authoredSimpleSegmentCount": 60
+        },
+        {
+          "sourceLine": 41,
+          "command": "HILL_STRAIGHT",
+          "arguments": [
+            60.0,
+            60.0,
+            60.0,
+            60.0,
+            8.0,
+            2.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            60,
+            120,
+            60
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 180
+        },
+        {
+          "sourceLine": 42,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            70.0,
+            70.0,
+            70.0,
+            2.5,
+            0.0,
+            8.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            420,
+            70
+          ],
+          "sourceSegmentCount": 560,
+          "authoredSimpleSegmentCount": 210
+        },
+        {
+          "sourceLine": 43,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -3.0,
+            0.0,
+            8.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 44,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            80.0,
+            70.0,
+            0.0,
+            5.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 220
+        },
+        {
+          "sourceLine": 45,
+          "command": "CURVE_RIGHT",
+          "arguments": [
+            30.0,
+            20.0,
+            20.0,
+            0.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            120,
+            20
+          ],
+          "sourceSegmentCount": 170,
+          "authoredSimpleSegmentCount": 70
+        },
+        {
+          "sourceLine": 46,
+          "command": "CURVE_LEFT",
+          "arguments": [
+            30.0,
+            30.0,
+            30.0,
+            -2.5,
+            0.0,
+            5.0,
+            6.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            30,
+            180,
+            30
+          ],
+          "sourceSegmentCount": 240,
+          "authoredSimpleSegmentCount": 90
+        },
+        {
+          "sourceLine": 47,
+          "command": "STRAIGHT",
+          "arguments": [
+            70.0,
+            80.0,
+            70.0,
+            0.0,
+            3.0
+          ],
+          "sourceEffectiveEnterHoldLeave": [
+            70,
+            80,
+            70
+          ],
+          "sourceSegmentCount": 220,
+          "authoredSimpleSegmentCount": 220
+        }
+      ]
+    }
+  ]
+}
