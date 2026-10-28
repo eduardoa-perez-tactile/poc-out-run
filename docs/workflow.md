@@ -2,9 +2,10 @@
 
 This is a personal internal prototype: mobile and web, landscape, deterministic TypeScript
 gameplay on Game Engine 0.1.21. The working game is `outrun/`. Commands below run at the repo root.
-The current game is still the engine's bubble starter. Its passing tests are bootstrap evidence,
-not OutRun driving, road, or UI coverage. Targeted browser bootstrap evidence is recorded in
-[engine setup](engine-setup.md).
+The game currently proves straight/curved road projection, synthetic hill/object clipping
+and recorded road-state controls. These fixtures do not prove car handling,
+traffic AI or race flow. Historical browser bootstrap evidence is recorded in
+[engine setup](engine-setup.md); current coverage is in [the matrix](test-matrix.md).
 
 Fast iteration takes priority. Physical-phone testing is excluded unless the user later requests
 it: do not install/run/profile/capture a game on a connected phone, or build a phone probe solely
@@ -137,7 +138,8 @@ for an unavailable web lane.
 3. For a bug, reproduce it in a focused test first. For a feature, add its behavioral test with
    the implementation. Do not add tests for comments or implementation details.
 4. Edit one behavior. Use hot reload and `npm run test:focus -- "driving.*"` until it works.
-   There is no `driving.*` suite yet; use `"*bubble*"` for the current starter.
+   Use `"road.state*"` for the road proof controls and `"road.clipping*"` for hill/crop behavior.
+   Add `driving.*` tests with the car-handling implementation.
 5. For schema changes, run `gameengine gen` from outrun before saving dependent imports.
 6. For visible work, inspect a real frame during this loop. Do not wait for final integration
    to discover a road seam or hidden touch target.

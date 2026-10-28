@@ -36,7 +36,7 @@ export const RoadProofInput = defineSystem({
           ctx.setField(RoadProofState, 'playing', state.playing[0] === 0);
           ctx.setField(RoadProofState, 'previousDistance', state.distance[0]!);
         }
-      } else if (key.down && (key.code === Keys.Digit1 || key.code === Keys.Digit2 || key.code === Keys.Digit3)) {
+      } else if (key.down && (key.code === Keys.Digit1 || key.code === Keys.Digit2 || key.code === Keys.Digit3 || key.code === Keys.Digit4)) {
         selectedFixture = key.code - Keys.Digit1;
       }
     }
@@ -59,7 +59,7 @@ export const SelectRoadFixture = defineSystem({
     for (const request of ctx.events.read(RoadFixtureRequested)) {
       const distance = ((request.distance % ROAD_PROOF_TRACK_LENGTH) + ROAD_PROOF_TRACK_LENGTH) % ROAD_PROOF_TRACK_LENGTH;
       ctx.set(RoadProofState, {
-        fixtureId: request.fixtureId <= 2 ? request.fixtureId : 0,
+        fixtureId: request.fixtureId <= 3 ? request.fixtureId : 0,
         distance, previousDistance: distance,
         lateral: Math.max(-1.5, Math.min(1.5, request.lateral)),
         speed: Math.max(0, Math.min(12000, request.speed)), playing: request.playing,

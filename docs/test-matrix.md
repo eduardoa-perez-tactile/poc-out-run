@@ -28,9 +28,9 @@ or sustained phone runs for edits, PRs or main promotion.
 
 ## Landscape checks
 
-Render/bootstrap sizes are 882x344, 852x393, 1080x810, 1280x720 and 720x540 logical points.
+Road renderer sizes are 882x344, 852x393, 1080x810, 1280x720 and 720x540 logical points.
 HUD/control tests must additionally inject rotated notch/home safe insets in both orientations;
-the bootstrap renderer test does not yet prove safe-area behavior. Assert that controls stay
+the road renderer tests do not prove HUD safe-area behavior. Assert that controls stay
 inside safe bounds and do not hide the playable road. Test final animation frames too.
 
 ## Milestone scenarios
@@ -43,9 +43,10 @@ Pipeline recordings must cover every newly introduced material/effect/UI/transit
 using them as evidence that racing creates no new pipelines. Never bless snapshots automatically.
 
 Initial phone budgets are in harness.config.json. They are targets, not measurements or engine-
-enforced budget files. The starter T1 test currently enforces only <=50 draws at each size.
-Add scenario-backed tests/budgets entries with the engine's supported format as those scenarios
-exist. Desktop timings do not certify phone frame time, GPU cost, peak RSS, or thermals.
+enforced budget files. The road proof has a scenario-backed structural budget in
+`outrun/tests/budgets/road.json` (draws, runtime pipeline creation, GC and JS allocations).
+The flat-road T1 suite checks five landscape sizes; hill T1 scenarios add crest phases and
+transparent ordering. Add new scenario budgets when real gameplay and dense fixtures exist. Desktop timings do not certify phone frame time, GPU cost, peak RSS, or thermals.
 
 Before a milestone, run a short WebGPU browser check from localhost/HTTPS covering the changed
 implemented flows: start/unlock audio, controls, focus, resize, hide/restore, or storage as
@@ -55,9 +56,26 @@ Do not run physical-phone tests or 10-minute hardware/thermal profiling. Hardwar
 remain low-end 30 fps (33.3 ms), mid-range 60 fps (16.7 ms), low-end step p95 <=8 ms, RSS <=350 MiB,
 textures <=120 MiB and JS heap <=32 MiB; desktop checks do not establish those hardware results.
 
-## Coverage at bootstrap
+## Current road proof coverage
 
-Implemented: two starter bubble T0 tests; one structural renderer test at five landscape sizes;
+The starter has been replaced by the projected road. `road.state*` covers units, pause, loop
+wrap, fixture validation, viewport-independent progress and simultaneous key ordering across
+following ticks. `road.projection*` covers near-plane finiteness, bounds, reusable buffers and
+mirrored curves. Fifteen T1 scenarios cover straight/right/left roads at all five landscape
+sizes with pixel probes and reviewed mobile/compat goldens. The road replay supports structural
+budgets and recorded pipelines. These are renderer/proof-control checks, not driving physics,
+traffic AI, collision, race flow, touch controls or safe-area HUD coverage.
+
+Issue #7 adds `road.clipping*`: synthetic hill/valley continuity, crest visibility, preserved
+UV crop, object ordering and fixed buffer capacity; T1 covers approach/crest/descent/valley at three
+landscape sizes. Two opposite landscape safe-inset cases probe the diagnostic UI strip; these do not prove a
+future driving HUD or touch controls. Diagnostic objects are presentation fixtures with no collision or AI. Record
+actual run/review evidence for the candidate in its PR; this inventory does not establish an
+unrun gate, browser check or hardware result.
+
+## Historical bootstrap evidence
+
+The initial starter had two bubble T0 tests; one structural renderer test at five landscape sizes;
 harness classifier regression tests; repository configuration checks. The automated bootstrap
 gate passed on commit d8de56feb4f9f6274099104610af07f7a41453d0, including V8/Hermes and V8/web parity,
 mobile/compat T1, cooked tests and startup smoke. A separately exported probe game rendered
@@ -69,6 +87,6 @@ is claimed by this starter evidence. Physical-phone testing is excluded from the
 Initial warm-cache observations on the local macOS release hosts: native integrity 1.62 s,
 four T0 executions across V8/Hermes 0.57 s, T1 mobile/compat 0.45 s each, cooked T0 0.76 s.
 These are starter/harness measurements, not estimates of the eventual racing game or phones.
-`gameengine check` also reports starter warnings for the redundant camera orthoSize and absent
-pipeline recording. Replace the starter camera setup and record scenario-backed pipelines as
-the road renderer is introduced; do not claim pipeline warm-up coverage at bootstrap.
+At bootstrap, `gameengine check` reported a redundant camera orthoSize and absent pipeline
+recording. Issue #6 replaced that camera setup and recorded road-scenario pipelines; the
+historical starter evidence itself did not prove pipeline warm-up coverage.
