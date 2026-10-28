@@ -1,0 +1,10 @@
+{
+  "replay": "tests/replays/road_clipping_dense_preview_advances_across_the_crest.greplay",
+  "structural": {
+    "drawCallsMax": 8,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 32,
+    "repeat": 1
+  }
+}

@@ -1,6 +1,8 @@
 import { defineSystem, read, write, meshes, ViewInfo, RenderTime } from '@gameengine/runtime';
 import { RoadProofState, RoadProofVisualCache } from '../schema.gen.ts';
 import { buildRoadBuffers } from './road-projection.ts';
+import { buildObjectBuffers } from './hill-objects.ts';
+import { buildBackdropBuffers } from './hill-backdrop.ts';
 
 const MESH_NAME = 'road-proof';
 const TRACK_LENGTH = 180000;
@@ -10,6 +12,10 @@ export const RoadPresentation = defineSystem({
   stage: 'LateUpdate',
   resources: [read(RoadProofState), read(ViewInfo), read(RenderTime), write(RoadProofVisualCache)],
   run(ctx) {
+    // Native can present before its first fixed step. The host's initial viewport
+    // is queued recorded input, so ViewInfo still holds schema defaults then.
+    // Wait for that input instead of projecting a guessed or stale aspect ratio.
+    if (ctx.step === 0) return;
     const state = ctx.resource(RoadProofState);
     const view = ctx.resource(ViewInfo);
     const cache = ctx.resource(RoadProofVisualCache);
@@ -21,10 +27,24 @@ export const RoadPresentation = defineSystem({
     const fixture = state.fixtureId[0]!;
     const lateral = state.lateral[0]!;
     const mesh = meshes.info(MESH_NAME);
-    if (mesh !== null && cache.fixtureId[0] === fixture && cache.distance[0] === distance && cache.lateral[0] === lateral && cache.aspect[0] === aspect) return;
+    const objectMesh = meshes.info('hill-objects');
+    const backdropMesh = meshes.info('hill-backdrop');
+    if (mesh !== null && objectMesh !== null && backdropMesh !== null && cache.fixtureId[0] === fixture && cache.distance[0] === distance && cache.lateral[0] === lateral && cache.aspect[0] === aspect) return;
     const data = buildRoadBuffers(fixture, distance, lateral, aspect);
     if (mesh === null) meshes.create(MESH_NAME, data);
     else meshes.update(MESH_NAME, data);
+    if (objectMesh === null || fixture === 3 || cache.fixtureId[0] === 3) {
+      const objects = buildObjectBuffers(fixture, distance);
+      if (objectMesh === null) meshes.create('hill-objects', objects);
+      else meshes.update('hill-objects', objects);
+    }
+    // Backdrop has no distance-dependent data. Flat fixtures upload no objects;
+    // switching away from hills clears them once rather than once per frame.
+    if (backdropMesh === null || (fixture === 3) !== (cache.fixtureId[0] === 3) || cache.aspect[0] !== aspect) {
+      const backdrop = buildBackdropBuffers(fixture, aspect);
+      if (backdropMesh === null) meshes.create('hill-backdrop', backdrop);
+      else meshes.update('hill-backdrop', backdrop);
+    }
     ctx.setField(RoadProofVisualCache, 'fixtureId', fixture);
     ctx.setField(RoadProofVisualCache, 'distance', distance);
     ctx.setField(RoadProofVisualCache, 'lateral', lateral);

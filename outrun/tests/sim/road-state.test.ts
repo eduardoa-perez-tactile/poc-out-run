@@ -80,3 +80,10 @@ for (const order of [['Digit3', 'Space'], ['Space', 'Digit3']] as const) {
     expect(world.resource(RoadProofState).distance).toBe(45000);
   }, SCENE);
 }
+
+worldTest('road.state Digit4 selects the hill fixture through recorded input', async ({world,input,step}) => {
+  input.key('Digit4',true);
+  await step(2);
+  expect(world.resource(RoadProofState).fixtureId).toBe(3);
+  expect(world.resource(RoadProofState).playing).toBe(true);
+},SCENE);

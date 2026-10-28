@@ -19,6 +19,30 @@
         "castShadows": false,
         "receiveShadows": false
       }
+    },
+    {
+      "name": "Hill Diagnostic Objects",
+      "id": "hill-objects",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/hill-proof.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:hill-objects",
+        "material": "materials/hill-objects.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Hill Background Order Diagnostic",
+      "id": "hill-backdrop",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/hill-proof.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:hill-backdrop",
+        "material": "materials/hill-objects.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
     }
   ]
 }

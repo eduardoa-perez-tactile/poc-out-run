@@ -1,5 +1,6 @@
 // Pure projection into an XY mesh; no host calls or authoritative state.
 import type { MeshArrays } from '@gameengine/runtime';
+import { hillHeight } from './hill-fixture.ts';
 
 export const SEGMENT_LENGTH = 150;
 export const ROAD_HALF_WIDTH = 1600; // source ROAD_WIDTH is used as a half-width
@@ -16,6 +17,14 @@ const uvs = new Float32Array(VERTICES * 2);
 const tangents = new Float32Array(VERTICES * 4);
 const colors = new Uint8Array(VERTICES * 4);
 const indices = new Uint16Array(QUADS * 6);
+// Shared per-frame projection scratch. Objects read this immediately after road build.
+export const projected = {
+  center: new Float32Array(VISIBLE_SEGMENTS + 1),
+  y: new Float32Array(VISIBLE_SEGMENTS + 1),
+  scale: new Float32Array(VISIBLE_SEGMENTS + 1),
+  clip: new Float32Array(VISIBLE_SEGMENTS),
+  base: 0, fraction: 0, aspect: 0,
+};
 const arrays: MeshArrays = { positions, normals, uvs, tangents, colors, indices };
 
 export interface Segment { readonly curve: number; }
@@ -41,11 +50,15 @@ export function buildRoadBuffers(fixtureId: number, distance: number, lateral: n
     normals[v * 3 + 2] = 1;
     tangents[v * 4] = 1; tangents[v * 4 + 3] = 1;
   }
-  const track = fixtureId === 0 ? STRAIGHT : CURVES;
+  const track = fixtureId === 0 || fixtureId === 3 ? STRAIGHT : CURVES;
   const direction = fixtureId === 2 ? -1 : 1;
   const rawBase = Math.floor(distance / SEGMENT_LENGTH);
   const fraction = distance / SEGMENT_LENGTH - rawBase;
   const base = ((rawBase % track.length) + track.length) % track.length;
+  projected.base = base; projected.fraction = fraction; projected.aspect = aspect;
+  projected.scale.fill(0); projected.y.fill(0); projected.center.fill(0); projected.clip.fill(-1);
+  const cameraHeight = CAMERA_HEIGHT + (fixtureId === 3 ? hillHeight(distance) : 0);
+  let crest = -1;
   let dx = -track[base]!.curve * direction * fraction;
   let x = 0;
   let quad = 0;
@@ -60,12 +73,26 @@ export function buildRoadBuffers(fixtureId: number, distance: number, lateral: n
     if (nearZ <= CAMERA_D) continue;
     const nearScale = CAMERA_D / nearZ;
     const farScale = CAMERA_D / farZ;
-    const nearY = HORIZON_Y - CAMERA_HEIGHT * nearScale;
-    const farY = HORIZON_Y - CAMERA_HEIGHT * farScale;
-    const nearCenter = aspect * nearX * nearScale;
+    let nearY = HORIZON_Y + ((fixtureId === 3 ? hillHeight((rawBase + n) * SEGMENT_LENGTH) : 0) - cameraHeight) * nearScale;
+    const farY = HORIZON_Y + ((fixtureId === 3 ? hillHeight((rawBase + n + 1) * SEGMENT_LENGTH) : 0) - cameraHeight) * farScale;
+    let nearCenter = aspect * nearX * nearScale;
     const farCenter = aspect * farX * farScale;
-    const nearWidth = aspect * ROAD_HALF_WIDTH * nearScale;
+    let nearWidth = aspect * ROAD_HALF_WIDTH * nearScale;
     const farWidth = aspect * ROAD_HALF_WIDTH * farScale;
+    projected.center[n] = nearCenter; projected.center[n + 1] = farCenter;
+    projected.y[n] = nearY; projected.y[n + 1] = farY;
+    projected.scale[n] = nearScale; projected.scale[n + 1] = farScale;
+    projected.clip[n] = crest;
+    if (fixtureId === 3) {
+      if (farY <= crest) continue;
+      if (nearY < crest) {
+        const t = (crest - nearY) / (farY - nearY);
+        nearCenter += (farCenter - nearCenter) * t;
+        nearWidth += (farWidth - nearWidth) * t;
+        nearY = crest;
+      }
+      crest = farY;
+    }
     const shade = Math.floor((base + n) / 3) % 2;
     // +Z is closer to the authored camera. Distinct overlay depths avoid ties.
     quad = emit(quad, -aspect, aspect, nearY, -aspect, aspect, farY, 0, terrain[shade]!);
