@@ -2,9 +2,10 @@
 
 This is a personal internal prototype: mobile and web, landscape, deterministic TypeScript
 gameplay on Game Engine 0.1.21. The working game is `outrun/`. Commands below run at the repo root.
-The current game is still the engine's bubble starter. Its passing tests are bootstrap evidence,
-not OutRun driving, road, or UI coverage. Targeted browser bootstrap evidence is recorded in
-[engine setup](engine-setup.md).
+The game currently proves straight/curved road projection, synthetic hill/object clipping
+and recorded road-state controls. These fixtures do not prove car handling,
+traffic AI or race flow. Historical browser bootstrap evidence is recorded in
+[engine setup](engine-setup.md); current coverage is in [the matrix](test-matrix.md).
 
 Fast iteration takes priority. Physical-phone testing is excluded unless the user later requests
 it: do not install/run/profile/capture a game on a connected phone, or build a phone probe solely
@@ -137,7 +138,8 @@ for an unavailable web lane.
 3. For a bug, reproduce it in a focused test first. For a feature, add its behavioral test with
    the implementation. Do not add tests for comments or implementation details.
 4. Edit one behavior. Use hot reload and `npm run test:focus -- "driving.*"` until it works.
-   There is no `driving.*` suite yet; use `"*bubble*"` for the current starter.
+   Use `"road.state*"` for the road proof controls and `"road.clipping*"` for hill/crop behavior.
+   Add `driving.*` tests with the car-handling implementation.
 5. For schema changes, run `gameengine gen` from outrun before saving dependent imports.
 6. For visible work, inspect a real frame during this loop. Do not wait for final integration
    to discover a road seam or hidden touch target.
@@ -184,18 +186,26 @@ Hosted `repo-policy` runs on PRs and pushes to main/develop using Node only. It 
 harness tests. Branch rules require this check and a PR, with no mandatory second reviewer.
 The initial bootstrap push creates the empty repository's branches before those rules exist.
 
-Engine checks run locally today. At setup there are zero registered GitHub runners. The manual
-`Engine validation` workflow has a readiness job that fails until GAMEENGINE_CI_READY=true;
-it must not present a skipped engine job as successful gameplay validation. Provision a trusted
-macOS ARM64 runner labeled `gameengine`, install the pinned engine source/toolchains (including
-the wasm host), set GAMEENGINE_ROOT, then enable that variable. Dispatch against the exact
-feature commit and correct base, never an unreviewed external fork. Do not install a persistent
-runner on a developer laptop as part of this task.
+`Engine validation` now queues an exact-head job automatically for PRs targeting develop/main,
+with a hosted trust check and an always-running hosted `engine-gate` aggregator. Forks, stale
+SHAs, skipped engine jobs and failed jobs cannot make that aggregator green. Main candidates
+select the milestone scope. Manual dispatch requires a PR number and its full reviewed SHA.
 
-Until automatic trusted engine PR jobs are provisioned, hosted branch rules enforce repo-policy
-only. The PR author supplies local gate logs for the current head; engine evidence is a workflow
-requirement, not falsely advertised as remotely enforced. Any subsequent code edit invalidates
-that evidence. Browser observations are recorded separately from automated results.
+The active coordinator supplies on-demand capacity by launching the reviewed
+`scripts/ci/one_job_runner.py` helper for that exact queued PR/SHA/run/job. It registers one
+short-lived Mac runner with a unique PR/SHA/run/attempt label, processes one job, then unregisters
+and deletes local credentials/workspace. There is no service or persistent developer-laptop
+runner. Outside active coordinator sessions the job waits; this is not always-on autoscaling.
+The Mac is a trusted interactive host, not an isolated VM. The helper rejects forks and requires
+all external contributors to need workflow approval before any registration. Never approve an
+external-fork run for this host. See [engine CI](engine-ci.md) for setup, invocation and cleanup.
+
+Until real positive and negative execution proofs establish that engine-gate is reliable,
+branch rules continue to require repo-policy only. Then add engine-gate without removing the
+existing policy requirement. Do not install a required status that merely skips unavailable
+validation. Candidate evidence must identify exact head/base SHAs, and later code/base changes
+invalidate affected results. Targeted headed-browser observations remain separate; no physical-
+phone testing is required or performed by CI.
 
 ## PR evidence and completion
 

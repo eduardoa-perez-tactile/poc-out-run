@@ -1,63 +1,123 @@
 name: Engine validation
 on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
     inputs:
-      ref:
-        description: Reviewed commit SHA or branch to validate
+      pr:
+        description: Same-repository PR number with an explicitly reviewed head
         required: true
-        default: develop
-      base:
-        description: PR base ref
+      sha:
+        description: Exact reviewed 40-character PR head SHA
         required: true
-        default: origin/develop
       gate:
         type: choice
-        description: Validation scope
         options: [pr, milestone]
         default: pr
 permissions:
   contents: read
+  pull-requests: read
+concurrency:
+  group: engine-${{ github.event.pull_request.number || inputs.pr }}
+  cancel-in-progress: true
 jobs:
-  runner-readiness:
+  trust:
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.check.outputs.sha }}
+      base: ${{ steps.check.outputs.base }}
+      gate: ${{ steps.check.outputs.gate }}
+      runner_label: ${{ steps.check.outputs.runner_label }}
     steps:
-      - name: Require an explicitly provisioned engine runner
+      - uses: actions/github-script@v7
+        id: check
         env:
-          READY: ${{ vars.GAMEENGINE_CI_READY }}
-        run: |
-          if [ "$READY" != true ]; then
-            echo 'Engine runner is not provisioned. See docs/workflow.md; local evidence is required.'
-            exit 1
-          fi
+          REQUEST_PR: ${{ inputs.pr }}
+          REQUEST_SHA: ${{ inputs.sha }}
+          REQUEST_GATE: ${{ inputs.gate }}
+        with:
+          script: |
+            const number = context.payload.pull_request?.number || Number(process.env.REQUEST_PR);
+            if (!Number.isSafeInteger(number) || number < 1) throw new Error('PR number required');
+            const {data: pr} = await github.rest.pulls.get({...context.repo, pull_number:number});
+            const repo = `${context.repo.owner}/${context.repo.repo}`;
+            if (pr.state !== 'open' || pr.head.repo?.full_name !== repo) throw new Error('Only open same-repository PRs are eligible');
+            if (!['develop','main'].includes(pr.base.ref)) throw new Error('Unexpected integration base');
+            const expected = context.payload.pull_request?.head.sha || process.env.REQUEST_SHA;
+            if (!/^[0-9a-f]{40}$/.test(expected || '') || pr.head.sha !== expected) throw new Error('PR head moved; re-review the candidate');
+            const gate = pr.base.ref === 'main' || process.env.REQUEST_GATE === 'milestone' ? 'milestone' : 'pr';
+            core.setOutput('sha',expected);
+            core.setOutput('base',pr.base.sha);
+            core.setOutput('gate',gate);
+            core.setOutput('runner_label',`outrun-pr-${number}-${expected}-run-${context.runId}-${process.env.GITHUB_RUN_ATTEMPT}`);
+            core.summary.addRaw(`Queued exact head ${expected}, base ${pr.base.sha}. The coordinator must start the matching one-job runner after review.`).write();
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.check.outputs.sha }}
+          persist-credentials: false
+      - name: Test CI selection and runner safety without registration
+        run: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
   engine-validation:
-    needs: runner-readiness
-    runs-on: [self-hosted, macOS, ARM64, gameengine]
+    needs: trust
+    # No generic labels: the helper registers only this per-run/per-attempt label.
+    runs-on: ${{ needs.trust.outputs.runner_label }}
     timeout-minutes: 30
-    concurrency:
-      group: outrun-engine-runner
-      cancel-in-progress: false
     env:
       GAMEENGINE_ROOT: ${{ vars.GAMEENGINE_ROOT }}
-      HARNESS_BASE: ${{ inputs.base }}
-      GATE: ${{ inputs.gate }}
+      GAMEENGINE_HOST_WEB: ${{ vars.GAMEENGINE_HOST_WEB }}
+      HARNESS_BASE: ${{ needs.trust.outputs.base }}
+      EXPECTED_HEAD: ${{ needs.trust.outputs.sha }}
+      GATE: ${{ needs.trust.outputs.gate }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ needs.trust.outputs.sha }}
           fetch-depth: 0
           persist-credentials: false
+      - name: Verify exact candidate and provisioned paths
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          git cat-file -e "$HARNESS_BASE^{commit}"
+          test -f "$GAMEENGINE_ROOT/engine-version.json"
+          test -f "$GAMEENGINE_HOST_WEB"
+          test -f "$(dirname "$GAMEENGINE_HOST_WEB")/gameengine_host.wasm"
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
       - run: npm run setup
-      - name: Run selected gate
+      - name: Run selected engine gate
         run: |
           if [ "$GATE" = milestone ]; then
             npm run gate:milestone
           else
             npm run gate:pr
           fi
+      - name: Record exact candidate evidence
+        if: always()
+        run: |
+          mkdir -p .artifacts/harness
+          git rev-parse HEAD > .artifacts/harness/tested-head.txt
+          printf '%s\n' "$HARNESS_BASE" > .artifacts/harness/tested-base.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: engine-validation-${{ github.run_id }}
+          name: engine-validation-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             .artifacts/harness/
             outrun/.gameengine/t1/
+  engine-gate:
+    name: engine-gate
+    if: always()
+    needs: [trust, engine-validation]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require actual engine execution success
+        env:
+          TRUST_RESULT: ${{ needs.trust.result }}
+          ENGINE_RESULT: ${{ needs.engine-validation.result }}
+        run: |
+          if [ "$TRUST_RESULT" != success ] || [ "$ENGINE_RESULT" != success ]; then
+            echo 'Engine validation did not execute successfully for the trusted candidate.'
+            exit 1
+          fi

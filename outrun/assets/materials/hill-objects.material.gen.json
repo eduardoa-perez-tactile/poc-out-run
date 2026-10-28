@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "name": "HillDiagnosticObjects",
+  "model": "unlit",
+  "blend": "blend",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 16,
+  "params": [
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 0,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "binding": 1,
+      "default": "white",
+      "srgb": true
+    }
+  ],
+  "samplerBinding": 2,
+  "wgsl": "// Material HillDiagnosticObjects (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var tex_atlas: texture_2d<f32>;\n@group(2) @binding(2) var material_sampler: sampler;\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec4f = textureSample(tex_atlas, material_sampler, in.uv);\n  let v1: vec3f = v0.xyz;\n  let v2: f32 = v0.w;\n  out.base_color = v1;\n  out.alpha = v2;\n  return out;\n}\n",
+  "hash": "fe0bd9ef0308b6c9",
+  "sourceHash": "55c0844ef282c851"
+}

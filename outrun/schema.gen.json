@@ -4,42 +4,429 @@
   "enums": [],
   "types": [
     {
-      "name": "Bubble",
-      "kind": "component",
+      "name": "DrivingControlChanged",
+      "kind": "event",
       "sim": true,
       "fields": [
         {
-          "name": "radius",
+          "name": "control",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "source",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "down",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "DrivingControlsCancelled",
+      "kind": "event",
+      "sim": true,
+      "fields": [],
+      "package": "OutRun"
+    },
+    {
+      "name": "DrivingInput",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "keyboard",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ui",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "shiftUp",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "shiftDown",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "upHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "downHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pauseHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "modeHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "DrivingResetRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "legacySpeed",
           "kind": "f32",
           "scalar": "f32",
           "lanes": 1
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "DrivingState",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "active",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        },
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "legacySpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "gear",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "steering",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousDistance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "previousLateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ForkPreviewRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 33000
+        },
+        {
+          "name": "tick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "configurePlayback",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ForkPreviewState",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "active",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "previousTick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "tick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "durationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 180
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ForkVisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "active",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "progress",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RoadFixtureRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "fixtureId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
         },
         {
           "name": "speed",
           "kind": "f32",
           "scalar": "f32",
           "lanes": 1,
-          "doc": "Units per step"
+          "default": 7200
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
     },
     {
-      "name": "Game",
+      "name": "RoadProofState",
       "kind": "resource",
       "sim": true,
       "fields": [
         {
-          "name": "score",
+          "name": "fixtureId",
           "kind": "u32",
           "scalar": "u32",
           "lanes": 1,
-          "doc": "Bubbles popped"
+          "default": 1
         },
         {
-          "name": "spawned",
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousDistance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 0
+        },
+        {
+          "name": "speed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 7200
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        },
+        {
+          "name": "spaceHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RoadProofVisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "fixtureId",
           "kind": "u32",
           "scalar": "u32",
+          "lanes": 1,
+          "default": 4294967295
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aspect",
+          "kind": "f32",
+          "scalar": "f32",
           "lanes": 1
         }
       ],

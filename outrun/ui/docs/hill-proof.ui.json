@@ -1,0 +1,47 @@
+{
+  "$schemaVersion": 1,
+  "guid": "e570939c-d85a-4448-9f3d-eade8b24724b",
+  "name": "hill-proof",
+  "title": "Hill proof",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Hill proof",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": [
+          16,
+          24,
+          64,
+          24
+        ],
+        "bg": "#00000000",
+        "dir": "column",
+        "justify": "end",
+        "align": "center"
+      },
+      "children": [
+        "hp_overlay"
+      ]
+    },
+    "hp_overlay": {
+      "type": "element",
+      "name": "Element",
+      "children": [],
+      "style": {
+        "pad": 8,
+        "w": 150,
+        "h": 20,
+        "bg": "#f7df00"
+      },
+      "point": "order"
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": true
+  }
+}
