@@ -1,5 +1,5 @@
-import { defineSystem, write, math, WorldView, KeyEvent, Keys } from '@gameengine/runtime';
-import { RoadProofState, RoadFixtureRequested } from '../schema.gen.ts';
+import { defineSystem, write, read, math, WorldView, KeyEvent, Keys } from '@gameengine/runtime';
+import { RoadProofState, RoadFixtureRequested, DrivingState } from '../schema.gen.ts';
 
 // Proof units: segment length 150 legacy world units; speed is world units/second,
 // not the source's per-update/HUD speed. This is a camera-road demo, not car handling.
@@ -23,9 +23,10 @@ export const RoadViewSetup = defineSystem({
 export const RoadProofInput = defineSystem({
   name: 'RoadProofInput',
   after: ['SelectRoadFixture'],
-  resources: [write(RoadProofState)],
+  resources: [write(RoadProofState), read(DrivingState)],
   runOn: [KeyEvent],
   run(ctx) {
+    if (ctx.resource(DrivingState).active[0]) return;
     let selectedFixture: number | undefined;
     for (const key of ctx.events.read(KeyEvent)) {
       const state = ctx.resource(RoadProofState);
@@ -53,9 +54,10 @@ export const RoadProofInput = defineSystem({
 
 export const SelectRoadFixture = defineSystem({
   name: 'SelectRoadFixture',
-  resources: [write(RoadProofState)],
+  resources: [write(RoadProofState), read(DrivingState)],
   runOn: [RoadFixtureRequested],
   run(ctx) {
+    if (ctx.resource(DrivingState).active[0]) return;
     for (const request of ctx.events.read(RoadFixtureRequested)) {
       const distance = ((request.distance % ROAD_PROOF_TRACK_LENGTH) + ROAD_PROOF_TRACK_LENGTH) % ROAD_PROOF_TRACK_LENGTH;
       ctx.set(RoadProofState, {
@@ -71,9 +73,10 @@ export const SelectRoadFixture = defineSystem({
 export const AdvanceRoadProof = defineSystem({
   name: 'AdvanceRoadProof',
   after: ['RoadProofInput'],
-  resources: [write(RoadProofState)],
+  resources: [write(RoadProofState), read(DrivingState)],
   runIf: { resource: RoadProofState, field: 'playing' },
   run(ctx) {
+    if (ctx.resource(DrivingState).active[0]) return;
     const state = ctx.resource(RoadProofState);
     const distance = state.distance[0]!;
     const next = (distance + state.speed[0]! * ctx.dt) % ROAD_PROOF_TRACK_LENGTH;

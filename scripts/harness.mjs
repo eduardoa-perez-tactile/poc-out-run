@@ -4,6 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { performance } from 'node:perf_hooks';
 import { classifyPaths, parseNameStatus } from './lib/plan.mjs';
+import { budgetReplayPaths, verifiedReplayReport } from './lib/replay-budgets.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const config = JSON.parse(readFileSync(join(root, 'harness.config.json'), 'utf8'));
@@ -12,6 +13,7 @@ const output = join(root, '.artifacts', 'harness');
 const [mode = 'plan', ...args] = process.argv.slice(2);
 const steps = [];
 let selectedPlan;
+let budgetReplaysVerified = false;
 mkdirSync(output, { recursive: true });
 let locked = false;
 
@@ -61,7 +63,7 @@ function engineCommand() {
   return ['gameengine', []];
 }
 
-function run(label, command, argv, cwd = project, engineTest = false) {
+function run(label, command, argv, cwd = project, engineTest = false, jsonCheck = undefined) {
   console.log(`RUN ${label}`);
   const started = performance.now();
   const r = spawnSync(command, argv, { cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, timeout: 900_000 });
@@ -70,7 +72,7 @@ function run(label, command, argv, cwd = project, engineTest = false) {
   let json;
   try { json = JSON.parse((r.stdout || '').trim()); } catch { /* Non-JSON tools keep their raw log. */ }
   const count = engineTest && json?.results ? Object.values(json.results).flat().filter((t) => !t.skipped).length : undefined;
-  const ok = r.status === 0 && (!engineTest || (json?.ok === true && count > 0));
+  const ok = r.status === 0 && (!engineTest || (json?.ok === true && count > 0)) && (!jsonCheck || jsonCheck(json));
   const step = { label, ok, seconds: Number(((performance.now() - started) / 1000).toFixed(2)), ...(count !== undefined ? { testExecutions: count } : {}) };
   steps.push(step);
   console.log(`${ok ? 'PASS' : 'FAIL'} ${label} (${step.seconds}s${count !== undefined ? `, ${count} test executions` : ''})`);
@@ -82,9 +84,9 @@ function run(label, command, argv, cwd = project, engineTest = false) {
   return { text, json };
 }
 
-function engine(label, argv, test = false) {
+function engine(label, argv, test = false, jsonCheck = undefined) {
   const [command, prefix] = engineCommand();
-  return run(label, command, [...prefix, ...argv, '--json'], project, test);
+  return run(label, command, [...prefix, ...argv, '--json'], project, test, jsonCheck);
 }
 
 function preflight() {
@@ -101,13 +103,27 @@ function preflight() {
   }
 }
 
+function verifyBudgetReplays() {
+  if (budgetReplaysVerified) return;
+  const dir = join(project, 'tests/budgets');
+  const entries = files(dir).filter((path) => path.endsWith('.json')).map((file) => ({ file, value: JSON.parse(readFileSync(file, 'utf8')) }));
+  const replays = budgetReplayPaths(entries);
+  for (const [index, replay] of replays.entries()) {
+    if (!existsSync(join(project, replay))) throw new Error(`Budget replay missing: ${replay}`);
+    engine(`budget-replay-${index + 1}`, ['replay', 'verify', replay, '--js', 'both'], false, verifiedReplayReport);
+  }
+  budgetReplaysVerified = true;
+}
+
 function nativeGate() {
   engine('generated', ['gen', '--check']);
   engine('format', ['fmt', '--check']);
   engine('integrity', ['check']);
+  verifyBudgetReplays();
   engine('native-parity', ['test', '--tier', 't0', '--js', 'both'], true);
 }
 function visual() {
+  verifyBudgetReplays();
   engine('render-mobile', ['test', '--tier', 't1', '--js', 'v8', '--gpu-tier', 'mobile', '--memory-class', 'phone-low'], true);
   engine('render-compat', ['test', '--tier', 't1', '--js', 'v8', '--gpu-tier', 'compat', '--memory-class', 'phone-low'], true);
 }
@@ -121,7 +137,7 @@ try {
     verify();
   } else if (mode === 'pr' && (selectedPlan = classifyPaths(pathsChanged())).docsOnly) {
     verify();
-    run('harness-tests', process.execPath, ['--test', 'scripts/plan.test.mjs'], root);
+    run('harness-tests', process.execPath, ['--test', ...files(join(root, 'scripts')).filter((path) => path.endsWith('.test.mjs'))], root);
     console.log('Docs-only change: no engine work required.');
   } else {
     const lock = join(output, 'engine.lock');
@@ -152,7 +168,7 @@ try {
     else if (mode === 'check') engine('integrity', ['check']);
     else if (mode === 'pr' || mode === 'milestone') {
       verify();
-      run('harness-tests', process.execPath, ['--test', 'scripts/plan.test.mjs'], root);
+      run('harness-tests', process.execPath, ['--test', ...files(join(root, 'scripts')).filter((path) => path.endsWith('.test.mjs'))], root);
       const plan = mode === 'milestone' ? { core: true, visual: true, web: true, cooked: true, manual: ['Targeted real WebGPU browser playtest required; validate mobile viewports/phone-low budgets on desktop. Physical-phone testing is excluded.'] } : selectedPlan;
       console.log(JSON.stringify(plan, null, 2));
       if (plan.core) nativeGate();
