@@ -211,6 +211,112 @@
       "package": "OutRun"
     },
     {
+      "name": "ForkPreviewRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 33000
+        },
+        {
+          "name": "tick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "configurePlayback",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ForkPreviewState",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "active",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "previousTick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "tick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "durationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 180
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ForkVisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "active",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "progress",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RoadFixtureRequested",
       "kind": "event",
       "sim": true,
