@@ -1,0 +1,21 @@
+{
+  "name": "poc-out-run-workspace",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "setup": "node scripts/harness.mjs setup",
+    "verify": "node scripts/harness.mjs verify",
+    "test:harness": "node --test scripts/*.test.mjs",
+    "test:focus": "node scripts/harness.mjs focus",
+    "test:fast": "node scripts/harness.mjs fast",
+    "test:parity": "node scripts/harness.mjs parity",
+    "test:visual": "node scripts/harness.mjs visual",
+    "test:web": "node scripts/harness.mjs web",
+    "test:cooked": "node scripts/harness.mjs cooked",
+    "check:game": "node scripts/harness.mjs check",
+    "gate:pr": "node scripts/harness.mjs pr",
+    "gate:milestone": "node scripts/harness.mjs milestone",
+    "test:plan": "node scripts/harness.mjs plan"
+  }
+}

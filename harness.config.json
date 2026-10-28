@@ -1,0 +1,16 @@
+{
+  "project": "outrun",
+  "engineVersion": "0.1.21",
+  "targets": ["mobile", "web"],
+  "orientation": "landscape",
+  "landscapeSizes": [[882, 344], [852, 393], [1080, 810], [1280, 720], [720, 540]],
+  "budgets": {
+    "phoneLowFrameP95Ms": 33.3,
+    "phoneMidFrameP95Ms": 16.7,
+    "phoneLowStepP95Ms": 8,
+    "phoneLowPeakRssMiB": 350,
+    "phoneLowTexturesMiB": 120,
+    "phoneLowJsHeapMiB": 32,
+    "drawCallsMax": 50
+  }
+}
