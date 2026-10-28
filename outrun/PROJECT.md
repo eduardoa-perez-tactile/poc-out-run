@@ -23,3 +23,11 @@ Choices already made, and why, so agents do not reopen them.
 ## Links
 
 Design docs, tickets, dashboards, the people to ask.
+
+## Art production
+
+Before creating or changing art, read ../docs/art/index.md and the relevant category guide.
+Fill out ../docs/art/creation-brief.md with the reference family, palette, logical pixel size,
+pivot and required poses/states before expanding an asset family. Use the source boards as
+visual evidence, distinguish observed facts from proposed rules, and check imported art in
+its actual projected/mobile context. These guides do not change the engine import schema.
