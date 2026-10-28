@@ -7,9 +7,51 @@ are refreshed locally with `npm run setup`; never commit the SDK, caches, or cop
 This is an internal personal prototype for mobile and web in landscape. Keep work focused on
 the game and its development harness. Do not import upstream README or legal documents.
 
-Use `feature/<topic>` or `fix/<topic>` from `develop`; one independently testable change per PR.
-Use draft PRs for unfinished work. Never merge, promote to main, or force-push shared branches
-unless the user asks. Bootstrap is the one initial direct push to create main and develop.
+## Autonomous ticket coordination
+
+For every ticket, act as coordinator and use subagents. This applies to documentation and
+infrastructure tickets as well as gameplay. Read the issue, its dependencies, acceptance
+criteria and test matrix before claiming it. Select only ready work within the authorized
+scope, record the ticket/branch, and split a ticket before implementation if it exceeds one
+independently testable PR.
+
+Delegate implementation to one or more focused subagents with explicit outcomes, file
+ownership, constraints and required evidence. Give concurrent writers disjoint files; shared
+schema, scene and generated-file changes have one owner and are integrated in order. Keep the
+coordinator responsible for architectural decisions, integration, Git operations, validation
+and completion. Subagents must not independently switch shared branches, merge or promote.
+
+Use a separate reviewer subagent after integration; it must not review its own implementation.
+Resolve blocking findings and obtain review of material follow-up changes before merging.
+The coordinator runs the final gates on the integrated candidate and records the tested head
+SHA, commands/results, review outcome and applicable visual/device evidence in the PR. Serialize
+engine commands across all agents and wait for any editor native build. If subagents or required
+validation cannot run, report the blocker rather than silently treating the ticket as complete.
+
+## Gitflow and standing merge authorization
+
+Use `feature/<topic>`, `fix/<topic>` or `chore/<topic>` from current `develop`; one independently
+testable change per PR. Reuse the matching active ticket branch when continuing existing work.
+Use draft PRs for unfinished or blocked work. No direct pushes to shared `main`/`develop`, no
+force pushes to shared branches, and no branch-protection or check bypasses.
+
+The user has authorized autonomous merging when all applicable checks pass; do not ask for
+fresh permission. After independent review, passing required GitHub checks and the ticket's
+complete validation/evidence, squash-merge its PR into `develop`. Then assess the complete
+`develop` candidate against `main`, including every accumulated change: promote only the fully
+verified candidate through a `develop` → `main` PR using a merge commit, never a direct push or
+squash. Re-run validation if the candidate/base changes or conflict resolution changes code.
+Do not promote unrelated unfinished, failed or unverified work.
+Repairs follow the same fix-to-develop-to-main path. When needed after promotion, synchronize
+main back into develop through a validated merge-commit PR; never squash shared history.
+
+For a docs-only candidate, repository policy and harness tests are the applicable checks.
+For a game-bearing main promotion, run `gate:milestone` plus the required browser/device
+evidence from the matrix; a narrow ticket gate or hosted repo-policy alone is insufficient.
+Unavailable required tooling, missing required evidence or blocking review findings prevent
+merge/promotion. The bootstrap PR #1's missing wasm-host lane remains a blocker until actually
+resolved and rerun. Once merged and promoted, update the issue with evidence and resulting
+commits/PRs; do not close a ticket merely because implementation was written.
 
 Before editing, run `npm run test:plan -- --base origin/develop` (use the actual PR base).
 While iterating, run a focused T0 test and inspect hot reload. At handoff, run `npm run gate:pr`

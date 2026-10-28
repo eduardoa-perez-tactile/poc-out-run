@@ -25,8 +25,23 @@ authored through engine UI documents. Test names identify behavior, e.g. driving
 
 ## Decisions
 
-Use lightweight Gitflow: feature/fix/chore branches into develop; verified playable milestones
-promote to main through a merge-commit PR. Do not merge or promote without user instruction.
+For every ticket, act as coordinator and use implementation subagent(s) plus an independent
+reviewer subagent. Check dependencies, define acceptance/tests, assign disjoint file ownership,
+integrate the result, resolve review findings and validate the exact candidate head. The
+coordinator owns Git operations and final evidence; subagents do not independently switch shared
+branches or merge. Serialize engine commands across agents and the editor's native build.
+
+Use lightweight Gitflow: feature/fix/chore branches from develop, squash-merged through a PR;
+fully verified develop candidates promote to main through a merge-commit PR. The user has given
+standing authorization to merge and promote once all applicable checks, independent review and
+required manual evidence pass. Do not ask again at that point. Check the entire develop-to-main
+candidate, not just the most recent ticket; do not promote unrelated unverified work. Shared
+branches are never directly pushed, force-pushed or merged by bypassing required checks.
+
+Docs-only candidates require repository-policy/harness checks; game-bearing main promotions
+require gate:milestone plus applicable real-browser/device evidence. Required tooling or evidence
+that is unavailable blocks integration/promotion; a green hosted repo-policy check alone does
+not prove game validation. PR #1's current missing wasm-host lane must be resolved and rerun.
 During edits run focused V8 tests; at handoff run the root gate:pr harness against the PR base.
 The harness adds visual, web and cooked checks based on changed paths. See the test matrix for
 manual browser/device evidence. Missing tooling is a blocked lane, never a pass.
