@@ -10,42 +10,130 @@ export const schemaIr = {
   "enums": [],
   "types": [
     {
-      "name": "Bubble",
-      "kind": "component",
+      "name": "RoadFixtureRequested",
+      "kind": "event",
       "sim": true,
       "fields": [
         {
-          "name": "radius",
+          "name": "fixtureId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "distance",
           "kind": "f32",
           "scalar": "f32",
-          "lanes": 1
+          "lanes": 1,
+          "default": 45000
         },
         {
           "name": "speed",
           "kind": "f32",
           "scalar": "f32",
           "lanes": 1,
-          "doc": "Units per step"
+          "default": 7200
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
     },
     {
-      "name": "Game",
+      "name": "RoadProofState",
       "kind": "resource",
       "sim": true,
       "fields": [
         {
-          "name": "score",
+          "name": "fixtureId",
           "kind": "u32",
           "scalar": "u32",
           "lanes": 1,
-          "doc": "Bubbles popped"
+          "default": 1
         },
         {
-          "name": "spawned",
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousDistance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 0
+        },
+        {
+          "name": "speed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 7200
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        },
+        {
+          "name": "spaceHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RoadProofVisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "fixtureId",
           "kind": "u32",
           "scalar": "u32",
+          "lanes": 1,
+          "default": 4294967295
+        },
+        {
+          "name": "distance",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aspect",
+          "kind": "f32",
+          "scalar": "f32",
           "lanes": 1
         }
       ],
@@ -58,28 +146,55 @@ export const schemaIr = {
 } as const;
 registerSchema(schemaIr);
 
-export interface BubbleViews {
-  radius: Float32Array;
-  /** Units per step */
+export interface RoadFixtureRequestedViews {
+  fixtureId: Uint32Array;
+  distance: Float32Array;
   speed: Float32Array;
+  lateral: Float32Array;
+  playing: Uint8Array;
 }
-export interface BubbleValue {
-  radius: number;
-  /** Units per step */
+export interface RoadFixtureRequestedValue {
+  fixtureId: number;
+  distance: number;
   speed: number;
+  lateral: number;
+  playing: boolean;
 }
-/** Bubble (component, sim) */
-export const Bubble = typeToken<BubbleViews, BubbleValue>('Bubble', 'component', { sig: 'radius:f32:1,speed:f32:1', read: (v: BubbleViews, i: number, o: Record<string, unknown>) => { o.radius = v.radius[i]; o.speed = v.speed[i]; return o; } });
+/** RoadFixtureRequested (event, sim) */
+export const RoadFixtureRequested = typeToken<RoadFixtureRequestedViews, RoadFixtureRequestedValue>('RoadFixtureRequested', 'event', { sig: 'fixtureId:u32:1,distance:f32:1,speed:f32:1,lateral:f32:1,playing:bool:1', read: (v: RoadFixtureRequestedViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.speed = v.speed[i]; o.lateral = v.lateral[i]; o.playing = v.playing[i] !== 0; return o; } });
 
-export interface GameViews {
-  /** Bubbles popped */
-  score: Uint32Array;
-  spawned: Uint32Array;
+export interface RoadProofStateViews {
+  fixtureId: Uint32Array;
+  distance: Float32Array;
+  previousDistance: Float32Array;
+  lateral: Float32Array;
+  speed: Float32Array;
+  playing: Uint8Array;
+  spaceHeld: Uint8Array;
 }
-export interface GameValue {
-  /** Bubbles popped */
-  score: number;
-  spawned: number;
+export interface RoadProofStateValue {
+  fixtureId: number;
+  distance: number;
+  previousDistance: number;
+  lateral: number;
+  speed: number;
+  playing: boolean;
+  spaceHeld: boolean;
 }
-/** Game (resource, sim) */
-export const Game = typeToken<GameViews, GameValue>('Game', 'resource', { sig: 'score:u32:1,spawned:u32:1', read: (v: GameViews, i: number, o: Record<string, unknown>) => { o.score = v.score[i]; o.spawned = v.spawned[i]; return o; } });
+/** RoadProofState (resource, sim) */
+export const RoadProofState = typeToken<RoadProofStateViews, RoadProofStateValue>('RoadProofState', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,previousDistance:f32:1,lateral:f32:1,speed:f32:1,playing:bool:1,spaceHeld:bool:1', read: (v: RoadProofStateViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.previousDistance = v.previousDistance[i]; o.lateral = v.lateral[i]; o.speed = v.speed[i]; o.playing = v.playing[i] !== 0; o.spaceHeld = v.spaceHeld[i] !== 0; return o; } });
+
+export interface RoadProofVisualCacheViews {
+  fixtureId: Uint32Array;
+  distance: Float32Array;
+  lateral: Float32Array;
+  aspect: Float32Array;
+}
+export interface RoadProofVisualCacheValue {
+  fixtureId: number;
+  distance: number;
+  lateral: number;
+  aspect: number;
+}
+/** RoadProofVisualCache (resource, presentation-only) */
+export const RoadProofVisualCache = typeToken<RoadProofVisualCacheViews, RoadProofVisualCacheValue>('RoadProofVisualCache', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,lateral:f32:1,aspect:f32:1', read: (v: RoadProofVisualCacheViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
