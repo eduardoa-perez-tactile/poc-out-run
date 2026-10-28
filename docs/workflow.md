@@ -184,18 +184,26 @@ Hosted `repo-policy` runs on PRs and pushes to main/develop using Node only. It 
 harness tests. Branch rules require this check and a PR, with no mandatory second reviewer.
 The initial bootstrap push creates the empty repository's branches before those rules exist.
 
-Engine checks run locally today. At setup there are zero registered GitHub runners. The manual
-`Engine validation` workflow has a readiness job that fails until GAMEENGINE_CI_READY=true;
-it must not present a skipped engine job as successful gameplay validation. Provision a trusted
-macOS ARM64 runner labeled `gameengine`, install the pinned engine source/toolchains (including
-the wasm host), set GAMEENGINE_ROOT, then enable that variable. Dispatch against the exact
-feature commit and correct base, never an unreviewed external fork. Do not install a persistent
-runner on a developer laptop as part of this task.
+`Engine validation` now queues an exact-head job automatically for PRs targeting develop/main,
+with a hosted trust check and an always-running hosted `engine-gate` aggregator. Forks, stale
+SHAs, skipped engine jobs and failed jobs cannot make that aggregator green. Main candidates
+select the milestone scope. Manual dispatch requires a PR number and its full reviewed SHA.
 
-Until automatic trusted engine PR jobs are provisioned, hosted branch rules enforce repo-policy
-only. The PR author supplies local gate logs for the current head; engine evidence is a workflow
-requirement, not falsely advertised as remotely enforced. Any subsequent code edit invalidates
-that evidence. Browser observations are recorded separately from automated results.
+The active coordinator supplies on-demand capacity by launching the reviewed
+`scripts/ci/one_job_runner.py` helper for that exact queued PR/SHA/run/job. It registers one
+short-lived Mac runner with a unique PR/SHA/run/attempt label, processes one job, then unregisters
+and deletes local credentials/workspace. There is no service or persistent developer-laptop
+runner. Outside active coordinator sessions the job waits; this is not always-on autoscaling.
+The Mac is a trusted interactive host, not an isolated VM. The helper rejects forks and requires
+all external contributors to need workflow approval before any registration. Never approve an
+external-fork run for this host. See [engine CI](engine-ci.md) for setup, invocation and cleanup.
+
+Until real positive and negative execution proofs establish that engine-gate is reliable,
+branch rules continue to require repo-policy only. Then add engine-gate without removing the
+existing policy requirement. Do not install a required status that merely skips unavailable
+validation. Candidate evidence must identify exact head/base SHAs, and later code/base changes
+invalidate affected results. Targeted headed-browser observations remain separate; no physical-
+phone testing is required or performed by CI.
 
 ## PR evidence and completion
 
