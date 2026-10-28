@@ -1,5 +1,5 @@
 import {worldTest,expect} from '@gameengine/test';
-import {ForkPreviewRequested,ForkPreviewState,RoadProofState,RoadFixtureRequested} from '../../src/schema.gen.ts';
+import {ForkPreviewRequested,ForkPreviewState,RoadProofState,RoadFixtureRequested,DrivingState} from '../../src/schema.gen.ts';
 const SCENE={scene:'scenes/road-proof.scene.json'};
 worldTest('road.fork inactive defaults stay untouched by old controls',async({input,step,world})=>{
   const before=world.resource(ForkPreviewState);
@@ -46,4 +46,30 @@ for(const side of [0,1]){
     expect(world.resource(RoadProofState).speed).toBe(7200);
     expect(world.resource(RoadProofState).distance).toBeCloseTo(54600,1);
   });
+}
+
+for(const request of ['keyboard','explicit'] as const){
+  worldTest(`road.fork driving ignores ${request} preview requests while driving owns motion`,async({input,step,world})=>{
+    const defaults=world.resource(ForkPreviewState);
+    const fixture=world.resource(RoadProofState).fixtureId;
+    input.key('ArrowUp',true);
+    if(request==='keyboard'){
+      input.key('Digit5',true);await step(2);input.key('Digit5',false);
+      input.key('Digit6',true);await step(2);input.key('Digit6',false);
+    }else{
+      input.emit(ForkPreviewRequested,{side:1,distance:42000,tick:90,configurePlayback:true,playing:false});
+      await step(4);
+    }
+    await step(2); // Include queued requests and the following simulation tick.
+    const car=world.resource(DrivingState);
+    const road=world.resource(RoadProofState);
+    expect(world.resource(ForkPreviewState)).toEqual(defaults);
+    expect(road.fixtureId).toBe(fixture);
+    expect(car.playing).toBe(true);
+    expect(car.distance>45000).toBe(true);
+    expect(road.distance).toBe(car.distance);
+    expect(road.previousDistance).toBe(car.previousDistance);
+    expect(road.speed).toBeCloseTo(car.legacySpeed*60,4);
+    expect(road.playing).toBe(car.playing);
+  },{scene:'scenes/driving-proof.scene.json'});
 }

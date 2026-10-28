@@ -1,9 +1,10 @@
 import {defineSystem,read,write,KeyEvent,Keys} from '@gameengine/runtime';
-import {ForkPreviewState,ForkPreviewRequested,RoadProofState,RoadFixtureRequested} from '../schema.gen.ts';
+import {ForkPreviewState,ForkPreviewRequested,RoadProofState,RoadFixtureRequested,DrivingState} from '../schema.gen.ts';
 const DURATION=180;
 export const ForkPreviewInput=defineSystem({
-  name:'ForkPreviewInput',after:['RoadProofInput'],runOn:[KeyEvent],
+  name:'ForkPreviewInput',after:['RoadProofInput'],resources:[read(DrivingState)],runOn:[KeyEvent],
   run(ctx){
+    if(ctx.resource(DrivingState).active[0])return;
     let side:number|undefined;let exiting=false;
     for(const key of ctx.events.read(KeyEvent))if(key.down){
       if(key.code===Keys.Digit5)side=0;
@@ -17,8 +18,9 @@ export const ForkPreviewInput=defineSystem({
 });
 export const ForkPreviewControl=defineSystem({
   name:'ForkPreviewControl',after:['SelectRoadFixture'],before:['RoadProofInput','AdvanceRoadProof'],
-  resources:[write(ForkPreviewState),write(RoadProofState)],runOn:[ForkPreviewRequested,RoadFixtureRequested],
+  resources:[write(ForkPreviewState),write(RoadProofState),read(DrivingState)],runOn:[ForkPreviewRequested,RoadFixtureRequested],
   run(ctx){
+    if(ctx.resource(DrivingState).active[0])return;
     if(ctx.events.count(RoadFixtureRequested)>0){
       if(ctx.resource(ForkPreviewState).active[0]!==0)ctx.set(ForkPreviewState,{active:false,side:0,previousTick:0,tick:0,durationTicks:DURATION});
       return;
@@ -34,8 +36,9 @@ export const ForkPreviewControl=defineSystem({
 });
 export const AdvanceForkTransition=defineSystem({
   name:'AdvanceForkTransition',after:['ForkPreviewControl','ForkPreviewInput','RoadProofInput'],
-  resources:[write(ForkPreviewState),read(RoadProofState)],
+  resources:[write(ForkPreviewState),read(RoadProofState),read(DrivingState)],
   run(ctx){
+    if(ctx.resource(DrivingState).active[0])return;
     const state=ctx.resource(ForkPreviewState);
     if(state.active[0]===0)return; // Leave the complete default row untouched.
     const tick=state.tick[0]!;
