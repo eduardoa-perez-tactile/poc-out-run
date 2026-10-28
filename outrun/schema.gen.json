@@ -93,6 +93,20 @@
       "package": "OutRun"
     },
     {
+      "name": "DrivingPauseRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "paused",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "DrivingResetRequested",
       "kind": "event",
       "sim": true,

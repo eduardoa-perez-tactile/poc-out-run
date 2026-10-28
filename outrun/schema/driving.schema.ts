@@ -20,3 +20,5 @@ export const DrivingControlsCancelled = event('DrivingControlsCancelled', {}, { 
 export const DrivingResetRequested = event('DrivingResetRequested', {
   manual: bool(), legacySpeed: f32(), distance: f32({ default: 45000 }), lateral: f32(),
 }, { sim: true });
+// Explicit UI pause/resume intent; keyboard Space shares its authoritative reducer.
+export const DrivingPauseRequested = event('DrivingPauseRequested', { paused: bool() }, { sim: true });
