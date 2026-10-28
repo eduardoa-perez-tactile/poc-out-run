@@ -1,0 +1,63 @@
+name: Engine validation
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Reviewed commit SHA or branch to validate
+        required: true
+        default: develop
+      base:
+        description: PR base ref
+        required: true
+        default: origin/develop
+      gate:
+        type: choice
+        description: Validation scope
+        options: [pr, milestone]
+        default: pr
+permissions:
+  contents: read
+jobs:
+  runner-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require an explicitly provisioned engine runner
+        env:
+          READY: ${{ vars.GAMEENGINE_CI_READY }}
+        run: |
+          if [ "$READY" != true ]; then
+            echo 'Engine runner is not provisioned. See docs/workflow.md; local evidence is required.'
+            exit 1
+          fi
+  engine-validation:
+    needs: runner-readiness
+    runs-on: [self-hosted, macOS, ARM64, gameengine]
+    timeout-minutes: 30
+    concurrency:
+      group: outrun-engine-runner
+      cancel-in-progress: false
+    env:
+      GAMEENGINE_ROOT: ${{ vars.GAMEENGINE_ROOT }}
+      HARNESS_BASE: ${{ inputs.base }}
+      GATE: ${{ inputs.gate }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+      - run: npm run setup
+      - name: Run selected gate
+        run: |
+          if [ "$GATE" = milestone ]; then
+            npm run gate:milestone
+          else
+            npm run gate:pr
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: engine-validation-${{ github.run_id }}
+          path: |
+            .artifacts/harness/
+            outrun/.gameengine/t1/
