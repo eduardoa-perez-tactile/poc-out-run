@@ -60,3 +60,11 @@ Repository: https://github.com/eduardoa-perez-tactile/poc-out-run
 Workflow: ../docs/workflow.md
 Behavior checks and coverage status: ../docs/test-matrix.md
 Reproducible engine/web setup: ../docs/engine-setup.md
+
+## Art production
+
+Before creating or changing art, read ../docs/art/index.md and the relevant category guide.
+Fill out ../docs/art/creation-brief.md with the reference family, palette, logical pixel size,
+pivot and required poses/states before expanding an asset family. Use the source boards as
+visual evidence, distinguish observed facts from proposed rules, and check imported art in
+its actual projected/mobile context. These guides do not change the engine import schema.
