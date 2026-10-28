@@ -22,7 +22,8 @@ export function classifyPaths(paths) {
       plan.visual = plan.web = plan.cooked = true;
     } else if (/^(tests\/.*\.test\.ts$|tests\/replays\/|tests\/budgets\/)/.test(relative)) {
       plan.web = true;
-      if (relative.startsWith('tests/budgets/')) plan.visual = plan.cooked = true;
+      // Replay input can change loaded objects and structural-budget coverage.
+      if (/^tests\/(?:budgets|replays)\//.test(relative)) plan.visual = plan.cooked = true;
     } else {
       // Entry points, input, native code, config, and unknown paths get the broad gate.
       plan.visual = plan.web = plan.cooked = true;

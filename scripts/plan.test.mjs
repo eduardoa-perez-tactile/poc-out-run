@@ -26,6 +26,15 @@ test('assets and scene changes exercise cooked loading', () => {
     assert.equal(p.visual, true);
   }
 });
+test('replay tape changes remeasure render budgets and cooked loading', () => {
+  for (const path of ['outrun/tests/replays/road.greplay', 'outrun/tests/replays/hill.greplay', 'outrun/tests/budgets/hill.json']) {
+    const p = classifyPaths([path]);
+    assert.equal(p.core && p.visual && p.web && p.cooked, true, path);
+  }
+  const focusedTest = classifyPaths(['outrun/tests/sim/driving.test.ts']);
+  assert.equal(focusedTest.visual, false);
+  assert.equal(focusedTest.cooked, false);
+});
 test('unknown paths and input configuration fail toward broader coverage', () => {
   for (const path of ['outrun/input.json', 'outrun/src/main.ts', 'unexpected/file.ts']) {
     const p = classifyPaths([path]);
