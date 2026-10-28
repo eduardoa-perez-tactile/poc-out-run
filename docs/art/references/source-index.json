@@ -1,0 +1,2174 @@
+{
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "purpose": "Documentation reference boards, not runtime atlases or approved new art",
+  "boards": {
+    "gameplay": {
+      "file": "gameplay.png",
+      "specimens": [
+        "Gifs/Salida.gif#frame=38",
+        "Gifs/Fork.gif#frame=15",
+        "Gifs/Fork.gif#frame=64",
+        "Gifs/GreenCar.gif#frame=36",
+        "Gifs/DarkBlueCar.gif#frame=40",
+        "Gifs/OrangeCar.gif#frame=35"
+      ]
+    },
+    "biomes": {
+      "file": "biomes.png",
+      "specimens": [
+        "Maps/MapLevels/Map1/back.png + Maps/MapLevels/Map1/front.png",
+        "Maps/MapLevels/Map2/back.png + Maps/MapLevels/Map2/front.png",
+        "Maps/MapLevels/Map3/back.png + Maps/MapLevels/Map3/front.png",
+        "Maps/MapLevels/Map4/back.png + Maps/MapLevels/Map4/front.png",
+        "Maps/MapLevels/Map5/back.png + Maps/MapLevels/Map5/front.png",
+        "Maps/MapLevels/Map6/back.png + Maps/MapLevels/Map6/front.png",
+        "Maps/MapLevels/Map7/back.png + Maps/MapLevels/Map7/front.png",
+        "Maps/MapLevels/Map8/back.png + Maps/MapLevels/Map8/front.png",
+        "Maps/MapLevels/Map9/back.png + Maps/MapLevels/Map9/front.png",
+        "Maps/MapLevels/Map10/back.png + Maps/MapLevels/Map10/front.png",
+        "Maps/MapLevels/Map11/back.png + Maps/MapLevels/Map11/front.png",
+        "Maps/MapLevels/Map12/back.png + Maps/MapLevels/Map12/front.png",
+        "Maps/MapLevels/Map13/back.png + Maps/MapLevels/Map13/front.png",
+        "Maps/MapLevels/Map14/back.png + Maps/MapLevels/Map14/front.png",
+        "Maps/MapLevels/Map15/back.png + Maps/MapLevels/Map15/front.png"
+      ]
+    },
+    "props": {
+      "file": "props.png",
+      "specimens": [
+        "Maps/MapLevels/Map1/1.png",
+        "Maps/MapLevels/Map1/7.png",
+        "Maps/MapLevels/Map1/14.png",
+        "Maps/MapLevels/Map1/20.png",
+        "Maps/MapLevels/Map5/1.png",
+        "Maps/MapLevels/Map5/12.png",
+        "Maps/MapLevels/Map5/28.png",
+        "Maps/MapLevels/Map5/48.png",
+        "Maps/MapLevels/Map10/1.png",
+        "Maps/MapLevels/Map10/12.png",
+        "Maps/MapLevels/Map10/25.png",
+        "Maps/MapLevels/Map10/40.png",
+        "Maps/MapLevels/Map15/1.png",
+        "Maps/MapLevels/Map15/12.png",
+        "Maps/MapLevels/Map15/25.png",
+        "Maps/MapLevels/Map15/40.png"
+      ]
+    },
+    "vehicles": {
+      "file": "vehicles.png",
+      "specimens": [
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c1.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c5.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c9.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c13.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c17.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c21.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c25.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c41.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c61.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c81.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c101.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c121.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c141.png",
+        "Vehicles/PlayerCar/Ferraris/Ferrari1/c148.png",
+        "Vehicles/TrafficCars/Car1/c1.png",
+        "Vehicles/TrafficCars/Car1/c9.png",
+        "Vehicles/TrafficCars/Car6/c1.png",
+        "Vehicles/TrafficCars/Car12/c1.png",
+        "Vehicles/TrafficCars/Car20/c1.png",
+        "Vehicles/TrafficCars/Car32/c1.png"
+      ]
+    },
+    "effects": {
+      "file": "effects.png",
+      "specimens": [
+        "Vehicles/PlayerCar/Wheels/c1.png",
+        "Vehicles/PlayerCar/Wheels/c4.png",
+        "Vehicles/PlayerCar/Wheels/c5.png",
+        "Vehicles/PlayerCar/Wheels/c10.png",
+        "Vehicles/PlayerCar/Wheels/c11.png",
+        "Vehicles/PlayerCar/Wheels/c16.png",
+        "Vehicles/PlayerCar/Wheels/c17.png",
+        "Vehicles/PlayerCar/Wheels/c22.png",
+        "Vehicles/PlayerCar/Wheels/c23.png",
+        "Vehicles/PlayerCar/Wheels/c28.png"
+      ]
+    },
+    "ui": {
+      "file": "ui.png",
+      "specimens": [
+        "Menus/MainMenu/LogoMain1.png",
+        "Menus/CarSelectionMenu/Garage.png",
+        "Menus/MusicMenu/radioBackground.png",
+        "Huds/HudRound/Time_Indicator.png",
+        "Huds/HudRound/Score_Indicator.png",
+        "Huds/HudRound/Speed_Indicator.png",
+        "Huds/HudRound/Gear_Indicator.png",
+        "Huds/HudRound/Tree_level_15_indicator.png"
+      ]
+    },
+    "palettes": {
+      "file": "palettes.png",
+      "source": "map.txt COLOR_* values; full RGBA in palettes"
+    }
+  },
+  "palettes": {
+    "Map1": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          0,
+          148,
+          255,
+          255
+        ],
+        "hex": "#0094FF"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          230,
+          214,
+          197,
+          255
+        ],
+        "hex": "#E6D6C5"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          239,
+          222,
+          206,
+          255
+        ],
+        "hex": "#EFDECE"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          148,
+          148,
+          148,
+          255
+        ],
+        "hex": "#949494"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          156,
+          156,
+          156,
+          255
+        ],
+        "hex": "#9C9C9C"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          148,
+          148,
+          148,
+          255
+        ],
+        "hex": "#949494"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          148,
+          148,
+          148,
+          255
+        ],
+        "hex": "#949494"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          156,
+          156,
+          156,
+          255
+        ],
+        "hex": "#9C9C9C"
+      }
+    },
+    "Map2": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          0,
+          128,
+          246,
+          255
+        ],
+        "hex": "#0080F6"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          132,
+          188,
+          27,
+          255
+        ],
+        "hex": "#84BC1B"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          163,
+          218,
+          60,
+          255
+        ],
+        "hex": "#A3DA3C"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          105,
+          71,
+          67,
+          255
+        ],
+        "hex": "#694743"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          139,
+          105,
+          101,
+          255
+        ],
+        "hex": "#8B6965"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          105,
+          71,
+          67,
+          255
+        ],
+        "hex": "#694743"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          105,
+          71,
+          67,
+          255
+        ],
+        "hex": "#694743"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          139,
+          105,
+          101,
+          255
+        ],
+        "hex": "#8B6965"
+      }
+    },
+    "Map3": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          126,
+          228,
+          239,
+          255
+        ],
+        "hex": "#7EE4EF"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          98,
+          154,
+          0,
+          255
+        ],
+        "hex": "#629A00"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          134,
+          186,
+          0,
+          255
+        ],
+        "hex": "#86BA00"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          247,
+          247,
+          247,
+          255
+        ],
+        "hex": "#F7F7F7"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      }
+    },
+    "Map4": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          0,
+          0,
+          255,
+          255
+        ],
+        "hex": "#0000FF"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          206,
+          201,
+          133,
+          255
+        ],
+        "hex": "#CEC985"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          239,
+          234,
+          167,
+          255
+        ],
+        "hex": "#EFEAA7"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          214,
+          197,
+          181,
+          255
+        ],
+        "hex": "#D6C5B5"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          222,
+          206,
+          189,
+          255
+        ],
+        "hex": "#DECEBD"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          214,
+          197,
+          181,
+          255
+        ],
+        "hex": "#D6C5B5"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          222,
+          206,
+          189,
+          255
+        ],
+        "hex": "#DECEBD"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          214,
+          197,
+          181,
+          255
+        ],
+        "hex": "#D6C5B5"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          222,
+          206,
+          189,
+          255
+        ],
+        "hex": "#DECEBD"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          214,
+          197,
+          181,
+          255
+        ],
+        "hex": "#D6C5B5"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          222,
+          206,
+          189,
+          255
+        ],
+        "hex": "#DECEBD"
+      }
+    },
+    "Map5": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          0,
+          90,
+          255,
+          255
+        ],
+        "hex": "#005AFF"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          179,
+          231,
+          255,
+          255
+        ],
+        "hex": "#B3E7FF"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          230,
+          247,
+          255,
+          255
+        ],
+        "hex": "#E6F7FF"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          19,
+          19,
+          19,
+          255
+        ],
+        "hex": "#131313"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          17,
+          17,
+          17,
+          255
+        ],
+        "hex": "#111111"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          19,
+          19,
+          19,
+          255
+        ],
+        "hex": "#131313"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          19,
+          19,
+          19,
+          255
+        ],
+        "hex": "#131313"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          19,
+          19,
+          19,
+          255
+        ],
+        "hex": "#131313"
+      }
+    },
+    "Map6": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          247,
+          223,
+          0,
+          255
+        ],
+        "hex": "#F7DF00"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          230,
+          158,
+          0,
+          255
+        ],
+        "hex": "#E69E00"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          213,
+          135,
+          0,
+          255
+        ],
+        "hex": "#D58700"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          67,
+          35,
+          32,
+          255
+        ],
+        "hex": "#432320"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          68,
+          68,
+          68,
+          255
+        ],
+        "hex": "#444444"
+      }
+    },
+    "Map7": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          118,
+          66,
+          253,
+          255
+        ],
+        "hex": "#7642FD"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          108,
+          76,
+          56,
+          255
+        ],
+        "hex": "#6C4C38"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          102,
+          67,
+          48,
+          255
+        ],
+        "hex": "#664330"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          106,
+          88,
+          88,
+          255
+        ],
+        "hex": "#6A5858"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          101,
+          82,
+          82,
+          255
+        ],
+        "hex": "#655252"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          106,
+          88,
+          88,
+          255
+        ],
+        "hex": "#6A5858"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          106,
+          88,
+          88,
+          255
+        ],
+        "hex": "#6A5858"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          101,
+          82,
+          82,
+          255
+        ],
+        "hex": "#655252"
+      }
+    },
+    "Map8": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          248,
+          192,
+          96,
+          255
+        ],
+        "hex": "#F8C060"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          152,
+          120,
+          8,
+          255
+        ],
+        "hex": "#987808"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          144,
+          112,
+          0,
+          255
+        ],
+        "hex": "#907000"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          34,
+          34,
+          34,
+          255
+        ],
+        "hex": "#222222"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          34,
+          34,
+          34,
+          255
+        ],
+        "hex": "#222222"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          34,
+          34,
+          34,
+          255
+        ],
+        "hex": "#222222"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          34,
+          34,
+          34,
+          255
+        ],
+        "hex": "#222222"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          34,
+          34,
+          34,
+          255
+        ],
+        "hex": "#222222"
+      }
+    },
+    "Map9": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          0,
+          12,
+          225,
+          255
+        ],
+        "hex": "#000CE1"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          0,
+          0,
+          102,
+          255
+        ],
+        "hex": "#000066"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          0,
+          0,
+          179,
+          255
+        ],
+        "hex": "#0000B3"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          0,
+          0,
+          26,
+          255
+        ],
+        "hex": "#00001A"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          0,
+          0,
+          26,
+          255
+        ],
+        "hex": "#00001A"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          0,
+          0,
+          26,
+          255
+        ],
+        "hex": "#00001A"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          0,
+          0,
+          26,
+          255
+        ],
+        "hex": "#00001A"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          0,
+          0,
+          26,
+          255
+        ],
+        "hex": "#00001A"
+      }
+    },
+    "Map10": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          91,
+          222,
+          204,
+          255
+        ],
+        "hex": "#5BDECC"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          23,
+          176,
+          0,
+          255
+        ],
+        "hex": "#17B000"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          23,
+          147,
+          0,
+          255
+        ],
+        "hex": "#179300"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          148,
+          96,
+          40,
+          255
+        ],
+        "hex": "#946028"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          148,
+          96,
+          40,
+          255
+        ],
+        "hex": "#946028"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          5,
+          1,
+          0,
+          255
+        ],
+        "hex": "#050100"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          148,
+          96,
+          40,
+          255
+        ],
+        "hex": "#946028"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          148,
+          96,
+          40,
+          255
+        ],
+        "hex": "#946028"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          148,
+          96,
+          40,
+          255
+        ],
+        "hex": "#946028"
+      }
+    },
+    "Map11": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          192,
+          192,
+          176,
+          255
+        ],
+        "hex": "#C0C0B0"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          240,
+          224,
+          208,
+          255
+        ],
+        "hex": "#F0E0D0"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          248,
+          232,
+          216,
+          255
+        ],
+        "hex": "#F8E8D8"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          168,
+          168,
+          168,
+          255
+        ],
+        "hex": "#A8A8A8"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          160,
+          160,
+          160,
+          255
+        ],
+        "hex": "#A0A0A0"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          168,
+          168,
+          168,
+          255
+        ],
+        "hex": "#A8A8A8"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          168,
+          168,
+          168,
+          255
+        ],
+        "hex": "#A8A8A8"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          160,
+          160,
+          160,
+          255
+        ],
+        "hex": "#A0A0A0"
+      }
+    },
+    "Map12": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          132,
+          198,
+          240,
+          255
+        ],
+        "hex": "#84C6F0"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          206,
+          201,
+          133,
+          255
+        ],
+        "hex": "#CEC985"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          171,
+          165,
+          101,
+          255
+        ],
+        "hex": "#ABA565"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          68,
+          66,
+          32,
+          255
+        ],
+        "hex": "#444220"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          80,
+          79,
+          40,
+          255
+        ],
+        "hex": "#504F28"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          245,
+          138,
+          0,
+          255
+        ],
+        "hex": "#F58A00"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          68,
+          66,
+          32,
+          255
+        ],
+        "hex": "#444220"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          80,
+          79,
+          40,
+          255
+        ],
+        "hex": "#504F28"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          245,
+          138,
+          0,
+          255
+        ],
+        "hex": "#F58A00"
+      }
+    },
+    "Map13": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          255,
+          195,
+          94,
+          255
+        ],
+        "hex": "#FFC35E"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          125,
+          222,
+          61,
+          255
+        ],
+        "hex": "#7DDE3D"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          94,
+          187,
+          63,
+          255
+        ],
+        "hex": "#5EBB3F"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          176,
+          176,
+          160,
+          255
+        ],
+        "hex": "#B0B0A0"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          160,
+          160,
+          144,
+          255
+        ],
+        "hex": "#A0A090"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          218,
+          50,
+          39,
+          255
+        ],
+        "hex": "#DA3227"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          176,
+          176,
+          160,
+          255
+        ],
+        "hex": "#B0B0A0"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          218,
+          50,
+          39,
+          255
+        ],
+        "hex": "#DA3227"
+      }
+    },
+    "Map14": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          141,
+          234,
+          233,
+          255
+        ],
+        "hex": "#8DEAE9"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          0,
+          170,
+          98,
+          255
+        ],
+        "hex": "#00AA62"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          0,
+          186,
+          112,
+          255
+        ],
+        "hex": "#00BA70"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          115,
+          112,
+          115,
+          255
+        ],
+        "hex": "#737073"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          124,
+          121,
+          124,
+          255
+        ],
+        "hex": "#7C797C"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          115,
+          112,
+          115,
+          255
+        ],
+        "hex": "#737073"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          115,
+          112,
+          115,
+          255
+        ],
+        "hex": "#737073"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          115,
+          112,
+          115,
+          255
+        ],
+        "hex": "#737073"
+      }
+    },
+    "Map15": {
+      "COLOR_BACKGROUND": {
+        "rgba": [
+          240,
+          176,
+          176,
+          255
+        ],
+        "hex": "#F0B0B0"
+      },
+      "COLOR_OUTSIDE_ROAD_1": {
+        "rgba": [
+          168,
+          200,
+          152,
+          255
+        ],
+        "hex": "#A8C898"
+      },
+      "COLOR_OUTSIDE_ROAD_2": {
+        "rgba": [
+          160,
+          192,
+          144,
+          255
+        ],
+        "hex": "#A0C090"
+      },
+      "COLOR_ROAD_1": {
+        "rgba": [
+          128,
+          128,
+          160,
+          255
+        ],
+        "hex": "#8080A0"
+      },
+      "COLOR_ROAD_2": {
+        "rgba": [
+          136,
+          136,
+          168,
+          255
+        ],
+        "hex": "#8888A8"
+      },
+      "COLOR_RUMBLE_1": {
+        "rgba": [
+          160,
+          0,
+          0,
+          255
+        ],
+        "hex": "#A00000"
+      },
+      "COLOR_RUMBLE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_LANE_1": {
+        "rgba": [
+          128,
+          128,
+          160,
+          255
+        ],
+        "hex": "#8080A0"
+      },
+      "COLOR_LANE_2": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_1": {
+        "rgba": [
+          246,
+          246,
+          246,
+          255
+        ],
+        "hex": "#F6F6F6"
+      },
+      "COLOR_RUMBLE_LANE_2": {
+        "rgba": [
+          160,
+          0,
+          0,
+          255
+        ],
+        "hex": "#A00000"
+      }
+    }
+  },
+  "specimens": {
+    "Gifs/Salida.gif#frame=38": {
+      "path": "Gifs/Salida.gif",
+      "frame": 38,
+      "width": 598,
+      "height": 448
+    },
+    "Gifs/Fork.gif#frame=15": {
+      "path": "Gifs/Fork.gif",
+      "frame": 15,
+      "width": 598,
+      "height": 448
+    },
+    "Gifs/Fork.gif#frame=64": {
+      "path": "Gifs/Fork.gif",
+      "frame": 64,
+      "width": 598,
+      "height": 448
+    },
+    "Gifs/GreenCar.gif#frame=36": {
+      "path": "Gifs/GreenCar.gif",
+      "frame": 36,
+      "width": 598,
+      "height": 448
+    },
+    "Gifs/DarkBlueCar.gif#frame=40": {
+      "path": "Gifs/DarkBlueCar.gif",
+      "frame": 40,
+      "width": 598,
+      "height": 448
+    },
+    "Gifs/OrangeCar.gif#frame=35": {
+      "path": "Gifs/OrangeCar.gif",
+      "frame": 35,
+      "width": 598,
+      "height": 448
+    },
+    "Maps/MapLevels/Map1/back.png": {
+      "path": "Maps/MapLevels/Map1/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map1/front.png": {
+      "path": "Maps/MapLevels/Map1/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map2/back.png": {
+      "path": "Maps/MapLevels/Map2/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map2/front.png": {
+      "path": "Maps/MapLevels/Map2/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map3/back.png": {
+      "path": "Maps/MapLevels/Map3/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map3/front.png": {
+      "path": "Maps/MapLevels/Map3/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map4/back.png": {
+      "path": "Maps/MapLevels/Map4/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map4/front.png": {
+      "path": "Maps/MapLevels/Map4/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map5/back.png": {
+      "path": "Maps/MapLevels/Map5/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map5/front.png": {
+      "path": "Maps/MapLevels/Map5/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map6/back.png": {
+      "path": "Maps/MapLevels/Map6/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map6/front.png": {
+      "path": "Maps/MapLevels/Map6/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map7/back.png": {
+      "path": "Maps/MapLevels/Map7/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map7/front.png": {
+      "path": "Maps/MapLevels/Map7/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map8/back.png": {
+      "path": "Maps/MapLevels/Map8/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map8/front.png": {
+      "path": "Maps/MapLevels/Map8/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map9/back.png": {
+      "path": "Maps/MapLevels/Map9/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map9/front.png": {
+      "path": "Maps/MapLevels/Map9/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map10/back.png": {
+      "path": "Maps/MapLevels/Map10/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map10/front.png": {
+      "path": "Maps/MapLevels/Map10/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map11/back.png": {
+      "path": "Maps/MapLevels/Map11/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map11/front.png": {
+      "path": "Maps/MapLevels/Map11/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map12/back.png": {
+      "path": "Maps/MapLevels/Map12/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map12/front.png": {
+      "path": "Maps/MapLevels/Map12/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map13/back.png": {
+      "path": "Maps/MapLevels/Map13/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map13/front.png": {
+      "path": "Maps/MapLevels/Map13/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map14/back.png": {
+      "path": "Maps/MapLevels/Map14/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map14/front.png": {
+      "path": "Maps/MapLevels/Map14/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map15/back.png": {
+      "path": "Maps/MapLevels/Map15/back.png",
+      "frame": null,
+      "width": 1536,
+      "height": 256
+    },
+    "Maps/MapLevels/Map15/front.png": {
+      "path": "Maps/MapLevels/Map15/front.png",
+      "frame": null,
+      "width": 2048,
+      "height": 256
+    },
+    "Maps/MapLevels/Map1/1.png": {
+      "path": "Maps/MapLevels/Map1/1.png",
+      "frame": null,
+      "width": 162,
+      "height": 99
+    },
+    "Maps/MapLevels/Map1/7.png": {
+      "path": "Maps/MapLevels/Map1/7.png",
+      "frame": null,
+      "width": 120,
+      "height": 86
+    },
+    "Maps/MapLevels/Map1/14.png": {
+      "path": "Maps/MapLevels/Map1/14.png",
+      "frame": null,
+      "width": 60,
+      "height": 116
+    },
+    "Maps/MapLevels/Map1/20.png": {
+      "path": "Maps/MapLevels/Map1/20.png",
+      "frame": null,
+      "width": 51,
+      "height": 86
+    },
+    "Maps/MapLevels/Map5/1.png": {
+      "path": "Maps/MapLevels/Map5/1.png",
+      "frame": null,
+      "width": 36,
+      "height": 8
+    },
+    "Maps/MapLevels/Map5/12.png": {
+      "path": "Maps/MapLevels/Map5/12.png",
+      "frame": null,
+      "width": 45,
+      "height": 42
+    },
+    "Maps/MapLevels/Map5/28.png": {
+      "path": "Maps/MapLevels/Map5/28.png",
+      "frame": null,
+      "width": 266,
+      "height": 169
+    },
+    "Maps/MapLevels/Map5/48.png": {
+      "path": "Maps/MapLevels/Map5/48.png",
+      "frame": null,
+      "width": 224,
+      "height": 152
+    },
+    "Maps/MapLevels/Map10/1.png": {
+      "path": "Maps/MapLevels/Map10/1.png",
+      "frame": null,
+      "width": 36,
+      "height": 8
+    },
+    "Maps/MapLevels/Map10/12.png": {
+      "path": "Maps/MapLevels/Map10/12.png",
+      "frame": null,
+      "width": 1000,
+      "height": 300
+    },
+    "Maps/MapLevels/Map10/25.png": {
+      "path": "Maps/MapLevels/Map10/25.png",
+      "frame": null,
+      "width": 124,
+      "height": 124
+    },
+    "Maps/MapLevels/Map10/40.png": {
+      "path": "Maps/MapLevels/Map10/40.png",
+      "frame": null,
+      "width": 224,
+      "height": 152
+    },
+    "Maps/MapLevels/Map15/1.png": {
+      "path": "Maps/MapLevels/Map15/1.png",
+      "frame": null,
+      "width": 40,
+      "height": 128
+    },
+    "Maps/MapLevels/Map15/12.png": {
+      "path": "Maps/MapLevels/Map15/12.png",
+      "frame": null,
+      "width": 76,
+      "height": 56
+    },
+    "Maps/MapLevels/Map15/25.png": {
+      "path": "Maps/MapLevels/Map15/25.png",
+      "frame": null,
+      "width": 52,
+      "height": 160
+    },
+    "Maps/MapLevels/Map15/40.png": {
+      "path": "Maps/MapLevels/Map15/40.png",
+      "frame": null,
+      "width": 224,
+      "height": 152
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c1.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c1.png",
+      "frame": null,
+      "width": 94,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c5.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c5.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c9.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c9.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c13.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c13.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c17.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c17.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c21.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c21.png",
+      "frame": null,
+      "width": 94,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c25.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c25.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c41.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c41.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c61.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c61.png",
+      "frame": null,
+      "width": 94,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c81.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c81.png",
+      "frame": null,
+      "width": 94,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c101.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c101.png",
+      "frame": null,
+      "width": 95,
+      "height": 44
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c121.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c121.png",
+      "frame": null,
+      "width": 171,
+      "height": 46
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c141.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c141.png",
+      "frame": null,
+      "width": 171,
+      "height": 46
+    },
+    "Vehicles/PlayerCar/Ferraris/Ferrari1/c148.png": {
+      "path": "Vehicles/PlayerCar/Ferraris/Ferrari1/c148.png",
+      "frame": null,
+      "width": 171,
+      "height": 46
+    },
+    "Vehicles/TrafficCars/Car1/c1.png": {
+      "path": "Vehicles/TrafficCars/Car1/c1.png",
+      "frame": null,
+      "width": 58,
+      "height": 43
+    },
+    "Vehicles/TrafficCars/Car1/c9.png": {
+      "path": "Vehicles/TrafficCars/Car1/c9.png",
+      "frame": null,
+      "width": 66,
+      "height": 43
+    },
+    "Vehicles/TrafficCars/Car6/c1.png": {
+      "path": "Vehicles/TrafficCars/Car6/c1.png",
+      "frame": null,
+      "width": 44,
+      "height": 55
+    },
+    "Vehicles/TrafficCars/Car12/c1.png": {
+      "path": "Vehicles/TrafficCars/Car12/c1.png",
+      "frame": null,
+      "width": 44,
+      "height": 55
+    },
+    "Vehicles/TrafficCars/Car20/c1.png": {
+      "path": "Vehicles/TrafficCars/Car20/c1.png",
+      "frame": null,
+      "width": 40,
+      "height": 35
+    },
+    "Vehicles/TrafficCars/Car32/c1.png": {
+      "path": "Vehicles/TrafficCars/Car32/c1.png",
+      "frame": null,
+      "width": 44,
+      "height": 55
+    },
+    "Vehicles/PlayerCar/Wheels/c1.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c1.png",
+      "frame": null,
+      "width": 60,
+      "height": 20
+    },
+    "Vehicles/PlayerCar/Wheels/c4.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c4.png",
+      "frame": null,
+      "width": 60,
+      "height": 20
+    },
+    "Vehicles/PlayerCar/Wheels/c5.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c5.png",
+      "frame": null,
+      "width": 69,
+      "height": 26
+    },
+    "Vehicles/PlayerCar/Wheels/c10.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c10.png",
+      "frame": null,
+      "width": 68,
+      "height": 38
+    },
+    "Vehicles/PlayerCar/Wheels/c11.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c11.png",
+      "frame": null,
+      "width": 76,
+      "height": 28
+    },
+    "Vehicles/PlayerCar/Wheels/c16.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c16.png",
+      "frame": null,
+      "width": 71,
+      "height": 26
+    },
+    "Vehicles/PlayerCar/Wheels/c17.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c17.png",
+      "frame": null,
+      "width": 69,
+      "height": 26
+    },
+    "Vehicles/PlayerCar/Wheels/c22.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c22.png",
+      "frame": null,
+      "width": 68,
+      "height": 38
+    },
+    "Vehicles/PlayerCar/Wheels/c23.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c23.png",
+      "frame": null,
+      "width": 76,
+      "height": 28
+    },
+    "Vehicles/PlayerCar/Wheels/c28.png": {
+      "path": "Vehicles/PlayerCar/Wheels/c28.png",
+      "frame": null,
+      "width": 61,
+      "height": 28
+    },
+    "Menus/MainMenu/LogoMain1.png": {
+      "path": "Menus/MainMenu/LogoMain1.png",
+      "frame": null,
+      "width": 320,
+      "height": 224
+    },
+    "Menus/CarSelectionMenu/Garage.png": {
+      "path": "Menus/CarSelectionMenu/Garage.png",
+      "frame": null,
+      "width": 320,
+      "height": 350
+    },
+    "Menus/MusicMenu/radioBackground.png": {
+      "path": "Menus/MusicMenu/radioBackground.png",
+      "frame": null,
+      "width": 320,
+      "height": 224
+    },
+    "Huds/HudRound/Time_Indicator.png": {
+      "path": "Huds/HudRound/Time_Indicator.png",
+      "frame": null,
+      "width": 32,
+      "height": 11
+    },
+    "Huds/HudRound/Score_Indicator.png": {
+      "path": "Huds/HudRound/Score_Indicator.png",
+      "frame": null,
+      "width": 38,
+      "height": 11
+    },
+    "Huds/HudRound/Speed_Indicator.png": {
+      "path": "Huds/HudRound/Speed_Indicator.png",
+      "frame": null,
+      "width": 36,
+      "height": 23
+    },
+    "Huds/HudRound/Gear_Indicator.png": {
+      "path": "Huds/HudRound/Gear_Indicator.png",
+      "frame": null,
+      "width": 31,
+      "height": 9
+    },
+    "Huds/HudRound/Tree_level_15_indicator.png": {
+      "path": "Huds/HudRound/Tree_level_15_indicator.png",
+      "frame": null,
+      "width": 16,
+      "height": 11
+    }
+  }
+}

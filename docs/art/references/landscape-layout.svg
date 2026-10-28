@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+<title id="title">Proposed landscape racing interface composition</title>
+<desc id="desc">An illustrative layout with top stats, a protected central road and player car, steering on the lower left, pedals on the lower right and readouts above controls. It is not an implemented UI.</desc>
+<rect width="1600" height="960" fill="#172334"/>
+<text x="35" y="38" fill="white" font-family="sans-serif" font-size="25">Proposed landscape layout · illustrative proportions, not measured source coordinates</text>
+<rect x="30" y="65" width="1540" height="860" fill="#0094ff"/>
+<rect x="30" y="440" width="1540" height="485" fill="#abc65a"/>
+<path d="M735 440 L865 440 L1430 925 L170 925 Z" fill="#72747b"/>
+<path d="M800 450 L800 925" stroke="white" stroke-width="9" stroke-dasharray="35 27"/>
+<rect x="72" y="103" width="1456" height="775" rx="20" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="13 9"/>
+<text x="95" y="850" fill="white" font-family="sans-serif" font-size="20">Safe area depends on device and orientation</text>
+<g fill="#172334" stroke="#00c594" stroke-width="4">
+<rect x="110" y="130" width="300" height="82"/>
+<rect x="600" y="130" width="400" height="82"/>
+<rect x="1190" y="130" width="300" height="82"/>
+</g>
+<g fill="white" font-family="sans-serif" font-size="27" text-anchor="middle">
+<text x="260" y="180">TIME</text><text x="800" y="180">SCORE</text><text x="1340" y="180">LAP / ROUTE</text>
+</g>
+<path d="M665 410 L935 410 L1190 900 L410 900 Z" fill="none" stroke="#70f2ef" stroke-width="5" stroke-dasharray="15 9"/>
+<text x="800" y="350" fill="#172334" font-family="sans-serif" font-weight="bold" font-size="29" text-anchor="middle">Keep traffic, fork and horizon readable</text>
+<rect x="665" y="735" width="270" height="132" rx="10" fill="#b82f37" stroke="#ffffff" stroke-width="4"/>
+<text x="800" y="795" fill="white" font-family="sans-serif" font-size="25" text-anchor="middle">PLAYER CAR</text>
+<text x="800" y="825" fill="white" font-family="sans-serif" font-size="20" text-anchor="middle">no controls over it</text>
+<g fill="#172334" stroke="#00c594" stroke-width="4">
+<rect x="105" y="635" width="265" height="65"/>
+<rect x="1230" y="635" width="265" height="65"/>
+<rect x="105" y="725" width="265" height="100" rx="14"/>
+<rect x="1230" y="725" width="265" height="100" rx="14"/>
+</g>
+<g fill="white" font-family="sans-serif" font-size="23" text-anchor="middle">
+<text x="237" y="677">SPEED</text><text x="1362" y="677">GEAR / STAGE</text>
+<text x="237" y="785">STEER ◀  ▶</text><text x="1362" y="785">BRAKE / GAS</text>
+</g>
+</svg>
