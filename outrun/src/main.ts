@@ -1,3 +1,4 @@
 export { RoadViewSetup, RoadProofInput, SelectRoadFixture, AdvanceRoadProof } from './sim/road-state.ts';
 export { RoadPresentation } from './render/road-presentation.ts';
 export { HillProofOverlay } from './ui/hill-proof.tsx';
+export { ForkPreviewInput, ForkPreviewControl, AdvanceForkTransition } from './sim/fork-preview.ts';

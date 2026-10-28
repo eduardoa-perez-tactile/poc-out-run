@@ -7,7 +7,13 @@
       "name": "Projected Road Camera",
       "id": "camera",
       "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
-      "LocalTransform": { "position": [0, 0, 10] }
+      "LocalTransform": { "position": [0, 0, 10] },
+      "MeshRenderer": {
+        "mesh": "dynamic:fork-backgrounds",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
     },
     {
       "name": "Road Proof Mesh",
