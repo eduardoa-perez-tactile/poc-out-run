@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "name": "ProjectedRoad",
+  "model": "unlit",
+  "blend": "opaque",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 16,
+  "params": [
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 0,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [],
+  "samplerBinding": 1,
+  "wgsl": "// Material ProjectedRoad (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var material_sampler: sampler;\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec3f = in.color.xyz;\n  out.base_color = v0;\n  out.alpha = 1.0;\n  return out;\n}\n",
+  "hash": "b5ca3c6662c8d3f3",
+  "sourceHash": "347d4c0eff0a1878"
+}

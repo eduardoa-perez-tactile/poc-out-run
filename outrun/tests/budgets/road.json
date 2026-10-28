@@ -1,0 +1,10 @@
+{
+  "replay": "tests/replays/road_state_advances_in_documented_units_at_a_fixed_step.greplay",
+  "structural": {
+    "drawCallsMax": 50,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 16,
+    "repeat": 1
+  }
+}
