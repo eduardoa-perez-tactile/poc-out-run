@@ -63,7 +63,7 @@ worldTest('road.state keyboard chooses fixtures and pauses the proof', async ({ 
   expect(world.resource(RoadProofState).distance).toBe(pausedAt);
 }, SCENE);
 
-for (const order of [['Digit3', 'Space'], ['Space', 'Digit3']]) {
+for (const order of [['Digit3', 'Space'], ['Space', 'Digit3']] as const) {
   worldTest(`road.state simultaneous ${order.join(' then ')} preserves pause on following ticks`, async ({ world, input, step }) => {
     for (const key of order) input.key(key, true);
     await step(1);
