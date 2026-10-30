@@ -180,7 +180,8 @@ recorded replay step 810: the code bundle changed, the complete traffic pool and
 stayed equal, and step 811 continued with hash `13c8b0c5de1dd787`. Reload took 17.063 ms;
 the source and compiled bundle were restored and the owned native host was stopped.
 The final full-suite pipeline capture passed 153 T1 tests and recorded 19 mobile, 30 desktop
-and 19 compat pipeline keys, including the corrected material program.
+and 19 compat pipeline warm-up records, including the corrected material program. Excluding
+program metadata, these contain 12 / 23 / 12 actual compiled pipeline keys.
 
 ## Strict active replay budget
 
@@ -204,6 +205,17 @@ extra simulation steps. Both owned hosts cleaned up successfully.
 Allocation includes protocol-driven presentation and capture overhead. It is neither production
 allocation per frame nor a phone FPS, hardware memory or thermal measurement. These focused
 budget passes do not replace the final integrated gate and CI results.
+
+The post-trim integrated PR gate passed all 19 harness steps: 43 harness tests, 122 T0 tests
+on each native JS engine, 153 T1 tests on each mobile/compat tier, 122 cooked T0 tests and
+122 tests on each V8/wasm parity lane. All eight canonical budget replays passed. Strict
+terrain and traffic captures passed both tiers with exact 168 / 829 steps and requests,
+respectively, no divergence, 10 peak draws, zero new pipelines and zero GC pauses over 4 ms.
+Traffic allocation was 378.679 / 378.084 MiB; each run had 2,488 protocol frames, with
+884 / 882 actual GPU frames and 55 / 53 internal same-snapshot retries. Terrain allocation
+was 69.498 / 69.434 MiB, below its 80 MiB ceiling. Each owned host cleaned up successfully.
+The two additional canonical tapes (right fork and 852-step traffic simulation) also passed
+explicit V8/Hermes verification, completing all ten checked-in tapes without another rewrite.
 
 ## Read-only browser diagnostics
 
@@ -247,7 +259,7 @@ visible cars. Actual screenshots, not the DTO or script green alone, establish v
 Hermes, and the native integrated render check passed. Browser population/pass acceptance
 still requires the actual background browser run, not these helper tests alone.
 
-Final integrated gates and GitHub CI remain pending.
+Final-head browser refresh and required GitHub CI remain pending.
 Browser checks must preserve user focus and clean up only their own browser profile.
 Physical-phone testing is excluded. This reference records
 implementation and observed evidence; it does not claim that pending lanes passed.
