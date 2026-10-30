@@ -10,13 +10,17 @@ const colors=new Uint8Array(VISUAL_POOL_CAPACITY*16);
 const indices=new Uint16Array(VISUAL_POOL_CAPACITY*6);
 const buffers:MeshArrays={positions,normals,tangents,uvs,colors,indices};
 export const vehicleBufferStats={visible:0,vertices:12,indices:18};
-export function buildVehicleBuffers(pose:number,sample:number,effect:number,scale:number,placeholder=false):MeshArrays {
+export function buildVehicleBuffers(pose:number,sample:number,effect:number,scale:number,placeholder=false,wheelEffects?:readonly [number,number],hidden=false):MeshArrays {
   positions.fill(0);normals.fill(0);tangents.fill(0);uvs.fill(0);indices.fill(0);colors.fill(255);
   vehicleBufferStats.visible=0;
+  // Keep the fixed pool and its asset pin alive. Alpha0 is the opaque loading
+  // placeholder's control channel, so hiding uses degenerate geometry instead.
+  if(hidden)return buffers;
   const unit=2*Math.max(.5,Math.min(6,scale))/720;
   const body=previewFrame(placeholder?0:pose,placeholder?0:sample);
-  const effectId=placeholder?null:effectFrame(effect,sample);
+  const sharedEffectId=placeholder?null:effectFrame(effect,sample);
   for(let slot=0;slot<VISUAL_POOL_CAPACITY;slot++) {
+    const effectId=slot>0&&wheelEffects&&!placeholder?effectFrame(wheelEffects[slot-1]!,sample):sharedEffectId;
     if(slot>0 && effectId===null)continue;
     const frame=slot===0?body:FERRARI1.effects[effectId!-1]!;
     const [w,h]=frame.sourceSizePx;const [ax,ay]=frame.groundAnchorPx;

@@ -18,7 +18,8 @@
       "previousBackOffset": 1000,
       "previousFrontOffset": 1000,
       "loaded": false,
-      "reconciled": false
+      "reconciled": false,
+      "followDriving": false
     },
     "RoadProofState": {
       "fixtureId": 1,

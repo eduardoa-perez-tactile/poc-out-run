@@ -1,0 +1,10 @@
+{
+  "replay": "tests/replays/terrain_profile_recorded_source_drive_skid_edge_pause_and_recenter.greplay",
+  "structural": {
+    "drawCallsMax": 10,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 32,
+    "repeat": 1
+  }
+}

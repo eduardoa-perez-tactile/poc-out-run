@@ -403,6 +403,12 @@
           "lanes": 1
         },
         {
+          "name": "followDriving",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
           "name": "cameraOriginZ",
           "kind": "f32",
           "scalar": "f32",
@@ -636,6 +642,113 @@
       "package": "OutRun"
     },
     {
+      "name": "TerrainDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "segment",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "roadSide",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "previousGap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftOutside",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "rightOutside",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "rightEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "skidding",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "recentering",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "recenterTarget",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "sectionEnd",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TerrainVisualState",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "animationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "VehiclePreview",
       "kind": "resource",
       "sim": false,
@@ -691,6 +804,30 @@
         },
         {
           "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "useWheelEffects",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "rightEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "hidden",
           "kind": "bool",
           "scalar": "u8",
           "lanes": 1

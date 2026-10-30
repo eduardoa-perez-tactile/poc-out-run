@@ -9,7 +9,7 @@ export interface DrivingSample { legacySpeed: number; gear: number; steering: nu
 export interface DrivingControls { throttle: boolean; brake: boolean; left: boolean; right: boolean; up: boolean; down: boolean }
 
 /** Nominal 60 Hz calibration; inputs and all authoritative outputs are recorded/f32. */
-export function advanceDriving(sample: DrivingSample, input: DrivingControls, manual: boolean, dt: number): DrivingSample {
+export function advanceDriving(sample: DrivingSample, input: DrivingControls, manual: boolean, dt: number, clampLateral = true): DrivingSample {
   let { legacySpeed: speed, gear, steering, lateral } = sample;
   const delta = f(DRIVING_ACCELERATION * dt);
   const cap = gear === 0 ? 100 : 200;
@@ -37,6 +37,9 @@ export function advanceDriving(sample: DrivingSample, input: DrivingControls, ma
     steering = f(steering - f(steering * 0.1));
     if (steering > -0.1 && steering < 0.1) steering = 0;
   }
-  lateral = f(Math.max(-1.5, Math.min(1.5, f(lateral + f(steering * dt)))));
+  // The default branch preserves the legacy proof's exact arithmetic. Source
+  // terrain driving applies its gap-dependent bounds after drift instead.
+  if (clampLateral) lateral = f(Math.max(-1.5, Math.min(1.5, f(lateral + f(steering * dt)))));
+  else lateral = f(lateral + f(steering * dt));
   return { legacySpeed: speed, gear, steering, lateral };
 }
