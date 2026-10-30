@@ -186,6 +186,12 @@ These are iteration targets, not measured guarantees. Report a slow gate and fix
 do not remove coverage to make the timing look good. Cold imports/toolchains run separately.
 Read logs only on failure; rerun broader suites only after changes or unresolved failures.
 
+Budgets marked `activeReplay: true` also capture their full recorded workload through the
+[active replay lane](active-replay-budgets.md) after each visual tier. Use
+`npm run test:budget -- --gpu-tier mobile --budget terrain.json` for one marked scenario.
+This starts capture at paused step 0 and requires exact recorded-step coverage; an idle-only
+capture cannot pass allocation or GC checks. Focused T0 iteration stays unchanged.
+
 ## GitHub checks and runner activation
 
 Hosted `repo-policy` runs on PRs and pushes to main/develop using Node only. It runs policy and

@@ -28,7 +28,7 @@ test('a zero-exit false-green replay response blocks structural rendering and fa
     mkdirSync(join(dir, 'scripts/lib'), { recursive: true });
     mkdirSync(join(dir, 'outrun/tests/budgets'), { recursive: true });
     mkdirSync(join(dir, 'outrun/tests/replays'), { recursive: true });
-    for (const file of ['scripts/harness.mjs', 'scripts/lib/plan.mjs', 'scripts/lib/replay-budgets.mjs', 'harness.config.json']) copyFileSync(resolve(file), join(dir, file));
+    for (const file of ['scripts/harness.mjs', 'scripts/lib/plan.mjs', 'scripts/lib/replay-budgets.mjs', 'scripts/lib/active-replay-budget.mjs', 'harness.config.json']) copyFileSync(resolve(file), join(dir, file));
     writeFileSync(join(dir, 'outrun/tests/budgets/hill.json'), JSON.stringify(entry('tests/replays/hill.greplay').value));
     writeFileSync(join(dir, 'outrun/tests/replays/hill.greplay'), 'not read by the fake engine');
     const fake = join(dir, 'fake-engine.mjs');
