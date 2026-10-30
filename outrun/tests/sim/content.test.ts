@@ -1,9 +1,34 @@
 import {worldTest,expect} from '@gameengine/test';
 import {EnterScene} from '@gameengine/runtime';
-import {Map01Preview} from '../../src/schema.gen.ts';
+import {Map01Preview,DrivingState,DrivingInput,RoadProofState} from '../../src/schema.gen.ts';
 import {loadMap01,trackHeight,sourcePlayerSample} from '../../src/content/biome.ts';
 import {buildSourceRoad,buildSourceProps,sourceProjectionStats,sourceProjectionBuffers} from '../../src/render/source-projection.ts';
 const SCENE={scene:'scenes/map01-data.scene.json'};
+for(const sameStep of [false,true])worldTest(`content.map01 ${sameStep?'same-step':'adjacent'} recorded entries preserve the later driving destination`,async({world,input,step})=>{
+  input.emit(EnterScene,{scene:'scenes/map01-data.scene.json',release:''});if(!sameStep)await step(1);
+  input.emit(EnterScene,{scene:'scenes/driving-proof.scene.json',release:''});await step(1);
+  expect(world.resource(DrivingState).active).toBe(true);
+  input.key('ArrowUp',true);await step(3);
+  expect(world.resource(DrivingState).active).toBe(true);
+  expect(world.resource(DrivingInput).keyboard).toBe(1);
+  expect(world.resource(DrivingState).legacySpeed).toBeGreaterThan(0);
+},SCENE);
+worldTest('content.map01 recorded reentry clears driving activation and every stale hold',async({world,input,step})=>{
+  input.emit(EnterScene,{scene:'scenes/driving-proof.scene.json',release:''});await step(2);
+  input.key('ArrowUp',true);input.key('ArrowLeft',true);await step(3);
+  expect(world.resource(DrivingState).active).toBe(true);
+  expect(world.resource(DrivingInput).keyboard).toBe(5);
+  // Include every held latch in this transition fixture, even one-frame shifts.
+  world.setResource(DrivingInput,{keyboard:5,ui:10,shiftUp:true,shiftDown:true,upHeld:true,downHeld:true,pauseHeld:true,modeHeld:true});
+  input.emit(EnterScene,{scene:'scenes/map01-data.scene.json',release:''});await step(2);
+  expect(world.resource(DrivingState).active).toBe(false);
+  expect(world.resource(DrivingInput)).toEqual({keyboard:0,ui:0,shiftUp:false,shiftDown:false,upHeld:false,downHeld:false,pauseHeld:false,modeHeld:false});
+  const road={...world.resource(RoadProofState)},driving={...world.resource(DrivingState)};
+  input.key('ArrowUp',false);input.key('ArrowLeft',false);await step(1);
+  input.key('ArrowUp',true);input.key('ArrowLeft',true);await step(5);
+  expect(world.resource(RoadProofState)).toEqual(road);
+  expect(world.resource(DrivingState)).toEqual(driving);
+},SCENE);
 worldTest('content.map01 dense canonical recorded startup',async({input,step,world})=>{
   input.view(1280,720,1);
   input.emit(EnterScene,{scene:'scenes/map01-data.scene.json',release:''});await step(1);

@@ -2,6 +2,17 @@
   "$schemaVersion": 2,
   "id": "map01-data",
   "resources": {
+    "DrivingInput": {
+      "keyboard": 0,
+      "ui": 0,
+      "shiftUp": false,
+      "shiftDown": false,
+      "upHeld": false,
+      "downHeld": false,
+      "pauseHeld": false,
+      "modeHeld": false
+    },
+    "DrivingState": { "active": false },
     "Map01Preview": { "enabled": true, "cameraOriginZ": 45000 },
     "RoadProofState": { "playing": false },
     "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }

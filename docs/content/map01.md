@@ -109,6 +109,10 @@ a static dense camera; it does not establish driving, scrolling-art or phone fra
 The scene's single `Map01VisualSlot` owns those meshes. Disabling the preview or losing the
 slot destroys both; scene exit also disables selectors even though resources survive
 `EnterScene`. Actual scene exit/reentry tests cover road and driving destinations.
+Recorded entry into the Map1 review scene resets driving activation and all input holds before
+driving systems run. The explicit scene defaults document that intent, but the cooked scene
+packer omits resource rows equal to schema defaults; the simulation entry system preserves
+the reset on both loose and cooked reentry without relying on presentation state.
 Before integration run the selected PR gate, cooked content tests, both T1 tiers and targeted
 actual-browser landscape checks. Physical-phone testing is excluded. Source-code/PNG oracles
 and approved port goldens are the available references; no original-game screenshot equality
