@@ -51,11 +51,7 @@
       "playing": true,
       "spaceHeld": false
     },
-    "TrafficArtPreview": {
-      "mode": 0,
-      "frame": 1,
-      "caseId": 0
-    },
+    "TrafficArtPreview": { "mode": 0, "frame": 1, "caseId": 0 },
     "VehiclePreview": {
       "enabled": true,
       "pose": 0,
@@ -71,33 +67,14 @@
       "rightEffect": 0,
       "hidden": false
     },
-    "WorldView": {
-      "orthoSize": 1,
-      "center": [
-        0,
-        0
-      ],
-      "fit": "Height",
-      "designAspect": 1.7777777777777777
-    }
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
   },
   "entities": [
     {
       "name": "Map1 Environment Camera",
       "id": "art-camera",
-      "Camera": {
-        "space": "Space3D",
-        "near": 0.1,
-        "far": 20,
-        "clearColor": "#0094ffff"
-      },
-      "LocalTransform": {
-        "position": [
-          0,
-          0,
-          10
-        ]
-      }
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
     },
     {
       "name": "Map1 Source Road",
@@ -147,10 +124,9 @@
     {
       "name": "Contact Detector Fixture (no crash response)",
       "id": "terrain-driver",
+      "CollisionDriver": {},
       "LocalTransform": {},
-      "MaterialOverrides": {
-        "values": "atlas=textures/player-ferrari1.png"
-      },
+      "MaterialOverrides": { "values": "atlas=textures/player-ferrari1.png" },
       "MeshRenderer": {
         "mesh": "dynamic:player-car",
         "material": "materials/player-car.material.ts",
@@ -159,11 +135,8 @@
       },
       "TerrainDriver": {},
       "TerrainVisualState": {},
-      "TrafficPool": {
-        "population": 32
-      },
-      "VehicleVisualSlot": {},
-      "CollisionDriver": {}
+      "TrafficPool": { "population": 32 },
+      "VehicleVisualSlot": {}
     }
   ]
 }
