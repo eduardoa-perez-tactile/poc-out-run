@@ -1,0 +1,53 @@
+{
+  "$schemaVersion": 2,
+  "id": "vehicle-preview",
+  "resources": {
+    "RoadProofState": { "fixtureId": 3, "distance": 33000, "previousDistance": 33000, "playing": false },
+    "VehiclePreview": { "enabled": true },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Projected Road Camera",
+      "id": "camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Road Proof Mesh",
+      "id": "road",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:road-proof",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Hill Background Order Diagnostic",
+      "id": "hill-backdrop",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/hill-proof.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:hill-backdrop",
+        "material": "materials/hill-objects.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Selected Player Car: Three Fixed Quad Slots",
+      "id": "vehicle-preview",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/player-ferrari1.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:player-car",
+        "material": "materials/player-car.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "VehicleVisualSlot": {}
+    }
+  ]
+}
