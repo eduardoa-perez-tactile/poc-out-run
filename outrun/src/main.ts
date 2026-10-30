@@ -10,3 +10,4 @@ export { ForkPreviewInput, ForkPreviewControl, AdvanceForkTransition } from './s
 export {Map01Presentation} from "./render/map01-presentation.ts";
 export {Map01ArtPresentation} from './render/map01-art-presentation.ts';
 export {ResetMap01Driving} from './sim/map01-entry.ts';
+export {TerrainPresentation} from './render/terrain-presentation.ts';

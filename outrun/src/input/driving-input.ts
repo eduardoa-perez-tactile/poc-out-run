@@ -1,11 +1,14 @@
-import { defineSystem, write, KeyEvent, Keys } from '@gameengine/runtime';
-import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested } from '../schema.gen.ts';
+import { defineSystem, write, read, query, math, KeyEvent, Keys } from '@gameengine/runtime';
+import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested, TerrainDriver } from '../schema.gen.ts';
+
+import {loadMap01} from '../content/biome.ts';
 
 export const CaptureDrivingInput = defineSystem({
   name: 'CaptureDrivingInput',
+  query:query(read(TerrainDriver)),
   events: [KeyEvent, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested],
   resources: [write(DrivingState), write(DrivingInput)],
-  run(ctx) {
+  run(ctx,sourceDrivers) {
     const state = ctx.resource(DrivingState);
     if (!state.active[0]) return;
     const held = ctx.resource(DrivingInput);
@@ -15,8 +18,17 @@ export const CaptureDrivingInput = defineSystem({
     };
     ctx.set(DrivingInput, { shiftUp: false, shiftDown: false });
     for (const reset of ctx.events.read(DrivingResetRequested)) {
-      const distance = ((reset.distance % 180000) + 180000) % 180000;
-      const lateral = Math.max(-1.5, Math.min(1.5, reset.lateral));
+      let distance:number,lateral:number;
+      if(sourceDrivers.count===1){
+        const data=loadMap01();
+        distance=math.fround(Math.max(0,Math.min(data.lastLine*data.segmentLength,reset.distance)));
+        const segment=Math.floor(math.fround(distance+data.playerOffsetZ)/data.segmentLength);
+        const right=math.fround(1.5+math.fround(data.segments[segment]!.gap/1600));
+        lateral=math.fround(Math.max(-1.5,Math.min(right,reset.lateral)));
+      }else{
+        distance = ((reset.distance % 180000) + 180000) % 180000;
+        lateral = Math.max(-1.5, Math.min(1.5, reset.lateral));
+      }
       ctx.set(DrivingState, {
         manual: reset.manual, legacySpeed: Math.max(0, Math.min(200, reset.legacySpeed)),
         gear: reset.legacySpeed >= 100 ? 1 : 0, steering: 0,

@@ -47,6 +47,9 @@ export const Map01ArtPresentation=defineSystem({
     if(preview.loaded[0]===0){assets.load(GROUP);ctx.setField(Map01ArtPreview,'loaded',true);}
     const ready=assets.progress(GROUP)>=1;map01ArtStats.ready=ready;
     const data=loadMap01(),maxZ=(data.totalCount-VISIBLE_SEGMENTS)*data.segmentLength;
+    // The source-driving adapter supplies current/previous simulation samples.
+    // None of the art review's keys, teleport detection or transport may compete.
+    if(preview.followDriving[0]===0){
     const first=preview.lastStep[0]===0;
     const clamped=Math.max(0,Math.min(maxZ,preview.cameraOriginZ[0]!));
     const teleported=preview.cameraOriginZ[0]!==preview.lastCameraOriginZ[0]||clamped!==preview.cameraOriginZ[0];
@@ -84,6 +87,7 @@ export const Map01ArtPresentation=defineSystem({
         if(next===previous){ctx.setField(Map01ArtPreview,'playing',false);break;}
       }
       ctx.setField(Map01ArtPreview,'lastStep',ctx.step);
+    }
     }
     const playing=preview.playing[0]!==0;
     const alpha=playing?Math.max(0,Math.min(1,ctx.resource(RenderTime).alpha[0]!)):1;

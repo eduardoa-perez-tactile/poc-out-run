@@ -3,6 +3,7 @@ import { component, resource, u32, f32, bool } from '@gameengine/schema';
 export const VehiclePreview = resource('VehiclePreview', {
   enabled: bool(), pose: u32(), sample: u32(), effect: u32(), scale: f32({ default: 3.2 }),
   placeholder: bool(), autoplay: bool(), loaded: bool(), reconciled: bool(),
+  useWheelEffects: bool(), leftEffect: u32(), rightEffect: u32(), hidden: bool(),
 }, { sim: false });
 export const VehicleVisualSlot = component('VehicleVisualSlot', {
   slot: u32(),

@@ -2,8 +2,30 @@
   "$schemaVersion": 2,
   "id": "vehicle-preview",
   "resources": {
-    "RoadProofState": { "fixtureId": 3, "distance": 33000, "previousDistance": 33000, "playing": false },
-    "VehiclePreview": { "enabled": true },
+    "RoadProofState": {
+      "fixtureId": 3,
+      "distance": 33000,
+      "previousDistance": 33000,
+      "lateral": 0,
+      "speed": 7200,
+      "playing": false,
+      "spaceHeld": false
+    },
+    "VehiclePreview": {
+      "enabled": true,
+      "pose": 0,
+      "sample": 0,
+      "effect": 0,
+      "scale": 3.2,
+      "placeholder": false,
+      "autoplay": false,
+      "loaded": false,
+      "reconciled": false,
+      "useWheelEffects": false,
+      "leftEffect": 0,
+      "rightEffect": 0,
+      "hidden": false
+    },
     "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
   },
   "entities": [

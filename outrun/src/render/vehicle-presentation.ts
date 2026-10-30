@@ -2,6 +2,7 @@ import { defineSystem,read,write,query,meshes,assets } from '@gameengine/runtime
 import { RoadProofState,VehiclePreview,VehicleVisualSlot } from '../schema.gen.ts';
 import { buildVehicleBuffers } from './vehicle-buffers.ts';
 import { VISUAL_FRAME_SECONDS } from '../content/vehicles/vehicle-poses.ts';
+const wheelEffects:[number,number]=[0,0];
 export const VehiclePresentation=defineSystem({
   name:'VehiclePresentation',stage:'LateUpdate',
   query:query(read(VehicleVisualSlot)),
@@ -33,7 +34,8 @@ export const VehiclePresentation=defineSystem({
     const sample=preview.autoplay[0]!==0 ? Math.floor(road.distance[0]!/(7200*VISUAL_FRAME_SECONDS)) : preview.sample[0]!;
     const pose=preview.pose[0]!;
     const placeholder=preview.placeholder[0]!==0 || assets.progress('player-ferrari1')<1;
-    const data=buildVehicleBuffers(pose,sample,preview.effect[0]!,preview.scale[0]!,placeholder);
+    wheelEffects[0]=preview.leftEffect[0]!;wheelEffects[1]=preview.rightEffect[0]!;
+    const data=buildVehicleBuffers(pose,sample,preview.effect[0]!,preview.scale[0]!,placeholder,preview.useWheelEffects[0]!==0?wheelEffects:undefined,preview.hidden[0]!==0);
     if(meshes.info('player-car')===null)meshes.create('player-car',data);
     else meshes.update('player-car',data);
   },

@@ -410,6 +410,12 @@ export const schemaIr = {
           "lanes": 1
         },
         {
+          "name": "followDriving",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
           "name": "cameraOriginZ",
           "kind": "f32",
           "scalar": "f32",
@@ -643,6 +649,113 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "TerrainDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "segment",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "roadSide",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "previousGap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftOutside",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "rightOutside",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "rightEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "skidding",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "recentering",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "recenterTarget",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "sectionEnd",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TerrainVisualState",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "animationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "VehiclePreview",
       "kind": "resource",
       "sim": false,
@@ -698,6 +811,30 @@ export const schemaIr = {
         },
         {
           "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "useWheelEffects",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "rightEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "hidden",
           "kind": "bool",
           "scalar": "u8",
           "lanes": 1
@@ -1303,6 +1440,7 @@ export const ForkVisualCache = typeToken<ForkVisualCacheViews, ForkVisualCacheVa
 export interface Map01ArtPreviewViews {
   enabled: Uint8Array;
   playing: Uint8Array;
+  followDriving: Uint8Array;
   cameraOriginZ: Float32Array;
   previousCameraOriginZ: Float32Array;
   lateral: Float32Array;
@@ -1320,6 +1458,7 @@ export interface Map01ArtPreviewViews {
 export interface Map01ArtPreviewValue {
   enabled: boolean;
   playing: boolean;
+  followDriving: boolean;
   cameraOriginZ: number;
   previousCameraOriginZ: number;
   lateral: number;
@@ -1335,7 +1474,7 @@ export interface Map01ArtPreviewValue {
   reconciled: boolean;
 }
 /** Map01ArtPreview (resource, presentation-only) */
-export const Map01ArtPreview = typeToken<Map01ArtPreviewViews, Map01ArtPreviewValue>('Map01ArtPreview', 'resource', { sig: 'enabled:bool:1,playing:bool:1,cameraOriginZ:f32:1,previousCameraOriginZ:f32:1,lateral:f32:1,speed:f32:1,lastStep:u32:1,controlHeld:u32:1,lastCameraOriginZ:f32:1,backOffset:f32:1,frontOffset:f32:1,previousBackOffset:f32:1,previousFrontOffset:f32:1,loaded:bool:1,reconciled:bool:1', read: (v: Map01ArtPreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.playing = v.playing[i] !== 0; o.cameraOriginZ = v.cameraOriginZ[i]; o.previousCameraOriginZ = v.previousCameraOriginZ[i]; o.lateral = v.lateral[i]; o.speed = v.speed[i]; o.lastStep = v.lastStep[i]; o.controlHeld = v.controlHeld[i]; o.lastCameraOriginZ = v.lastCameraOriginZ[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.previousBackOffset = v.previousBackOffset[i]; o.previousFrontOffset = v.previousFrontOffset[i]; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; return o; } });
+export const Map01ArtPreview = typeToken<Map01ArtPreviewViews, Map01ArtPreviewValue>('Map01ArtPreview', 'resource', { sig: 'enabled:bool:1,playing:bool:1,followDriving:bool:1,cameraOriginZ:f32:1,previousCameraOriginZ:f32:1,lateral:f32:1,speed:f32:1,lastStep:u32:1,controlHeld:u32:1,lastCameraOriginZ:f32:1,backOffset:f32:1,frontOffset:f32:1,previousBackOffset:f32:1,previousFrontOffset:f32:1,loaded:bool:1,reconciled:bool:1', read: (v: Map01ArtPreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.playing = v.playing[i] !== 0; o.followDriving = v.followDriving[i] !== 0; o.cameraOriginZ = v.cameraOriginZ[i]; o.previousCameraOriginZ = v.previousCameraOriginZ[i]; o.lateral = v.lateral[i]; o.speed = v.speed[i]; o.lastStep = v.lastStep[i]; o.controlHeld = v.controlHeld[i]; o.lastCameraOriginZ = v.lastCameraOriginZ[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.previousBackOffset = v.previousBackOffset[i]; o.previousFrontOffset = v.previousFrontOffset[i]; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; return o; } });
 
 export interface Map01ArtSlotViews {
   slot: Uint32Array;
@@ -1399,6 +1538,50 @@ export interface RoadProofVisualCacheValue {
 /** RoadProofVisualCache (resource, presentation-only) */
 export const RoadProofVisualCache = typeToken<RoadProofVisualCacheViews, RoadProofVisualCacheValue>('RoadProofVisualCache', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,lateral:f32:1,aspect:f32:1', read: (v: RoadProofVisualCacheViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
 
+export interface TerrainDriverViews {
+  mapId: Uint32Array;
+  segment: Uint32Array;
+  roadSide: Uint32Array;
+  previousGap: Float32Array;
+  initialized: Uint8Array;
+  leftOutside: Uint8Array;
+  rightOutside: Uint8Array;
+  leftEffect: Uint32Array;
+  rightEffect: Uint32Array;
+  skidding: Uint8Array;
+  recentering: Uint8Array;
+  recenterTarget: Float32Array;
+  sectionEnd: Uint8Array;
+}
+export interface TerrainDriverValue {
+  mapId: number;
+  segment: number;
+  roadSide: number;
+  previousGap: number;
+  initialized: boolean;
+  leftOutside: boolean;
+  rightOutside: boolean;
+  leftEffect: number;
+  rightEffect: number;
+  skidding: boolean;
+  recentering: boolean;
+  recenterTarget: number;
+  sectionEnd: boolean;
+}
+/** TerrainDriver (component, sim) */
+export const TerrainDriver = typeToken<TerrainDriverViews, TerrainDriverValue>('TerrainDriver', 'component', { sig: 'mapId:u32:1,segment:u32:1,roadSide:u32:1,previousGap:f32:1,initialized:bool:1,leftOutside:bool:1,rightOutside:bool:1,leftEffect:u32:1,rightEffect:u32:1,skidding:bool:1,recentering:bool:1,recenterTarget:f32:1,sectionEnd:bool:1', read: (v: TerrainDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.segment = v.segment[i]; o.roadSide = v.roadSide[i]; o.previousGap = v.previousGap[i]; o.initialized = v.initialized[i] !== 0; o.leftOutside = v.leftOutside[i] !== 0; o.rightOutside = v.rightOutside[i] !== 0; o.leftEffect = v.leftEffect[i]; o.rightEffect = v.rightEffect[i]; o.skidding = v.skidding[i] !== 0; o.recentering = v.recentering[i] !== 0; o.recenterTarget = v.recenterTarget[i]; o.sectionEnd = v.sectionEnd[i] !== 0; return o; } });
+
+export interface TerrainVisualStateViews {
+  lastStep: Uint32Array;
+  animationTicks: Uint32Array;
+}
+export interface TerrainVisualStateValue {
+  lastStep: number;
+  animationTicks: number;
+}
+/** TerrainVisualState (component, presentation-only) */
+export const TerrainVisualState = typeToken<TerrainVisualStateViews, TerrainVisualStateValue>('TerrainVisualState', 'component', { sig: 'lastStep:u32:1,animationTicks:u32:1', read: (v: TerrainVisualStateViews, i: number, o: Record<string, unknown>) => { o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; return o; } });
+
 export interface VehiclePreviewViews {
   enabled: Uint8Array;
   pose: Uint32Array;
@@ -1409,6 +1592,10 @@ export interface VehiclePreviewViews {
   autoplay: Uint8Array;
   loaded: Uint8Array;
   reconciled: Uint8Array;
+  useWheelEffects: Uint8Array;
+  leftEffect: Uint32Array;
+  rightEffect: Uint32Array;
+  hidden: Uint8Array;
 }
 export interface VehiclePreviewValue {
   enabled: boolean;
@@ -1420,9 +1607,13 @@ export interface VehiclePreviewValue {
   autoplay: boolean;
   loaded: boolean;
   reconciled: boolean;
+  useWheelEffects: boolean;
+  leftEffect: number;
+  rightEffect: number;
+  hidden: boolean;
 }
 /** VehiclePreview (resource, presentation-only) */
-export const VehiclePreview = typeToken<VehiclePreviewViews, VehiclePreviewValue>('VehiclePreview', 'resource', { sig: 'enabled:bool:1,pose:u32:1,sample:u32:1,effect:u32:1,scale:f32:1,placeholder:bool:1,autoplay:bool:1,loaded:bool:1,reconciled:bool:1', read: (v: VehiclePreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.pose = v.pose[i]; o.sample = v.sample[i]; o.effect = v.effect[i]; o.scale = v.scale[i]; o.placeholder = v.placeholder[i] !== 0; o.autoplay = v.autoplay[i] !== 0; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; return o; } });
+export const VehiclePreview = typeToken<VehiclePreviewViews, VehiclePreviewValue>('VehiclePreview', 'resource', { sig: 'enabled:bool:1,pose:u32:1,sample:u32:1,effect:u32:1,scale:f32:1,placeholder:bool:1,autoplay:bool:1,loaded:bool:1,reconciled:bool:1,useWheelEffects:bool:1,leftEffect:u32:1,rightEffect:u32:1,hidden:bool:1', read: (v: VehiclePreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.pose = v.pose[i]; o.sample = v.sample[i]; o.effect = v.effect[i]; o.scale = v.scale[i]; o.placeholder = v.placeholder[i] !== 0; o.autoplay = v.autoplay[i] !== 0; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; o.useWheelEffects = v.useWheelEffects[i] !== 0; o.leftEffect = v.leftEffect[i]; o.rightEffect = v.rightEffect[i]; o.hidden = v.hidden[i] !== 0; return o; } });
 
 export interface VehicleVisualSlotViews {
   slot: Uint32Array;
