@@ -12,7 +12,9 @@ const names=['map01-art-road','map01-art-props','map01-art-back','map01-art-fron
 const atlas={sizePx:MAP01_ART.atlas.sizePx,byObjectId:map01AtlasLookup(MAP01_ART.images)};
 function upload(name:string,arrays:MeshArrays){
   if(meshes.info(name)===null)meshes.create(name,arrays);else meshes.update(name,arrays);
-  map01ArtStats.uploads++;
+  const bytes=arrays.positions.byteLength+(arrays.normals?.byteLength??0)+(arrays.tangents?.byteLength??0)+(arrays.uvs?.byteLength??0)+(arrays.uvs1?.byteLength??0)+(arrays.colors?.byteLength??0)+(arrays.indices?.byteLength??0);
+  map01ArtStats.uploads++;map01ArtStats.submittedBytes+=bytes;
+  map01ArtStats.frameUploadCalls++;map01ArtStats.frameSubmittedBytes+=bytes;
 }
 function interpolateOffset(previous:number,current:number,alpha:number,width:number){
   const delta=wrapMap01Texels(current-previous+width/2,width)-width/2;
@@ -24,6 +26,8 @@ export const Map01ArtPresentation=defineSystem({
   events:[KeyEvent],query:query(read(Map01ArtSlot)),
   resources:[write(Map01ArtPreview),read(ViewInfo),read(RenderTime)],
   run(ctx,owners){
+    const frame=ctx.resource(RenderTime).frame[0]!;
+    if(map01ArtStats.renderFrame!==frame){map01ArtStats.renderFrame=frame;map01ArtStats.frameUploadCalls=0;map01ArtStats.frameSubmittedBytes=0;}
     if(ctx.step===0)return;
     const preview=ctx.resource(Map01ArtPreview),inactive=owners.count!==1||preview.enabled[0]===0;
     let release=preview.loaded[0]!==0;
@@ -37,7 +41,7 @@ export const Map01ArtPresentation=defineSystem({
       if(release){assets.release(GROUP);ctx.setField(Map01ArtPreview,'loaded',false);}
       if(owners.count!==1&&preview.enabled[0]!==0)ctx.setField(Map01ArtPreview,'enabled',false);
       ctx.set(Map01ArtPreview,{lastStep:0,controlHeld:0});
-      map01ArtStats.ready=false;map01ArtStats.drawn=0;map01ArtStats.roadQuads=0;map01ArtStats.uploads=0;
+      map01ArtStats.ready=false;map01ArtStats.drawn=0;map01ArtStats.roadQuads=0;map01ArtStats.uploads=0;map01ArtStats.submittedBytes=0;
       return;
     }
     if(preview.loaded[0]===0){assets.load(GROUP);ctx.setField(Map01ArtPreview,'loaded',true);}

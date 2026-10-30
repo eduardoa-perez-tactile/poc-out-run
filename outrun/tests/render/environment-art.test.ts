@@ -1,4 +1,4 @@
-import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
+import {renderTest,expect,type WorldTestContext,type RenderContext} from '@gameengine/test';
 import {EnterScene,assets,meshes} from '@gameengine/runtime';
 import {Map01ArtPreview,Map01ArtSlot,DrivingState,RoadProofState} from '../../src/schema.gen.ts';
 import {loadMap01} from '../../src/content/biome.ts';
@@ -14,6 +14,74 @@ async function ready(step:WorldTestContext['step']){
   expect(map01ArtStats.ready).toBe(true);
   expect(assets.stats().groups[GROUP]!.failed.length).toBe(0);
 }
+function expectTransparentPanoramaTop(render:RenderContext,width:number,height:number){
+  const top=sourceProjectionStats.horizonY+MAP01_PANORAMA_HEIGHT_PX*2/MAP01_PANORAMA_REFERENCE_HEIGHT;
+  // Probe the first raster-covered row, not just sky outside the quad. At a
+  // minified viewport even a base-level V clamp can sample wrapped mip texels.
+  const first=Math.ceil((1-top)*height/2-.5);
+  expect(first>0&&first<height-2).toBe(true);
+  const points:[number,number][]=[];
+  for(const fraction of [.125,.3125,.5,.6875,.875])for(const y of [first-1,first,first+1])points.push([Math.floor(width*fraction),y]);
+  const sky=loadMap01().palette[0]!;
+  for(const pixel of render.probe({width,height,points}).points){
+    for(let channel=0;channel<3;channel++)expect(Math.abs(pixel.rgba[channel]!-sky[channel]!)).toBeLessThanOrEqual(1);
+  }
+}
+renderTest('environment.profile canonical recorded dense travel',async({world,input,step,render})=>{
+  // Start from the configured project scene. Every scene/sample/transport change
+  // below is recorded input, so the resulting tape is valid for budget playback.
+  expect(world.count(Map01ArtSlot)).toBe(0);
+  input.view(1280,720,1);
+  input.emit(EnterScene,{scene:'scenes/map01-art.scene.json',release:''});await ready(step);
+  input.key('Digit9',true);await step(1);input.key('Digit9',false);await step(1);
+  expect(world.resource(Map01ArtPreview).cameraOriginZ).toBe(1930*150);
+  render.probe({width:1280,height:720,points:[[640,60],[640,650]]});await step(1);
+  const start=world.resource(Map01ArtPreview).cameraOriginZ;
+  const submittedBefore=map01ArtStats.submittedBytes;
+  const meshesBefore=NAMES.map(name=>meshes.info(name)!);
+  expect(meshesBefore.every(info=>info!==null)).toBe(true);
+  expect(meshesBefore.map(info=>info.vertices)).toEqual([7200,1024,4,4]);
+  input.key('KeyP',true);await step(1);input.key('KeyP',false);await step(1);
+  let peakDraws=0,peakVisited=0,peakDrawn=0,peakFrameBytes=0,peakOwnedMeshBytes=0;
+  let minDrawn=Infinity;
+  for(let sample=0;sample<8;sample++){
+    await step(15);
+    const frame=render.stats({width:1280,height:720});
+    expect(map01ArtStats.ready).toBe(true);
+    expect(map01ArtStats.roadQuads).toBeGreaterThan(0);
+    expect(map01ArtStats.drawn).toBeGreaterThan(0);
+    expect(map01ArtStats.frameUploadCalls).toBe(4);
+    //1800 road+256 prop+2 panorama quads, all streams and Uint16 indices.
+    expect(map01ArtStats.frameSubmittedBytes).toBe(452760);
+    const owned=NAMES.map(name=>meshes.info(name)!);
+    expect(owned.map(info=>info.vertices)).toEqual([7200,1024,4,4]);
+    peakOwnedMeshBytes=Math.max(peakOwnedMeshBytes,owned.reduce((bytes,info)=>bytes+info.bytes,0));
+    if(sample===0)console.log('Map1 active render stats',frame);
+    peakDraws=Math.max(peakDraws,frame.drawCalls);peakVisited=Math.max(peakVisited,map01ArtStats.visited);
+    peakDrawn=Math.max(peakDrawn,map01ArtStats.drawn);minDrawn=Math.min(minDrawn,map01ArtStats.drawn);
+    peakFrameBytes=Math.max(peakFrameBytes,map01ArtStats.frameSubmittedBytes);
+  }
+  expect(world.resource(Map01ArtPreview).cameraOriginZ).toBeGreaterThan(start+14000);
+  expect(world.resource(Map01ArtPreview).playing).toBe(true);
+  // Four mesh instances plus the capture target's post.present blit.
+  expect(peakDraws).toBeLessThanOrEqual(5);expect(peakVisited).toBeLessThanOrEqual(138);
+  expect(peakOwnedMeshBytes).toBeLessThanOrEqual(512*1024);
+  expect(map01ArtStats.submittedBytes-submittedBefore).toBeGreaterThan(452760*120);
+  const group=assets.stats().groups[GROUP]!;
+  expect(group.status).toBe('loaded');expect(group.progress).toBe(1);expect(group.failed.length).toBe(0);
+  console.log('Map1 selected group actual',group,'meshCPUBytes',peakOwnedMeshBytes,'submittedBytes',map01ArtStats.submittedBytes-submittedBefore);
+  expect(group.resident.textures).toBeGreaterThan(0);
+  // Loose PNGs acquire an engine-generated mip chain; cooked KTX keeps the
+  // authored single level. Bound both charged paths, and log their actual bytes.
+  expect(group.resident.textures).toBeLessThanOrEqual(11*1024*1024);
+  expect(assets.stats().groups['player-ferrari1']?.status==='loaded').toBe(false);
+  console.log('Map1 environment travel evidence',{
+    start,end:world.resource(Map01ArtPreview).cameraOriginZ,peakDraws,peakVisited,peakDrawn,minDrawn,
+    peakFrameSubmittedBytes:peakFrameBytes,submittedBytes:map01ArtStats.submittedBytes-submittedBefore,
+    ownedNativeMeshBytes:peakOwnedMeshBytes,meshCapacities:meshesBefore,
+    selectedGroup:group,sourceRgbaBytesArithmetic:7864320,
+  });
+},{memory:'phone-low'});
 for(const [name,distance,lateral] of [
   ['start',45000,0],['hill',54000,0],['dense',1930*150,0],['fork',4284*150,0],
   ['palm near',101000,1],['palm middle',97000,1],['palm far',87000,1],
@@ -28,19 +96,7 @@ for(const [name,distance,lateral] of [
     expect(map01ArtStats.drawn).toBeLessThanOrEqual(MAP01_PROP_CAPACITY);
     expect(meshes.info('map01-art-props')!.vertices).toBe(MAP01_PROP_CAPACITY*4);
     render.expectDrawCalls('<=',8,{width:1280,height:720});
-    if(name==='hill'){
-      const top=sourceProjectionStats.horizonY+MAP01_PANORAMA_HEIGHT_PX*2/MAP01_PANORAMA_REFERENCE_HEIGHT;
-      // First raster-covered row, rather than a pixel outside the quad that
-      // could miss an opaque-bottom wrap fringe along its transparent top.
-      const first=Math.ceil((1-top)*360-.5);
-      expect(first>0&&first<718).toBe(true);
-      const points:[number,number][]=[];
-      for(const x of [160,400,640,880,1120])for(const y of [first-1,first,first+1])points.push([x,y]);
-      const sky=loadMap01().palette[0]!;
-      for(const pixel of render.probe({width:1280,height:720,points}).points){
-        for(let channel=0;channel<3;channel++)expect(Math.abs(pixel.rgba[channel]!-sky[channel]!)).toBeLessThanOrEqual(1);
-      }
-    }
+    if(name==='hill')expectTransparentPanoramaTop(render,1280,720);
     render.expectScreenshot('art',{width:1280,height:720});
   },SCENE);
 }
@@ -49,8 +105,15 @@ renderTest('environment.art narrow landscape keeps source metadata and fills bot
   await ready(step);
   expect(loadMap01().placements.length).toBe(1475);
   expect(meshes.info('map01-art-back')!.vertices).toBe(4);expect(meshes.info('map01-art-front')!.vertices).toBe(4);
+  expectTransparentPanoramaTop(render,882,344);
   render.expectScreenshot('art',{width:882,height:344});
 },SCENE);
+for(const [width,height] of [[852,393],[1080,810],[1280,720],[720,540]] as const){
+  renderTest(`environment.panorama transparent top stays clear at ${width}x${height}`,async({world,input,step,render})=>{
+    input.view(width,height,1);world.setResource(Map01ArtPreview,{cameraOriginZ:1930*150});await ready(step);
+    expectTransparentPanoramaTop(render,width,height);
+  },SCENE);
+}
 renderTest('environment.lifecycle authoring travel and pause cannot change driving or road simulation',async({world,input,step})=>{
   input.view(1280,720,1);world.setResource(Map01ArtPreview,{cameraOriginZ:1930*150});await ready(step);
   const road={...world.resource(RoadProofState)},driving={...world.resource(DrivingState)};

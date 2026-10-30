@@ -14,7 +14,14 @@ export const map01PropSamples={
   placementId:new Int32Array(MAP01_PROP_CAPACITY),objectId:new Uint8Array(MAP01_PROP_CAPACITY),
   fullHeight:new Float32Array(MAP01_PROP_CAPACITY),fraction:new Float32Array(MAP01_PROP_CAPACITY),
 };
-export const map01ArtStats={visited:0,drawn:0,partial:0,hidden:0,outside:0,ready:false,roadQuads:0,uploads:0};
+export const map01ArtStats={
+  visited:0,drawn:0,partial:0,hidden:0,outside:0,ready:false,roadQuads:0,
+  // Cumulative mesh API submissions during this active ownership period.
+  uploads:0,submittedBytes:0,
+  // Actual RenderTime.frame, with calls/raw typed-array bytes submitted in that
+  // frame. These count JS→native copies, not measured hardware GPU bandwidth.
+  renderFrame:-1,frameUploadCalls:0,frameSubmittedBytes:0,
+};
 
 export function map01AtlasLookup(images:readonly Map01AtlasImage[]):readonly (Map01AtlasImage|undefined)[]{
   const byId:(Map01AtlasImage|undefined)[]=new Array(72);

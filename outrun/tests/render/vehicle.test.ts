@@ -39,9 +39,24 @@ renderTest('vehicle.residency selected car and fixed pool survive repeated previ
   render.probe({width:882,height:344,points:[[441,300]]});
   expect(meshes.info('player-car')!.vertices).toBe(12);
   const stats=assets.stats();
-  expect(stats.groups['player-ferrari1']!.failed.length).toBe(0);
-  expect(stats.resident.textures).toBeLessThanOrEqual(10*1024*1024);
-  expect(Object.keys(stats.groups)).toEqual(['player-ferrari1']);
+  const selected=stats.groups['player-ferrari1']!;
+  expect(selected.status).toBe('loaded');
+  expect(selected.progress).toBe(1);expect(selected.failed).toEqual([]);
+  expect(selected.members).toBe(2); // Selected atlas and its material only.
+  expect(selected.resident.textures).toBeGreaterThan(0);
+  // Charge only this car to its tighter bound: cooked atlas is 4 MiB; loose
+  // loading may retain its full mip chain. Neither permits another car family.
+  expect(selected.resident.textures).toBeLessThanOrEqual(6*1024*1024);
+  expect(Object.entries(stats.groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort()).toEqual(['player-ferrari1']);
+  for(const [name,group] of Object.entries(stats.groups))if(name!=='player-ferrari1'){
+    // Released content can remain cached. It must never retain an active pin.
+    expect(group.status==='released'||group.status==='unloaded').toBe(true);
+  }
+  expect(stats.class).toBe('phone-low');expect(stats.overBudget).toBe(null);
+  expect(stats.budget.textures!==null&&stats.budget.total!==null).toBe(true);
+  expect(stats.resident.textures).toBeLessThanOrEqual(128*1024*1024);
+  expect(stats.resident.textures).toBeLessThanOrEqual(stats.budget.textures!);
+  expect(stats.resident.total).toBeLessThanOrEqual(stats.budget.total!);
 },SCENE);
 renderTest('vehicle.placeholder stays distinct and centered in narrow landscape',async({input,step,render,world})=>{
   input.view(720,540,1);

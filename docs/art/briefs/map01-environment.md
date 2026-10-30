@@ -73,3 +73,100 @@ python3 scripts/art/import-map01.py --source /path/to/clean/pinned/OutRun --writ
 python3 scripts/art/import-map01.py --committed
 node --test scripts/environment-art.test.mjs
 ```
+
+## Runtime filtering decision
+
+Use linear sampling at explicit texture level zero for the projected prop atlas and the
+independent panorama layers, with cooked mipmaps disabled. This is an intentional presentation choice, rather than a claim of exact
+sampling equivalence with the upstream SFML default. Original input/atlas pixels remain
+unchanged. Point sampling was compared at the same near/middle/far palm poses, at the start
+banner, and during seven consecutive fixed-step frames at the start, hill and dense presets.
+The motion pairs use identical recorded preset/KeyP inputs and matching camera distances:
+45120–45840, 54120–54840 and 289620–290340, advancing 120 source units per step.
+
+Point sampling preserves sharper enlarged banner/spectator pixel clusters; linear sampling
+softens those edges but gives calmer distant palm, surf and crowd detail while keeping the
+silhouettes and direction signs readable. The coordinator and independent reviewer inspected
+both cooked point/linear candidates and nine cooked linear motion frames at the same
+start/hill/dense distances. Cooked distant foliage and surf are visibly more granular than
+the loose preview with generated mips; that loose-only observation is superseded for the
+single-level decision. The comparison covers short native 1280×720 sequences; it does not prove
+that subpixel shimmer is eliminated or establish performance on physical phones.
+
+The loose PNG preview automatically builds mipmaps in engine 0.1.21, regardless of the cook
+setting. Cooked KTX textures preserve `mipmaps=false`. Both cooked point/linear palm poses
+were captured separately; the loose moving comparison alone cannot approve cooked sampling.
+Residual high-frequency speckling remains visible in the cooked minified scenery.
+No explicit cooked mipmap candidate was compared. No mipmaps is the bounded initial policy: three source-sized
+textures total 7.5 MiB RGBA, and the packed cutouts have a two-texel guard rather than isolation
+for a full mip chain. This does not establish that mipmaps would look worse. Revisit the policy
+if longer gameplay or smaller viewports expose unacceptable distant aliasing. Panorama V
+coordinates clamp to the sampled top-253-row range to prevent the repeat sampler from mixing
+the opaque bottom into the transparent top; horizontal coordinates remain continuous/repeating.
+Browser movement/wrap, final viewport goldens and actual residency remain separate evidence.
+
+Comparison artifacts: `/tmp/outrun-env40-filter-compare/`,
+`/tmp/outrun-env40-filter-motion/observations.json` and the adjacent 42 frame captures;
+`/tmp/outrun-env40-live-{linear,point}.png` proves the material hot-reload comparison.
+Cooked comparisons are in `/tmp/outrun-env40-filter-compare/cooked-{linear,point}/`
+and `/tmp/outrun-env40-filter-motion-cooked/`. These are review artifacts, not source-image
+oracles or approved golden files.
+
+## Runtime cost evidence
+
+The canonical travel fixture starts from the configured project scene, enters the art scene
+through recorded input, selects the dense preset, and plays 122 fixed steps. A cooked mobile
+phone-low run progressed from 289500 to 304140 source units, drawing 105–126 props while
+visiting at most 134 placements. Four owned mesh instances plus the capture target's
+`post.present` blit cost five draw calls. The recorded frame had zero newly created pipelines.
+This is a preview transport check, not a completed race or a hardware performance measurement.
+
+Actual submitted vertex/index arrays total 452,760 bytes over four mesh API calls per render
+frame (55,236,720 bytes over the measured travel interval). `meshes.info` reports 477,456 CPU
+bytes for the four owned meshes: road 417,600, props 59,392 and two panoramas of 232 each.
+The SDK documents a GPU copy; these numbers do not measure GPU bandwidth or process RSS.
+Counters distinguish cumulative submissions from submissions in the current `RenderTime.frame`.
+
+The selected eight-member cooked group charges 7,864,400 resident bytes. Its three single-level
+RGBA textures contribute 7,864,320 bytes and five material uniform buffers add 80 bytes; the
+engine's `resident.textures` counter includes those buffers. Loose previews instead charge
+10,485,864 bytes: the PNG loader generates full mip chains (10,485,784 bytes) plus the same
+80 bytes. This distinction is observed runtime behavior, not a duplicate-copy estimate.
+The fixture bounds either selected-group path to 11 MiB; the project's engine phone-low
+texture budget remains 128 MiB. Released groups can remain cached until residency pressure
+evicts them; release assertions do not claim immediate physical memory reclamation.
+
+Evidence: `/tmp/outrun-env40-profile-cooked-final.json`; the initial failed four-draw and
+8 MiB assumptions are retained in `/tmp/outrun-env40-profile-first.json` and
+`/tmp/outrun-env40-profile-measured.json`. The fifth draw was confirmed against frame passes
+and the pinned renderer's presentation-blit accounting. The recorded travel tape verifies on V8/Hermes. Its first full mobile structural run passed
+five draws, zero runtime pipeline creation, zero GC pauses over 4 ms and 13.50 MiB JS
+allocations. All older scenario budgets also passed. This run still failed the eight unapproved
+new screenshots and the old vehicle test's global-cache assumption; it is not a passing full
+visual gate. The narrow panorama seam was then reproduced by a pixel assertion before repair.
+All-tier pipeline refresh after the material repair, cooked catalog inspection, final visual
+gates and browser evidence remain required.
+
+## Narrow viewport regression and sampling repair
+
+The first full mobile visual review exposed a one-pixel horizontal panorama line at y=116
+in 882×344: its pixels were `(42,152,255)` instead of sky `(0,148,255)`. The base-level V
+clamp alone could not stop the larger footprint of loose generated mipmaps from wrapping
+opaque bottom texels into the transparent top. A first-covered-row pixel test reproduced
+that failure before the repair. Both environment materials now use the supported custom
+WGSL `textureSampleLevel(..., 0.0)` operation. They sample the authored base image in loose
+and cooked builds, preserving horizontal repeat, the top-253-row crop and all source pixels.
+No transparency mask or artwork crop hides the error. The repaired narrow row is sky at all
+five sampled positions; pixel-only checks cover the other four required landscape sizes.
+Loose mip allocations remain charged even though the shaders no longer sample those levels.
+The earlier implicit-LOD pipeline recording must be refreshed for the changed programs.
+
+After the LOD0 repair, all-tier recording refreshed mobile/desktop/compat pipeline coverage
+(16/26/16 entries). The full mobile run had 125 cases: 117 passed and the eight new images
+awaited review; every older case, including the car cache test, passed. All six structural
+budgets passed; the repaired environment replay measured 12.46 MiB JS allocations with the
+same five draws, zero new pipelines and zero GC pauses over 4 ms. The eight new mobile images
+were inspected by coordinator and independent reviewer. Compat captures passed all other
+assertions and decoded to exactly the same full RGBA pixels/dimensions as those approved
+mobile images. Only those sixteen new golden paths were approved. Existing golden/replay
+bytes remain unchanged. This visual approval does not replace the final PR/browser gates.
