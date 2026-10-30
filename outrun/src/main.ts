@@ -4,3 +4,5 @@ export { CaptureDrivingInput } from './input/driving-input.ts';
 export { AdvanceDriving } from './sim/driving.ts';
 export { HillProofOverlay } from './ui/hill-proof.tsx';
 export { ForkPreviewInput, ForkPreviewControl, AdvanceForkTransition } from './sim/fork-preview.ts';
+
+export {Map01Presentation} from "./render/map01-presentation.ts";

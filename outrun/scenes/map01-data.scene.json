@@ -1,0 +1,40 @@
+{
+  "$schemaVersion": 2,
+  "id": "map01-data",
+  "resources": {
+    "Map01Preview": { "enabled": true, "cameraOriginZ": 45000 },
+    "RoadProofState": { "playing": false },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Map1 Data Camera",
+      "id": "camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Converted Map1 Road",
+      "id": "source-road",
+      "LocalTransform": {},
+      "Map01VisualSlot": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:map01-road",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Metadata Diagnostic Props (Art Deferred40)",
+      "id": "source-props",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:map01-props",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    }
+  ]
+}
