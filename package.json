@@ -2,7 +2,9 @@
   "name": "poc-out-run-workspace",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "setup": "node scripts/harness.mjs setup",
     "verify": "node scripts/harness.mjs verify",
@@ -16,6 +18,7 @@
     "check:game": "node scripts/harness.mjs check",
     "gate:pr": "node scripts/harness.mjs pr",
     "gate:milestone": "node scripts/harness.mjs milestone",
-    "test:plan": "node scripts/harness.mjs plan"
+    "test:plan": "node scripts/harness.mjs plan",
+    "test:budget": "node scripts/harness.mjs budget"
   }
 }

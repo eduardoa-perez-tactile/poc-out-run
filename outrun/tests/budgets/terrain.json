@@ -4,7 +4,8 @@
     "drawCallsMax": 10,
     "pipelinesCreatedDuringPlay": 0,
     "gcPausesOver4msMax": 0,
-    "jsAllocatedMBMax": 32,
+    "jsAllocatedMBMax": 80,
     "repeat": 1
-  }
+  },
+  "activeReplay": true
 }

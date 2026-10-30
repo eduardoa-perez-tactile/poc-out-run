@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { performance } from 'node:perf_hooks';
 import { classifyPaths, parseNameStatus } from './lib/plan.mjs';
 import { budgetReplayPaths, verifiedReplayReport } from './lib/replay-budgets.mjs';
+import { activeReplayReport } from './lib/active-replay-budget.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const config = JSON.parse(readFileSync(join(root, 'harness.config.json'), 'utf8'));
@@ -122,10 +123,23 @@ function nativeGate() {
   verifyBudgetReplays();
   engine('native-parity', ['test', '--tier', 't0', '--js', 'both'], true);
 }
+function activeBudgets(tier, budgetName) {
+  if (!['mobile', 'compat'].includes(tier)) throw new Error('Active replay GPU tier must be mobile or compat');
+  const entries = files(join(project, 'tests/budgets')).filter((path) => path.endsWith('.json')).map((file) => ({ file, value: JSON.parse(readFileSync(file, 'utf8')) }));
+  for (const { file, value } of entries) {
+    if (Object.hasOwn(value, 'activeReplay') && value.activeReplay !== true) throw new Error(`Budget ${file} activeReplay must be true when present`);
+  }
+  if (budgetName === undefined && !entries.some(({ value }) => value.activeReplay === true)) return;
+  run(`active-replay-${tier}`, process.execPath, [join(root, 'scripts/active-replay-budget.mjs'), '--project', project,
+    '--gpu-tier', tier, '--out', join(output, `active-replay-${tier}.json`), ...(budgetName === undefined ? [] : ['--budget', budgetName])], root, false, activeReplayReport);
+}
+
 function visual() {
   verifyBudgetReplays();
   engine('render-mobile', ['test', '--tier', 't1', '--js', 'v8', '--gpu-tier', 'mobile', '--memory-class', 'phone-low'], true);
+  activeBudgets('mobile');
   engine('render-compat', ['test', '--tier', 't1', '--js', 'v8', '--gpu-tier', 'compat', '--memory-class', 'phone-low'], true);
+  activeBudgets('compat');
 }
 function web() { engine('web-parity', ['test', '--tier', 't0', '--js', 'v8,web'], true); }
 function cooked() { engine('cooked', ['test', '--tier', 't0', '--js', 'v8', '--cooked'], true); }
@@ -162,6 +176,16 @@ try {
       engine('focus', ['test', '--tier', 't0', '--js', 'v8', '--filter', args[0]], true);
     } else if (mode === 'fast') engine('fast', ['test', '--tier', 't0', '--js', 'v8'], true);
     else if (mode === 'parity') engine('native-parity', ['test', '--tier', 't0', '--js', 'both'], true);
+    else if (mode === 'budget') {
+      let tier = 'mobile', budgetName;
+      for (let i = 0; i < args.length; i += 2) {
+        if (!['--gpu-tier', '--budget'].includes(args[i]) || !args[i + 1] || args[i + 1].startsWith('--')) throw new Error('Usage: npm run test:budget -- [--gpu-tier mobile|compat] [--budget terrain.json]');
+        if (args[i] === '--gpu-tier') tier = args[i + 1]; else budgetName = args[i + 1];
+      }
+      const marked = files(join(project, 'tests/budgets')).some((path) => path.endsWith('.json') && JSON.parse(readFileSync(path, 'utf8')).activeReplay === true);
+      if (!marked && budgetName === undefined) throw new Error('No active replay budgets selected');
+      activeBudgets(tier, budgetName);
+    }
     else if (mode === 'visual') visual();
     else if (mode === 'web') web();
     else if (mode === 'cooked') cooked();
