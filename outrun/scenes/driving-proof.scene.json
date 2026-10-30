@@ -2,8 +2,27 @@
   "$schemaVersion": 2,
   "id": "driving-proof",
   "resources": {
-    "DrivingState": { "active": true },
-    "RoadProofState": { "speed": 0 },
+    "DrivingState": {
+      "active": true,
+      "playing": true,
+      "manual": false,
+      "legacySpeed": 0,
+      "gear": 0,
+      "steering": 0,
+      "distance": 45000,
+      "previousDistance": 45000,
+      "lateral": 0,
+      "previousLateral": 0
+    },
+    "RoadProofState": {
+      "fixtureId": 1,
+      "distance": 45000,
+      "previousDistance": 45000,
+      "lateral": 0,
+      "speed": 0,
+      "playing": true,
+      "spaceHeld": false
+    },
     "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
   },
   "entities": [
