@@ -749,6 +749,65 @@
       "package": "OutRun"
     },
     {
+      "name": "TrafficArtPreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "frame",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "caseId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficArtResidency",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "catalogLoaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "catalogReconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "TrafficPassed",
       "kind": "event",
       "sim": true,
@@ -918,6 +977,12 @@
         },
         {
           "name": "parked",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "motionTicks",
           "kind": "array",
           "scalar": "u32",
           "lanes": 32

@@ -17,6 +17,12 @@ later requests it; do not use connected phones for installs, runs, profiling or 
 Use simulated mobile viewports/safe areas, desktop phone-low residency and structural checks,
 native/web parity and targeted real-browser checks. Hardware budgets remain design targets.
 
+All Chrome/browser test launches must stay in the background without interrupting the user's
+work or stealing focus. Never activate the browser, call `bringToFront`, launch in the
+foreground or cycle minimize/restore. Reuse an isolated test session when possible and clean
+up only test windows/processes owned by that session. Verify focus preservation and actual
+rendered pixels/behavior; an unavailable background browser lane remains blocked.
+
 ## Conventions
 
 The Git repository and npm harness live one directory above this game. Read ../AGENTS.md,

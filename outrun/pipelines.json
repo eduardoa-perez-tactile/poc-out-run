@@ -51,6 +51,10 @@
    "program": "materials/road.material.ts"
   },
   {
+   "r": "3d-program",
+   "program": "materials/traffic-composite.material.ts"
+  },
+  {
    "r": "3d",
    "key": {
     "Forward": {
@@ -100,6 +104,21 @@
    "key": {
     "Forward": {
      "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 1,
+     "format": 22,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "93df645162146739",
      "alpha": 2,
      "double_sided": false,
      "prepassed": false,
@@ -215,6 +234,10 @@
    "program": "materials/road.material.ts"
   },
   {
+   "r": "3d-program",
+   "program": "materials/traffic-composite.material.ts"
+  },
+  {
    "r": "3d",
    "key": {
     "Forward": {
@@ -328,6 +351,37 @@
    "key": {
     "Forward": {
      "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 4,
+     "format": 40,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "93df645162146739",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 4,
+     "format": 40,
+     "skinned": false,
+     "debug": 0,
+     "fade": true
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "93df645162146739",
      "alpha": 2,
      "double_sided": false,
      "prepassed": false,
@@ -529,6 +583,10 @@
    "program": "materials/road.material.ts"
   },
   {
+   "r": "3d-program",
+   "program": "materials/traffic-composite.material.ts"
+  },
+  {
    "r": "3d",
    "key": {
     "Forward": {
@@ -578,6 +636,21 @@
    "key": {
     "Forward": {
      "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 1,
+     "format": 22,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "93df645162146739",
      "alpha": 2,
      "double_sided": false,
      "prepassed": false,

@@ -1,26 +1,111 @@
 {
   "$schemaVersion": 2,
   "name": "OutRun",
-  "bundleId": { "ios": "com.example.outrun", "android": "com.example.outrun" },
+  "bundleId": {
+    "ios": "com.example.outrun",
+    "android": "com.example.outrun"
+  },
   "version": "0.1.0",
-  "sim": { "dt": 0.016666667, "maxStepsPerFrame": 5, "physicsThreads": 1, "hashInDev": true, "seed": 1 },
-  "js": { "entry": "src/main.ts", "target": "es2020" },
+  "sim": {
+    "dt": 0.016666667,
+    "maxStepsPerFrame": 5,
+    "physicsThreads": 1,
+    "hashInDev": true,
+    "seed": 1
+  },
+  "js": {
+    "entry": "src/main.ts",
+    "target": "es2020"
+  },
   "render": {
     "defaultTier": "auto",
-    "tiers": { "mobile": { "msaa": 1, "hdr": false }, "compat": { "msaa": 1, "hdr": false } },
-    "clearColor": [0.1, 0.13, 0.22, 1],
-    "sortingLayers": ["Default"],
+    "tiers": {
+      "mobile": {
+        "msaa": 1,
+        "hdr": false
+      },
+      "compat": {
+        "msaa": 1,
+        "hdr": false
+      }
+    },
+    "clearColor": [
+      0.1,
+      0.13,
+      0.22,
+      1
+    ],
+    "sortingLayers": [
+      "Default"
+    ],
     "pixelsPerUnit": 100
   },
-  "ui": { "referenceResolution": [1920, 1080], "orientation": "landscape" },
-  "text": { "defaultFont": "fonts/NotoSans-Regular" },
-  "bundles": [{ "name": "base", "include": ["**"], "delivery": "in-app", "exclude": ["assets/art/vehicles/player/**", "assets/art/vehicles/effects/**", "assets/art/environments/map01/**"] }],
-  "targets": ["ios", "android"],
-  "platforms": ["mobile", "web"],
-  "assets": { "groups": {
-    "player-ferrari1": { "include": ["assets/textures/player-ferrari1.png", "assets/materials/player-car.material.ts"] },
-    "map01-environment": { "include": ["assets/textures/map01-*.png", "assets/materials/map01-*.material.ts", "assets/materials/map01-*-draw.mat.json"] }
-  } },
+  "ui": {
+    "referenceResolution": [
+      1920,
+      1080
+    ],
+    "orientation": "landscape"
+  },
+  "text": {
+    "defaultFont": "fonts/NotoSans-Regular"
+  },
+  "bundles": [
+    {
+      "name": "base",
+      "include": [
+        "**"
+      ],
+      "delivery": "in-app",
+      "exclude": [
+        "assets/art/vehicles/player/**",
+        "assets/art/vehicles/effects/**",
+        "assets/art/environments/map01/**"
+      ]
+    }
+  ],
+  "targets": [
+    "ios",
+    "android"
+  ],
+  "platforms": [
+    "mobile",
+    "web"
+  ],
+  "assets": {
+    "groups": {
+      "player-ferrari1": {
+        "include": [
+          "assets/textures/player-ferrari1.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "map01-environment": {
+        "include": [
+          "assets/textures/map01-*.png",
+          "assets/materials/map01-*.material.ts",
+          "assets/materials/map01-*-draw.mat.json"
+        ]
+      },
+      "traffic-source": {
+        "include": [
+          "assets/textures/traffic-source.png",
+          "assets/materials/traffic-composite.material.ts",
+          "assets/materials/traffic-composite-draw.mat.json"
+        ]
+      },
+      "traffic-catalog": {
+        "include": [
+          "assets/textures/traffic-catalog-reference.png",
+          "assets/materials/traffic-catalog-draw.mat.json"
+        ]
+      }
+    }
+  },
   "startScene": "scenes/road-proof.scene.json",
-  "check": { "smoke": { "frames": 120 } }
+  "check": {
+    "smoke": {
+      "frames": 120
+    }
+  }
 }

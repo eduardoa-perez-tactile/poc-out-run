@@ -51,6 +51,7 @@
       "playing": true,
       "spaceHeld": false
     },
+    "TrafficArtPreview": { "mode": 0, "frame": 1, "caseId": 0 },
     "VehiclePreview": {
       "enabled": true,
       "pose": 0,
@@ -93,7 +94,7 @@
       "LocalTransform": {},
       "MeshRenderer": {
         "mesh": "dynamic:map01-art-props",
-        "material": "materials/map01-props-draw.mat.json",
+        "material": "materials/traffic-composite-draw.mat.json",
         "castShadows": false,
         "receiveShadows": false
       }

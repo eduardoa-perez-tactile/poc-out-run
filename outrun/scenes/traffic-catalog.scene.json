@@ -1,0 +1,89 @@
+{
+  "$schemaVersion": 2,
+  "id": "traffic-catalog",
+  "resources": {
+    "DrivingState": { "active": false },
+    "Map01ArtPreview": {
+      "enabled": true,
+      "playing": false,
+      "cameraOriginZ": 45000,
+      "previousCameraOriginZ": 45000,
+      "lateral": 0,
+      "speed": 7200,
+      "lastStep": 0,
+      "controlHeld": 0,
+      "lastCameraOriginZ": 45000,
+      "backOffset": 1000,
+      "frontOffset": 1000,
+      "previousBackOffset": 1000,
+      "previousFrontOffset": 1000,
+      "loaded": false,
+      "reconciled": false,
+      "followDriving": false
+    },
+    "RoadProofState": {
+      "fixtureId": 1,
+      "distance": 45000,
+      "previousDistance": 45000,
+      "lateral": 0,
+      "speed": 7200,
+      "playing": false,
+      "spaceHeld": false
+    },
+    "TrafficArtPreview": { "mode": 1, "frame": 1, "caseId": 0 },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Map1 Environment Camera",
+      "id": "art-camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Map1 Source Road",
+      "id": "art-road",
+      "LocalTransform": {},
+      "Map01ArtSlot": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:map01-art-road",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Map1 Projected Source Cutouts",
+      "id": "art-props",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:map01-art-props",
+        "material": "materials/traffic-catalog-draw.mat.json",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Map1 Distant Panorama",
+      "id": "art-back",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:map01-art-back",
+        "material": "materials/map01-back-draw.mat.json",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Map1 Near Panorama",
+      "id": "art-front",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:map01-art-front",
+        "material": "materials/map01-front-draw.mat.json",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    }
+  ]
+}

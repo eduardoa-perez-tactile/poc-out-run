@@ -5,23 +5,28 @@ import { CAMERA_D,HORIZON_Y,ROAD_HALF_WIDTH,VISIBLE_SEGMENTS } from './road-proj
 import { visibleFraction } from './hill-objects.ts';
 const road=new ProjectionBuffers(VISIBLE_SEGMENTS*9);
 const props=new ProjectionBuffers(256);
-const left=new Float32Array(VISIBLE_SEGMENTS),right=new Float32Array(VISIBLE_SEGMENTS);
-const ground=new Float32Array(VISIBLE_SEGMENTS),scale=new Float32Array(VISIBLE_SEGMENTS),clip=new Float32Array(VISIBLE_SEGMENTS);
+const left=new Float32Array(VISIBLE_SEGMENTS+1),right=new Float32Array(VISIBLE_SEGMENTS+1);
+const ground=new Float32Array(VISIBLE_SEGMENTS+1),scale=new Float32Array(VISIBLE_SEGMENTS+1),clip=new Float32Array(VISIBLE_SEGMENTS);
+// A car interpolates this row's actual far point, including its mirror flag.
+// Near[n+1] need not use the same flag at a source fork seam.
+const farLeft=new Float32Array(VISIBLE_SEGMENTS),farRight=new Float32Array(VISIBLE_SEGMENTS);
+const farGround=new Float32Array(VISIBLE_SEGMENTS),farScale=new Float32Array(VISIBLE_SEGMENTS);
 const palette=Array.from({length:11},()=>new Uint8Array(3));
 let paletteData:ReadonlySourceBiomeData|null=null;
 const linear=(v:number)=>Math.round(255*(v/255<=.04045?v/255/12.92:((v/255+.055)/1.055)**2.4));
 const collidableMarker=new Uint8Array([linear(255),linear(192),linear(32)]);
 const decorativeMarker=new Uint8Array([linear(16),linear(235),linear(235)]);
-export const sourceProjectionStats={cameraOriginZ:0,playerSampleZ:0,playerHeight:0,cameraY:0,playerGap:0,horizonY:HORIZON_Y,visibleRoadSegments:0,visitedProps:0,drawnProps:0,partialProps:0};
-export const sourceProjectionBuffers={left,right,ground,scale,clip};
+export const sourceProjectionStats={cameraOriginZ:0,playerSampleZ:0,playerHeight:0,cameraY:0,playerGap:0,lateral:0,horizonY:HORIZON_Y,visibleRoadSegments:0,visitedProps:0,drawnProps:0,partialProps:0};
+export const sourceProjectionBuffers={left,right,ground,scale,clip,farLeft,farRight,farGround,farScale};
 // Full course data stays immutable; only this fixed 200-segment view is projected.
 // Canonical geometry has no viewport input. This adapter is presentation only.
 export function buildSourceRoad(data:ReadonlySourceBiomeData,cameraOriginZ:number,lateral:number,aspect:number){
   road.reset();scale.fill(0);clip.fill(-1000);left.fill(0);right.fill(0);ground.fill(0);
+  farLeft.fill(0);farRight.fill(0);farGround.fill(0);farScale.fill(0);
   if(data!==paletteData){for(let i=0;i<11;i++)for(let channel=0;channel<3;channel++)palette[i]![channel]=linear(data.palette[i]![channel]!);paletteData=data;}
   const distance=Math.max(0,Math.min((data.totalCount-VISIBLE_SEGMENTS)*data.segmentLength,cameraOriginZ));
   const player=sourcePlayerSample(data,distance);
-  sourceProjectionStats.cameraOriginZ=distance;sourceProjectionStats.playerSampleZ=player.playerZ;
+  sourceProjectionStats.cameraOriginZ=distance;sourceProjectionStats.playerSampleZ=player.playerZ;sourceProjectionStats.lateral=lateral;
   sourceProjectionStats.playerHeight=player.height;sourceProjectionStats.cameraY=player.cameraY;sourceProjectionStats.playerGap=player.gap;
   sourceProjectionStats.visibleRoadSegments=0;
   const base=Math.floor(distance/data.segmentLength),fraction=distance/data.segmentLength-base;
@@ -40,6 +45,12 @@ export function buildSourceRoad(data:ReadonlySourceBiomeData,cameraOriginZ:numbe
     // (mapDistance), while each line's mirror flag changes its curve sign.
     right[n]=(player.gap+(row.mirror?-nearX:nearX)-cameraX)*aspect*s0;
     ground[n]=y0;scale[n]=s0;clip[n]=crest;
+    farLeft[n]=(farX-cameraX)*aspect*s1;
+    farRight[n]=(player.gap+(row.mirror?-farX:farX)-cameraX)*aspect*s1;
+    farGround[n]=y1;farScale[n]=s1;
+    if(n===VISIBLE_SEGMENTS-1){
+      left[n+1]=farLeft[n]!;right[n+1]=farRight[n]!;ground[n+1]=farGround[n]!;scale[n+1]=farScale[n]!;
+    }
     if(y1<=crest)continue;
     const t=y0<crest?(crest-y0)/(y1-y0):0,bottom=Math.max(y0,crest);crest=y1;
     // Source light=true chooses palette1, false palette2; old proofs untouched.
