@@ -1,5 +1,5 @@
 // @generated — do not edit. Regenerate with `pnpm gen` (tools/bindgen).
-import { typeToken, registerSchema, dataToken, type DataRecord, type EntityId } from '@gameengine/runtime';
+import { typeToken, rowRead as $r, registerSchema, dataToken, type DataRecord, type EntityId } from '@gameengine/runtime';
 import './content.gen.ts';
 
 export type { EntityId };
@@ -750,6 +750,246 @@ export const schemaIr = {
           "name": "animationTicks",
           "kind": "u32",
           "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "points",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficPool",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "originZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aiCursor",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "z",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "previousZ",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "offset",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "previousOffset",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "speed",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "target",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "side",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "ai",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "active",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "generation",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "passed",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "moving",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "cooldown",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "parked",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficRebaseRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "shift",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficResetRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "originZ",
+          "kind": "f32",
+          "scalar": "f32",
           "lanes": 1
         }
       ],
@@ -1581,6 +1821,100 @@ export interface TerrainVisualStateValue {
 }
 /** TerrainVisualState (component, presentation-only) */
 export const TerrainVisualState = typeToken<TerrainVisualStateViews, TerrainVisualStateValue>('TerrainVisualState', 'component', { sig: 'lastStep:u32:1,animationTicks:u32:1', read: (v: TerrainVisualStateViews, i: number, o: Record<string, unknown>) => { o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; return o; } });
+
+export interface TrafficPassedViews {
+  epoch: Uint32Array;
+  slot: Uint32Array;
+  generation: Uint32Array;
+  points: Uint32Array;
+}
+export interface TrafficPassedValue {
+  epoch: number;
+  slot: number;
+  generation: number;
+  points: number;
+}
+/** TrafficPassed (event, sim) */
+export const TrafficPassed = typeToken<TrafficPassedViews, TrafficPassedValue>('TrafficPassed', 'event', { sig: 'epoch:u32:1,slot:u32:1,generation:u32:1,points:u32:1', read: (v: TrafficPassedViews, i: number, o: Record<string, unknown>) => { o.epoch = v.epoch[i]; o.slot = v.slot[i]; o.generation = v.generation[i]; o.points = v.points[i]; return o; } });
+
+export interface TrafficPoolViews {
+  mapId: Uint32Array;
+  initialized: Uint8Array;
+  population: Uint32Array;
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  originZ: Float32Array;
+  aiCursor: Uint32Array;
+  epoch: Uint32Array;
+  z: Float32Array;
+  previousZ: Float32Array;
+  offset: Float32Array;
+  previousOffset: Float32Array;
+  speed: Float32Array;
+  target: Float32Array;
+  side: Uint32Array;
+  ai: Uint32Array;
+  active: Uint32Array;
+  generation: Uint32Array;
+  passed: Uint32Array;
+  moving: Uint32Array;
+  cooldown: Uint32Array;
+  parked: Uint32Array;
+}
+export interface TrafficPoolValue {
+  mapId: number;
+  initialized: boolean;
+  population: number;
+  seedLo: number;
+  seedHi: number;
+  originZ: number;
+  aiCursor: number;
+  epoch: number;
+  z: number[];
+  previousZ: number[];
+  offset: number[];
+  previousOffset: number[];
+  speed: number[];
+  target: number[];
+  side: number[];
+  ai: number[];
+  active: number[];
+  generation: number[];
+  passed: number[];
+  moving: number[];
+  cooldown: number[];
+  parked: number[];
+}
+/** TrafficPool (component, sim) */
+export const TrafficPool = typeToken<TrafficPoolViews, TrafficPoolValue>('TrafficPool', 'component', { sig: 'mapId:u32:1,initialized:bool:1,population:u32:1,seedLo:u32:1,seedHi:u32:1,originZ:f32:1,aiCursor:u32:1,epoch:u32:1,z:array:32,previousZ:array:32,offset:array:32,previousOffset:array:32,speed:array:32,target:array:32,side:array:32,ai:array:32,active:array:32,generation:array:32,passed:array:32,moving:array:32,cooldown:array:32,parked:array:32', read: (v: TrafficPoolViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.initialized = v.initialized[i] !== 0; o.population = v.population[i]; o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.originZ = v.originZ[i]; o.aiCursor = v.aiCursor[i]; o.epoch = v.epoch[i]; o.z = $r.lanes(v.z, i, 32, o.z); o.previousZ = $r.lanes(v.previousZ, i, 32, o.previousZ); o.offset = $r.lanes(v.offset, i, 32, o.offset); o.previousOffset = $r.lanes(v.previousOffset, i, 32, o.previousOffset); o.speed = $r.lanes(v.speed, i, 32, o.speed); o.target = $r.lanes(v.target, i, 32, o.target); o.side = $r.lanes(v.side, i, 32, o.side); o.ai = $r.lanes(v.ai, i, 32, o.ai); o.active = $r.lanes(v.active, i, 32, o.active); o.generation = $r.lanes(v.generation, i, 32, o.generation); o.passed = $r.lanes(v.passed, i, 32, o.passed); o.moving = $r.lanes(v.moving, i, 32, o.moving); o.cooldown = $r.lanes(v.cooldown, i, 32, o.cooldown); o.parked = $r.lanes(v.parked, i, 32, o.parked); return o; } });
+
+export interface TrafficRebaseRequestedViews {
+  mapId: Uint32Array;
+  shift: Float32Array;
+}
+export interface TrafficRebaseRequestedValue {
+  mapId: number;
+  shift: number;
+}
+/** TrafficRebaseRequested (event, sim) */
+export const TrafficRebaseRequested = typeToken<TrafficRebaseRequestedViews, TrafficRebaseRequestedValue>('TrafficRebaseRequested', 'event', { sig: 'mapId:u32:1,shift:f32:1', read: (v: TrafficRebaseRequestedViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.shift = v.shift[i]; return o; } });
+
+export interface TrafficResetRequestedViews {
+  mapId: Uint32Array;
+  population: Uint32Array;
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  originZ: Float32Array;
+}
+export interface TrafficResetRequestedValue {
+  mapId: number;
+  population: number;
+  seedLo: number;
+  seedHi: number;
+  originZ: number;
+}
+/** TrafficResetRequested (event, sim) */
+export const TrafficResetRequested = typeToken<TrafficResetRequestedViews, TrafficResetRequestedValue>('TrafficResetRequested', 'event', { sig: 'mapId:u32:1,population:u32:1,seedLo:u32:1,seedHi:u32:1,originZ:f32:1', read: (v: TrafficResetRequestedViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.population = v.population[i]; o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.originZ = v.originZ[i]; return o; } });
 
 export interface VehiclePreviewViews {
   enabled: Uint8Array;
