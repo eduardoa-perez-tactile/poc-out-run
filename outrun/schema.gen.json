@@ -749,6 +749,246 @@
       "package": "OutRun"
     },
     {
+      "name": "TrafficPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "points",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficPool",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "originZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aiCursor",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "z",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "previousZ",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "offset",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "previousOffset",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "speed",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "target",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "side",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "ai",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "active",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "generation",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "passed",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "moving",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "cooldown",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "parked",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficRebaseRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "shift",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficResetRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "originZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "VehiclePreview",
       "kind": "resource",
       "sim": false,
