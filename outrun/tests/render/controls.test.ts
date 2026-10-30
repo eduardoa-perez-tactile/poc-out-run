@@ -27,13 +27,21 @@ renderTest('controls.hit targets hold steering and throttle independently until 
   expect(world.resource(DrivingInput).keyboard).toBe(0);
 }, SCENE);
 
-renderTest('controls.pause modal blocks underlying targets and resumes without stale holds', async ({ world, input, step, render, ui }) => {
-  input.view(852, 393, 1); await step(3); render.stats({ width: 852, height: 393 });
+for (const notchRight of [false, true]) {
+renderTest(`controls.pause modal blocks and centers with notch ${notchRight ? 'right' : 'left'}`, async ({ world, input, step, render, ui }) => {
+  const insets: [number, number, number, number] = notchRight ? [0, 0, 59, 34] : [59, 0, 0, 34];
+  input.view(852, 393, 1, insets); await step(3); render.stats({ width: 852, height: 393 });
   const throttle = center(ui.rect('drive-throttle')!);
   input.pointer('down', ...throttle, 1); await step(3);
   expect(world.resource(DrivingInput).ui).toBe(1);
   await ui.press('driving-controls.pause'); await step(3);
   render.stats({ width: 852, height: 393 });
+  const panel = ui.rect('driving-pause')!;
+  expect(panel !== null).toBe(true);
+  expect(Math.abs(panel.x + panel.width / 2 - 426) < 1).toBe(true);
+  expect(Math.abs(panel.y + panel.height / 2 - 196.5) < 1).toBe(true);
+  expect(panel.x >= insets[0] && panel.y >= 0).toBe(true);
+  expect(panel.x + panel.width <= 852 - insets[2] && panel.y + panel.height <= 393 - 34).toBe(true);
   expect(world.resource(DrivingState).playing).toBe(false);
   expect(world.resource(DrivingInput).ui).toBe(0);
   input.pointer('up', ...throttle, 1);
@@ -42,10 +50,12 @@ renderTest('controls.pause modal blocks underlying targets and resumes without s
   input.pointer('up', ...throttle, 2); await step(2);
   const resume = ui.rect('driving-pause.resume');
   expect(resume !== null).toBe(true);
+  expect(Math.abs(resume!.x + resume!.width / 2 - (panel.x + panel.width / 2)) < 1).toBe(true);
   await ui.press('driving-pause.resume'); await step(3);
   expect(world.resource(DrivingState).playing).toBe(true);
   expect(world.resource(DrivingInput).ui).toBe(0);
 }, SCENE);
+}
 
 for (const [width, height] of SIZES) {
   for (const rotated of [false, true]) {

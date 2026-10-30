@@ -17,7 +17,17 @@
         "radius": 24,
         "align": "center",
         "justify": "center",
-        "gap": 32
+        "gap": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ]
       },
       "children": [
         "dp_title",
@@ -51,7 +61,7 @@
     "behaviour": "dialog",
     "dims": true,
     "tapOutside": "none",
-    "safe": true
+    "safe": false
   },
   "transition": {
     "type": "instant"
