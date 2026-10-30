@@ -1,0 +1,54 @@
+{
+  "format": 1,
+  "name": "Map01Panorama",
+  "model": "unlit",
+  "blend": "blend",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 16,
+  "params": [
+    {
+      "name": "imageSize",
+      "type": "vec2f",
+      "offset": 0,
+      "default": [
+        2048,
+        256
+      ]
+    },
+    {
+      "name": "filtered",
+      "type": "f32",
+      "offset": 8,
+      "default": [
+        1
+      ],
+      "ui": {
+        "min": 0,
+        "max": 1,
+        "step": 1
+      }
+    },
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 12,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "image",
+      "binding": 1,
+      "default": "white",
+      "srgb": true
+    }
+  ],
+  "samplerBinding": 2,
+  "wgsl": "// Material Map01Panorama (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_imageSize: vec2f,\n  p_filtered: f32,\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var tex_image: texture_2d<f32>;\n@group(2) @binding(2) var material_sampler: sampler;\n\nfn map01_panorama_base(image: texture_2d<f32>, imageSampler: sampler, coord: vec2f) -> vec4f {\n  return textureSampleLevel(image, imageSampler, coord, 0.0);\n}\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec2f = (in.uv * material.p_imageSize);\n  let v1: vec2f = floor(v0);\n  let v2: vec2f = (v1 + 0.5);\n  let v3: vec2f = (v2 / material.p_imageSize);\n  let v4: vec2f = vec2f(material.p_filtered);\n  let v5: vec2f = mix(v3, in.uv, v4);\n  let v6: f32 = v5.x;\n  let v7: f32 = v5.y;\n  let v8: f32 = material.p_imageSize.y;\n  let v9: f32 = (0.5 / v8);\n  let v10: f32 = (252.5 / v8);\n  let v11: f32 = clamp(v7, v9, v10);\n  let v12: vec2f = vec2f(v6, v11);\n  let v13: vec4f = map01_panorama_base(tex_image, material_sampler, v12);\n  let v14: vec3f = v13.xyz;\n  let v15: f32 = v13.w;\n  out.base_color = v14;\n  out.alpha = v15;\n  return out;\n}\n",
+  "hash": "65ddacd80cf72c1f",
+  "sourceHash": "91958fc9ff6c4a33"
+}

@@ -1,0 +1,8 @@
+{
+  "material": "materials/map01-props.material.ts",
+  "params": {
+    "atlas": "textures/map01-props.png",
+    "atlasSize": [1024, 1024],
+    "filtered": 1
+  }
+}

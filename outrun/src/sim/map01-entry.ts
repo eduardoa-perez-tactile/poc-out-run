@@ -11,7 +11,7 @@ export const ResetMap01Driving=defineSystem({
     // Events expose previous and current rows: the last entry owns this step.
     let scene:string|undefined;
     for(const entry of ctx.events.read(EnterScene))scene=entry.scene;
-    if(scene!=='scenes/map01-data.scene.json')return;
+    if(scene!=='scenes/map01-data.scene.json'&&scene!=='scenes/map01-art.scene.json')return;
     ctx.setField(DrivingState,'active',false);
     ctx.set(DrivingInput,{keyboard:0,ui:0,shiftUp:false,shiftDown:false,upHeld:false,downHeld:false,pauseHeld:false,modeHeld:false});
   },

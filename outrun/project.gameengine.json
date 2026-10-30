@@ -14,11 +14,12 @@
   },
   "ui": { "referenceResolution": [1920, 1080], "orientation": "landscape" },
   "text": { "defaultFont": "fonts/NotoSans-Regular" },
-  "bundles": [{ "name": "base", "include": ["**"], "delivery": "in-app", "exclude": ["assets/art/vehicles/player/**", "assets/art/vehicles/effects/**"] }],
+  "bundles": [{ "name": "base", "include": ["**"], "delivery": "in-app", "exclude": ["assets/art/vehicles/player/**", "assets/art/vehicles/effects/**", "assets/art/environments/map01/**"] }],
   "targets": ["ios", "android"],
   "platforms": ["mobile", "web"],
   "assets": { "groups": {
-    "player-ferrari1": { "include": ["assets/textures/player-ferrari1.png", "assets/materials/player-car.material.ts"] }
+    "player-ferrari1": { "include": ["assets/textures/player-ferrari1.png", "assets/materials/player-car.material.ts"] },
+    "map01-environment": { "include": ["assets/textures/map01-*.png", "assets/materials/map01-*.material.ts", "assets/materials/map01-*-draw.mat.json"] }
   } },
   "startScene": "scenes/road-proof.scene.json",
   "check": { "smoke": { "frames": 120 } }
