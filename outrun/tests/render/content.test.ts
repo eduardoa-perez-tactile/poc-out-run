@@ -54,7 +54,7 @@ for(const scene of ['scenes/road-proof.scene.json','scenes/driving-proof.scene.j
       const throttle=ui.rect('drive-throttle')!;
       expect(throttle!==null).toBe(true);
       input.pointer('down',throttle.x+throttle.width/2,throttle.y+throttle.height/2,7);
-      for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'])input.key(key,true);
+      for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'] as const)input.key(key,true);
       await step(3);
       expect(world.resource(DrivingInput).keyboard).toBe(5);
       expect(world.resource(DrivingInput).ui).toBe(1);
@@ -70,11 +70,11 @@ for(const scene of ['scenes/road-proof.scene.json','scenes/driving-proof.scene.j
     expect(ui.rect('driving-controls.pause')).toBe(null);
     expect(ui.rect('drive-throttle')).toBe(null);
     const mapBefore={...world.resource(Map01Preview)},roadBefore={...world.resource(RoadProofState)},drivingBefore={...world.resource(DrivingState)};
-    for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'])input.key(key,false);
+    for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'] as const)input.key(key,false);
     await step(1);
-    for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'])input.key(key,true);
+    for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'] as const)input.key(key,true);
     await step(5);
-    for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'])input.key(key,false);
+    for(const key of ['ArrowUp','ArrowLeft','KeyE','KeyQ','KeyM'] as const)input.key(key,false);
     await step(1);
     expect(world.resource(Map01Preview)).toEqual(mapBefore);
     expect(world.resource(RoadProofState)).toEqual(roadBefore);
