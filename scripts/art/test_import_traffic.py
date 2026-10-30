@@ -46,7 +46,7 @@ class TrafficImportTests(unittest.TestCase):
         self.assertEqual(len(seen),512)
     def test_all_atlas_pixels_extrusion_bounds_and_nonoverlap(self):
         data=self.catalog;raw=(art.ROOT/'outrun/assets'/data['atlas']['image']).read_bytes();w,h,pixels=atlas_pixels(raw)
-        self.assertEqual((w,h),(1024,2048));self.assertEqual(data['atlas']['extrudePx'],2);self.assertEqual(art.sha(raw),data['atlas']['sha256'])
+        self.assertEqual((w,h),(1024,1280));self.assertEqual(data['atlas']['extrudePx'],2);self.assertEqual(art.sha(raw),data['atlas']['sha256'])
         occupancy=bytearray(w*h)
         for model in data['models']:
             for frame in model['frames']:
@@ -59,6 +59,25 @@ class TrafficImportTests(unittest.TestCase):
                     self.assertEqual(pixels[start*4:(start+fw+4)*4],expected)
         # Deterministic reconstruction below also checks every unused transparent texel.
         self.assertEqual(raw,self.values[3])
+    def test_full_catalog_fits_without_repacking_and_leaves_room_in_default_upload_budget(self):
+        frames=[{'modelId':m['id'],**frame} for m in self.catalog['models'] for frame in m['frames']]
+        compact=art.layout(frames)
+        with patch.object(art,'HEIGHT',2048):
+            original=art.layout(frames);old_values=art.committed_build()
+        self.assertEqual(compact,original) # Lowering blank padding cannot move any source rectangle.
+        self.assertEqual(self.catalog['models'],old_values[0]['models'])
+        old_w,old_h,old_pixels=atlas_pixels(old_values[3])
+        new_w,new_h,new_pixels=atlas_pixels(self.values[3])
+        self.assertEqual((old_w,old_h,new_w,new_h),(1024,2048,1024,1280))
+        self.assertEqual(new_pixels,old_pixels[:new_w*new_h*4])
+        self.assertFalse(any(old_pixels[new_w*new_h*4:]))
+        packed_end=max(y+h+art.EXTRUDE for x,y,w,h in compact.values())
+        self.assertEqual(packed_end,1241);self.assertLessEqual(packed_end,1280)
+        w,h,pixels=atlas_pixels(self.values[3]);self.assertEqual(h-packed_end,39)
+        self.assertFalse(any(pixels[packed_end*w*4:]))
+        self.assertEqual(w*h*4,5*1024*1024)
+        # A texture exactly8MiB can starve behind a changing road at that frame budget.
+        self.assertLess(w*h*4,8*1024*1024)
     def test_manifest_atlas_and_input_inventory_are_deterministic(self):
         art.verify(*self.values)
         repeated=art.committed_build();self.assertEqual(repeated,self.values)

@@ -23,7 +23,7 @@
       "offset": 8,
       "default": [
         1024,
-        2048
+        1280
       ]
     },
     {
@@ -77,6 +77,6 @@
   ],
   "samplerBinding": 3,
   "wgsl": "// Material SourceTrafficComposite (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_propsSize: vec2f,\n  p_trafficSize: vec2f,\n  p_propsFiltered: f32,\n  p_trafficFiltered: f32,\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var tex_propsAtlas: texture_2d<f32>;\n@group(2) @binding(2) var tex_trafficAtlas: texture_2d<f32>;\n@group(2) @binding(3) var material_sampler: sampler;\n\nfn traffic_composite_texel(props: texture_2d<f32>, propsSampler: sampler,\n  traffic: texture_2d<f32>, trafficSampler: sampler, coord: vec2f, kind: f32,\n  propsSize: vec2f, trafficSize: vec2f, propsFiltered: f32, trafficFiltered: f32) -> vec4f {\n  if (kind > 0.5) {\n    let point = (floor(coord * trafficSize) + vec2f(0.5)) / trafficSize;\n    return textureSampleLevel(traffic, trafficSampler, mix(point, coord, trafficFiltered), 0.0);\n  }\n  let point = (floor(coord * propsSize) + vec2f(0.5)) / propsSize;\n  return textureSampleLevel(props, propsSampler, mix(point, coord, propsFiltered), 0.0);\n}\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: f32 = in.uv1.x;\n  let v1: vec4f = traffic_composite_texel(tex_propsAtlas, material_sampler, tex_trafficAtlas, material_sampler, in.uv, v0, material.p_propsSize, material.p_trafficSize, material.p_propsFiltered, material.p_trafficFiltered);\n  let v2: vec3f = v1.xyz;\n  let v3: f32 = v1.w;\n  out.base_color = v2;\n  out.alpha = v3;\n  return out;\n}\n",
-  "hash": "93df645162146739",
-  "sourceHash": "82dc37f49099ed57"
+  "hash": "8806a6ab14b33425",
+  "sourceHash": "0d7039bf2f11592b"
 }

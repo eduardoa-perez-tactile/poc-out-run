@@ -21,10 +21,10 @@ export const TRAFFIC_SOURCE:TrafficCatalog = {
     "image": "textures/traffic-source.png",
     "sizePx": [
       1024,
-      2048
+      1280
     ],
     "extrudePx": 2,
-    "sha256": "a1805c65f9067be5728ca0e5a0bf244c9cd437e1b861c3dd1255f8a7294fc303"
+    "sha256": "e098f21ac626a6ff5d339779c62e41de87d977cef7d12dfdeed7bf8a2f06e79e"
   },
   "models": [
     {

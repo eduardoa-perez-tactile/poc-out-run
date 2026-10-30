@@ -12,7 +12,7 @@ fn traffic_composite_texel(props: texture_2d<f32>, propsSampler: sampler,
 }`);
 export default material('SourceTrafficComposite',{
   blend:'blend',cull:'back',fog:false,
-  params:{propsAtlas:texture2d(),trafficAtlas:texture2d(),propsSize:uniform.vec2([1024,1024]),trafficSize:uniform.vec2([1024,2048]),
+  params:{propsAtlas:texture2d(),trafficAtlas:texture2d(),propsSize:uniform.vec2([1024,1024]),trafficSize:uniform.vec2([1024,1280]),
     propsFiltered:uniform.f32(1,{min:0,max:1,step:1}),trafficFiltered:uniform.f32(0,{min:0,max:1,step:1})},
   surface:({propsAtlas,trafficAtlas,propsSize,trafficSize,propsFiltered,trafficFiltered})=>{
     // UV1 is an explicit constant per quad, never opacity or an accidental tint.

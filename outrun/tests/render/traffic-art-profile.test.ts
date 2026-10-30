@@ -1,6 +1,7 @@
 import {renderTest,expect} from '@gameengine/test';
 import {EnterScene,assets,meshes} from '@gameengine/runtime';
 import {DrivingState,DrivingResetRequested,DrivingPauseRequested,TrafficPool,TrafficPassed} from '../../src/schema.gen.ts';
+import {TRAFFIC_SOURCE} from '../../src/content/vehicles/traffic-source.manifest.ts';
 import {map01ArtStats} from '../../src/render/map01-art-buffers.ts';
 import {trafficCompositeStats,TRAFFIC_COMPOSITE_BYTES} from '../../src/render/traffic-buffers.ts';
 
@@ -51,10 +52,14 @@ renderTest('traffic.art.profile canonical source busy drive measures composite r
   expect(world.resource(DrivingState).distance).toBeGreaterThan(45000);
   const group=assets.stats().groups['traffic-source']!;
   expect(group.status).toBe('loaded');expect(group.progress).toBe(1);expect(group.members).toBe(3);expect(group.failed.length).toBe(0);
-  // Measured cooked single-level=8388672; loose generated-mip charge=11184876.
-  // These are engine residency charges including uniforms, not phone memory.
-  expect(group.resident.textures).toBeGreaterThanOrEqual(8388672);
-  expect(group.resident.textures).toBeLessThanOrEqual(11184876);
+  // Atlas size derives both lanes' expected texture charge; the shared material
+  // adds64 uniform bytes. Full-mip arithmetic halves NPOT dimensions by floor.
+  const [atlasWidth,atlasHeight]=TRAFFIC_SOURCE.atlas.sizePx;
+  const cookedTextureBytes=atlasWidth*atlasHeight*4;
+  let width=atlasWidth,height=atlasHeight,looseTextureBytes=0;
+  for(;;){looseTextureBytes+=width*height*4;if(width===1&&height===1)break;width=Math.max(1,Math.floor(width/2));height=Math.max(1,Math.floor(height/2));}
+  expect(group.resident.textures).toBeGreaterThanOrEqual(cookedTextureBytes+64);
+  expect(group.resident.textures).toBeLessThanOrEqual(looseTextureBytes+64);
   const catalog=assets.stats().groups['traffic-catalog'];
   if(catalog){expect(catalog.status).toBe('unloaded');expect(catalog.resident.textures).toBe(0);}
   expect(assets.stats().overBudget).toBe(null);

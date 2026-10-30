@@ -54,7 +54,7 @@ worldTest('traffic.art fractional projection preserves source scale anchor far e
   const cropped=trafficProjection(data,z,.25,0,image,.9,aspect,TRAFFIC_SOURCE.atlas.sizePx)!;
   expect(cropped.fraction).toBeCloseTo(.75,5);
   expect(cropped.top-cropped.bottom).toBeCloseTo(height*.75,6);
-  expect(cropped.v1-cropped.v0).toBeCloseTo(image.sourceSizePx[1]*.75/2048,6);
+  expect(cropped.v1-cropped.v0).toBeCloseTo(image.sourceSizePx[1]*.75/TRAFFIC_SOURCE.atlas.sizePx[1],6);
   expect(trafficProjection(data,sourceProjectionStats.playerSampleZ-.01,0,0,image,.9,aspect,TRAFFIC_SOURCE.atlas.sizePx)).toBe(null);
   buildSourceRoad(data,45000,0,aspect);
   expect(trafficProjection(data,(300+199.75)*150,0,0,image,.9,aspect,TRAFFIC_SOURCE.atlas.sizePx)!==null).toBe(true);

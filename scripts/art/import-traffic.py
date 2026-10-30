@@ -14,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[2]
 PIN='6882721c99bc79365f815f68d389bf5078129e68'
 MANIFEST=ROOT/'outrun/src/content/vehicles/traffic-source.manifest.ts'
 REFERENCE=ROOT/'outrun/assets/textures/traffic-catalog-reference.png'
-WIDTH,HEIGHT,EXTRUDE=1024,2048,2
+WIDTH,HEIGHT,EXTRUDE=1024,1280,2
 spec=importlib.util.spec_from_file_location('traffic_png',Path(__file__).with_name('import-player-car.py'))
 png=importlib.util.module_from_spec(spec);spec.loader.exec_module(png)
 
@@ -167,7 +167,7 @@ def main():
     else:values=committed_build()
     if args.write:publish(*values)
     verify(*values)
-    print('Verified32 traffic models ×16 original frames,32 SCALE files,1024×2048 atlas,32×16 independent source-color control; source pixels unchanged')
+    print('Verified32 traffic models ×16 original frames,32 SCALE files,1024×1280 atlas,32×16 independent source-color control; source pixels unchanged')
 if __name__=='__main__':
     try:main()
     except (ValueError,OSError,KeyError,subprocess.CalledProcessError) as error:raise SystemExit(str(error))
