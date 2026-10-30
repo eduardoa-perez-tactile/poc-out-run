@@ -13,6 +13,12 @@ for validation. Mobile remains a target through desktop viewport/safe-area tests
 residency and structural budgets, native/web parity and targeted real-browser checks. Physical
 phone frame-time, memory and thermal budgets remain design targets, not measured guarantees.
 
+Run Chrome/browser checks in the background without stealing user focus or popping up windows.
+Do not launch in the foreground, use `bringToFront` or browser activation, or cycle minimize/restore.
+Verify both focus preservation and actual WebGPU pixels/behavior in background runs. Headless
+runs qualify only when the expected pixels and behavior are verified. If neither approach works
+without interrupting the user, report the required browser lane as blocked rather than passed.
+
 ## Branches and integration
 
 | Branch | Purpose | Integration |

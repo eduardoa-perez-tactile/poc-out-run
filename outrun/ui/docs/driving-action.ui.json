@@ -1,0 +1,46 @@
+{
+  "$schemaVersion": 1,
+  "guid": "09c3b458-5101-4ded-b385-01e68013ba0e",
+  "name": "driving-action",
+  "title": "Driving action",
+  "kind": "widget",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Driving action",
+      "style": {
+        "dir": "row",
+        "pad": 0,
+        "align": "center",
+        "bg": "#15283ddd",
+        "radius": 24,
+        "w": 176,
+        "h": 176,
+        "justify": "center"
+      },
+      "children": [
+        "da_label"
+      ]
+    },
+    "da_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "{label}",
+      "style": {
+        "fontSize": 36,
+        "color": "#ffffffff"
+      }
+    }
+  },
+  "behaviour": "button",
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "label": {
+      "type": "text",
+      "default": "PAUSE"
+    }
+  }
+}
