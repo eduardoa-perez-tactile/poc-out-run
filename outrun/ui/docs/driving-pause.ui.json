@@ -1,0 +1,69 @@
+{
+  "$schemaVersion": 1,
+  "guid": "64d4dc30-3395-4d8a-af4d-b652037d684e",
+  "name": "driving-pause",
+  "title": "Driving pause",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Driving pause",
+      "style": {
+        "w": 720,
+        "h": 400,
+        "pad": 40,
+        "bg": "#15283dff",
+        "radius": 24,
+        "align": "center",
+        "justify": "center",
+        "gap": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "children": [
+        "dp_title",
+        "dp_resume"
+      ]
+    },
+    "dp_title": {
+      "type": "label",
+      "name": "Label",
+      "text": "PAUSED",
+      "style": {
+        "fontSize": 56,
+        "weight": 800,
+        "color": "#ffffffff"
+      }
+    },
+    "dp_resume": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "resume",
+      "style": {
+        "w": 320,
+        "h": 176
+      },
+      "props": {
+        "label": "RESUME"
+      }
+    }
+  },
+  "view": {
+    "behaviour": "dialog",
+    "dims": true,
+    "tapOutside": "none",
+    "safe": false
+  },
+  "transition": {
+    "type": "instant"
+  }
+}

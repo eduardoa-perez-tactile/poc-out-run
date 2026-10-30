@@ -1,14 +1,18 @@
 import { defineSystem, write, KeyEvent, Keys } from '@gameengine/runtime';
-import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested } from '../schema.gen.ts';
+import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested } from '../schema.gen.ts';
 
 export const CaptureDrivingInput = defineSystem({
   name: 'CaptureDrivingInput',
-  events: [KeyEvent, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested],
+  events: [KeyEvent, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested],
   resources: [write(DrivingState), write(DrivingInput)],
   run(ctx) {
     const state = ctx.resource(DrivingState);
     if (!state.active[0]) return;
     const held = ctx.resource(DrivingInput);
+    const setPaused = (paused: boolean) => {
+      ctx.setField(DrivingState, 'playing', !paused);
+      ctx.set(DrivingInput, { keyboard: 0, ui: 0, shiftUp: false, shiftDown: false });
+    };
     ctx.set(DrivingInput, { shiftUp: false, shiftDown: false });
     for (const reset of ctx.events.read(DrivingResetRequested)) {
       const distance = ((reset.distance % 180000) + 180000) % 180000;
@@ -23,8 +27,7 @@ export const CaptureDrivingInput = defineSystem({
     for (const key of ctx.events.read(KeyEvent)) {
       if (key.code === Keys.Space) {
         if (key.down && !held.pauseHeld[0]) {
-          ctx.setField(DrivingState, 'playing', !state.playing[0]);
-          ctx.set(DrivingInput, { keyboard: 0, ui: 0, shiftUp: false, shiftDown: false });
+          setPaused(state.playing[0] !== 0);
         }
         ctx.setField(DrivingInput, 'pauseHeld', key.down);
       } else if (key.code === Keys.KeyM) {
@@ -50,6 +53,8 @@ export const CaptureDrivingInput = defineSystem({
       const bit = 1 << input.control;
       ctx.setField(DrivingInput, field, input.down && state.playing[0] ? bits | bit : bits & ~bit);
     }
+    // Explicit pause/resume runs after controls: a modal always releases prior holds.
+    for (const request of ctx.events.read(DrivingPauseRequested)) setPaused(request.paused);
     // Cancellation wins within this input frame, regardless of device event ordering.
     for (const _ of ctx.events.read(DrivingControlsCancelled)) {
       ctx.set(DrivingInput, { keyboard: 0, ui: 0, shiftUp: false, shiftDown: false, upHeld: false, downHeld: false });

@@ -169,6 +169,20 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "DrivingPauseRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "paused",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "DrivingResetRequested",
       "kind": "event",
       "sim": true,
@@ -1067,6 +1081,15 @@ export interface DrivingInputValue {
 }
 /** DrivingInput (resource, sim) */
 export const DrivingInput = typeToken<DrivingInputViews, DrivingInputValue>('DrivingInput', 'resource', { sig: 'keyboard:u32:1,ui:u32:1,shiftUp:bool:1,shiftDown:bool:1,upHeld:bool:1,downHeld:bool:1,pauseHeld:bool:1,modeHeld:bool:1', read: (v: DrivingInputViews, i: number, o: Record<string, unknown>) => { o.keyboard = v.keyboard[i]; o.ui = v.ui[i]; o.shiftUp = v.shiftUp[i] !== 0; o.shiftDown = v.shiftDown[i] !== 0; o.upHeld = v.upHeld[i] !== 0; o.downHeld = v.downHeld[i] !== 0; o.pauseHeld = v.pauseHeld[i] !== 0; o.modeHeld = v.modeHeld[i] !== 0; return o; } });
+
+export interface DrivingPauseRequestedViews {
+  paused: Uint8Array;
+}
+export interface DrivingPauseRequestedValue {
+  paused: boolean;
+}
+/** DrivingPauseRequested (event, sim) */
+export const DrivingPauseRequested = typeToken<DrivingPauseRequestedViews, DrivingPauseRequestedValue>('DrivingPauseRequested', 'event', { sig: 'paused:bool:1', read: (v: DrivingPauseRequestedViews, i: number, o: Record<string, unknown>) => { o.paused = v.paused[i] !== 0; return o; } });
 
 export interface DrivingResetRequestedViews {
   manual: Uint8Array;

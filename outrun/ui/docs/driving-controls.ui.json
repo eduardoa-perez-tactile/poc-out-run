@@ -1,0 +1,131 @@
+{
+  "$schemaVersion": 1,
+  "guid": "5d2040f8-7386-49e2-8da9-af04f1a52259",
+  "name": "driving-controls",
+  "title": "Driving controls",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Driving controls",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0
+      },
+      "children": [
+        "dc_left",
+        "dc_right",
+        "dc_pause"
+      ]
+    },
+    "dc_left": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "dri_codearea",
+        "dri_codearea2"
+      ],
+      "style": {
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          0,
+          1
+        ],
+        "offset": [
+          32,
+          -32
+        ],
+        "dir": "row",
+        "gap": 24,
+        "w": 376,
+        "h": 176
+      }
+    },
+    "dri_codearea": {
+      "type": "codeArea",
+      "name": "Code area",
+      "key": "left",
+      "style": {
+        "w": 176,
+        "h": 176
+      }
+    },
+    "dri_codearea2": {
+      "type": "codeArea",
+      "name": "Code area",
+      "key": "right",
+      "style": {
+        "w": 176,
+        "h": 176
+      }
+    },
+    "dc_right": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "dri_codearea3",
+        "dri_codearea4"
+      ],
+      "style": {
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          1,
+          1
+        ],
+        "offset": [
+          -32,
+          -32
+        ],
+        "dir": "row",
+        "gap": 24,
+        "w": 376,
+        "h": 176
+      }
+    },
+    "dri_codearea3": {
+      "type": "codeArea",
+      "name": "Code area",
+      "key": "brake",
+      "style": {
+        "w": 176,
+        "h": 176
+      }
+    },
+    "dri_codearea4": {
+      "type": "codeArea",
+      "name": "Code area",
+      "key": "throttle",
+      "style": {
+        "w": 176,
+        "h": 176
+      }
+    },
+    "dc_pause": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "pause",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          1,
+          0
+        ],
+        "offset": [
+          -32,
+          32
+        ]
+      }
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": true
+  },
+  "transition": {
+    "type": "instant"
+  }
+}
