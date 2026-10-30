@@ -22,12 +22,19 @@ simulation collider. All eight source pose pairs are required for every model:
 | Flat far | c13–c14 | c15–c16 |
 
 Keep raw PNGs and SCALE files under `outrun/art/vehicles/traffic/carNN/`, outside runtime
-assets. Runtime uses one1024×2048 RGBA atlas, deterministic height/width/model/frame shelf
+assets. Runtime uses one1024×1280 RGBA atlas, deterministic height/width/model/frame shelf
 packing and two extruded texels per edge; no padding baked into source rectangles. Base
-RGBA arithmetic is8MiB before mips/copies; engine residency is measured separately. Export
+RGBA arithmetic is5MiB before mips/copies; engine residency is measured separately. Export
 an ID-ordered typed catalog with source hashes, canvas/ground anchor, atlas rectangles and
-an actually opaque texel probe. Runtime group is `traffic-source`; point sampling is a
-candidate pending moving near/mid/far comparison, not an approved global filtering rule.
+an actually opaque texel probe. Runtime group is `traffic-source`; point sampling has bounded
+moving near/mid/far approval recorded in the [rendering reference](../reference/traffic-rendering.md).
+This does not establish a global filtering rule.
+
+The original1024×2048 candidate ended its extruded content at row1241. Removing768 fully
+transparent rows leaves39 spare rows and preserves all512 frames, source pixels and packing
+rectangles exactly. The smaller upload avoids the pinned engine's8MiB upload-budget boundary
+under continuous dynamic-road updates. Keep future atlas uploads below that boundary with
+room for recurring geometry; reducing source frames or resampling their pixels is not a fix.
 
 Import checks validate all512 original byte hashes, SCALE hashes, dimensions, alpha,
 source-frame/model identity, complete pixel preservation, nonoverlap and extrusion, plus

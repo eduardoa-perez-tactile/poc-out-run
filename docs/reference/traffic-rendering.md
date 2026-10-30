@@ -9,7 +9,7 @@ integrity. No replacement or generated art is required.
 ## Source images and frame selection
 
 All 32 source models retain their 16 original transparent PNGs (512 frames), source SCALE and untrimmed
-canvas dimensions. The runtime uses one explicitly packed 1024 × 2048 atlas with 2-pixel
+canvas dimensions. The runtime uses one explicitly packed 1024 × 1280 atlas with 2-pixel
 extrusion; per-frame original size and bottom-center ground anchor remain separate metadata.
 Numeric IDs map to stable traffic slots, never to PNG-derived collision dimensions.
 
@@ -113,7 +113,7 @@ may differ between loose/cooked paths. Numeric ceilings must follow observed rep
 review rather than being invented to pass a test. Distinguish post-present overhead from
 content draws, and released-but-cached textures from live group pins.
 
-The first actual native busy-drive profile observed a peak of 7 visible cars, 8 draws,
+The original 1024 × 2048 native busy-drive profile observed a peak of 7 visible cars, 8 draws,
 4 mesh uploads and 469,016 raw array bytes submitted in one frame. It reported the traffic
 group loaded with 3 members, 220,250 encoded content bytes and 11,184,876 resident bytes;
 whole-scene resident charge was 27,953,872 bytes. The 1024 × 2048 loose RGBA full mip chain
@@ -123,7 +123,7 @@ including material uniforms, while `cookedBytes` describes encoded member sizes.
 counter is process RSS or physical-phone memory. The test-only catalog reference group was
 absent from this production driving profile.
 
-The fresh cooked profile passed with traffic resident charge 8,388,672 bytes: 8,388,608
+That original atlas's cooked profile passed with traffic resident charge 8,388,672 bytes: 8,388,608
 base-level bytes plus the 64-byte material charge, matching `compression = "none"` and
 `mipmaps = false`. Its encoded group size was 8,391,993 bytes (8,388,820 texture bytes and
 3,173 material/program bytes). Whole-scene resident charge was 21,138,104 bytes, with
@@ -131,6 +131,31 @@ base-level bytes plus the 64-byte material charge, matching `compression = "none
 of 7 visible cars, 8 draws, 4 uploads and 469,016 raw submission bytes, and the same
 76,032-byte native composite mesh. These are desktop structural/residency observations;
 neither lane measures phone hardware or proves the full 32-car rendering capacity by itself.
+
+The browser exposed an upload-budget boundary in the original atlas. Its 8 MiB base upload
+never reached the GPU while recurring dynamic-road uploads consumed part of the pinned
+engine's 8 MiB frame allowance. The public WebGPU trace retained all 25 texture creations:
+other atlases appeared, but the traffic texture did not; the valid composite pipeline issued
+no draw across a positive traffic workload and 30 subsequent fixed steps. Native capture's
+same-snapshot retries could admit that texture without another road upload.
+
+The atlas now removes only 768 fully transparent rows. Its last extruded content ends at
+row 1241; the 1280-row image retains 39 blank rows. Every decoded pixel equals the old
+image's prefix, and all 512 original PNGs, 32 SCALE files, frame metadata and packing rectangles
+remain byte-identical. Base upload is 5,242,880 bytes. Fresh native/cooked/compat checks passed
+all 19 traffic render tests each, including 512 exact sprite/control pairs and unchanged
+traffic goldens. V8 and Hermes each passed all 38 focused traffic tests.
+
+Fresh measured traffic-group resident charge is 6,990,564 bytes loose (6,990,500 across 11
+floor-halved mip levels plus 64 material bytes) and 5,242,944 bytes cooked (base plus 64).
+Whole-scene charges are 23,759,560 / 17,992,376 bytes, with cooked data 779,901 bytes reported
+separately. The 829-step profile retains its 6 unique passing awards, recycle, pause/resume,
+7-visible/8-draw peaks and unchanged mesh/upload counts. These are desktop observations.
+The corrected atlas also passed an actual background WebGPU diagnostic: all 26 texture
+creations were retained, including the 1024 × 1280 traffic texture, with 1,538 composite draws
+and UV1 bindings. Screenshots showed the start-line scenery and distinct source traffic cars.
+All 1,826 OS-focus samples stayed on the existing foreground process; the owned profile was
+removed and browser/GPU errors were zero.
 
 Native and cooked catalog tests each passed 512 exact sprite/control RGBA comparisons: one selected
 opaque source texel for each of 32 models × 16 frames. The independent 32 × 16 reference
@@ -150,6 +175,12 @@ at step 273: hash `32faf485cd0ff10b` and the full traffic pool stayed unchanged.
 274 produced `8d2e5c0899023e04`. Reload reported `systems.changed: []` because system bodies
 were unchanged; the edited helper still appeared in the new bundle. This proves that bounded
 reload/state-preservation case, not a general hardware frame-time result.
+After the atlas correction, the same supported helper-reload procedure passed again at
+recorded replay step 810: the code bundle changed, the complete traffic pool and world hash
+stayed equal, and step 811 continued with hash `13c8b0c5de1dd787`. Reload took 17.063 ms;
+the source and compiled bundle were restored and the owned native host was stopped.
+The final full-suite pipeline capture passed 153 T1 tests and recorded 19 mobile, 30 desktop
+and 19 compat pipeline keys, including the corrected material program.
 
 ## Strict active replay budget
 
@@ -161,7 +192,7 @@ measure every recorded fixed step with one explicit 1280 × 720 render request. 
 use the desktop host's explicit `phone-low` memory class. No free-running playback or finished,
 idle-only capture substitutes for these samples.
 
-Final focused strict captures passed on mobile and compat: exactly 829 steps and 829 render
+Before the padding-only trim, focused strict captures passed on mobile and compat: exactly 829 steps and 829 render
 requests, no replay divergence, 10 peak actual draws, zero new pipelines and zero GC pauses
 over 4 ms. Allocation was 378.312 MiB on mobile and 377.191 MiB on compat. The 448 MiB ceiling
 provides approximately 18.4% allowance above the larger observation; it follows these captures,
@@ -196,13 +227,29 @@ publishes it only for non-release configurations. It checks function presence wi
 it or querying world state. The native test fixture uses a local probe with `DEV=true`.
 An initial real-browser run exposed the DEV-only gate error: it received no telemetry and
 failed before driving. That run preserved focus and cleaned up, but is not traffic evidence.
+After fixing that gate, the browser script reported a same-lifetime approach, close pass,
+pause/resume and resize. Independent screenshot review rejected traffic acceptance: the
+target car's published close bounds contained only road/sand/marking colors, with no car.
+Computed quads and a passing event do not prove a visible GPU draw. Browser rendering of the
+shared scenery/traffic compositor was therefore a blocking investigation; that script's green
+result was not accepted as traffic art evidence. The padding-only fix and subsequent actual
+GPU/image evidence above resolved this specific defect.
+
+The corrected build also passed the uninstrumented background drive: a visible approach and
+close screenshot bracketed the same epoch/slot/generation, followed by its 20,000-point pass
+event. Pause preserved the published traffic/driver state and decoded player/world pixels
+across 15 observed steps after settling; resume restored motion. All 236 observed inputs were
+trusted. The same session resized from 1280 × 720 to 852 × 393 at DPR 1. All 1,872 focus samples
+preserved the existing foreground process, its owned profile was removed, and runtime errors
+were zero. Configured population remained 32; this is not a claim of 32 naturally simultaneous
+visible cars. Actual screenshots, not the DTO or script green alone, establish visibility.
 [Ten focused tests](../../outrun/tests/sim/traffic-diagnostics.test.ts) passed on both V8 and
 Hermes, and the native integrated render check passed. Browser population/pass acceptance
 still requires the actual background browser run, not these helper tests alone.
 
-Full gates, background browser evidence and GitHub CI remain pending. Actual background
-WebGPU busy-road / close-overtake / pause / resize checks must preserve user focus and clean
-up only their own browser profile. Physical-phone testing is excluded. This reference records
+Final integrated gates and GitHub CI remain pending.
+Browser checks must preserve user focus and clean up only their own browser profile.
+Physical-phone testing is excluded. This reference records
 implementation and observed evidence; it does not claim that pending lanes passed.
 
 The separate traffic-art viewer has no live `TrafficPool` or player-car visual owner.
