@@ -1,0 +1,6 @@
+guid = "9d0cd543-8b46-41b1-b1bd-5f3109d70b34"
+importer = "texture"
+[settings]
+atlas = "shared-wheel-effects"
+trim = true
+compression = "none"
