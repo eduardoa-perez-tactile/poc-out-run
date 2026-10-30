@@ -27,6 +27,10 @@
   },
   {
    "r": "3d-program",
+   "program": "materials/player-car.material.ts"
+  },
+  {
+   "r": "3d-program",
    "program": "materials/road.material.ts"
   },
   {
@@ -35,6 +39,21 @@
     "Forward": {
      "program": "7946469ed20397e0",
      "alpha": 0,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 1,
+     "format": 22,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
      "double_sided": false,
      "prepassed": false,
      "samples": 1,
@@ -125,6 +144,10 @@
   },
   {
    "r": "3d-program",
+   "program": "materials/player-car.material.ts"
+  },
+  {
+   "r": "3d-program",
    "program": "materials/road.material.ts"
   },
   {
@@ -151,6 +174,37 @@
      "alpha": 0,
      "double_sided": false,
      "prepassed": true,
+     "samples": 4,
+     "format": 40,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 4,
+     "format": 40,
+     "skinned": false,
+     "debug": 0,
+     "fade": true
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
      "samples": 4,
      "format": 40,
      "skinned": false,
@@ -325,6 +379,10 @@
   },
   {
    "r": "3d-program",
+   "program": "materials/player-car.material.ts"
+  },
+  {
+   "r": "3d-program",
    "program": "materials/road.material.ts"
   },
   {
@@ -333,6 +391,21 @@
     "Forward": {
      "program": "7946469ed20397e0",
      "alpha": 0,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 1,
+     "format": 22,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "89a0d3bc4bc0b4f6",
+     "alpha": 2,
      "double_sided": false,
      "prepassed": false,
      "samples": 1,

@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "name": "PlayerCarPixels",
+  "model": "unlit",
+  "blend": "blend",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 16,
+  "params": [
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 0,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "binding": 1,
+      "default": "white",
+      "srgb": true
+    }
+  ],
+  "samplerBinding": 2,
+  "wgsl": "// Material PlayerCarPixels (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var tex_atlas: texture_2d<f32>;\n@group(2) @binding(2) var material_sampler: sampler;\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec3f = in.color.xyz;\n  let v1: vec2f = vec2f(1024.0, 1024.0);\n  let v2: vec2f = (in.uv * v1);\n  let v3: vec2f = floor(v2);\n  let v4: vec2f = (v3 + 0.5);\n  let v5: vec2f = (v4 / v1);\n  let v6: vec4f = textureSample(tex_atlas, material_sampler, v5);\n  let v7: vec3f = v6.xyz;\n  let v8: f32 = in.color.w;\n  let v9: vec3f = vec3f(v8);\n  let v10: vec3f = mix(v0, v7, v9);\n  let v11: f32 = v6.w;\n  let v12: f32 = mix(1.0, v11, v8);\n  out.base_color = v10;\n  out.alpha = v12;\n  return out;\n}\n",
+  "hash": "89a0d3bc4bc0b4f6",
+  "sourceHash": "49b82844bcad7f4e"
+}
