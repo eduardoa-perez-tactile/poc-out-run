@@ -1,10 +1,11 @@
 import {defineSystem,read,write,query,meshes,assets,ViewInfo,RenderTime,KeyEvent,Keys,type MeshArrays} from '@gameengine/runtime';
-import {Map01ArtPreview,Map01ArtSlot,TrafficPool,TrafficArtResidency,TrafficArtPreview,type TrafficPoolValue} from '../schema.gen.ts';
+import {Map01ArtPreview,Map01ArtSlot,TrafficPool,TrafficArtResidency,TrafficArtPreview,DrivingState,TerrainDriver,TrafficPassed,type TrafficPoolValue,type TrafficPassedValue} from '../schema.gen.ts';
 import {loadMap01,sourcePlayerSample} from '../content/biome.ts';
 import {MAP01_ART} from '../content/environments/map01.manifest.ts';
 import {buildSourceRoad,sourceProjectionStats} from './source-projection.ts';
 import {VISIBLE_SEGMENTS} from './road-projection.ts';
-import {buildTrafficComposite} from './traffic-buffers.ts';
+import {buildTrafficComposite,trafficCompositeStats,trafficCompositeSamples} from './traffic-buffers.ts';
+import {trafficDiagnosticsEnabled,publishTrafficDiagnostics,clearTrafficDiagnostics} from './traffic-diagnostics.ts';
 import {buildTrafficCatalog} from './traffic-catalog.ts';
 import {makeTrafficArtFixture} from './traffic-art-fixtures.ts';
 import {buildMap01ArtProps,map01AtlasLookup,map01ArtStats} from './map01-art-buffers.ts';
@@ -28,9 +29,9 @@ function interpolateOffset(previous:number,current:number,alpha:number,width:num
 
 export const Map01ArtPresentation=defineSystem({
   name:'Map01ArtPresentation',stage:'LateUpdate',after:['Map01Presentation'],
-  events:[KeyEvent],queries:{owners:query(read(Map01ArtSlot)),traffic:query(read(TrafficPool))},
-  resources:[write(Map01ArtPreview),write(TrafficArtResidency),read(TrafficArtPreview),read(ViewInfo),read(RenderTime)],
-  run(ctx,{owners,traffic}){
+  events:[KeyEvent,TrafficPassed],queries:{owners:query(read(Map01ArtSlot)),traffic:query(read(TrafficPool)),terrain:query(read(TerrainDriver))},
+  resources:[write(Map01ArtPreview),write(TrafficArtResidency),read(TrafficArtPreview),read(DrivingState),read(ViewInfo),read(RenderTime)],
+  run(ctx,{owners,traffic,terrain}){
     const frame=ctx.resource(RenderTime).frame[0]!;
     if(map01ArtStats.renderFrame!==frame){map01ArtStats.renderFrame=frame;map01ArtStats.frameUploadCalls=0;map01ArtStats.frameSubmittedBytes=0;}
     if(ctx.step===0)return;
@@ -38,6 +39,8 @@ export const Map01ArtPresentation=defineSystem({
     if(traffic.count>1)throw new Error('Map1 renderer requires at most one TrafficPool');
     const art=ctx.resource(TrafficArtPreview),residency=ctx.resource(TrafficArtResidency);
     if(art.mode[0]!>2)throw new Error('Unknown traffic art preview mode');
+    const diagnostics=trafficDiagnosticsEnabled();
+    if(!diagnostics||inactive||traffic.count!==1||art.mode[0]!==0)clearTrafficDiagnostics();
     const needsTraffic=!inactive&&(traffic.count===1||art.mode[0]!==0);
     const needsCatalog=!inactive&&art.mode[0]===1;
     let releaseCatalog=residency.catalogLoaded[0]!==0;
@@ -146,6 +149,18 @@ export const Map01ArtPresentation=defineSystem({
       for(const name of [names[1],names[2],names[3]])if(meshes.info(name)!==null)meshes.destroy(name);
       map01ArtStats.drawn=0;
     }
+    // Explicit read-only project probe for browser QA; no native/release DTO
+    // construction, and authored art fixtures never claim live simulation data.
+    if(diagnostics&&art.mode[0]===0&&pool&&terrain.count===1){
+      let roadSide=0;
+      for(const chunk of terrain.chunks())for(let row=0;row<chunk.length;row++)roadSide=chunk.get(TerrainDriver,row).roadSide;
+      const driving=ctx.resource(DrivingState),distance=driving.distance[0]!;
+      const passes:TrafficPassedValue[]=[];
+      for(const pass of ctx.events.read(TrafficPassed))passes.push({epoch:pass.epoch,slot:pass.slot,generation:pass.generation,points:pass.points});
+      publishTrafficDiagnostics({step:ctx.step,frame,viewport:{width:view.width[0]!,height:view.height[0]!},ready,
+        driver:{distance,lateral:driving.lateral[0]!,legacySpeed:driving.legacySpeed[0]!,playing:driving.playing[0]!==0,
+          playerZ:sourcePlayerSample(data,distance).playerZ,roadSide},pool,stats:trafficCompositeStats,samples:trafficCompositeSamples,passes});
+    }else if(diagnostics)clearTrafficDiagnostics();
     ctx.setField(Map01ArtPreview,'lastCameraOriginZ',current);
   },
 });
