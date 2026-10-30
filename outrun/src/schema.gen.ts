@@ -1,5 +1,6 @@
 // @generated — do not edit. Regenerate with `pnpm gen` (tools/bindgen).
-import { typeToken, registerSchema, type EntityId } from '@gameengine/runtime';
+import { typeToken, registerSchema, dataToken, type DataRecord, type EntityId } from '@gameengine/runtime';
+import './content.gen.ts';
 
 export type { EntityId };
 
@@ -9,6 +10,75 @@ export const schemaIr = {
   "package": "OutRun",
   "enums": [],
   "types": [
+    {
+      "name": "Map01Preview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01VisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aspect",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01VisualSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
     {
       "name": "DrivingControlChanged",
       "kind": "event",
@@ -532,9 +602,444 @@ export const schemaIr = {
   ],
   "commands": [],
   "protocol": [],
-  "services": []
+  "services": [],
+  "data": [
+    {
+      "name": "SourceBiome",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "sourceCommit": {
+            "type": "string"
+          },
+          "inputSha256": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "profile": {
+            "const": "sourceCompatibility-original"
+          },
+          "forkGradient": {
+            "type": "integer"
+          },
+          "segmentLength": {
+            "type": "integer"
+          },
+          "playerOffsetZ": {
+            "type": "integer"
+          },
+          "cameraHeight": {
+            "type": "integer"
+          },
+          "referenceWidth": {
+            "type": "integer"
+          },
+          "authoredCount": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "swapLine": {
+            "type": "integer"
+          },
+          "lastLine": {
+            "type": "integer"
+          },
+          "checkpointLine": {
+            "type": "integer"
+          },
+          "timeSeconds": {
+            "type": "integer"
+          },
+          "terrain": {
+            "type": "integer"
+          },
+          "roadTerrain": {
+            "type": "integer"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "integer"
+              },
+              "right": {
+                "type": "integer"
+              },
+              "sequential": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "left",
+              "right",
+              "sequential"
+            ],
+            "additionalProperties": false
+          },
+          "palette": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sourceLine": {
+                  "type": "integer"
+                },
+                "command": {
+                  "type": "string"
+                },
+                "arguments": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "firstSegment": {
+                  "type": "integer"
+                },
+                "count": {
+                  "type": "integer"
+                },
+                "effective": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "required": [
+                "sourceLine",
+                "command",
+                "arguments",
+                "firstSegment",
+                "count",
+                "effective"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "sourcePath": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "propertiesSha256": {
+                  "type": "string"
+                },
+                "hasProperties": {
+                  "type": "boolean"
+                },
+                "sourceSizePx": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "collision": {
+                  "type": "boolean"
+                },
+                "scale": {
+                  "type": "number"
+                },
+                "collisionWidthSourcePx": {
+                  "type": "number"
+                },
+                "showTerrain": {
+                  "type": "integer"
+                },
+                "pivotLeft": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "pivotRight": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "collisionPivotLeft": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "collisionPivotRight": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "sourcePath",
+                "sha256",
+                "propertiesSha256",
+                "hasProperties",
+                "sourceSizePx",
+                "collision",
+                "scale",
+                "collisionWidthSourcePx",
+                "showTerrain",
+                "pivotLeft",
+                "pivotRight",
+                "collisionPivotLeft",
+                "collisionPivotRight"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "definitions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "kind": {
+                  "enum": [
+                    "start",
+                    "authored"
+                  ]
+                },
+                "sourceLine": {
+                  "type": "integer"
+                },
+                "objectId": {
+                  "type": "integer"
+                },
+                "offsetX": {
+                  "type": "number"
+                },
+                "offsetY": {
+                  "type": "number"
+                },
+                "side": {
+                  "type": "boolean"
+                },
+                "viewportYFactor": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "sourceLine",
+                "objectId",
+                "offsetX",
+                "offsetY",
+                "side",
+                "viewportYFactor"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "placements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "segment": {
+                  "type": "integer"
+                },
+                "slot": {
+                  "type": "integer"
+                },
+                "definition": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "segment",
+                "slot",
+                "definition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "overwritten": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "segment": {
+                  "type": "integer"
+                },
+                "slot": {
+                  "type": "integer"
+                },
+                "previousDefinition": {
+                  "type": "integer"
+                },
+                "definition": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "segment",
+                "slot",
+                "previousDefinition",
+                "definition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "candidatePlacements": {
+            "type": "integer"
+          },
+          "maxWindowProps": {
+            "type": "integer"
+          },
+          "objectOffsets": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "segments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "y0": {
+                  "type": "number"
+                },
+                "y1": {
+                  "type": "number"
+                },
+                "curve": {
+                  "type": "number"
+                },
+                "gap": {
+                  "type": "number"
+                },
+                "mirror": {
+                  "type": "boolean"
+                },
+                "light": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "y0",
+                "y1",
+                "curve",
+                "gap",
+                "mirror",
+                "light"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "sourceCommit",
+          "inputSha256",
+          "sourceHashes",
+          "profile",
+          "forkGradient",
+          "segmentLength",
+          "playerOffsetZ",
+          "cameraHeight",
+          "referenceWidth",
+          "authoredCount",
+          "totalCount",
+          "swapLine",
+          "lastLine",
+          "checkpointLine",
+          "timeSeconds",
+          "terrain",
+          "roadTerrain",
+          "links",
+          "palette",
+          "commands",
+          "objects",
+          "definitions",
+          "placements",
+          "overwritten",
+          "candidatePlacements",
+          "maxWindowProps",
+          "objectOffsets",
+          "segments"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "Immutable source-compatible Map1 geometry/provenance. Source PNG paths are provenance, not runtime art references (child40)."
+    }
+  ]
 } as const;
 registerSchema(schemaIr);
+
+export interface Map01PreviewViews {
+  enabled: Uint8Array;
+  cameraOriginZ: Float32Array;
+  lateral: Float32Array;
+}
+export interface Map01PreviewValue {
+  enabled: boolean;
+  cameraOriginZ: number;
+  lateral: number;
+}
+/** Map01Preview (resource, presentation-only) */
+export const Map01Preview = typeToken<Map01PreviewViews, Map01PreviewValue>('Map01Preview', 'resource', { sig: 'enabled:bool:1,cameraOriginZ:f32:1,lateral:f32:1', read: (v: Map01PreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; return o; } });
+
+export interface Map01VisualCacheViews {
+  cameraOriginZ: Float32Array;
+  lateral: Float32Array;
+  aspect: Float32Array;
+}
+export interface Map01VisualCacheValue {
+  cameraOriginZ: number;
+  lateral: number;
+  aspect: number;
+}
+/** Map01VisualCache (resource, presentation-only) */
+export const Map01VisualCache = typeToken<Map01VisualCacheViews, Map01VisualCacheValue>('Map01VisualCache', 'resource', { sig: 'cameraOriginZ:f32:1,lateral:f32:1,aspect:f32:1', read: (v: Map01VisualCacheViews, i: number, o: Record<string, unknown>) => { o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
+
+export interface Map01VisualSlotViews {
+  slot: Uint32Array;
+}
+export interface Map01VisualSlotValue {
+  slot: number;
+}
+/** Map01VisualSlot (component, presentation-only) */
+export const Map01VisualSlot = typeToken<Map01VisualSlotViews, Map01VisualSlotValue>('Map01VisualSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01VisualSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
 export interface DrivingControlChangedViews {
   control: Uint32Array;
@@ -761,3 +1266,91 @@ export interface VehicleVisualSlotValue {
 }
 /** VehicleVisualSlot (component, presentation-only) */
 export const VehicleVisualSlot = typeToken<VehicleVisualSlotViews, VehicleVisualSlotValue>('VehicleVisualSlot', 'component', { sig: 'slot:u32:1', read: (v: VehicleVisualSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+/** Immutable source-compatible Map1 geometry/provenance. Source PNG paths are provenance, not runtime art references (child40). */
+export type SourceBiomeData = {
+  id: number;
+  sourceCommit: string;
+  inputSha256: string;
+  sourceHashes: Record<string, string>;
+  profile: "sourceCompatibility-original";
+  forkGradient: number;
+  segmentLength: number;
+  playerOffsetZ: number;
+  cameraHeight: number;
+  referenceWidth: number;
+  authoredCount: number;
+  totalCount: number;
+  swapLine: number;
+  lastLine: number;
+  checkpointLine: number;
+  timeSeconds: number;
+  terrain: number;
+  roadTerrain: number;
+  links: {
+    left: number;
+    right: number;
+    sequential: number;
+  };
+  palette: number[][];
+  commands: {
+    sourceLine: number;
+    command: string;
+    arguments: number[];
+    firstSegment: number;
+    count: number;
+    effective: number[];
+  }[];
+  objects: {
+    id: number;
+    sourcePath: string;
+    sha256: string;
+    propertiesSha256: string;
+    hasProperties: boolean;
+    sourceSizePx: number[];
+    collision: boolean;
+    scale: number;
+    collisionWidthSourcePx: number;
+    showTerrain: number;
+    pivotLeft: number[];
+    pivotRight: number[];
+    collisionPivotLeft: number[];
+    collisionPivotRight: number[];
+  }[];
+  definitions: {
+    id: number;
+    kind: "start" | "authored";
+    sourceLine: number;
+    objectId: number;
+    offsetX: number;
+    offsetY: number;
+    side: boolean;
+    viewportYFactor: number;
+  }[];
+  placements: {
+    id: number;
+    segment: number;
+    slot: number;
+    definition: number;
+  }[];
+  overwritten: {
+    segment: number;
+    slot: number;
+    previousDefinition: number;
+    definition: number;
+  }[];
+  candidatePlacements: number;
+  maxWindowProps: number;
+  objectOffsets: number[];
+  segments: {
+    y0: number;
+    y1: number;
+    curve: number;
+    gap: number;
+    mirror: boolean;
+    light: number;
+  }[];
+};
+/** A loaded SourceBiome as `loadData` returns it (frozen). */
+export type ReadonlySourceBiomeData = DataRecord<SourceBiomeData>;
+export const SourceBiome = dataToken<SourceBiomeData>('SourceBiome');
