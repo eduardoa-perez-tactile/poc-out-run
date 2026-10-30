@@ -144,7 +144,7 @@ for(const window of WINDOWS)for(const arm of (window.nearAI?[0,1]:[0]) as (0|1)[
     if(window.nearAI){for(const ai of [1,2,3,4])expect(near[ai]!).toBeGreaterThan(0);}
     if(window.pass)expect(passes.size).toBeGreaterThan(0);
     expect(ticks).toBeLessThan(window.cap);
-    for(const key of ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'])ctx.input.key(key,false);
+    for(const key of ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'] as const)ctx.input.key(key,false);
     ctx.input.emit(DrivingPauseRequested,{paused:true});await step(1);
     const paused=world.get(owner,TrafficPool);
     for(let tick=0;tick<5;tick++){
