@@ -12,6 +12,12 @@ export interface TerrainDrivingSample extends DrivingSample {distance:number;pla
 export interface TerrainDrivingResult {
   driving:DrivingSample&{distance:number;playing:boolean};
   driver:TerrainDriverValue;
+  /** Optional authoritative operands for collision sweeps, never inferred from endpoints. */
+  motion?:TerrainMotionTrace;
+}
+export interface TerrainMotionTrace {
+  z0:number;z1:number;l0:number;ls:number;lc:number;lr:number;lf:number;
+  drift:number;previousGap:number;carryApplied:boolean;handlingCap:number;
 }
 export interface WheelContact {leftOutside:boolean;rightOutside:boolean;leftEffect:number;rightEffect:number}
 
@@ -53,7 +59,7 @@ export function terrainSkidding(speed:number,steering:number,curve:number,dt:num
     Math.abs(steering)>=f(f(speed*dt)*f(.8));
 }
 
-export function advanceTerrainDriving(driving:TerrainDrivingSample,previous:TerrainDriverValue,input:DrivingControls,dt:number,data:ReadonlySourceBiomeData):TerrainDrivingResult {
+export function advanceTerrainDriving(driving:TerrainDrivingSample,previous:TerrainDriverValue,input:DrivingControls,dt:number,data:ReadonlySourceBiomeData,captureMotion=false):TerrainDrivingResult {
   if(previous.mapId!==1||data.id!==previous.mapId)throw new Error(`Unsupported terrain map ${previous.mapId}/${data.id}`);
   if(!Number.isFinite(dt)||dt<0)throw new Error('Terrain step needs finite nonnegative dt');
   const driver={...previous};
@@ -101,6 +107,12 @@ export function advanceTerrainDriving(driving:TerrainDrivingSample,previous:Terr
     if(Math.abs(error)<=RECENTER_TOLERANCE)driver.recentering=false;
     else current.lateral=f(current.lateral+(error<0?1:-1)*Math.min(Math.abs(error),f(RECENTER_RATE*dt)));
     updateContact();
+    if(captureMotion)return {driving:current,driver,motion:{
+      z0:f(driving.distance+data.playerOffsetZ),z1:f(current.distance+data.playerOffsetZ),l0:driving.lateral,
+      ls:current.lateral,lc:current.lateral,lr:current.lateral,lf:current.lateral,
+      drift:0,previousGap:point.row.gap,carryApplied:false,
+      handlingCap:terrainHandlingCap(current.gear,preContact,data.terrain),
+    }};
     return {driving:current,driver};
   };
   if(driver.recentering||(current.legacySpeed<=0&&(preContact.leftOutside||preContact.rightOutside)))return recenter();
@@ -113,11 +125,22 @@ export function advanceTerrainDriving(driving:TerrainDrivingSample,previous:Terr
   if(current.distance>=limit)return endSection();
   if(current.legacySpeed<=0&&offRoad)return recenter();
   const previousSide=driver.roadSide;
-  if(current.legacySpeed>=30.5&&previousSide===1)current.lateral=f(current.lateral+f(f(point.row.gap-driver.previousGap)/TERRAIN_ROAD_WIDTH));
-  current.lateral=f(current.lateral+terrainCentrifugalDelta(current.legacySpeed,cap,point.row.curve,point.row.mirror,previousSide,dt));
+  const previousGap=driver.previousGap,carryApplied=current.legacySpeed>=30.5&&previousSide===1;
+  if(carryApplied)current.lateral=f(current.lateral+f(f(point.row.gap-previousGap)/TERRAIN_ROAD_WIDTH));
+  const carriedLateral=current.lateral;
+  const drift=terrainCentrifugalDelta(current.legacySpeed,cap,point.row.curve,point.row.mirror,previousSide,dt);
+  current.lateral=f(current.lateral+drift);
+  const rawLateral=current.lateral;
   current.lateral=boundTerrainLateral(current.lateral,point.row.gap,point.row.mirror,previousSide);
   const postContact=terrainWheelContact(current.lateral,point.row.gap,data.terrain,data.roadTerrain);
   driver.skidding=terrainSkidding(current.legacySpeed,current.steering,point.row.curve,dt,postContact);
   updateContact(driver.skidding||input.brake||(eligibleThrottle&&current.legacySpeed<50));
+  // Off by default: ownerless proof worlds create no trace object and retain the
+  // exact original arithmetic, RNG streams and authoritative state.
+  if(captureMotion)return {driving:current,driver,motion:{
+    z0:f(driving.distance+data.playerOffsetZ),z1:f(current.distance+data.playerOffsetZ),l0:driving.lateral,
+    ls:moved.lateral,lc:carriedLateral,lr:rawLateral,lf:current.lateral,
+    drift,previousGap,carryApplied,handlingCap:cap,
+  }};
   return {driving:current,driver};
 }

@@ -80,6 +80,251 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "CollisionDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "motionValid",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "motionStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "locked",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "acceptedCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "z0",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "z1",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "l0",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "ls",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lc",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lr",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lf",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "drift",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "previousGap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "carryApplied",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "ledgerCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ledgerKind",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerId",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerEpoch",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerGeneration",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ContactAccepted",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "id",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "toi",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "playerX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playerZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "DrivingControlChanged",
       "kind": "event",
       "sim": true,
@@ -1602,6 +1847,96 @@ export interface Map01VisualSlotValue {
 }
 /** Map01VisualSlot (component, presentation-only) */
 export const Map01VisualSlot = typeToken<Map01VisualSlotViews, Map01VisualSlotValue>('Map01VisualSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01VisualSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+export interface CollisionDriverViews {
+  mapId: Uint32Array;
+  initialized: Uint8Array;
+  motionValid: Uint8Array;
+  motionStep: Uint32Array;
+  locked: Uint8Array;
+  acceptedCount: Uint32Array;
+  z0: Float32Array;
+  z1: Float32Array;
+  l0: Float32Array;
+  ls: Float32Array;
+  lc: Float32Array;
+  lr: Float32Array;
+  lf: Float32Array;
+  drift: Float32Array;
+  previousGap: Float32Array;
+  carryApplied: Uint8Array;
+  handlingCap: Float32Array;
+  ledgerCount: Uint32Array;
+  ledgerKind: Uint32Array;
+  ledgerId: Uint32Array;
+  ledgerEpoch: Uint32Array;
+  ledgerGeneration: Uint32Array;
+}
+export interface CollisionDriverValue {
+  mapId: number;
+  initialized: boolean;
+  motionValid: boolean;
+  motionStep: number;
+  locked: boolean;
+  acceptedCount: number;
+  z0: number;
+  z1: number;
+  l0: number;
+  ls: number;
+  lc: number;
+  lr: number;
+  lf: number;
+  drift: number;
+  previousGap: number;
+  carryApplied: boolean;
+  handlingCap: number;
+  ledgerCount: number;
+  ledgerKind: number[];
+  ledgerId: number[];
+  ledgerEpoch: number[];
+  ledgerGeneration: number[];
+}
+/** CollisionDriver (component, sim) */
+export const CollisionDriver = typeToken<CollisionDriverViews, CollisionDriverValue>('CollisionDriver', 'component', { sig: 'mapId:u32:1,initialized:bool:1,motionValid:bool:1,motionStep:u32:1,locked:bool:1,acceptedCount:u32:1,z0:f32:1,z1:f32:1,l0:f32:1,ls:f32:1,lc:f32:1,lr:f32:1,lf:f32:1,drift:f32:1,previousGap:f32:1,carryApplied:bool:1,handlingCap:f32:1,ledgerCount:u32:1,ledgerKind:array:64,ledgerId:array:64,ledgerEpoch:array:64,ledgerGeneration:array:64', read: (v: CollisionDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.initialized = v.initialized[i] !== 0; o.motionValid = v.motionValid[i] !== 0; o.motionStep = v.motionStep[i]; o.locked = v.locked[i] !== 0; o.acceptedCount = v.acceptedCount[i]; o.z0 = v.z0[i]; o.z1 = v.z1[i]; o.l0 = v.l0[i]; o.ls = v.ls[i]; o.lc = v.lc[i]; o.lr = v.lr[i]; o.lf = v.lf[i]; o.drift = v.drift[i]; o.previousGap = v.previousGap[i]; o.carryApplied = v.carryApplied[i] !== 0; o.handlingCap = v.handlingCap[i]; o.ledgerCount = v.ledgerCount[i]; o.ledgerKind = $r.lanes(v.ledgerKind, i, 64, o.ledgerKind); o.ledgerId = $r.lanes(v.ledgerId, i, 64, o.ledgerId); o.ledgerEpoch = $r.lanes(v.ledgerEpoch, i, 64, o.ledgerEpoch); o.ledgerGeneration = $r.lanes(v.ledgerGeneration, i, 64, o.ledgerGeneration); return o; } });
+
+export interface ContactAcceptedViews {
+  kind: Uint32Array;
+  mapId: Uint32Array;
+  id: Uint32Array;
+  epoch: Uint32Array;
+  generation: Uint32Array;
+  slot: Uint32Array;
+  toi: Float32Array;
+  stage: Uint32Array;
+  playerX: Float32Array;
+  playerZ: Float32Array;
+  otherX: Float32Array;
+  otherZ: Float32Array;
+  impactSpeed: Float32Array;
+  handlingCap: Float32Array;
+  collisionDir: Float32Array;
+  curve: Float32Array;
+}
+export interface ContactAcceptedValue {
+  kind: number;
+  mapId: number;
+  id: number;
+  epoch: number;
+  generation: number;
+  slot: number;
+  toi: number;
+  stage: number;
+  playerX: number;
+  playerZ: number;
+  otherX: number;
+  otherZ: number;
+  impactSpeed: number;
+  handlingCap: number;
+  collisionDir: number;
+  curve: number;
+}
+/** ContactAccepted (event, sim) */
+export const ContactAccepted = typeToken<ContactAcceptedViews, ContactAcceptedValue>('ContactAccepted', 'event', { sig: 'kind:u32:1,mapId:u32:1,id:u32:1,epoch:u32:1,generation:u32:1,slot:u32:1,toi:f32:1,stage:u32:1,playerX:f32:1,playerZ:f32:1,otherX:f32:1,otherZ:f32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1', read: (v: ContactAcceptedViews, i: number, o: Record<string, unknown>) => { o.kind = v.kind[i]; o.mapId = v.mapId[i]; o.id = v.id[i]; o.epoch = v.epoch[i]; o.generation = v.generation[i]; o.slot = v.slot[i]; o.toi = v.toi[i]; o.stage = v.stage[i]; o.playerX = v.playerX[i]; o.playerZ = v.playerZ[i]; o.otherX = v.otherX[i]; o.otherZ = v.otherZ[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; return o; } });
 
 export interface DrivingControlChangedViews {
   control: Uint32Array;
