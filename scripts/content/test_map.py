@@ -13,6 +13,41 @@ class MapTests(unittest.TestCase):
         if text is not None:
             fixture['mapText']=text;fixture['mapSha256']=compiler.hashlib.sha256(text.encode()).hexdigest()
         return compiler.compile_map(fixture,gradient)
+    def checkpoint_boundary_source(self,segment):
+        lines=FIXTURE['mapText'].splitlines()
+        self.assertEqual(lines.count('END_FILE'),1)
+        end=lines.index('END_FILE')
+        lines[end:end]=[f'LINE_CHECKPOINT: {segment}','SPRITE_CENTER: 46 0.25 0.0 0']
+        # Return the checkpoint record's actual one-based source line.
+        return '\n'.join(lines)+'\n',end+1
+    def test_checkpoint_first_and_last_authored_segments_keep_placed_object_association(self):
+        authored_count=self.compile()['authoredCount']
+        for segment in [0,authored_count-1]:
+            with self.subTest(segment=segment):
+                source,checkpoint_row=self.checkpoint_boundary_source(segment)
+                data=self.compile(source)
+                self.assertEqual(data['checkpointLine'],segment)
+                self.assertEqual(data['authoredCount'],authored_count)
+                definition=next(d for d in data['definitions'] if d['sourceLine']==checkpoint_row+1)
+                self.assertEqual(definition['kind'],'authored')
+                self.assertEqual(definition['objectId'],46)
+                self.assertEqual(definition['offsetX'],.25)
+                self.assertEqual(data['objects'][definition['objectId']-1]['sourcePath'],
+                                 'Resources/Maps/MapLevels/Map1/1.png')
+                placements=[p for p in data['placements'] if p['definition']==definition['id']]
+                self.assertEqual(placements,[{'id':segment*5+2,'segment':segment,
+                                             'slot':2,'definition':definition['id']}])
+                first,end=data['objectOffsets'][segment:segment+2]
+                self.assertIn(placements[0],data['placements'][first:end])
+    def test_checkpoint_negative_and_authored_end_exclusive_fail_with_exact_source_context(self):
+        authored_count=self.compile()['authoredCount']
+        for segment in [-1,authored_count]:
+            with self.subTest(segment=segment):
+                source,checkpoint_row=self.checkpoint_boundary_source(segment)
+                with self.assertRaises(ValueError) as failure:
+                    self.compile(source)
+                self.assertEqual(str(failure.exception),
+                                 f"{FIXTURE['mapPath']}:{checkpoint_row}:1: line out of range")
     def test_committed_output_is_byte_identical_and_complete(self):
         data=self.compile();self.assertEqual(compiler.encoded(data),compiler.OUTPUT.read_text())
         self.assertEqual((data['authoredCount'],data['totalCount'],data['swapLine'],data['lastLine']),(4123,6083,4284,5883))
