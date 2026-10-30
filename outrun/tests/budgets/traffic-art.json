@@ -2,6 +2,10 @@
   "replay": "tests/replays/traffic_art_profile_canonical_source_busy_drive_measures_composite_residency_and_submissions.greplay",
   "structural": {
     "drawCallsMax": 10,
-    "pipelinesCreatedDuringPlay": 0
-  }
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 448,
+    "repeat": 1
+  },
+  "activeReplay": true
 }

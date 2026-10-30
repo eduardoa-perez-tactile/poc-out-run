@@ -36,10 +36,21 @@ function integer(value:number,name:string){finite(value,name);if(!Number.isInteg
 function bounded(value:number,name:string,max:number){integer(value,name);if(value>max)throw new Error(`Traffic diagnostics ${name} exceeds${max}`);return value;}
 function side(value:number,name:string):0|1{if(value!==0&&value!==1)throw new Error(`Traffic diagnostics ${name} must be0or1`);return value;}
 function parentTransport(host:TrafficDiagnosticsHost):boolean{
-  return host.parent!==undefined&&host.parent!==host&&typeof host.parent.postMessage==='function';
+  // A cross-origin WindowProxy permits postMessage but can reject probe access.
+  // Unavailable public telemetry must disable this helper, never interrupt gameplay.
+  try{
+    const parent=host.parent;
+    return parent!==undefined&&parent!==host&&typeof parent.postMessage==='function'
+      &&typeof parent.gameengineProbe?.state==='function';
+  }catch(error){
+    if(typeof error==='object'&&error!==null&&(error as {name?:unknown}).name==='SecurityError')return false;
+    throw error;
+  }
 }
 export function trafficDiagnosticsEnabled(dev=DEV,host:TrafficDiagnosticsHost=defaultHost):boolean{
-  return dev&&(typeof host.gameengineProbe?.state==='function'||parentTransport(host));
+  // Cooked game bundles set DEV=false even when the outer player is a probe build.
+  // Inspect only the documented public function's presence; never call into its realm.
+  return (dev&&typeof host.gameengineProbe?.state==='function')||parentTransport(host);
 }
 
 // Pure owned snapshot. View bounds describe the clipped image quad, never a
@@ -81,18 +92,18 @@ export function buildTrafficDiagnosticsSnapshot(input:TrafficDiagnosticsInput):T
     viewport:Object.freeze({width,height}),driver,population,activeCount,visibleCount,cars:Object.freeze(cars),passes:Object.freeze(passes)});
 }
 
-export function clearTrafficDiagnostics(host:TrafficDiagnosticsHost=defaultHost,dev=DEV):void{
+export function clearTrafficDiagnostics(host:TrafficDiagnosticsHost=defaultHost,_dev=DEV):void{
   const hadSnapshot=host.outrunTrafficProbe!==undefined||(currentHost===host&&current!==null);
   current=null;
   currentHost=null;
   // This project owns this namespace, including a handle left by a hot reload.
   delete host.outrunTrafficProbe;
-  if(dev&&hadSnapshot&&parentTransport(host))host.parent!.postMessage!(Object.freeze({type:'outrun-traffic-diagnostics',version:1,snapshot:null}),'*');
+  if(hadSnapshot&&parentTransport(host))host.parent!.postMessage!(Object.freeze({type:'outrun-traffic-diagnostics',version:1,snapshot:null}),'*');
 }
 export function publishTrafficDiagnostics(input:TrafficDiagnosticsInput,dev=DEV,host:TrafficDiagnosticsHost=defaultHost):TrafficDiagnosticsSnapshot|null{
   // Browser game scripts have their own iframe realm. This is one-way project
   // telemetry only: no inbound listener, SDK edits or parent-world reflection.
-  // Native/release paths return before any snapshot/API copy or message.
+  // Native/release players without a public probe return before any snapshot/API copy.
   if(!trafficDiagnosticsEnabled(dev,host)){clearTrafficDiagnostics(host,dev);return null;}
   current=buildTrafficDiagnosticsSnapshot(input);
   if(ownedAPI===null)ownedAPI=Object.freeze({snapshot:()=>currentHost?.outrunTrafficProbe===ownedAPI?current:null});

@@ -8,7 +8,7 @@ integrity. No replacement or generated art is required.
 
 ## Source images and frame selection
 
-All 32 source models retain their 16 original transparent PNGs, source SCALE and untrimmed
+All 32 source models retain their 16 original transparent PNGs (512 frames), source SCALE and untrimmed
 canvas dimensions. The runtime uses one explicitly packed 1024 × 2048 atlas with 2-pixel
 extrusion; per-frame original size and bottom-center ground anchor remain separate metadata.
 Numeric IDs map to stable traffic slots, never to PNG-derived collision dimensions.
@@ -90,9 +90,11 @@ resets movement phase or changes passing results.
 
 Focused `traffic.art` T0 tests cover all frame mappings, original anchors/scales, fractional
 projection, the final cached endpoint, mirror seams, geometry/UV crest cropping, all 32 visible
-slots, stable interleave, exact old prop streams and read-only simulation inputs. Targeted T1
-fixtures use recorded lifecycle requests for near/mid/far vehicles, pause and scene release /
-reentry. A source busy-drive T1
+slots, stable interleave, exact old prop streams and read-only simulation inputs. The native [controlled projection fixtures](../../outrun/tests/render/traffic-projection.test.ts)
+prove exactly 32 projected cars, both fork arms, crest cropping and the final row-199 fractional
+endpoint through the actual compositor. These local presentation snapshots are not live traffic.
+Targeted T1 fixtures use recorded lifecycle requests for near/mid/far vehicles, pause and scene
+release / reentry. A source busy-drive T1
 profile follows genuine controls through passing/recycling and prints selected-group and
 whole-scene residency, mesh storage, per-frame API submissions and draws.
 Its 829-step run observed 6 passing awards for 6 unique lifetimes, one recycle generation,
@@ -149,12 +151,59 @@ at step 273: hash `32faf485cd0ff10b` and the full traffic pool stayed unchanged.
 were unchanged; the edited helper still appeared in the new bundle. This proves that bounded
 reload/state-preservation case, not a general hardware frame-time result.
 
-Full gates, final structural budgets, background browser evidence and GitHub CI remain pending.
-Actual background WebGPU busy-road /
-close-overtake / pause / resize checks must preserve user focus and clean up only their own
-browser profile. Physical-phone testing is excluded. This reference describes implementation
-and recorded evidence; it is not itself a claim that pending browser or gate lanes
-passed.
+## Strict active replay budget
+
+The [829-step render profile](../../outrun/tests/render/traffic-art-profile.test.ts) has its own
+[recorded replay](../../outrun/tests/replays/traffic_art_profile_canonical_source_busy_drive_measures_composite_residency_and_submissions.greplay)
+and [active budget](../../outrun/tests/budgets/traffic-art.json). Follow the
+[active replay harness contract](../active-replay-budgets.md): warm paused at step 0, then
+measure every recorded fixed step with one explicit 1280 × 720 render request. Both GPU tiers
+use the desktop host's explicit `phone-low` memory class. No free-running playback or finished,
+idle-only capture substitutes for these samples.
+
+Final focused strict captures passed on mobile and compat: exactly 829 steps and 829 render
+requests, no replay divergence, 10 peak actual draws, zero new pipelines and zero GC pauses
+over 4 ms. Allocation was 378.312 MiB on mobile and 377.191 MiB on compat. The 448 MiB ceiling
+provides approximately 18.4% allowance above the larger observation; it follows these captures,
+not the earlier 376.7 MiB diagnostic. Raw perf counters and per-request GPU evidence are retained
+separately: mobile reported 2,490 protocol frames and 886 actual GPU frames; compat reported
+2,488 and 884. The extra 57 / 55 GPU frames are internal same-snapshot UI/asset retries, not
+extra simulation steps. Both owned hosts cleaned up successfully.
+
+Allocation includes protocol-driven presentation and capture overhead. It is neither production
+allocation per frame nor a phone FPS, hardware memory or thermal measurement. These focused
+budget passes do not replace the final integrated gate and CI results.
+
+## Read-only browser diagnostics
+
+The probe-gated [project telemetry helper](../../outrun/src/render/traffic-diagnostics.ts) copies
+bounded, deeply frozen snapshots from the actual live traffic owner after the compositor
+uploads its current frame. It exposes population, active/visible counts, canonical driver side,
+car lifetime identity, source frame, clipped image bounds and the current passing-event batch.
+Image bounds are not collision hulls or proof of opaque pixels; event batches are not a score
+history. Not-ready snapshots suppress stale visible samples. Fixture/catalog modes and scene
+exit clear the live snapshot.
+
+This API is separate from the SDK's public `gameengineProbe`. Browser game code runs in a
+separate iframe realm, so the project sends one-way `outrun-traffic-diagnostics` version-1
+messages to its parent; clearing sends a single null snapshot. The local
+`outrunTrafficProbe.snapshot()` handle returns the same owned read-only data. There is no
+inbound command listener, private-world reflection, simulation write or camera change. Native
+and release paths without a public diagnostic probe return before copying snapshots.
+Cooked probe builds also set `DEV=false`; the browser transport therefore checks for the
+documented public `gameengineProbe.state` function on its distinct parent, whose web player
+publishes it only for non-release configurations. It checks function presence without calling
+it or querying world state. The native test fixture uses a local probe with `DEV=true`.
+An initial real-browser run exposed the DEV-only gate error: it received no telemetry and
+failed before driving. That run preserved focus and cleaned up, but is not traffic evidence.
+[Ten focused tests](../../outrun/tests/sim/traffic-diagnostics.test.ts) passed on both V8 and
+Hermes, and the native integrated render check passed. Browser population/pass acceptance
+still requires the actual background browser run, not these helper tests alone.
+
+Full gates, background browser evidence and GitHub CI remain pending. Actual background
+WebGPU busy-road / close-overtake / pause / resize checks must preserve user focus and clean
+up only their own browser profile. Physical-phone testing is excluded. This reference records
+implementation and observed evidence; it does not claim that pending lanes passed.
 
 The separate traffic-art viewer has no live `TrafficPool` or player-car visual owner.
 Its catalog and occlusion modes are explicitly presentation fixtures. Occlusion mode keeps

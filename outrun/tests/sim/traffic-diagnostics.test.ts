@@ -74,7 +74,7 @@ worldTest('traffic.diagnostics invalid numbers or overflow fail visibly instead 
 
 worldTest('traffic.diagnostics iframe parent transport sends owned snapshots and one clear without inbound commands',()=>{
   const messages:{message:TrafficDiagnosticsMessage;origin:string}[]=[];
-  const parent:TrafficDiagnosticsHost={postMessage:(message,origin)=>messages.push({message,origin})};
+  const parent:TrafficDiagnosticsHost={gameengineProbe:{state:()=>({})},postMessage:(message,origin)=>messages.push({message,origin})};
   const host:TrafficDiagnosticsHost={parent};
   expect(trafficDiagnosticsEnabled(true,host)).toBe(true);
   const input=sample(),before=JSON.stringify(input),dto=publishTrafficDiagnostics(input,true,host)!;
@@ -87,14 +87,47 @@ worldTest('traffic.diagnostics iframe parent transport sends owned snapshots and
   clearTrafficDiagnostics(host,true);expect(messages.length).toBe(2);
   expect(host.outrunTrafficProbe).toBe(undefined);
 });
-worldTest('traffic.diagnostics release and self-parent transports never copy or post messages',()=>{
+worldTest('traffic.diagnostics cooked probe parent enables transport without calling its SDK probe',()=>{
+  const messages:TrafficDiagnosticsMessage[]=[];
+  const parent:TrafficDiagnosticsHost={gameengineProbe:{state:()=>{throw new Error('Project must not call parent SDK probe');}},postMessage:message=>messages.push(message)};
+  const host:TrafficDiagnosticsHost={parent},input=sample(),before=JSON.stringify(input);
+  expect(trafficDiagnosticsEnabled(false,host)).toBe(true);
+  const dto=publishTrafficDiagnostics(input,false,host)!;
+  expect(JSON.stringify(input)).toBe(before);expect(messages.length).toBe(1);
+  expect(messages[0]!.snapshot).toBe(dto);expect(Object.isFrozen(dto)).toBe(true);
+  expect(host.outrunTrafficProbe!.snapshot()).toBe(dto);
+  clearTrafficDiagnostics(host,false);expect(messages.length).toBe(2);expect(messages[1]!.snapshot).toBe(null);
+  clearTrafficDiagnostics(host,false);expect(messages.length).toBe(2);
+});
+worldTest('traffic.diagnostics release parent absent public probe and self-parent never copy or post',()=>{
   let posted=0;
   const parent:TrafficDiagnosticsHost={postMessage:()=>{posted++;}},host:TrafficDiagnosticsHost={parent};
-  const self:TrafficDiagnosticsHost={postMessage:()=>{posted++;}};self.parent=self;
+  const self:TrafficDiagnosticsHost={gameengineProbe:{state:()=>({})},postMessage:()=>{posted++;}};self.parent=self;
   const poison=new Proxy({} as TrafficDiagnosticsInput,{get(){throw new Error('Disabled transport copied caller state');}});
-  expect(trafficDiagnosticsEnabled(false,host)).toBe(false);expect(trafficDiagnosticsEnabled(true,self)).toBe(false);
-  expect(publishTrafficDiagnostics(poison,false,host)).toBe(null);expect(publishTrafficDiagnostics(poison,true,self)).toBe(null);
-  clearTrafficDiagnostics(host,false);expect(posted).toBe(0);
-  publishTrafficDiagnostics(sample(),true,host);expect(posted).toBe(1);
+  expect(trafficDiagnosticsEnabled(false,host)).toBe(false);expect(trafficDiagnosticsEnabled(true,host)).toBe(false);
+  expect(trafficDiagnosticsEnabled(false,self)).toBe(false);
+  expect(publishTrafficDiagnostics(poison,false,host)).toBe(null);expect(publishTrafficDiagnostics(poison,true,host)).toBe(null);
+  expect(publishTrafficDiagnostics(poison,false,self)).toBe(null);
+  parent.gameengineProbe={state:4};expect(trafficDiagnosticsEnabled(false,host)).toBe(false);
+  parent.gameengineProbe={state:()=>({})};publishTrafficDiagnostics(sample(),false,host);expect(posted).toBe(1);
+  delete parent.gameengineProbe;
   publishTrafficDiagnostics(poison,false,host);expect(posted).toBe(1);expect(host.outrunTrafficProbe).toBe(undefined);
+  clearTrafficDiagnostics(host,false);expect(posted).toBe(1);
+});
+worldTest('traffic.diagnostics inaccessible cross-origin parent probe disables before reading caller state',()=>{
+  let posted=0;
+  const parent:TrafficDiagnosticsHost={postMessage:()=>{posted++;}};
+  Object.defineProperty(parent,'gameengineProbe',{get(){const error=new Error('Cross-origin probe access');error.name='SecurityError';throw error;}});
+  const host:TrafficDiagnosticsHost={parent};
+  const poison=new Proxy({} as TrafficDiagnosticsInput,{get(){throw new Error('Inaccessible parent copied caller state');}});
+  expect(trafficDiagnosticsEnabled(false,host)).toBe(false);expect(trafficDiagnosticsEnabled(true,host)).toBe(false);
+  expect(publishTrafficDiagnostics(poison,false,host)).toBe(null);expect(posted).toBe(0);
+  const inaccessible:TrafficDiagnosticsHost={};
+  Object.defineProperty(inaccessible,'parent',{get(){const error=new Error('Parent unavailable');error.name='SecurityError';throw error;}});
+  expect(trafficDiagnosticsEnabled(false,inaccessible)).toBe(false);
+  expect(publishTrafficDiagnostics(poison,false,inaccessible)).toBe(null);
+  const unexpected:TrafficDiagnosticsHost={};
+  Object.defineProperty(unexpected,'parent',{get(){throw new Error('Unexpected telemetry failure');}});
+  let message='';try{trafficDiagnosticsEnabled(false,unexpected);}catch(error){message=(error as Error).message;}
+  expect(message).toBe('Unexpected telemetry failure');
 });
