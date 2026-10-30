@@ -66,7 +66,10 @@ bands, each with at most5 placements, plus32 traffic lives: at most47 start over
 Capacity/extent/prefix assumptions are guarded; keys are never silently evicted.
 
 Pause freezes detector state. Recorded driver/traffic resets, rebases and scene entry are
-contact/pass barriers and clear the ledger; scene exit removes the owner. Stale motion cannot
+contact/pass barriers and clear the ledger; scene exit removes the owner. The entry reducer
+explicitly classifies the contact fixture as driving and clears input holds and traffic
+preview mode: cooking can omit their all-default resource rows, so scene JSON alone cannot
+clear stale state from a previous driving/catalog/art scene. Stale motion cannot
 create a hit while driving is inactive or at the paused section end. Loose and cooked fixtures
 must retain the same optional-owner behavior.
 
