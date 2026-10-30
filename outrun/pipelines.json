@@ -51,6 +51,10 @@
    "program": "materials/road.material.ts"
   },
   {
+   "r": "3d-program",
+   "program": "materials/traffic-composite.material.ts"
+  },
+  {
    "r": "3d",
    "key": {
     "Forward": {
@@ -86,6 +90,21 @@
     "Forward": {
      "program": "7946469ed20397e0",
      "alpha": 0,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 1,
+     "format": 22,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "8806a6ab14b33425",
+     "alpha": 2,
      "double_sided": false,
      "prepassed": false,
      "samples": 1,
@@ -215,6 +234,10 @@
    "program": "materials/road.material.ts"
   },
   {
+   "r": "3d-program",
+   "program": "materials/traffic-composite.material.ts"
+  },
+  {
    "r": "3d",
    "key": {
     "Forward": {
@@ -300,6 +323,37 @@
      "alpha": 0,
      "double_sided": false,
      "prepassed": true,
+     "samples": 4,
+     "format": 40,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "8806a6ab14b33425",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 4,
+     "format": 40,
+     "skinned": false,
+     "debug": 0,
+     "fade": true
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "8806a6ab14b33425",
+     "alpha": 2,
+     "double_sided": false,
+     "prepassed": false,
      "samples": 4,
      "format": 40,
      "skinned": false,
@@ -529,6 +583,10 @@
    "program": "materials/road.material.ts"
   },
   {
+   "r": "3d-program",
+   "program": "materials/traffic-composite.material.ts"
+  },
+  {
    "r": "3d",
    "key": {
     "Forward": {
@@ -564,6 +622,21 @@
     "Forward": {
      "program": "7946469ed20397e0",
      "alpha": 0,
+     "double_sided": false,
+     "prepassed": false,
+     "samples": 1,
+     "format": 22,
+     "skinned": false,
+     "debug": 0
+    }
+   }
+  },
+  {
+   "r": "3d",
+   "key": {
+    "Forward": {
+     "program": "8806a6ab14b33425",
+     "alpha": 2,
      "double_sided": false,
      "prepassed": false,
      "samples": 1,

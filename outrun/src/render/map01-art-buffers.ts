@@ -11,7 +11,7 @@ const props=new ProjectionBuffers(MAP01_PROP_CAPACITY);
 const white=new Uint8Array([255,255,255]);
 // Per-quad diagnostics retain painter order without allocating per frame.
 export const map01PropSamples={
-  placementId:new Int32Array(MAP01_PROP_CAPACITY),objectId:new Uint8Array(MAP01_PROP_CAPACITY),
+  placementId:new Int32Array(MAP01_PROP_CAPACITY),segment:new Int32Array(MAP01_PROP_CAPACITY),objectId:new Uint8Array(MAP01_PROP_CAPACITY),
   fullHeight:new Float32Array(MAP01_PROP_CAPACITY),fraction:new Float32Array(MAP01_PROP_CAPACITY),
 };
 export const map01ArtStats={
@@ -47,7 +47,7 @@ export function map01ClippedQuad(left:number,bottom:number,width:number,height:n
 // Consumes the immediately preceding buildSourceRoad sample. The compiled
 // prefix table bounds work to the visible200 lines; never scans all1475 props.
 export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number,aspect:number,atlas:Map01Atlas){
-  props.reset();map01PropSamples.placementId.fill(-1);map01PropSamples.objectId.fill(0);
+  props.reset();map01PropSamples.placementId.fill(-1);map01PropSamples.segment.fill(-1);map01PropSamples.objectId.fill(0);
   map01PropSamples.fullHeight.fill(0);map01PropSamples.fraction.fill(0);
   map01ArtStats.visited=0;map01ArtStats.drawn=0;map01ArtStats.partial=0;map01ArtStats.hidden=0;map01ArtStats.outside=0;
   const {scale,left,right,ground,clip}=sourceProjectionBuffers;
@@ -75,7 +75,7 @@ export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number
       const u=q*8;
       props.uvs[u]=clipped.u0;props.uvs[u+1]=clipped.v1;props.uvs[u+2]=clipped.u1;props.uvs[u+3]=clipped.v1;
       props.uvs[u+4]=clipped.u1;props.uvs[u+5]=clipped.v0;props.uvs[u+6]=clipped.u0;props.uvs[u+7]=clipped.v0;
-      map01PropSamples.placementId[q]=placement.id;map01PropSamples.objectId[q]=object.id;
+      map01PropSamples.placementId[q]=placement.id;map01PropSamples.segment[q]=segment;map01PropSamples.objectId[q]=object.id;
       map01PropSamples.fullHeight[q]=height;map01PropSamples.fraction[q]=fraction;
       if(fraction<1)map01ArtStats.partial++;
       map01ArtStats.drawn++;

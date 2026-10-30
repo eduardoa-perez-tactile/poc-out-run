@@ -15,6 +15,8 @@ phone frame-time, memory and thermal budgets remain design targets, not measured
 
 Run Chrome/browser checks in the background without stealing user focus or popping up windows.
 Do not launch in the foreground, use `bringToFront` or browser activation, or cycle minimize/restore.
+Reuse an isolated test session when possible; clean up only the test windows/processes owned
+by that session, leaving the user's browser and other applications untouched.
 Verify both focus preservation and actual WebGPU pixels/behavior in background runs. Headless
 runs qualify only when the expected pixels and behavior are verified. If neither approach works
 without interrupting the user, report the required browser lane as blocked rather than passed.

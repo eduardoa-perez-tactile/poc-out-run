@@ -11,7 +11,7 @@ export const TRAFFIC_LANE_LIMIT=f(.9);
 export const TRAFFIC_SPAWN_LANE_LIMIT=f(6*f(.15));
 export const TRAFFIC_AI_RATE=f(.3);
 export const TRAFFIC_EVASIVE_COOLDOWN=200;
-const ARRAY_FIELDS=['z','previousZ','offset','previousOffset','speed','target','side','ai','active','generation','passed','moving','cooldown','parked'] as const;
+const ARRAY_FIELDS=['z','previousZ','offset','previousOffset','speed','target','side','ai','active','generation','passed','moving','cooldown','parked','motionTicks'] as const;
 export type TrafficRandom=Pick<Rng,'range'>;
 export type TrafficResetRequest=TrafficResetRequestedValue;
 export interface TrafficPlayerSample {
@@ -29,7 +29,7 @@ export function createEmptyTrafficPool():TrafficPoolValue {
   return {mapId:1,initialized:false,population:20,seedLo:305419896,seedHi:2596069104,originZ:0,aiCursor:1,epoch:0,
     z:Array(32).fill(0),previousZ:Array(32).fill(0),offset:Array(32).fill(0),previousOffset:Array(32).fill(0),
     speed:Array(32).fill(0),target:Array(32).fill(0),side:Array(32).fill(0),ai:Array(32).fill(0),active:Array(32).fill(0),
-    generation:Array(32).fill(0),passed:Array(32).fill(0),moving:Array(32).fill(0),cooldown:Array(32).fill(0),parked:Array(32).fill(0)};
+    generation:Array(32).fill(0),passed:Array(32).fill(0),moving:Array(32).fill(0),cooldown:Array(32).fill(0),parked:Array(32).fill(0),motionTicks:Array(32).fill(0)};
 }
 function population(value:number):void {
   if(value!==9&&value!==20&&value!==32)throw new Error(`Traffic population must be9/20/32, got ${value}`);
@@ -68,7 +68,7 @@ function park(pool:TrafficPoolValue,slot:number,z:number,limit:number):void {
   pool.previousOffset[slot]=pool.offset[slot]!;pool.active[slot]=0;pool.speed[slot]=0;pool.parked[slot]=1;
   pool.target[slot]=0;pool.moving[slot]=0;pool.cooldown[slot]=0;
 }
-function clearPhase(pool:TrafficPoolValue,slot:number):void {pool.target[slot]=0;pool.moving[slot]=0;pool.cooldown[slot]=0;}
+function clearPhase(pool:TrafficPoolValue,slot:number):void {pool.target[slot]=0;pool.moving[slot]=0;pool.cooldown[slot]=0;pool.motionTicks[slot]=0;}
 
 export function resetTrafficPool(previous:TrafficPoolValue,request:TrafficResetRequest,_player:TrafficPlayerSample,data:ReadonlySourceBiomeData,rng:TrafficRandom):TrafficPoolValue {
   population(request.population);sameMap(request.mapId,data);
@@ -166,6 +166,10 @@ export function advanceTrafficPool(pool:TrafficPoolValue,player:TrafficPlayerSam
       passCandidates.push({epoch:next.epoch,slot,generation:next.generation[slot]!,points:TRAFFIC_PASS_POINTS});
     }
     moveAI(next,slot,player,data,dt,rng);
+    // Publish the source two-frame/three-step cadence from fixed-step state.
+    // Dropped renders and asset IO cannot lose pause or lifetime transitions.
+    // This field is output-only: no physical or RNG decision reads it.
+    if(next.active[slot]!==0&&next.speed[slot]!>0)next.motionTicks[slot]=(next.motionTicks[slot]!+1)%6;
     if(options.suppressPass){next.previousZ[slot]=next.z[slot]!;next.previousOffset[slot]=next.offset[slot]!;}
   }
   return {pool:next,passCandidates,recycleSlots,limitZ:limit};
