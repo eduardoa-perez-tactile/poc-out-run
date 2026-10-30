@@ -12,7 +12,7 @@ let paletteData:ReadonlySourceBiomeData|null=null;
 const linear=(v:number)=>Math.round(255*(v/255<=.04045?v/255/12.92:((v/255+.055)/1.055)**2.4));
 const collidableMarker=new Uint8Array([linear(255),linear(192),linear(32)]);
 const decorativeMarker=new Uint8Array([linear(16),linear(235),linear(235)]);
-export const sourceProjectionStats={cameraOriginZ:0,playerSampleZ:0,playerHeight:0,cameraY:0,playerGap:0,visibleRoadSegments:0,visitedProps:0,drawnProps:0,partialProps:0};
+export const sourceProjectionStats={cameraOriginZ:0,playerSampleZ:0,playerHeight:0,cameraY:0,playerGap:0,horizonY:HORIZON_Y,visibleRoadSegments:0,visitedProps:0,drawnProps:0,partialProps:0};
 export const sourceProjectionBuffers={left,right,ground,scale,clip};
 // Full course data stays immutable; only this fixed 200-segment view is projected.
 // Canonical geometry has no viewport input. This adapter is presentation only.
@@ -58,6 +58,9 @@ export function buildSourceRoad(data:ReadonlySourceBiomeData,cameraOriginZ:numbe
     }
     sourceProjectionStats.visibleRoadSegments++;
   }
+  // The art layers share the actual final visible crest rather than guessing
+  // a flat horizon. This diagnostic does not change any projected geometry.
+  sourceProjectionStats.horizonY=crest;
   return road.arrays;
 }
 // No full-placement scan/sort in play: compiled prefix indices select each line's

@@ -386,6 +386,126 @@
       "package": "OutRun"
     },
     {
+      "name": "Map01ArtPreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousCameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "speed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 7200
+        },
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "controlHeld",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastCameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "previousBackOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "previousFrontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01ArtSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RoadFixtureRequested",
       "kind": "event",
       "sim": true,

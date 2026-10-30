@@ -393,6 +393,126 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "Map01ArtPreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousCameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "speed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 7200
+        },
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "controlHeld",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastCameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "previousBackOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "previousFrontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01ArtSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RoadFixtureRequested",
       "kind": "event",
       "sim": true,
@@ -1179,6 +1299,52 @@ export interface ForkVisualCacheValue {
 }
 /** ForkVisualCache (resource, presentation-only) */
 export const ForkVisualCache = typeToken<ForkVisualCacheViews, ForkVisualCacheValue>('ForkVisualCache', 'resource', { sig: 'active:bool:1,side:u32:1,progress:f32:1', read: (v: ForkVisualCacheViews, i: number, o: Record<string, unknown>) => { o.active = v.active[i] !== 0; o.side = v.side[i]; o.progress = v.progress[i]; return o; } });
+
+export interface Map01ArtPreviewViews {
+  enabled: Uint8Array;
+  playing: Uint8Array;
+  cameraOriginZ: Float32Array;
+  previousCameraOriginZ: Float32Array;
+  lateral: Float32Array;
+  speed: Float32Array;
+  lastStep: Uint32Array;
+  controlHeld: Uint32Array;
+  lastCameraOriginZ: Float32Array;
+  backOffset: Float32Array;
+  frontOffset: Float32Array;
+  previousBackOffset: Float32Array;
+  previousFrontOffset: Float32Array;
+  loaded: Uint8Array;
+  reconciled: Uint8Array;
+}
+export interface Map01ArtPreviewValue {
+  enabled: boolean;
+  playing: boolean;
+  cameraOriginZ: number;
+  previousCameraOriginZ: number;
+  lateral: number;
+  speed: number;
+  lastStep: number;
+  controlHeld: number;
+  lastCameraOriginZ: number;
+  backOffset: number;
+  frontOffset: number;
+  previousBackOffset: number;
+  previousFrontOffset: number;
+  loaded: boolean;
+  reconciled: boolean;
+}
+/** Map01ArtPreview (resource, presentation-only) */
+export const Map01ArtPreview = typeToken<Map01ArtPreviewViews, Map01ArtPreviewValue>('Map01ArtPreview', 'resource', { sig: 'enabled:bool:1,playing:bool:1,cameraOriginZ:f32:1,previousCameraOriginZ:f32:1,lateral:f32:1,speed:f32:1,lastStep:u32:1,controlHeld:u32:1,lastCameraOriginZ:f32:1,backOffset:f32:1,frontOffset:f32:1,previousBackOffset:f32:1,previousFrontOffset:f32:1,loaded:bool:1,reconciled:bool:1', read: (v: Map01ArtPreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.playing = v.playing[i] !== 0; o.cameraOriginZ = v.cameraOriginZ[i]; o.previousCameraOriginZ = v.previousCameraOriginZ[i]; o.lateral = v.lateral[i]; o.speed = v.speed[i]; o.lastStep = v.lastStep[i]; o.controlHeld = v.controlHeld[i]; o.lastCameraOriginZ = v.lastCameraOriginZ[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.previousBackOffset = v.previousBackOffset[i]; o.previousFrontOffset = v.previousFrontOffset[i]; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; return o; } });
+
+export interface Map01ArtSlotViews {
+  slot: Uint32Array;
+}
+export interface Map01ArtSlotValue {
+  slot: number;
+}
+/** Map01ArtSlot (component, presentation-only) */
+export const Map01ArtSlot = typeToken<Map01ArtSlotViews, Map01ArtSlotValue>('Map01ArtSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01ArtSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
 export interface RoadFixtureRequestedViews {
   fixtureId: Uint32Array;

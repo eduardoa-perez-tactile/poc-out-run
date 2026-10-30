@@ -1,0 +1,8 @@
+{
+  "material": "materials/map01-panorama.material.ts",
+  "params": {
+    "image": "textures/map01-back.png",
+    "imageSize": [1536, 256],
+    "filtered": 1
+  }
+}

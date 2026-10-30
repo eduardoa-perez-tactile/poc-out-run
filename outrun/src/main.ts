@@ -8,4 +8,5 @@ export { VehiclePresentation } from './render/vehicle-presentation.ts';
 export { ForkPreviewInput, ForkPreviewControl, AdvanceForkTransition } from './sim/fork-preview.ts';
 
 export {Map01Presentation} from "./render/map01-presentation.ts";
+export {Map01ArtPresentation} from './render/map01-art-presentation.ts';
 export {ResetMap01Driving} from './sim/map01-entry.ts';
