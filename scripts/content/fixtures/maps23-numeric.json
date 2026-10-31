@@ -1,0 +1,232 @@
+{
+  "scope": "Extracted C++ arithmetic diagnostic, not an original game or engine run. Source command streams independently parsed from pinned map.txt; port compiled from committed fixtures. No tolerance/output modification.",
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "kernelSha256": "73c2445aa92703b63c9e2e0fb7841f4d0aa4bfe5918d200e2da15f439f1a7683",
+  "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+  "kernel": "scripts/content/numeric-oracle.cpp",
+  "buildFlags": [
+    "-std=c++17",
+    "-O0",
+    "-ffp-contract=off"
+  ],
+  "reproduce": [
+    "clang++ -std=c++17 -O0 -ffp-contract=off scripts/content/numeric-oracle.cpp -o /tmp/outrun-maps-numeric-oracle",
+    "python3 scripts/content/check-numeric-oracle.py --binary /tmp/outrun-maps-numeric-oracle --map 2",
+    "python3 scripts/content/check-numeric-oracle.py --binary /tmp/outrun-maps-numeric-oracle --map 3"
+  ],
+  "maps": {
+    "2": {
+      "totalRows": 6565,
+      "comparedFields": 26260,
+      "differingRows": 19,
+      "differingFields": 19,
+      "fieldCounts": {
+        "y0": 9,
+        "y1": 9,
+        "curve": 1,
+        "gap": 0
+      },
+      "maxUlp": 12,
+      "maxAbsoluteDifference": 0.0009765625,
+      "sourceMapSha256": "57440fafc25c8513979b94d340fad6d3993a3f6255b2b356c54d90e0d128812b",
+      "commandStreamSha256": "dc1090ec9c012fa692dac54ffb2b0fe91d9cc0d9dd757eac6ed93ca97dfc0d40",
+      "rawSourceRowsSha256": "b2046fc06830e3f7de3a564473c277710b025d8e1f9b85b035566b18ed352308",
+      "differences": [
+        {
+          "map": 2,
+          "row": 922,
+          "field": "curve",
+          "ported": 1.4842264652252197,
+          "source": 1.4842265844345093
+        },
+        {
+          "map": 2,
+          "row": 1484,
+          "field": "y1",
+          "ported": 1289.7789306640625,
+          "source": 1289.7786865234375
+        },
+        {
+          "map": 2,
+          "row": 1485,
+          "field": "y0",
+          "ported": 1289.7789306640625,
+          "source": 1289.7786865234375
+        },
+        {
+          "map": 2,
+          "row": 1825,
+          "field": "y1",
+          "ported": 6140.2734375,
+          "source": 6140.27294921875
+        },
+        {
+          "map": 2,
+          "row": 1826,
+          "field": "y0",
+          "ported": 6140.2734375,
+          "source": 6140.27294921875
+        },
+        {
+          "map": 2,
+          "row": 2008,
+          "field": "y1",
+          "ported": -390.3272705078125,
+          "source": -390.326904296875
+        },
+        {
+          "map": 2,
+          "row": 2009,
+          "field": "y0",
+          "ported": -390.3272705078125,
+          "source": -390.326904296875
+        },
+        {
+          "map": 2,
+          "row": 2015,
+          "field": "y1",
+          "ported": -878.68359375,
+          "source": -878.683837890625
+        },
+        {
+          "map": 2,
+          "row": 2016,
+          "field": "y0",
+          "ported": -878.68359375,
+          "source": -878.683837890625
+        },
+        {
+          "map": 2,
+          "row": 2194,
+          "field": "y1",
+          "ported": -6935.798828125,
+          "source": -6935.7998046875
+        },
+        {
+          "map": 2,
+          "row": 2195,
+          "field": "y0",
+          "ported": -6935.798828125,
+          "source": -6935.7998046875
+        },
+        {
+          "map": 2,
+          "row": 2868,
+          "field": "y1",
+          "ported": 8648.060546875,
+          "source": 8648.0615234375
+        },
+        {
+          "map": 2,
+          "row": 2869,
+          "field": "y0",
+          "ported": 8648.060546875,
+          "source": 8648.0615234375
+        },
+        {
+          "map": 2,
+          "row": 2889,
+          "field": "y1",
+          "ported": 9632.05078125,
+          "source": 9632.0498046875
+        },
+        {
+          "map": 2,
+          "row": 2890,
+          "field": "y0",
+          "ported": 9632.05078125,
+          "source": 9632.0498046875
+        },
+        {
+          "map": 2,
+          "row": 2912,
+          "field": "y1",
+          "ported": 10572.7333984375,
+          "source": 10572.734375
+        },
+        {
+          "map": 2,
+          "row": 2913,
+          "field": "y0",
+          "ported": 10572.7333984375,
+          "source": 10572.734375
+        },
+        {
+          "map": 2,
+          "row": 4427,
+          "field": "y1",
+          "ported": 13869.23046875,
+          "source": 13869.2294921875
+        },
+        {
+          "map": 2,
+          "row": 4428,
+          "field": "y0",
+          "ported": 13869.23046875,
+          "source": 13869.2294921875
+        }
+      ]
+    },
+    "3": {
+      "totalRows": 6880,
+      "comparedFields": 27520,
+      "differingRows": 6,
+      "differingFields": 6,
+      "fieldCounts": {
+        "y0": 3,
+        "y1": 3,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxUlp": 1,
+      "maxAbsoluteDifference": 0.0009765625,
+      "sourceMapSha256": "43ece1d375b9958551f2d3be1b450637a4ea79a9c4938903cbd59453a244e634",
+      "commandStreamSha256": "e3f827d6c1008f2e2c2d0dff6266fcf0d8b733e680b8be42aea3e8ea1e8fb126",
+      "rawSourceRowsSha256": "82fa0f7370427ca9eb16793231cf29cd53a707d34ac06c2cbda5bb29cca2aec8",
+      "differences": [
+        {
+          "map": 3,
+          "row": 1958,
+          "field": "y1",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 3,
+          "row": 1959,
+          "field": "y0",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 3,
+          "row": 4032,
+          "field": "y1",
+          "ported": 13421.0517578125,
+          "source": 13421.05078125
+        },
+        {
+          "map": 3,
+          "row": 4033,
+          "field": "y0",
+          "ported": 13421.0517578125,
+          "source": 13421.05078125
+        },
+        {
+          "map": 3,
+          "row": 4172,
+          "field": "y1",
+          "ported": 10577.0830078125,
+          "source": 10577.083984375
+        },
+        {
+          "map": 3,
+          "row": 4173,
+          "field": "y0",
+          "ported": 10577.0830078125,
+          "source": 10577.083984375
+        }
+      ]
+    }
+  }
+}
