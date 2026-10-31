@@ -325,6 +325,111 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "CrashDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "phase",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedAcceptedCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "variant",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "totalAdvances",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "advances",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cadenceTick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "decrement",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "reactionTick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "recenterTarget",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "DrivingControlChanged",
       "kind": "event",
       "sim": true,
@@ -1937,6 +2042,45 @@ export interface ContactAcceptedValue {
 }
 /** ContactAccepted (event, sim) */
 export const ContactAccepted = typeToken<ContactAcceptedViews, ContactAcceptedValue>('ContactAccepted', 'event', { sig: 'kind:u32:1,mapId:u32:1,id:u32:1,epoch:u32:1,generation:u32:1,slot:u32:1,toi:f32:1,stage:u32:1,playerX:f32:1,playerZ:f32:1,otherX:f32:1,otherZ:f32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1', read: (v: ContactAcceptedViews, i: number, o: Record<string, unknown>) => { o.kind = v.kind[i]; o.mapId = v.mapId[i]; o.id = v.id[i]; o.epoch = v.epoch[i]; o.generation = v.generation[i]; o.slot = v.slot[i]; o.toi = v.toi[i]; o.stage = v.stage[i]; o.playerX = v.playerX[i]; o.playerZ = v.playerZ[i]; o.otherX = v.otherX[i]; o.otherZ = v.otherZ[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; return o; } });
+
+export interface CrashDriverViews {
+  mapId: Uint32Array;
+  phase: Uint32Array;
+  consumedAcceptedCount: Uint32Array;
+  pendingStep: Uint32Array;
+  variant: Uint32Array;
+  kind: Uint32Array;
+  impactSpeed: Float32Array;
+  handlingCap: Float32Array;
+  collisionDir: Float32Array;
+  curve: Float32Array;
+  totalAdvances: Uint32Array;
+  advances: Uint32Array;
+  cadenceTick: Uint32Array;
+  decrement: Float32Array;
+  reactionTick: Uint32Array;
+  recenterTarget: Float32Array;
+}
+export interface CrashDriverValue {
+  mapId: number;
+  phase: number;
+  consumedAcceptedCount: number;
+  pendingStep: number;
+  variant: number;
+  kind: number;
+  impactSpeed: number;
+  handlingCap: number;
+  collisionDir: number;
+  curve: number;
+  totalAdvances: number;
+  advances: number;
+  cadenceTick: number;
+  decrement: number;
+  reactionTick: number;
+  recenterTarget: number;
+}
+/** CrashDriver (component, sim) */
+export const CrashDriver = typeToken<CrashDriverViews, CrashDriverValue>('CrashDriver', 'component', { sig: 'mapId:u32:1,phase:u32:1,consumedAcceptedCount:u32:1,pendingStep:u32:1,variant:u32:1,kind:u32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1,totalAdvances:u32:1,advances:u32:1,cadenceTick:u32:1,decrement:f32:1,reactionTick:u32:1,recenterTarget:f32:1', read: (v: CrashDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.phase = v.phase[i]; o.consumedAcceptedCount = v.consumedAcceptedCount[i]; o.pendingStep = v.pendingStep[i]; o.variant = v.variant[i]; o.kind = v.kind[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; o.totalAdvances = v.totalAdvances[i]; o.advances = v.advances[i]; o.cadenceTick = v.cadenceTick[i]; o.decrement = v.decrement[i]; o.reactionTick = v.reactionTick[i]; o.recenterTarget = v.recenterTarget[i]; return o; } });
 
 export interface DrivingControlChangedViews {
   control: Uint32Array;
