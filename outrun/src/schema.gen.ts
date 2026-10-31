@@ -1215,6 +1215,680 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "RouteBiomeEntered",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "fromMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "outgoingCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteCheckpointPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointLine",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "bonusSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteContactAccepted",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeStage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "id",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "toi",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "playerX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playerZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "camera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "choiceLatched",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "chosenSide",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "nextMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointAwarded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "goalEntered",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "rangeCalls",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "entryCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointBonusSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "arrivalCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "arrivalStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardAmount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardOldMapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "processedStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pending",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pendingStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingReset",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pendingHandoff",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pendingFromMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingFromGradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingOldMapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingPreviousCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingOutgoingCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingRawCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteForkChosen",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "nextMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteGoalEntered",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteResetRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteTrafficCoordinates",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "originZ",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "rawZ",
+          "kind": "array",
+          "scalar": "i32",
+          "lanes": 32
+        },
+        {
+          "name": "previousRawZ",
+          "kind": "array",
+          "scalar": "i32",
+          "lanes": 32
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteTrafficPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "poolEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "points",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "TerrainDriver",
       "kind": "component",
       "sim": true,
@@ -2260,6 +2934,101 @@ export const schemaIr = {
       },
       "package": "OutRun",
       "doc": "All fifteen ordinary source nodes and the genuine goal, ORIGINAL gradient0 realization. Goal randomness and uninitialized terrain are named deterministic port adaptations; other profiles and runtime handoff remain separate."
+    },
+    {
+      "name": "SourceBiomeTailProfiles",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "const": "sourceCompatibility-original-tail-y1-f32bits-v1"
+          },
+          "sourceCommit": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mapId": {
+                  "type": "integer"
+                },
+                "baseInputSha256": {
+                  "type": "string"
+                },
+                "baseAssetSha256": {
+                  "type": "string"
+                },
+                "authoredCount": {
+                  "type": "integer"
+                },
+                "totalCount": {
+                  "type": "integer"
+                },
+                "segmentLength": {
+                  "type": "integer"
+                },
+                "profiles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "gradient": {
+                        "type": "integer"
+                      },
+                      "swapLine": {
+                        "type": "integer"
+                      },
+                      "lastLine": {
+                        "type": "integer"
+                      },
+                      "y1Bits": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "required": [
+                      "gradient",
+                      "swapLine",
+                      "lastLine",
+                      "y1Bits"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "mapId",
+                "baseInputSha256",
+                "baseAssetSha256",
+                "authoredCount",
+                "totalCount",
+                "segmentLength",
+                "profiles"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "format",
+          "sourceCommit",
+          "sourceHashes",
+          "entries"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "Offline source-compiled minus/plus-one gradient tail heights as unsigned binary32 bit integers. Gradient zero retains the original SourceBiome record. Runtime composition validates all maps before route activation."
     }
   ]
 } as const;
@@ -2757,6 +3526,267 @@ export interface RoadProofVisualCacheValue {
 /** RoadProofVisualCache (resource, presentation-only) */
 export const RoadProofVisualCache = typeToken<RoadProofVisualCacheViews, RoadProofVisualCacheValue>('RoadProofVisualCache', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,lateral:f32:1,aspect:f32:1', read: (v: RoadProofVisualCacheViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
 
+export interface RouteBiomeEnteredViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  fromMapId: Uint32Array;
+  gradient: Int32Array;
+  outgoingCamera: Int32Array;
+}
+export interface RouteBiomeEnteredValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  fromMapId: number;
+  gradient: number;
+  outgoingCamera: number;
+}
+/** RouteBiomeEntered (event, sim) */
+export const RouteBiomeEntered = typeToken<RouteBiomeEnteredViews, RouteBiomeEnteredValue>('RouteBiomeEntered', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,fromMapId:u32:1,gradient:i32:1,outgoingCamera:i32:1', read: (v: RouteBiomeEnteredViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.fromMapId = v.fromMapId[i]; o.gradient = v.gradient[i]; o.outgoingCamera = v.outgoingCamera[i]; return o; } });
+
+export interface RouteCheckpointPassedViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  checkpointLine: Uint32Array;
+  bonusSeconds: Uint32Array;
+}
+export interface RouteCheckpointPassedValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  checkpointLine: number;
+  bonusSeconds: number;
+}
+/** RouteCheckpointPassed (event, sim) */
+export const RouteCheckpointPassed = typeToken<RouteCheckpointPassedViews, RouteCheckpointPassedValue>('RouteCheckpointPassed', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,checkpointLine:u32:1,bonusSeconds:u32:1', read: (v: RouteCheckpointPassedViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.checkpointLine = v.checkpointLine[i]; o.bonusSeconds = v.bonusSeconds[i]; return o; } });
+
+export interface RouteContactAcceptedViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  routeStage: Uint32Array;
+  kind: Uint32Array;
+  mapId: Uint32Array;
+  id: Uint32Array;
+  epoch: Uint32Array;
+  generation: Uint32Array;
+  slot: Uint32Array;
+  toi: Float32Array;
+  stage: Uint32Array;
+  playerX: Float32Array;
+  playerZ: Float32Array;
+  otherX: Float32Array;
+  otherZ: Float32Array;
+  impactSpeed: Float32Array;
+  handlingCap: Float32Array;
+  collisionDir: Float32Array;
+  curve: Float32Array;
+}
+export interface RouteContactAcceptedValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  routeStage: number;
+  kind: number;
+  mapId: number;
+  id: number;
+  epoch: number;
+  generation: number;
+  slot: number;
+  toi: number;
+  stage: number;
+  playerX: number;
+  playerZ: number;
+  otherX: number;
+  otherZ: number;
+  impactSpeed: number;
+  handlingCap: number;
+  collisionDir: number;
+  curve: number;
+}
+/** RouteContactAccepted (event, sim) */
+export const RouteContactAccepted = typeToken<RouteContactAcceptedViews, RouteContactAcceptedValue>('RouteContactAccepted', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,routeStage:u32:1,kind:u32:1,mapId:u32:1,id:u32:1,epoch:u32:1,generation:u32:1,slot:u32:1,toi:f32:1,stage:u32:1,playerX:f32:1,playerZ:f32:1,otherX:f32:1,otherZ:f32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1', read: (v: RouteContactAcceptedViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.routeStage = v.routeStage[i]; o.kind = v.kind[i]; o.mapId = v.mapId[i]; o.id = v.id[i]; o.epoch = v.epoch[i]; o.generation = v.generation[i]; o.slot = v.slot[i]; o.toi = v.toi[i]; o.stage = v.stage[i]; o.playerX = v.playerX[i]; o.playerZ = v.playerZ[i]; o.otherX = v.otherX[i]; o.otherZ = v.otherZ[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; return o; } });
+
+export interface RouteDriverViews {
+  initialized: Uint8Array;
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  gradient: Int32Array;
+  camera: Int32Array;
+  previousCamera: Int32Array;
+  choiceLatched: Uint8Array;
+  chosenSide: Uint32Array;
+  nextMapId: Uint32Array;
+  checkpointAwarded: Uint8Array;
+  goalEntered: Uint8Array;
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  rangeCalls: Uint32Array;
+  entryCount: Uint32Array;
+  checkpointCount: Uint32Array;
+  checkpointStep: Uint32Array;
+  checkpointBonusSeconds: Uint32Array;
+  arrivalCount: Uint32Array;
+  arrivalStep: Uint32Array;
+  passAwardCount: Uint32Array;
+  passAwardStep: Uint32Array;
+  passAwardAmount: Uint32Array;
+  passAwardOldMapEpoch: Uint32Array;
+  processedStep: Uint32Array;
+  pending: Uint8Array;
+  pendingStep: Uint32Array;
+  pendingReset: Uint8Array;
+  pendingHandoff: Uint8Array;
+  pendingFromMapId: Uint32Array;
+  pendingFromGradient: Int32Array;
+  pendingOldMapEpoch: Uint32Array;
+  pendingPreviousCamera: Int32Array;
+  pendingOutgoingCamera: Int32Array;
+  pendingRawCamera: Int32Array;
+}
+export interface RouteDriverValue {
+  initialized: boolean;
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  gradient: number;
+  camera: number;
+  previousCamera: number;
+  choiceLatched: boolean;
+  chosenSide: number;
+  nextMapId: number;
+  checkpointAwarded: boolean;
+  goalEntered: boolean;
+  seedLo: number;
+  seedHi: number;
+  rangeCalls: number;
+  entryCount: number;
+  checkpointCount: number;
+  checkpointStep: number;
+  checkpointBonusSeconds: number;
+  arrivalCount: number;
+  arrivalStep: number;
+  passAwardCount: number;
+  passAwardStep: number;
+  passAwardAmount: number;
+  passAwardOldMapEpoch: number;
+  processedStep: number;
+  pending: boolean;
+  pendingStep: number;
+  pendingReset: boolean;
+  pendingHandoff: boolean;
+  pendingFromMapId: number;
+  pendingFromGradient: number;
+  pendingOldMapEpoch: number;
+  pendingPreviousCamera: number;
+  pendingOutgoingCamera: number;
+  pendingRawCamera: number;
+}
+/** RouteDriver (component, sim) */
+export const RouteDriver = typeToken<RouteDriverViews, RouteDriverValue>('RouteDriver', 'component', { sig: 'initialized:bool:1,routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,gradient:i32:1,camera:i32:1,previousCamera:i32:1,choiceLatched:bool:1,chosenSide:u32:1,nextMapId:u32:1,checkpointAwarded:bool:1,goalEntered:bool:1,seedLo:u32:1,seedHi:u32:1,rangeCalls:u32:1,entryCount:u32:1,checkpointCount:u32:1,checkpointStep:u32:1,checkpointBonusSeconds:u32:1,arrivalCount:u32:1,arrivalStep:u32:1,passAwardCount:u32:1,passAwardStep:u32:1,passAwardAmount:u32:1,passAwardOldMapEpoch:u32:1,processedStep:u32:1,pending:bool:1,pendingStep:u32:1,pendingReset:bool:1,pendingHandoff:bool:1,pendingFromMapId:u32:1,pendingFromGradient:i32:1,pendingOldMapEpoch:u32:1,pendingPreviousCamera:i32:1,pendingOutgoingCamera:i32:1,pendingRawCamera:i32:1', read: (v: RouteDriverViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.gradient = v.gradient[i]; o.camera = v.camera[i]; o.previousCamera = v.previousCamera[i]; o.choiceLatched = v.choiceLatched[i] !== 0; o.chosenSide = v.chosenSide[i]; o.nextMapId = v.nextMapId[i]; o.checkpointAwarded = v.checkpointAwarded[i] !== 0; o.goalEntered = v.goalEntered[i] !== 0; o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.rangeCalls = v.rangeCalls[i]; o.entryCount = v.entryCount[i]; o.checkpointCount = v.checkpointCount[i]; o.checkpointStep = v.checkpointStep[i]; o.checkpointBonusSeconds = v.checkpointBonusSeconds[i]; o.arrivalCount = v.arrivalCount[i]; o.arrivalStep = v.arrivalStep[i]; o.passAwardCount = v.passAwardCount[i]; o.passAwardStep = v.passAwardStep[i]; o.passAwardAmount = v.passAwardAmount[i]; o.passAwardOldMapEpoch = v.passAwardOldMapEpoch[i]; o.processedStep = v.processedStep[i]; o.pending = v.pending[i] !== 0; o.pendingStep = v.pendingStep[i]; o.pendingReset = v.pendingReset[i] !== 0; o.pendingHandoff = v.pendingHandoff[i] !== 0; o.pendingFromMapId = v.pendingFromMapId[i]; o.pendingFromGradient = v.pendingFromGradient[i]; o.pendingOldMapEpoch = v.pendingOldMapEpoch[i]; o.pendingPreviousCamera = v.pendingPreviousCamera[i]; o.pendingOutgoingCamera = v.pendingOutgoingCamera[i]; o.pendingRawCamera = v.pendingRawCamera[i]; return o; } });
+
+export interface RouteForkChosenViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  side: Uint32Array;
+  nextMapId: Uint32Array;
+  gradient: Int32Array;
+}
+export interface RouteForkChosenValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  side: number;
+  nextMapId: number;
+  gradient: number;
+}
+/** RouteForkChosen (event, sim) */
+export const RouteForkChosen = typeToken<RouteForkChosenViews, RouteForkChosenValue>('RouteForkChosen', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,side:u32:1,nextMapId:u32:1,gradient:i32:1', read: (v: RouteForkChosenViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.side = v.side[i]; o.nextMapId = v.nextMapId[i]; o.gradient = v.gradient[i]; return o; } });
+
+export interface RouteGoalEnteredViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  gradient: Int32Array;
+}
+export interface RouteGoalEnteredValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  gradient: number;
+}
+/** RouteGoalEntered (event, sim) */
+export const RouteGoalEntered = typeToken<RouteGoalEnteredViews, RouteGoalEnteredValue>('RouteGoalEntered', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,gradient:i32:1', read: (v: RouteGoalEnteredViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.gradient = v.gradient[i]; return o; } });
+
+export interface RouteResetRequestedViews {
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  population: Uint32Array;
+  manual: Uint8Array;
+}
+export interface RouteResetRequestedValue {
+  seedLo: number;
+  seedHi: number;
+  population: number;
+  manual: boolean;
+}
+/** RouteResetRequested (event, sim) */
+export const RouteResetRequested = typeToken<RouteResetRequestedViews, RouteResetRequestedValue>('RouteResetRequested', 'event', { sig: 'seedLo:u32:1,seedHi:u32:1,population:u32:1,manual:bool:1', read: (v: RouteResetRequestedViews, i: number, o: Record<string, unknown>) => { o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; return o; } });
+
+export interface RouteTrafficCoordinatesViews {
+  initialized: Uint8Array;
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  originZ: Int32Array;
+  rawZ: Int32Array;
+  previousRawZ: Int32Array;
+}
+export interface RouteTrafficCoordinatesValue {
+  initialized: boolean;
+  routeEpoch: number;
+  mapEpoch: number;
+  originZ: number;
+  rawZ: number[];
+  previousRawZ: number[];
+}
+/** RouteTrafficCoordinates (component, sim) */
+export const RouteTrafficCoordinates = typeToken<RouteTrafficCoordinatesViews, RouteTrafficCoordinatesValue>('RouteTrafficCoordinates', 'component', { sig: 'initialized:bool:1,routeEpoch:u32:1,mapEpoch:u32:1,originZ:i32:1,rawZ:array:32,previousRawZ:array:32', read: (v: RouteTrafficCoordinatesViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.originZ = v.originZ[i]; o.rawZ = $r.lanes(v.rawZ, i, 32, o.rawZ); o.previousRawZ = $r.lanes(v.previousRawZ, i, 32, o.previousRawZ); return o; } });
+
+export interface RouteTrafficPassedViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  poolEpoch: Uint32Array;
+  slot: Uint32Array;
+  generation: Uint32Array;
+  points: Uint32Array;
+}
+export interface RouteTrafficPassedValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  poolEpoch: number;
+  slot: number;
+  generation: number;
+  points: number;
+}
+/** RouteTrafficPassed (event, sim) */
+export const RouteTrafficPassed = typeToken<RouteTrafficPassedViews, RouteTrafficPassedValue>('RouteTrafficPassed', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,poolEpoch:u32:1,slot:u32:1,generation:u32:1,points:u32:1', read: (v: RouteTrafficPassedViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.poolEpoch = v.poolEpoch[i]; o.slot = v.slot[i]; o.generation = v.generation[i]; o.points = v.points[i]; return o; } });
+
 export interface TerrainDriverViews {
   mapId: Uint32Array;
   segment: Uint32Array;
@@ -3087,3 +4117,27 @@ export type SourceBiomeCatalogData = {
 /** A loaded SourceBiomeCatalog as `loadData` returns it (frozen). */
 export type ReadonlySourceBiomeCatalogData = DataRecord<SourceBiomeCatalogData>;
 export const SourceBiomeCatalog = dataToken<SourceBiomeCatalogData>('SourceBiomeCatalog');
+
+/** Offline source-compiled minus/plus-one gradient tail heights as unsigned binary32 bit integers. Gradient zero retains the original SourceBiome record. Runtime composition validates all maps before route activation. */
+export type SourceBiomeTailProfilesData = {
+  format: "sourceCompatibility-original-tail-y1-f32bits-v1";
+  sourceCommit: string;
+  sourceHashes: Record<string, string>;
+  entries: {
+    mapId: number;
+    baseInputSha256: string;
+    baseAssetSha256: string;
+    authoredCount: number;
+    totalCount: number;
+    segmentLength: number;
+    profiles: {
+      gradient: number;
+      swapLine: number;
+      lastLine: number;
+      y1Bits: number[];
+    }[];
+  }[];
+};
+/** A loaded SourceBiomeTailProfiles as `loadData` returns it (frozen). */
+export type ReadonlySourceBiomeTailProfilesData = DataRecord<SourceBiomeTailProfilesData>;
+export const SourceBiomeTailProfiles = dataToken<SourceBiomeTailProfilesData>('SourceBiomeTailProfiles');

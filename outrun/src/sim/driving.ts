@@ -1,5 +1,5 @@
 import { defineSystem, read, write, query, math } from '@gameengine/runtime';
-import { DrivingState, DrivingInput, RoadProofState, TerrainDriver, CollisionDriver, CrashDriver, DrivingResetRequested } from '../schema.gen.ts';
+import { DrivingState, DrivingInput, RoadProofState, TerrainDriver, CollisionDriver, CrashDriver, DrivingResetRequested,RouteDriver } from '../schema.gen.ts';
 import { advanceDriving, LEGACY_UPDATES_PER_SECOND } from './driving-math.ts';
 
 import {loadMap01} from '../content/biome.ts';
@@ -9,11 +9,14 @@ import {advanceCrashRecovery,resetCrashRecovery} from './crash-recovery-math.ts'
 export const AdvanceDriving = defineSystem({
   name: 'AdvanceDriving',
   after: ['CaptureDrivingInput', 'AdvanceRoadProof'],
-  queries:{sourceDrivers:query(write(TerrainDriver)),collisions:query(write(CollisionDriver)),crashes:query(write(CrashDriver))},events:[DrivingResetRequested],
+  queries:{sourceDrivers:query(write(TerrainDriver)),collisions:query(write(CollisionDriver)),crashes:query(write(CrashDriver)),routes:query(read(RouteDriver))},events:[DrivingResetRequested],
   resources: [write(DrivingState), read(DrivingInput), write(RoadProofState)],
-  run(ctx,{sourceDrivers,collisions,crashes}) {
+  run(ctx,{sourceDrivers,collisions,crashes,routes}) {
     const state = ctx.resource(DrivingState);
     if (!state.active[0]) return;
+    // Route controls/movement are prepared once by AdvanceRoute, then committed
+    // with outgoing traffic and destination contacts inside AdvanceTraffic.
+    if(routes.count!==0)return;
     const distance = state.distance[0]!;
     const lateral = state.lateral[0]!;
     ctx.set(DrivingState, { previousDistance: distance, previousLateral: lateral });

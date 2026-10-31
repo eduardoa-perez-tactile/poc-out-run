@@ -145,3 +145,36 @@ These are starter/harness measurements, not estimates of the eventual racing gam
 At bootstrap, `gameengine check` reported a redundant camera orthoSize and absent pipeline
 recording. Issue #6 replaced that camera setup and recorded road-scenario pipelines; the
 historical starter evidence itself did not prove pipeline warm-up coverage.
+
+## #73 ORIGINAL route simulation scope
+
+[Route simulation](route-simulation.md) documents the optional co-owned actor, pin-free immutable
+startup, source integer positions, canonical aliases, stable RNG owners and transaction/latch APIs.
+Use `routes.math*` for strict choice/exit/checkpoint/gradient scheduling; `routes.driving*` for
+movement/recovery; `routes.space*`/`routes.trafficState*` for raw integer authority;
+`routes.collision*`/`routes.traffic*` for canonical contact/pass/lifetime rules;
+`routes.transaction*` for the one advance→eligibility→finalize→transfer seam; and
+`routes.native*`/`routes.entry*`/`routes.handoff*` for recorded startup, lifecycle and compact boundaries.
+Use `routes.traversal*` for direct-scene fixed-input integration and `routes.canonical*` for
+default-world recorded EnterScene plus fixed-plan reset (route epoch 1 then epoch 2). Select
+`replay tests/replays/routes_canonical*` for the complete recorded hash streams; they include
+startup and do not depend on a hidden scene override.
+Run a nonzero narrow T0 focus during edits; native V8/Hermes, clean-cooked and web parity plus the
+selected PR gate are handoff requirements. Content startup needs cold/direct-replay/HMR and
+missing-content evidence, independently of art readiness.
+
+Recorded landmark cheats isolate real current-map boundaries; quiet traffic/synthetic spin variants
+are explicit debug supplements. Normal traversal must use the extracted FIXED keyboard plans with
+actual configured traffic, no cheats/setters/patched rows or reactive input decisions during playback.
+The extracted all-left/right-first direct plans reproduced native V8/Hermes outcomes, and fresh
+canonical tape verification passed both runtimes at 35,879/7,333 steps. Clean-cooked/web,
+current-actor HMR, background browser and exact CI remain pending before final acceptance.
+Preserve all old outcomes/tapes and audit original ordered step/system hashes;
+added SKIPPED optional systems can change raw trace containers without changing original behavior.
+
+Goal ENTRY is source arrival after five ordinary stages; row500 is a later ending-brake threshold.
+#73 publishes real once-only checkpoint bonus/arrival/pass producer latches. It does not implement
+timeout priority, ending/results/restart (#16) or live route visuals (#74). Parent #15 and milestone
+#19 remain open. Physical phones are excluded; any targeted Chrome lane must stay in the background
+and prove focus preservation. Final exact-candidate evidence belongs in the PR, not an inferred
+completion from this matrix.

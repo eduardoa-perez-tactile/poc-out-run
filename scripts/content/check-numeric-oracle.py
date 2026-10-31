@@ -7,6 +7,8 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import math
+import platform
 import re
 import struct
 import subprocess
@@ -17,8 +19,9 @@ spec=importlib.util.spec_from_file_location('compiler',P/'convert-map.py');compi
 f32=lambda x:struct.unpack('<f',struct.pack('<f',float(x)))[0]
 FIELDS=('y0','y1','curve','gap')
 
-def independent_commands(fixture):
+def independent_commands(fixture,gradient=0):
     """Parse SOURCE operands, not compiler geometry/commands, for the C++ diagnostic."""
+    if type(gradient)is not int or gradient not in(-1,0,1):raise ValueError('invalid route gradient')
     commands=[];section=False
     if 'mapText' not in fixture:
         base=fixture['sourceRecipe']['biome']['text']
@@ -41,8 +44,8 @@ def independent_commands(fixture):
         else:raise ValueError('unknown source relief '+name)
         gap={3:0,4:1036,5:2072,6:3108,7:4144,8:5180,2:24756}[tracks]
         commands.append(f'{e} {h} {l} {curve} {slope} {int(mirror)} {gap}')
-    # Source ORIGINAL append, Map.cpp498-526, gradient0 only in this capture.
-    commands+=['10 300 50 -2 0 1 0','100 100 100 0 0 1 24756','100 100 100 0 0 0 2072','100 150 150 0 0 0 0','100 100 100 0 0 0 0','100 100 100 0 0 0 0']
+    # Source ORIGINAL append, Map.cpp498-526; independent SOURCE operands.
+    commands+=[f'10 300 50 -2 {gradient*80} 1 0','100 100 100 0 0 1 24756','100 100 100 0 0 0 2072','100 150 150 0 0 0 0','100 100 100 0 0 0 0','100 100 100 0 0 0 0']
     return '\n'.join(commands)+'\n'
 
 def declared_pairs(reference,map_id):
@@ -71,9 +74,78 @@ def compare_map_rows(data,source_rows,reference,map_id):
     if seen!=set(allowed):raise ValueError('missing declared numeric pairs')
     return len(seen)
 
+def route_numeric_result(binary,map_id,gradient):
+    stem='goal' if map_id==16 else f'map{map_id:02}'
+    fixture_path=P/f'fixtures/{stem}-source.json';raw=fixture_path.read_bytes();fixture=json.loads(raw)
+    commands=independent_commands(fixture,gradient)
+    result=subprocess.run([str(binary)],input=commands,text=True,capture_output=True,check=True)
+    data=compiler.compile_route_profile(fixture,gradient,map_id)
+    lines=result.stdout.splitlines()
+    if len(lines)!=data['totalCount']:raise ValueError('route oracle row count mismatch')
+    differences=[]
+    for row,line in enumerate(lines):
+        values=line.split()
+        if len(values)!=5 or int(values[0])!=row:raise ValueError('route oracle row/order mismatch')
+        for field,source in zip(FIELDS,map(f32,values[1:])):
+            ported=data['segments'][row][field]
+            if source!=ported:
+                integer=lambda x:struct.unpack('<I',struct.pack('<f',x))[0]
+                differences.append({'row':row,'field':field,'ported':ported,'source':source,'ulp':abs(integer(ported)-integer(source))})
+    record={'map':map_id,'gradient':gradient,'totalRows':data['totalCount'],'authoredRows':data['authoredCount'],
+        'sourceFixtureSha256':hashlib.sha256(raw).hexdigest(),'commandStreamSha256':hashlib.sha256(commands.encode()).hexdigest(),
+        'rawCppRowsSha256':hashlib.sha256(result.stdout.encode()).hexdigest(),'differences':differences}
+    if map_id==16:record['sourceRecipeSha256']={key:hashlib.sha256(fixture['sourceRecipe'][key]['text'].encode()).hexdigest()for key in('logger','biome')}
+    else:record['sourceMapSha256']=hashlib.sha256(fixture['mapText'].encode()).hexdigest()
+    return record,data
+
+def validate_route_pairs(data,source_rows,record):
+    """No tolerances: every declared exact pair must be encountered exactly once."""
+    required={'row','field','ported','source','ulp'};allowed={}
+    for pair in record['differences']:
+        if set(pair)!=required:raise ValueError('invalid route numeric pair shape')
+        key=(pair['row'],pair['field'])
+        if type(key[0])is not int or not 0<=key[0]<data['totalCount'] or key[1]not in FIELDS or key in allowed:raise ValueError('invalid/duplicate route numeric pair')
+        a,b=pair['ported'],pair['source']
+        if any(type(x)not in(int,float) or not math.isfinite(x) or f32(x)!=x for x in(a,b)) or a==b:raise ValueError('invalid route exact values')
+        integer=lambda x:struct.unpack('<I',struct.pack('<f',x))[0]
+        if type(pair['ulp'])is not int or pair['ulp']!=abs(integer(a)-integer(b)):raise ValueError('route ULP provenance mismatch')
+        allowed[key]=(a,b)
+    seen=set();lines=source_rows.splitlines()
+    if len(lines)!=data['totalCount']:raise ValueError('route oracle row count mismatch')
+    for row,line in enumerate(lines):
+        values=line.split()
+        if len(values)!=5 or int(values[0])!=row:raise ValueError('route oracle row/order mismatch')
+        for field,source in zip(FIELDS,map(f32,values[1:])):
+            ported=data['segments'][row][field];key=(row,field)
+            if key in allowed:
+                if(ported,source)!=allowed[key]:raise ValueError(f'route declared pair changed: {key}')
+                seen.add(key)
+            elif ported!=source:raise ValueError(f'route undeclared difference: {key}')
+    if seen!=set(allowed):raise ValueError('route missing declared pair')
+    return len(seen)
+
+def check_route_profiles(binary,reference):
+    if reference['sourceCommit']!=compiler.PIN or reference['kernelSha256']!=hashlib.sha256((ROOT/reference['kernel']).read_bytes()).hexdigest():raise ValueError('route source/kernel provenance mismatch')
+    records=reference['profiles']
+    if len(records)!=48 or [(r['map'],r['gradient'])for r in records]!=[(i,g)for i in range(1,17)for g in(-1,0,1)]:raise ValueError('route capture membership/order mismatch')
+    rows=pairs=0
+    for record in records:
+        actual,data=route_numeric_result(binary,record['map'],record['gradient'])
+        # Exact capture comparison includes raw C++ output/independent command SHA;
+        # a different compiler/libm must produce reviewed NEW evidence, not tolerance.
+        if actual!=record:raise ValueError(f'route exact capture mismatch map{record["map"]} gradient{record["gradient"]}')
+        rows+=data['totalCount'];pairs+=len(actual['differences'])
+    return rows,pairs
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--binary',required=True)
-    parser.add_argument('--map',type=int,choices=range(1,17),default=1);args=parser.parse_args()
+    parser.add_argument('--map',type=int,choices=range(1,17),default=1)
+    parser.add_argument('--route-profiles',action='store_true',help='All48 source-derived route profiles; default Map1 policy unchanged')
+    args=parser.parse_args()
+    if args.route_profiles:
+        reference=json.loads((P/'fixtures/route-profiles-numeric.json').read_text());rows,pairs=check_route_profiles(args.binary,reference)
+        print(f'48 ORIGINAL profiles / {rows} rows / all4fields; {pairs} EXACT captured differences, no generic tolerance; extracted arithmetic diagnostic only')
+        return
     if args.map!=1:
         stem='goal' if args.map==16 else f'map{args.map:02}'
         fixture=json.loads((P/f'fixtures/{stem}-source.json').read_text())

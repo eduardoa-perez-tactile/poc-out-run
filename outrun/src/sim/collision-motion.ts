@@ -85,7 +85,7 @@ function overlap(a:CollisionPose,ah:CollisionHull,b:CollisionPose,bh:CollisionHu
   return Math.abs(q(a.x-b.x))<=q(ah.halfWidth+bh.halfWidth)&&Math.abs(q(a.z-b.z))<=q(ah.halfLength+bh.halfLength);
 }
 export function collisionOverlaps(a:CollisionPose,ah:CollisionHull,b:CollisionPose,bh:CollisionHull):boolean{return overlap(a,ah,b,bh);}
-function slab(a0:CollisionPose,a1:CollisionPose,ah:CollisionHull,b0:CollisionPose,b1:CollisionPose,bh:CollisionHull):number|null{
+export function collisionSlab(a0:CollisionPose,a1:CollisionPose,ah:CollisionHull,b0:CollisionPose,b1:CollisionPose,bh:CollisionHull):number|null{
   let enter=0,exit=1;
   for(const [axis,half] of [['x',q(ah.halfWidth+bh.halfWidth)],['z',q(ah.halfLength+bh.halfLength)]] as const){
     const from=q(a0[axis]-b0[axis]),to=q(a1[axis]-b1[axis]),delta=q(to-from);
@@ -118,7 +118,7 @@ export function sweptContact(a:CollisionMotion,ah:CollisionHull,b:CollisionMotio
     let b0=intervalPose(b,time,br,data),b1=intervalPose(b,until,br,data);
     if(startAZ!==undefined)a0={...a0,z:q(startAZ)};if(endAZ!==undefined)a1={...a1,z:q(endAZ)};
     if(startBZ!==undefined)b0={...b0,z:q(startBZ)};if(endBZ!==undefined)b1={...b1,z:q(endBZ)};
-    const u=slab(a0,a1,ah,b0,b1,bh);
+    const u=collisionSlab(a0,a1,ah,b0,b1,bh);
     if(u!==null){const t=time+(until-time)*u;if(t<bestTime){bestTime=t;best={toi:q(t),stage:u===1&&atJump?'pre-jump':'continuous',a:chord(a0,a1,u),b:chord(b0,b1,u)};}}
   };
   point(intervalPose(a,0,ar,data),intervalPose(b,0,br,data),0,'pre-jump');
