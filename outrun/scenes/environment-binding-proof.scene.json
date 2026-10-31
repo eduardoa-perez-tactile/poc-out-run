@@ -1,0 +1,28 @@
+{
+  "$schemaVersion": 2,
+  "id": "environment-binding-proof",
+  "resources": {
+    "DrivingState": { "active": false },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Binding Proof Camera",
+      "id": "environment-camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#000000ff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Three Bindings and Ordered Overlap",
+      "id": "binding-proof",
+      "EnvironmentReviewSlot": { "slot": 99 },
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:environment-binding-proof",
+        "material": "materials/environment-binding-proof.mat.json",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    }
+  ]
+}

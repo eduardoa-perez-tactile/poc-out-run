@@ -1,0 +1,91 @@
+{
+  "$schemaVersion": 2,
+  "id": "destination-environment",
+  "resources": {
+    "DrivingState": { "active": false },
+    "EnvironmentReview": {
+      "enabled": true,
+      "mapId": 2,
+      "mode": 0,
+      "batch": 0,
+      "cameraOriginZ": 45000,
+      "lateral": 0,
+      "backOffset": 1000,
+      "frontOffset": 1000
+    },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Destination Environment Camera",
+      "id": "destination-camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#000000ff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Destination road",
+      "id": "destination-road",
+      "EnvironmentReviewSlot": {},
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:environment-road",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Destination composite",
+      "id": "destination-composite",
+      "EnvironmentReviewSlot": { "slot": 1 },
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:environment-composite",
+        "material": "materials/environment-composite.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Destination back",
+      "id": "destination-back",
+      "EnvironmentReviewSlot": { "slot": 2 },
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:environment-back",
+        "material": "materials/map01-panorama.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Destination front",
+      "id": "destination-front",
+      "EnvironmentReviewSlot": { "slot": 3 },
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:environment-front",
+        "material": "materials/map01-panorama.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Destination sky",
+      "id": "destination-sky",
+      "EnvironmentReviewSlot": { "slot": 4 },
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:environment-sky",
+        "material": "materials/environment-sky.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    }
+  ]
+}

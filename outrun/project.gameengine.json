@@ -60,7 +60,7 @@
       "exclude": [
         "assets/art/vehicles/player/**",
         "assets/art/vehicles/effects/**",
-        "assets/art/environments/map01/**"
+        "assets/art/environments/**"
       ]
     }
   ],
@@ -183,6 +183,89 @@
       "biome-catalog-data": {
         "include": [
           "assets/data/biome-catalog.json"
+        ]
+      },
+      "environment-review-shared": {
+        "include": [
+          "assets/textures/traffic-source.png",
+          "assets/materials/environment-composite.material.ts",
+          "assets/materials/environment-sky.material.ts",
+          "assets/materials/map01-panorama.material.ts"
+        ]
+      },
+      "map02-environment": {
+        "include": [
+          "assets/textures/environments/map02-*.png"
+        ]
+      },
+      "map10-environment": {
+        "include": [
+          "assets/textures/environments/map10-*.png"
+        ]
+      },
+      "map03-environment": {
+        "include": [
+          "assets/textures/environments/map03-*.png"
+        ]
+      },
+      "map04-environment": {
+        "include": [
+          "assets/textures/environments/map04-*.png"
+        ]
+      },
+      "map05-environment": {
+        "include": [
+          "assets/textures/environments/map05-*.png"
+        ]
+      },
+      "map06-environment": {
+        "include": [
+          "assets/textures/environments/map06-*.png"
+        ]
+      },
+      "map07-environment": {
+        "include": [
+          "assets/textures/environments/map07-*.png"
+        ]
+      },
+      "map08-environment": {
+        "include": [
+          "assets/textures/environments/map08-*.png"
+        ]
+      },
+      "map09-environment": {
+        "include": [
+          "assets/textures/environments/map09-*.png"
+        ]
+      },
+      "map11-environment": {
+        "include": [
+          "assets/textures/environments/map11-*.png"
+        ]
+      },
+      "map12-environment": {
+        "include": [
+          "assets/textures/environments/map12-*.png"
+        ]
+      },
+      "map13-environment": {
+        "include": [
+          "assets/textures/environments/map13-*.png"
+        ]
+      },
+      "map14-environment": {
+        "include": [
+          "assets/textures/environments/map14-*.png"
+        ]
+      },
+      "map15-environment": {
+        "include": [
+          "assets/textures/environments/map15-*.png"
+        ]
+      },
+      "goal-environment": {
+        "include": [
+          "assets/textures/environments/goal-*.png"
         ]
       }
     }

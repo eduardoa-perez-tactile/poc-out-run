@@ -77,4 +77,47 @@ class ParserTests(unittest.TestCase):
     def test_dirty_resources_rejected_before_pixels_read(self):
         with patch.object(art.subprocess,'check_output',side_effect=[art.PIN,' M Resources/car.png']):
             with self.assertRaisesRegex(ValueError,'tracked modifications'):art.build(Path('/unreadable'))
+class EnvironmentCodecTests(unittest.TestCase):
+    def rgb(self,width,height,filtered,transparency=None):
+        raw=b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',width,height,8,2,0,0,0))
+        if transparency is not None:raw+=chunk(b'tRNS',transparency)
+        return raw+chunk(b'IDAT',zlib.compress(filtered))+chunk(b'IEND',b'')
+    def test_opaque_rgb8_requires_explicit_environment_opt_in_and_all_filters_use_bpp3(self):
+        rows=[bytes([10,20,30,40,50,60]),bytes([12,24,36,48,60,72])]
+        for kind in range(5):
+            filtered=bytearray();previous=bytes(6)
+            for row in rows:
+                filtered.append(kind)
+                for i,value in enumerate(row):
+                    a=row[i-3] if i>=3 else 0;b=previous[i];c=previous[i-3] if i>=3 else 0
+                    if kind==1:predictor=a
+                    elif kind==2:predictor=b
+                    elif kind==3:predictor=(a+b)//2
+                    elif kind==4:
+                        p=a+b-c;distance=[abs(p-a),abs(p-b),abs(p-c)];predictor=[a,b,c][distance.index(min(distance))]
+                    else:predictor=0
+                    filtered.append((value-predictor)&255)
+                previous=row
+            raw=self.rgb(2,2,filtered)
+            with self.assertRaisesRegex(ValueError,'alpha'):art.decode_png(raw)
+            with self.subTest(filter=kind):
+                self.assertEqual(art.decode_png(raw,require_alpha=False),(2,2,bytearray([10,20,30,255,40,50,60,255,12,24,36,255,48,60,72,255])))
+    def test_goal_back_2182_columns_keep_original_pixels_without_weakening_default_limit(self):
+        raw=self.rgb(2182,1,b'\0'+bytes([7,19,31])*2182)
+        with self.assertRaisesRegex(ValueError,'dimensions'):art.png_info(raw,require_alpha=False)
+        self.assertEqual(art.png_info(raw,max_dimension=4096,require_alpha=False),(2182,1))
+        self.assertEqual(art.decode_png(raw,max_dimension=4096,require_alpha=False)[2],bytes([7,19,31,255])*2182)
+        with self.assertRaises(TypeError):art.png_info(raw,4096,False)
+    def test_default_rgb_trns_decode_still_rejects_legacy_unsupported_color(self):
+        raw=self.rgb(2,1,b'\0'+bytes([10,20,30,40,50,60]),struct.pack('>HHH',10,20,30))
+        self.assertEqual(art.png_info(raw),(2,1))
+        with self.assertRaisesRegex(ValueError,'Atlas decoder supports'):art.decode_png(raw)
+        self.assertEqual(art.decode_png(raw,require_alpha=False)[2],bytes([10,20,30,0,40,50,60,255]))
+
+    def test_rgb_trns_is_preserved_and_malformed_samples_are_rejected(self):
+        raw=self.rgb(2,1,b'\0'+bytes([10,20,30,40,50,60]),struct.pack('>HHH',10,20,30))
+        self.assertEqual(art.decode_png(raw,require_alpha=False)[2],bytes([10,20,30,0,40,50,60,255]))
+        for trns in [b'bad',struct.pack('>HHH',256,20,30)]:
+            with self.assertRaisesRegex(ValueError,'tRNS'):art.decode_png(self.rgb(2,1,b'\0'+bytes(6),trns),require_alpha=False)
+
 if __name__=='__main__':unittest.main()

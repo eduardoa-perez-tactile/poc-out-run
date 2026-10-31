@@ -637,6 +637,148 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "EnvironmentResidency",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "incoming",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "active",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ownsIncoming",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsActive",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsTraffic",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ioReady",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "renderSettled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "failed",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "batch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "trafficCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReviewSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "ForkPreviewRequested",
       "kind": "event",
       "sim": true,
@@ -2304,6 +2446,65 @@ export interface DrivingStateValue {
 }
 /** DrivingState (resource, sim) */
 export const DrivingState = typeToken<DrivingStateViews, DrivingStateValue>('DrivingState', 'resource', { sig: 'active:bool:1,playing:bool:1,manual:bool:1,legacySpeed:f32:1,gear:u32:1,steering:f32:1,distance:f32:1,previousDistance:f32:1,lateral:f32:1,previousLateral:f32:1', read: (v: DrivingStateViews, i: number, o: Record<string, unknown>) => { o.active = v.active[i] !== 0; o.playing = v.playing[i] !== 0; o.manual = v.manual[i] !== 0; o.legacySpeed = v.legacySpeed[i]; o.gear = v.gear[i]; o.steering = v.steering[i]; o.distance = v.distance[i]; o.previousDistance = v.previousDistance[i]; o.lateral = v.lateral[i]; o.previousLateral = v.previousLateral[i]; return o; } });
+
+export interface EnvironmentResidencyViews {
+  epoch: Uint32Array;
+  incoming: Uint32Array;
+  active: Uint32Array;
+  ownsIncoming: Uint8Array;
+  ownsActive: Uint8Array;
+  ownsTraffic: Uint8Array;
+  ioReady: Uint8Array;
+  renderSettled: Uint8Array;
+  failed: Uint8Array;
+}
+export interface EnvironmentResidencyValue {
+  epoch: number;
+  incoming: number;
+  active: number;
+  ownsIncoming: boolean;
+  ownsActive: boolean;
+  ownsTraffic: boolean;
+  ioReady: boolean;
+  renderSettled: boolean;
+  failed: boolean;
+}
+/** EnvironmentResidency (resource, presentation-only) */
+export const EnvironmentResidency = typeToken<EnvironmentResidencyViews, EnvironmentResidencyValue>('EnvironmentResidency', 'resource', { sig: 'epoch:u32:1,incoming:u32:1,active:u32:1,ownsIncoming:bool:1,ownsActive:bool:1,ownsTraffic:bool:1,ioReady:bool:1,renderSettled:bool:1,failed:bool:1', read: (v: EnvironmentResidencyViews, i: number, o: Record<string, unknown>) => { o.epoch = v.epoch[i]; o.incoming = v.incoming[i]; o.active = v.active[i]; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsTraffic = v.ownsTraffic[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.failed = v.failed[i] !== 0; return o; } });
+
+export interface EnvironmentReviewViews {
+  enabled: Uint8Array;
+  mapId: Uint32Array;
+  mode: Uint32Array;
+  batch: Uint32Array;
+  trafficCount: Uint32Array;
+  cameraOriginZ: Float32Array;
+  lateral: Float32Array;
+  backOffset: Float32Array;
+  frontOffset: Float32Array;
+}
+export interface EnvironmentReviewValue {
+  enabled: boolean;
+  mapId: number;
+  mode: number;
+  batch: number;
+  trafficCount: number;
+  cameraOriginZ: number;
+  lateral: number;
+  backOffset: number;
+  frontOffset: number;
+}
+/** EnvironmentReview (resource, presentation-only) */
+export const EnvironmentReview = typeToken<EnvironmentReviewViews, EnvironmentReviewValue>('EnvironmentReview', 'resource', { sig: 'enabled:bool:1,mapId:u32:1,mode:u32:1,batch:u32:1,trafficCount:u32:1,cameraOriginZ:f32:1,lateral:f32:1,backOffset:f32:1,frontOffset:f32:1', read: (v: EnvironmentReviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.mapId = v.mapId[i]; o.mode = v.mode[i]; o.batch = v.batch[i]; o.trafficCount = v.trafficCount[i]; o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; return o; } });
+
+export interface EnvironmentReviewSlotViews {
+  slot: Uint32Array;
+}
+export interface EnvironmentReviewSlotValue {
+  slot: number;
+}
+/** EnvironmentReviewSlot (component, presentation-only) */
+export const EnvironmentReviewSlot = typeToken<EnvironmentReviewSlotViews, EnvironmentReviewSlotValue>('EnvironmentReviewSlot', 'component', { sig: 'slot:u32:1', read: (v: EnvironmentReviewSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
 export interface ForkPreviewRequestedViews {
   side: Uint32Array;
