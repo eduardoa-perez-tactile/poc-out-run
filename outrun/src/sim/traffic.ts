@@ -1,5 +1,5 @@
 import {defineSystem,query,read,write,math,pcg32} from '@gameengine/runtime';
-import {DrivingState,DrivingResetRequested,TrafficPool,TrafficResetRequested,TrafficRebaseRequested,TrafficPassed,CollisionDriver,ContactAccepted,type TrafficResetRequestedValue} from '../schema.gen.ts';
+import {DrivingState,DrivingResetRequested,TrafficPool,TrafficResetRequested,TrafficRebaseRequested,TrafficPassed,CollisionDriver,CrashDriver,ContactAccepted,type TrafficResetRequestedValue} from '../schema.gen.ts';
 import {loadMap01,sourcePlayerSample} from '../content/biome.ts';
 import {nearestTerrainRoad} from './terrain-math.ts';
 import {resetTrafficPool,rebaseTrafficPool,advanceTrafficPool,finalizeTrafficPool,type TrafficPlayerSample} from './traffic-math.ts';
@@ -9,11 +9,12 @@ import {evaluateCollisionDriver} from './collision-state.ts';
 // hashed RNG stream. Absent-owner worlds never dispatch or seed this system.
 export const AdvanceTraffic=defineSystem({
   name:'AdvanceTraffic',after:['AdvanceDriving'],
-  runIf:{query:query(read(TrafficPool))},queries:{owners:query(write(TrafficPool)),collisions:query(write(CollisionDriver))},
+  runIf:{query:query(read(TrafficPool))},queries:{owners:query(write(TrafficPool)),collisions:query(write(CollisionDriver)),crashes:query(write(CrashDriver))},
   resources:[read(DrivingState)],events:[TrafficResetRequested,TrafficRebaseRequested,DrivingResetRequested],
-  run(ctx,{owners,collisions}){
+  run(ctx,{owners,collisions,crashes}){
     if(owners.count!==1)throw new Error('Source traffic requires exactly one TrafficPool');
     if(collisions.count>1)throw new Error('Source traffic supports one collision owner');
+    if(crashes.count>1||crashes.count>collisions.count)throw new Error('Crash recovery requires one matching collision/traffic owner');
     const driving=ctx.resource(DrivingState),data=loadMap01();
     const previousDistance=driving.previousDistance[0]!,distance=driving.distance[0]!;
     const previousLateral=driving.previousLateral[0]!,lateral=driving.lateral[0]!;
@@ -65,7 +66,20 @@ export const AdvanceTraffic=defineSystem({
           distance,previousDistance,lateral,previousLateral,
         },advanced,data,ctx.step,lifecycle);
         contacts.set(CollisionDriver,index,evaluation.driver);eligibilityMask=evaluation.eligibilityMask;
-        if(evaluation.hit)ctx.events.emit(ContactAccepted,evaluation.hit);
+        if(evaluation.hit){
+          // Event commands become visible at end of step. Publish the actual
+          // accepted physical operands immediately so the separate crash RNG
+          // owner can latch recovery after this producer on the SAME hit tick.
+          if(crashes.count===1)for(const recovery of crashes.chunks())for(let crashIndex=0;crashIndex<recovery.length;crashIndex++){
+            if(recovery.entity(crashIndex)!==chunk.entity(row))throw new Error('CrashDriver must belong to the traffic/contact driver');
+            const crash=recovery.col(CrashDriver),hit=evaluation.hit;
+            if(crash.mapId[crashIndex]!==hit.mapId||crash.phase[crashIndex]!==0||evaluation.driver.locked)
+              throw new Error('Incoherent crash producer owner');
+            recovery.set(CrashDriver,crashIndex,{pendingStep:ctx.step,kind:hit.kind,impactSpeed:hit.impactSpeed,
+              handlingCap:hit.handlingCap,collisionDir:hit.collisionDir,curve:hit.curve});
+          }
+          ctx.events.emit(ContactAccepted,evaluation.hit);
+        }
       }
       const finalized=finalizeTrafficPool(advanced,eligibilityMask,ctx.rng);
       chunk.set(TrafficPool,row,finalized.pool);
