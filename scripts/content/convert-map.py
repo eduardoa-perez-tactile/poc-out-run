@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile the pinned Map1 compatibility profile. No runtime art/RNG/goal expansion.
+"""Compile pinned Map1/2/3 compatibility profiles. No runtime art/RNG/goal expansion.
 Default verifies committed output; --write explicitly regenerates reviewed data.
 """
 import argparse
@@ -17,6 +17,16 @@ PIN='6882721c99bc79365f815f68d389bf5078129e68'
 MAP='Resources/Maps/MapLevels/Map1/map.txt'
 FIXTURE=ROOT/'scripts/content/fixtures/map01-source.json'
 OUTPUT=ROOT/'outrun/assets/data/biomes/map01.json'
+MAP_SPECS={
+    1:{'localCount':26,'sharedCount':45,'links':{'left':2,'right':3,'sequential':2},'windowBound':256},
+    2:{'localCount':36,'sharedCount':0,'links':{'left':4,'right':5,'sequential':3},'windowBound':1000},
+    3:{'localCount':39,'sharedCount':0,'links':{'left':5,'right':6,'sequential':4},'windowBound':1000},
+}
+def map_spec(map_id):
+    need(type(map_id)is int and map_id in MAP_SPECS,'profile',1,'unsupported map ID')
+    return MAP_SPECS[map_id]
+def map_path(map_id):return f'Resources/Maps/MapLevels/Map{map_id}/map.txt'
+
 SLOTS=['FAR_LEFT','NEAR_LEFT','CENTER','FAR_RIGHT','NEAR_RIGHT']
 COLORS=['BACKGROUND','OUTSIDE_ROAD_1','OUTSIDE_ROAD_2','ROAD_1','ROAD_2','RUMBLE_1','RUMBLE_2','LANE_1','LANE_2','RUMBLE_LANE_1','RUMBLE_LANE_2']
 GAPS={3:0,4:1036,5:2072,6:3108,7:4144,8:5180,2:24756}
@@ -47,7 +57,8 @@ def png_size(raw,path):
         off=end+4
     need(size and ended,path,1,'incomplete PNG');return size
 
-def source_fixture(source):
+def source_fixture(source,map_id=1):
+    descriptor=map_spec(map_id);path_map=map_path(map_id)
     def git(*args):return subprocess.check_output(['git','-C',str(source),*args],text=True).strip()
     need(git('rev-parse','HEAD')==PIN,'source',1,'wrong pinned source HEAD')
     need(not git('status','--porcelain=v1','--untracked-files=no','--','Resources','src'),'source',1,'tracked source modifications')
@@ -56,7 +67,7 @@ def source_fixture(source):
         except OSError as error:fail(path,1,'missing/unreadable source file: '+str(error))
     def digest(path):return hashlib.sha256(read(path)).hexdigest()
     objects=[]
-    for shared,count,folder in [(True,45,'Resources/Maps/MapStartGoal'),(False,26,'Resources/Maps/MapLevels/Map1')]:
+    for count,folder in [(descriptor['sharedCount'],'Resources/Maps/MapStartGoal'),(descriptor['localCount'],f'Resources/Maps/MapLevels/Map{map_id}')]:
         for local in range(1,count+1):
             path=f'{folder}/{local}.png';props=f'{folder}/{local}.txt';raw=read(path)
             objects.append({'id':len(objects)+1,'sourcePath':path,'sha256':hashlib.sha256(raw).hexdigest(),'sizePx':png_size(raw,path),
@@ -72,8 +83,9 @@ def source_fixture(source):
         placements.append({'segment':int(segment),'slot':SLOTS.index(slot),'objectId':obj,'offsetX':f32(x),'offsetY':f32(y),'side':side,
                            'viewportYFactor':f32(width_factor),'sourceLine':cpp[:start+m.start()].count('\n')+1})
     need(len(placements)==19,'src/Logger/Logger.cpp',1254,'start recipe extraction changed')
+    if map_id!=1:placements=[]
     sources=['src/Logger/Logger.cpp','src/Scene/Biome/Biome.cpp','src/Scene/Map/Map.cpp','src/Game/Game.cpp','src/Globals.h']
-    return {'sourceCommit':PIN,'mapPath':MAP,'mapText':read(MAP).decode(),'mapSha256':digest(MAP),
+    return {'sourceCommit':PIN,'mapPath':path_map,'mapText':read(path_map).decode(),'mapSha256':digest(path_map),
             'implementationSources':{p:digest(p) for p in sources},'objects':objects,'startPlacements':placements}
 
 def properties(obj):
@@ -101,10 +113,10 @@ def ease(a,b,t,entry=False):
     cosine=f32(math.cos(f32(t*PI)));fraction=f32(f32(-cosine/2)+.5)
     return f32(a+f32(f32(b-a)*fraction))
 
-def expand(segments,enter,hold,leave,curve,slope,mirror,gap,source_line):
-    total=enter+hold+leave;need(total>0,MAP,source_line,'empty relief')
-    need(len(segments)+total<=20000,MAP,source_line,'segment bound exceeded')
-    need(not mirror or bool(segments),MAP,source_line,'first relief cannot mirror without a previous segment')
+def expand(segments,enter,hold,leave,curve,slope,mirror,gap,source_line,path=MAP):
+    total=enter+hold+leave;need(total>0,path,source_line,'empty relief')
+    need(len(segments)+total<=20000,path,source_line,'segment bound exceeded')
+    need(not mirror or bool(segments),path,source_line,'first relief cannot mirror without a previous segment')
     first=segments[-1]['y1'] if segments else 0
     distance=segments[-1]['gap'] if segments else gap
     increment=math.trunc(f32(f32((24756 if mirror else gap)-distance)/f32(total)))
@@ -119,16 +131,24 @@ def expand(segments,enter,hold,leave,curve,slope,mirror,gap,source_line):
             if phase==1 and n==hold//2 and mirror:swap=len(segments)
     return start,total,swap
 
-def compile_map(fixture,gradient):
+def compile_map(fixture,gradient,map_id=1):
+    descriptor=map_spec(map_id);object_count=descriptor['sharedCount']+descriptor['localCount']
     need(fixture['sourceCommit']==PIN,'fixture',1,'wrong source commit')
     path=fixture['mapPath'];text=fixture['mapText']
-    need(path==MAP and hashlib.sha256(text.encode()).hexdigest()==fixture['mapSha256'],'fixture',1,'map source hash/path mismatch')
+    need(path==map_path(map_id) and hashlib.sha256(text.encode()).hexdigest()==fixture['mapSha256'],'fixture',1,'map source hash/path mismatch')
     need(gradient in (-1,0,1),'profile',1,'fork gradient must be -1,0,1')
-    need(len(fixture['objects'])==71,'fixture',1,'expected45shared+26localobjects')
+    need(len(fixture['objects'])==object_count,'fixture',1,'expected45shared+26localobjects' if map_id==1 else f'expected{object_count}localobjects')
+    if map_id!=1:
+        need(fixture['startPlacements']==[],'fixture',1,'local maps cannot contain start placements')
+        sources=fixture['implementationSources']
+        expected={'src/Logger/Logger.cpp','src/Scene/Biome/Biome.cpp','src/Scene/Map/Map.cpp','src/Game/Game.cpp','src/Globals.h'}
+        need(set(sources)==expected and all(isinstance(v,str) and re.fullmatch('[0-9a-f]{64}',v) for v in sources.values()),'fixture',1,'invalid implementation source hashes')
     for i,obj in enumerate(fixture['objects'],1):
-        expected=f'Resources/Maps/MapStartGoal/{i}.png' if i<=45 else f'Resources/Maps/MapLevels/Map1/{i-45}.png'
+        expected=f'Resources/Maps/MapStartGoal/{i}.png' if i<=descriptor['sharedCount'] else f'Resources/Maps/MapLevels/Map{map_id}/{i-descriptor["sharedCount"]}.png'
         need(obj['id']==i and obj['sourcePath']==expected,'fixture',1,'object ID/path mismatch')
-        need(re.fullmatch('[0-9a-f]{64}',obj['sha256']) and all(type(v)is int and 0<v<=4096 for v in obj['sizePx']),'fixture',1,'invalid PNG metadata')
+        need(obj['propertiesPath']==expected[:-4]+'.txt','fixture',1,'object property path mismatch')
+        need(obj['propertiesText'] is None or isinstance(obj['propertiesText'],str),'fixture',1,'invalid optional property text')
+        need(re.fullmatch('[0-9a-f]{64}',obj['sha256']) and len(obj['sizePx'])==2 and all(type(v)is int and 0<v<=4096 for v in obj['sizePx']),'fixture',1,'invalid PNG metadata')
     objects=[properties(o) for o in fixture['objects']]
     segments=[];commands=[];definitions=[];winners={};overwritten=[];candidate=0;header={};palette={};section='global';group=None;group_slots=set();checkpoint=-1;swap=0;marker_index=-1
     def place(segment,slot,definition):
@@ -176,7 +196,7 @@ def compile_map(fixture,gradient):
             need(mirror in (0,1) and tracks in GAPS,path,row,'invalid mirror/tracks')
             if 'LEFT' in name:need(curve<0,path,row,'left curve must be negative')
             if 'RIGHT' in name:need(curve>0,path,row,'right curve must be positive')
-            first,count,choice=expand(segments,e,h,l,curve,slope,bool(mirror),GAPS[tracks],row)
+            first,count,choice=expand(segments,e,h,l,curve,slope,bool(mirror),GAPS[tracks],row,path)
             if not swap:swap=choice
             commands.append({'sourceLine':row,'command':name,'arguments':args,'firstSegment':first,'count':count,'effective':[e,h,l]})
             continue
@@ -193,7 +213,7 @@ def compile_map(fixture,gradient):
         else:
             need(key in ['SPRITE_'+s+':' for s in SLOTS] and group is not None and len(t)==5,path,row,'invalid sprite/context/arity')
             obj=number(t[1],path,row,True);x,y=[number(v,path,row) for v in t[2:4]];side=number(t[4],path,row,True)
-            need(1<=obj<=71 and side in (0,1),path,row,'object reference/side out of range')
+            need(1<=obj<=object_count and side in (0,1),path,row,'object reference/side out of range')
             d=len(definitions);definitions.append({'id':d,'kind':'authored','sourceLine':row,'objectId':obj,'offsetX':x,'offsetY':y,'side':bool(side),'viewportYFactor':0})
             slot=SLOTS.index(key[7:].rstrip(':'));need(not group_slots or slot>max(group_slots),path,row,'duplicate/out-of-order sprite slot');group_slots.add(slot);a,b,inc,freq=group
             for segment in range(a,b,inc):
@@ -202,7 +222,7 @@ def compile_map(fixture,gradient):
     need(header['TIME:']>0 and header['TERRAIN:'] in range(1,5) and header['ROAD_TERRAIN:'] in range(5),path,1,'time/terrain out of range')
     authored=len(segments)
     for e,h,l,c,s,m,g in [(10,300,50,-2,gradient*80,True,0),(100,100,100,0,0,True,24756),(100,100,100,0,0,False,2072),(100,150,150,0,0,False,0),(100,100,100,0,0,False,0),(100,100,100,0,0,False,0)]:
-        _,_,choice=expand(segments,e,h,l,c,s,m,g,0)
+        _,_,choice=expand(segments,e,h,l,c,s,m,g,0,path)
         if not swap:swap=choice
     placements=[{'id':segment*5+slot,'segment':segment,'slot':slot,'definition':d} for (segment,slot),d in sorted(winners.items())]
     offsets=[];cursor=0
@@ -210,12 +230,13 @@ def compile_map(fixture,gradient):
         while cursor<len(placements) and placements[cursor]['segment']<segment:cursor+=1
         offsets.append(cursor)
     maximum=max(offsets[min(len(segments),i+200)]-offsets[i] for i in range(len(segments)))
-    need(maximum<=256,path,1,'visible diagnostic pool bound exceeded')
-    data={'$type':'SourceBiome','id':1,'sourceCommit':PIN,'inputSha256':hashlib.sha256(json.dumps(fixture,sort_keys=True,separators=(',',':')).encode()).hexdigest(),
-          'sourceHashes':{**fixture['implementationSources'],MAP:fixture['mapSha256']},'profile':'sourceCompatibility-original','forkGradient':gradient,
+    # Five canonical slots per row x 200 rows bounds DATA, not renderer capacity.
+    need(maximum<=descriptor['windowBound'],path,1,'visible diagnostic pool bound exceeded')
+    data={'$type':'SourceBiome','id':map_id,'sourceCommit':PIN,'inputSha256':hashlib.sha256(json.dumps(fixture,sort_keys=True,separators=(',',':')).encode()).hexdigest(),
+          'sourceHashes':{**fixture['implementationSources'],path:fixture['mapSha256']},'profile':'sourceCompatibility-original','forkGradient':gradient,
           'segmentLength':150,'playerOffsetZ':702,'cameraHeight':800,'referenceWidth':921,'authoredCount':authored,'totalCount':len(segments),
           'swapLine':swap,'lastLine':len(segments)-200,'checkpointLine':checkpoint,'timeSeconds':header['TIME:'],'terrain':header['TERRAIN:'],'roadTerrain':header['ROAD_TERRAIN:'],
-          'links':{'left':2,'right':3,'sequential':2},'palette':[palette[k] for k in COLORS],'commands':commands,'objects':objects,'definitions':definitions,
+          'links':dict(descriptor['links']),'palette':[palette[k] for k in COLORS],'commands':commands,'objects':objects,'definitions':definitions,
           'placements':placements,'overwritten':overwritten,'candidatePlacements':candidate,'maxWindowProps':maximum,'objectOffsets':offsets,'segments':segments}
     return data
 
@@ -237,13 +258,15 @@ def encoded(data):return json.dumps(data,separators=(',',':'),allow_nan=False)+'
 def main():
     parser=argparse.ArgumentParser(description=__doc__);group=parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--source',type=Path);group.add_argument('--fixture',type=Path)
+    parser.add_argument('--map',type=int,choices=[1,2,3],default=1)
     parser.add_argument('--fork-gradient',type=int,choices=[-1,0,1],required=True);parser.add_argument('--write',action='store_true');args=parser.parse_args()
-    fixture=source_fixture(args.source) if args.source else json.loads(args.fixture.read_text());data=compile_map(fixture,args.fork_gradient)
+    fixture=source_fixture(args.source,args.map) if args.source else json.loads(args.fixture.read_text());data=compile_map(fixture,args.fork_gradient,args.map)
+    output=ROOT/f'outrun/assets/data/biomes/map{args.map:02}.json';fixture_path=ROOT/f'scripts/content/fixtures/map{args.map:02}-source.json'
     if args.write:
-        OUTPUT.parent.mkdir(parents=True,exist_ok=True);OUTPUT.write_text(encoded(data))
-        if args.source:FIXTURE.write_text(json.dumps(fixture,indent=2)+'\n')
-    else:need(OUTPUT.exists() and OUTPUT.read_text()==encoded(data),'output',1,'committed output differs; review then use --write')
-    print(f"Map1 {data['authoredCount']}/{data['totalCount']} segments, swap{data['swapLine']}, {len(data['placements'])} placements, max{data['maxWindowProps']}/256; {len(encoded(data))} data bytes")
+        output.parent.mkdir(parents=True,exist_ok=True);output.write_text(encoded(data))
+        if args.source:fixture_path.write_text(json.dumps(fixture,indent=2)+'\n')
+    else:need(output.exists() and output.read_text()==encoded(data),'output',1,'committed output differs; review then use --write')
+    print(f"Map{args.map} {data['authoredCount']}/{data['totalCount']} segments, swap{data['swapLine']}, {len(data['placements'])} placements, max{data['maxWindowProps']}/{map_spec(args.map)['windowBound']}; {len(encoded(data))} data bytes")
 if __name__=='__main__':
     try:main()
     except (ValueError,OSError,KeyError,subprocess.CalledProcessError) as error:raise SystemExit(str(error))
