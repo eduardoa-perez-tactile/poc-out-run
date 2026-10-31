@@ -14,7 +14,14 @@ function soleDriver(world:WorldTestContext['world']){
 function chargedGroups(){
   const stats=assets.stats(),map=stats.groups['map01-environment']!,car=stats.groups['player-ferrari1']!;
   expect(stats.class).toBe('phone-low');expect(stats.overBudget).toBe(null);
-  expect(Object.entries(stats.groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort()).toEqual(['map01-environment','player-ferrari1']);
+  expect(Object.entries(stats.groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort()).toEqual(['biome-catalog-data','biome-map01-data','map01-environment','player-ferrari1']);
+  // These two explicit startup data pins are intentional; all other loaded
+  // groups still fail the exact set above. Data must add no texture/audio charge.
+  for(const name of ['biome-catalog-data','biome-map01-data']){
+    const group=stats.groups[name]!;
+    expect(group.members).toBe(1);expect(group.progress).toBe(1);expect(group.failed).toEqual([]);
+    expect(group.resident.textures).toBe(0);expect(group.resident.audio).toBe(0);
+  }
   for(const group of [map,car]){expect(group.progress).toBe(1);expect(group.failed).toEqual([]);expect(group.resident.textures).toBeGreaterThan(0);}
   expect(map.members).toBe(8);expect(car.members).toBe(2);
   // Actual loose mip-chain charges and cooked base-level charges differ. Keep

@@ -8,7 +8,7 @@ export const SourceBiome=dataAsset('SourceBiome',{
   commands:p.arr(p.obj({sourceLine:p.int(),command:p.str(),arguments:p.arr(p.num()),firstSegment:p.int(),count:p.int(),effective:p.arr(p.int())})),
   objects:p.arr(p.obj({id:p.int(),sourcePath:p.str(),sha256:p.str(),propertiesSha256:p.str(),hasProperties:p.bool(),sourceSizePx:pair,
     collision:p.bool(),scale:p.num(),collisionWidthSourcePx:p.num(),showTerrain:p.int(),pivotLeft:pair,pivotRight:pair,collisionPivotLeft:pair,collisionPivotRight:pair})),
-  definitions:p.arr(p.obj({id:p.int(),kind:p.oneOf(['start','authored']),sourceLine:p.int(),objectId:p.int(),offsetX:p.num(),offsetY:p.num(),side:p.bool(),viewportYFactor:p.num()})),
+  definitions:p.arr(p.obj({id:p.int(),kind:p.oneOf(['start','authored','goal']),sourceLine:p.int(),objectId:p.int(),offsetX:p.num(),offsetY:p.num(),side:p.bool(),viewportYFactor:p.num()})),
   placements:p.arr(p.obj({id:p.int(),segment:p.int(),slot:p.int(),definition:p.int()})),
   overwritten:p.arr(p.obj({segment:p.int(),slot:p.int(),previousDefinition:p.int(),definition:p.int()})),
   candidatePlacements:p.int(),maxWindowProps:p.int(),objectOffsets:p.arr(p.int()),

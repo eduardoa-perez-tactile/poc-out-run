@@ -33,7 +33,14 @@ async function until(ctx:Context,predicate:()=>boolean,max=600){for(let tick=0;t
 function resources(){
   const s=assets.stats();expect(s.class).toBe('phone-low');expect(s.overBudget).toBe(null);
   expect(s.groups['player-ferrari1']!.status).toBe('loaded');expect(s.groups['player-ferrari1']!.resident.textures).toBeGreaterThan(0);expect(s.groups['player-ferrari1']!.resident.textures).toBeLessThanOrEqual(6*1024*1024);
-  expect(Object.entries(s.groups).filter(([,g])=>g.status==='loaded').map(([name])=>name).sort()).toEqual(['map01-environment','player-ferrari1','traffic-source']);
+  expect(Object.entries(s.groups).filter(([,g])=>g.status==='loaded').map(([name])=>name).sort()).toEqual(['biome-catalog-data','biome-map01-data','map01-environment','player-ferrari1','traffic-source']);
+  // These two explicit startup data pins are intentional; all other loaded
+  // groups still fail the exact set above. Data must add no texture/audio charge.
+  for(const name of ['biome-catalog-data','biome-map01-data']){
+    const group=s.groups[name]!;
+    expect(group.members).toBe(1);expect(group.progress).toBe(1);expect(group.failed).toEqual([]);
+    expect(group.resident.textures).toBe(0);expect(group.resident.audio).toBe(0);
+  }
   expect(s.resident.total).toBeLessThanOrEqual(s.budget.total!);
   expect(meshes.info('player-car')!.vertices).toBe(12);expect(vehicleBufferStats.indices).toBe(18);
 }

@@ -47,8 +47,16 @@ renderTest('vehicle.residency selected car and fixed pool survive repeated previ
   // Charge only this car to its tighter bound: cooked atlas is 4 MiB; loose
   // loading may retain its full mip chain. Neither permits another car family.
   expect(selected.resident.textures).toBeLessThanOrEqual(6*1024*1024);
-  expect(Object.entries(stats.groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort()).toEqual(['player-ferrari1']);
-  for(const [name,group] of Object.entries(stats.groups))if(name!=='player-ferrari1'){
+  const loadedGroups=['biome-catalog-data','biome-map01-data','player-ferrari1'];
+  expect(Object.entries(stats.groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort()).toEqual(loadedGroups);
+  // These two explicit startup data pins are intentional; all other loaded
+  // groups still fail the exact set above. Data must add no texture/audio charge.
+  for(const name of ['biome-catalog-data','biome-map01-data']){
+    const group=stats.groups[name]!;
+    expect(group.members).toBe(1);expect(group.progress).toBe(1);expect(group.failed).toEqual([]);
+    expect(group.resident.textures).toBe(0);expect(group.resident.audio).toBe(0);
+  }
+  for(const [name,group] of Object.entries(stats.groups))if(!loadedGroups.includes(name)){
     // Released content can remain cached. It must never retain an active pin.
     expect(group.status==='released'||group.status==='unloaded').toBe(true);
   }

@@ -1,0 +1,1215 @@
+{
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "implementationSources": {
+    "src/Logger/Logger.cpp": "837cc95c657c45ddf58749e3465b0f9eecd101989a506276f6de377a9daa4776",
+    "src/Scene/Biome/Biome.cpp": "4d2fc30642ccf24d7e303dc479266d4f96e3ec4dcd3fbea71ebfdf3372ec7c8e",
+    "src/Scene/Biome/Biome.h": "31e6b9e5f8f0c89ff8553012f8444746e085200f4f38e390f4474f235dadfc60",
+    "src/Scene/Map/Map.cpp": "8de4c5730fd14fe625b982dda582e8a0d761efa0a3fa12dab3318dd5dd724f26",
+    "src/Game/Game.cpp": "7d9a96e6f68e5349d8566e984aa412c629ed78bc4d8c505d6fcf19655e2b0026",
+    "src/Globals.h": "199bc1899579ca793850d2a49065e9e499d1f8e7b32f32ceacf25678586a8ccd",
+    "src/Random/Random.cpp": "bb4a491dd786fa0b0a935fb6b61b9b784d7ec0ec32cc435f3b7501c5f83d1b07"
+  },
+  "objects": [
+    {
+      "id": 1,
+      "sourcePath": "Resources/Maps/MapStartGoal/1.png",
+      "sha256": "8f48cf12c1ec38489f92577b6147292bb8809740c6024140b820d08ff4652632",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/1.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 2,
+      "sourcePath": "Resources/Maps/MapStartGoal/2.png",
+      "sha256": "bdef38df9ab6fc979748ef57a0ac23256c0564078560e14c38f58b0409c2f40d",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/2.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 3,
+      "sourcePath": "Resources/Maps/MapStartGoal/3.png",
+      "sha256": "5c71028c6d0e173a3dfd921d65f98506b674ac6fafcfb7f7f1c8f5056e369f50",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/3.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 4,
+      "sourcePath": "Resources/Maps/MapStartGoal/4.png",
+      "sha256": "ef29366723c6f6fab91637fe227fbb64360a3a5e42afd3f6b2586a8f8b70aee4",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/4.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 5,
+      "sourcePath": "Resources/Maps/MapStartGoal/5.png",
+      "sha256": "9934cd67e68b6e69f2deb0547f7ae036ed918b82ee3a1b36cff698369578e7e0",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/5.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 6,
+      "sourcePath": "Resources/Maps/MapStartGoal/6.png",
+      "sha256": "c7759a6d10edc64600dd1b2c98e04b38e5cd45aeaa830f12f74a5100ed24e0d7",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/6.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 7,
+      "sourcePath": "Resources/Maps/MapStartGoal/7.png",
+      "sha256": "00d3cc2c194d2005b187e27bde4ad9424e517bdba6b99c2941e5e4729b9f325a",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/7.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 8,
+      "sourcePath": "Resources/Maps/MapStartGoal/8.png",
+      "sha256": "4c40eb7beb04adf2b71bfb061a3256e231734568cb9be2896e116d14c6769c86",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/8.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 9,
+      "sourcePath": "Resources/Maps/MapStartGoal/9.png",
+      "sha256": "2d7c298bde64c607e9a300d7817984e3181b221f5b49ed138c83b90b43a8704d",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/9.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 10,
+      "sourcePath": "Resources/Maps/MapStartGoal/10.png",
+      "sha256": "177778106061cb269fbc142bf385526e845a930e7abf0536eee4ce32337671d0",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/10.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 11,
+      "sourcePath": "Resources/Maps/MapStartGoal/11.png",
+      "sha256": "5a5016aadad28d6aae069b5e7be702de6d656d0df74228b1a0dcbb3d3d134d5a",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/11.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 12,
+      "sourcePath": "Resources/Maps/MapStartGoal/12.png",
+      "sha256": "4d3d2cf43573a2cb73e7348afee31fbdc6c6eaa1d6d8a9c172226a11ae56744d",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/12.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 13,
+      "sourcePath": "Resources/Maps/MapStartGoal/13.png",
+      "sha256": "2d92577509ccac08a356b66ffae697f5c7b01c62366063b7a139f3ebb225b200",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/13.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 14,
+      "sourcePath": "Resources/Maps/MapStartGoal/14.png",
+      "sha256": "63394522f2aa9c562cf4b1550085733fe6ed6f6138e2004bfd302b6c2e4d855d",
+      "sizePx": [
+        81,
+        103
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/14.txt",
+      "propertiesText": "PIVOT_LEFT: 0.58 0.91\nPIVOT_RIGHT: 0.58 0.91"
+    },
+    {
+      "id": 15,
+      "sourcePath": "Resources/Maps/MapStartGoal/15.png",
+      "sha256": "6a61c4292751677ac8666393af71dbfd1df85fceec7b31a4b3bb00497e884e9f",
+      "sizePx": [
+        28,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/15.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 16,
+      "sourcePath": "Resources/Maps/MapStartGoal/16.png",
+      "sha256": "37b6a8818da6ce3b709d68fd236d3ed78082aa649264ba7c485b67883f2c3629",
+      "sizePx": [
+        28,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/16.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 17,
+      "sourcePath": "Resources/Maps/MapStartGoal/17.png",
+      "sha256": "f00cb9258fbb8f5294858cec7331612f69b18ad5fb1ab95f9ad76cd01431b304",
+      "sizePx": [
+        28,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/17.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 18,
+      "sourcePath": "Resources/Maps/MapStartGoal/18.png",
+      "sha256": "7d21dd73bef13855da684ce38622fb53725781642b72358e0e73f1028503bc73",
+      "sizePx": [
+        28,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/18.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 19,
+      "sourcePath": "Resources/Maps/MapStartGoal/19.png",
+      "sha256": "a8773187677bf81e70b7e30edd9f824f8a539f912ac9fdd0cc3e985e9ae7fa12",
+      "sizePx": [
+        23,
+        62
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/19.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 20,
+      "sourcePath": "Resources/Maps/MapStartGoal/20.png",
+      "sha256": "bd16eb2f702461776c547388f111bfb5fda102be6eedc48d1e381b991509023d",
+      "sizePx": [
+        23,
+        62
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/20.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 21,
+      "sourcePath": "Resources/Maps/MapStartGoal/21.png",
+      "sha256": "e01e91685d64a833fb8a3e71b6cd0a21ee93d82e08ce6ae7d3fe2299ac041df6",
+      "sizePx": [
+        23,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/21.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 22,
+      "sourcePath": "Resources/Maps/MapStartGoal/22.png",
+      "sha256": "234e901abdf80c5d443647db4d4a6ba6902d2356bb52360c559eed529262e4bf",
+      "sizePx": [
+        23,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/22.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 23,
+      "sourcePath": "Resources/Maps/MapStartGoal/23.png",
+      "sha256": "049ca5c4ab6bc35a9867b7d458ac521e9fdbe6800b6e3db7a32254d76279c010",
+      "sizePx": [
+        20,
+        63
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/23.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 24,
+      "sourcePath": "Resources/Maps/MapStartGoal/24.png",
+      "sha256": "416fba2484c507927bee1fbaad5efa80cb6977c221e582461dce1ef74f4a2e87",
+      "sizePx": [
+        20,
+        63
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/24.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 25,
+      "sourcePath": "Resources/Maps/MapStartGoal/25.png",
+      "sha256": "675b0395264f6a583fb88e3ed76cbad46a2c347160fa216e5ec204817f05bb63",
+      "sizePx": [
+        28,
+        60
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/25.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 26,
+      "sourcePath": "Resources/Maps/MapStartGoal/26.png",
+      "sha256": "e581699d0ba8d0d0a2432acc90803bb4a2ae30e6510cbfdf5f13e22faebc900c",
+      "sizePx": [
+        28,
+        60
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/26.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 27,
+      "sourcePath": "Resources/Maps/MapStartGoal/27.png",
+      "sha256": "da6cc026ad7dc96a7d698236b1e78c84e0f63e39c7b9e8d85ed57bf3cb018eb4",
+      "sizePx": [
+        16,
+        54
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/27.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 28,
+      "sourcePath": "Resources/Maps/MapStartGoal/28.png",
+      "sha256": "7ad616210f95e19f216e3c30d08c93062fc4740de088f3758446713274bcc441",
+      "sizePx": [
+        16,
+        54
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/28.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 29,
+      "sourcePath": "Resources/Maps/MapStartGoal/29.png",
+      "sha256": "99010a0bd67775de6d67e61c4d569ea60c4668dd7494cf481d422e7af94e66b9",
+      "sizePx": [
+        15,
+        56
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/29.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 30,
+      "sourcePath": "Resources/Maps/MapStartGoal/30.png",
+      "sha256": "c4ec5e744a42a7841b80af52557069adb720675a5a1aa13f7e66510bcdaab2d8",
+      "sizePx": [
+        15,
+        56
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/30.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 31,
+      "sourcePath": "Resources/Maps/MapStartGoal/31.png",
+      "sha256": "7759bf9d805cb86a2551ed9b66b0409b33a60b88e37f6af5334d2f4a7f57e46d",
+      "sizePx": [
+        24,
+        57
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/31.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 32,
+      "sourcePath": "Resources/Maps/MapStartGoal/32.png",
+      "sha256": "764f2a2a60c703e6458c5156d26218c56b8f34f50ad7ec3d42b7c05f1e265cfe",
+      "sizePx": [
+        24,
+        57
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/32.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 33,
+      "sourcePath": "Resources/Maps/MapStartGoal/33.png",
+      "sha256": "7331f2be31a89c1f3ad1f147fb834d5ef2b1eb60b6becdd7052da08a62be1d03",
+      "sizePx": [
+        34,
+        35
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/33.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 34,
+      "sourcePath": "Resources/Maps/MapStartGoal/34.png",
+      "sha256": "7282c2416dccaf56cad15408b6b376e6a299881258c69eb7e1c6c4663734a4e0",
+      "sizePx": [
+        188,
+        66
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/34.txt",
+      "propertiesText": "SCALE: 1.4"
+    },
+    {
+      "id": 35,
+      "sourcePath": "Resources/Maps/MapStartGoal/35.png",
+      "sha256": "787fa649e5a37db17b7a305ddf90a657726dc8b9a945a6c8b4e436ea34a563fe",
+      "sizePx": [
+        188,
+        66
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/35.txt",
+      "propertiesText": "SCALE: 1.4"
+    },
+    {
+      "id": 36,
+      "sourcePath": "Resources/Maps/MapStartGoal/36.png",
+      "sha256": "5f6385c4995b3290b81fd1a84e6382d1889ca6fdbc4924d3196aaf2eaac2e6a9",
+      "sizePx": [
+        152,
+        166
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/36.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 20\nPIVOT_COL_LEFT: 0.36 1\nPIVOT_COL_RIGHT: 0.64 1"
+    },
+    {
+      "id": 37,
+      "sourcePath": "Resources/Maps/MapStartGoal/37.png",
+      "sha256": "ed4f704b52787e442d1cab47d9fa9aaae39bf4150568e7d2cd056ebcc3796b56",
+      "sizePx": [
+        153,
+        167
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/37.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 20\nPIVOT_COL_LEFT: 0.36 1\nPIVOT_COL_RIGHT: 0.64 1"
+    },
+    {
+      "id": 38,
+      "sourcePath": "Resources/Maps/MapStartGoal/38.png",
+      "sha256": "fba8cc9aaefc7feb378d34a68f9a3111da38d99576596f29825140c6059095b9",
+      "sizePx": [
+        472,
+        61
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/38.txt",
+      "propertiesText": "COLLISION: 0\nPIVOT_LEFT: 0 1\nPIVOT_RIGHT: 0 1"
+    },
+    {
+      "id": 39,
+      "sourcePath": "Resources/Maps/MapStartGoal/39.png",
+      "sha256": "fd516910f397e32c12bd29f9a2e05955f50c429f85d85329eecc3d7cf4dc26c6",
+      "sizePx": [
+        74,
+        128
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/39.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 74"
+    },
+    {
+      "id": 40,
+      "sourcePath": "Resources/Maps/MapStartGoal/40.png",
+      "sha256": "cdfea7499ae359d480e1901ef7e3b0adc993495c584feea30a5c822f5129bd3c",
+      "sizePx": [
+        74,
+        128
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/40.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 74"
+    },
+    {
+      "id": 41,
+      "sourcePath": "Resources/Maps/MapStartGoal/41.png",
+      "sha256": "85ba67264dd2fa8a7c5b5d0bca552cc005d7bba7ec78658b4f7f25e19a5463ce",
+      "sizePx": [
+        74,
+        128
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/41.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 74"
+    },
+    {
+      "id": 42,
+      "sourcePath": "Resources/Maps/MapStartGoal/42.png",
+      "sha256": "911a494e3ca2a6ac67d914dd009fa91b21a761c067e2357f43975981c1b2cd82",
+      "sizePx": [
+        74,
+        128
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/42.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 74"
+    },
+    {
+      "id": 43,
+      "sourcePath": "Resources/Maps/MapStartGoal/43.png",
+      "sha256": "edcbb098e8015c680ae1e425de4bc0e9617769373351fbcc5f78bd83fb586a40",
+      "sizePx": [
+        62,
+        128
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/43.txt",
+      "propertiesText": "SCALE: 1.2\nWIDTH_COLLISION: 62"
+    },
+    {
+      "id": 44,
+      "sourcePath": "Resources/Maps/MapStartGoal/44.png",
+      "sha256": "eb6d12ffa2c1efb82ea4bd573cb2c8e33e82d6909030832363d123e31d47c764",
+      "sizePx": [
+        472,
+        62
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/44.txt",
+      "propertiesText": "COLLISION: 0\nPIVOT_LEFT: 0 1\nPIVOT_RIGHT: 0 1"
+    },
+    {
+      "id": 45,
+      "sourcePath": "Resources/Maps/MapStartGoal/45.png",
+      "sha256": "d11f2a9d5578559d13ab9166dbfdc0c1eb65a99df4e139cbe2fa91b743f1e721",
+      "sizePx": [
+        28,
+        192
+      ],
+      "propertiesPath": "Resources/Maps/MapStartGoal/45.txt",
+      "propertiesText": null
+    }
+  ],
+  "sourceRecipe": {
+    "logger": {
+      "path": "src/Logger/Logger.cpp",
+      "firstLine": 1410,
+      "text": "void Logger::loadGoalBiomeSprites(Biome& m){\n\n    float offsetPublic = 1.31f;\n    int j = 250;\n\n    /*\n     * Add the final sprites in the goal animation\n     * Public people in both sides of the road\n     */\n\n    for (int i = 250; i <= 668; i++){\n        if (i >= 270){\n            if (i % 52 == 0){\n                SpriteInfo* cameramanLeft = new SpriteInfo(&m.objects[24], m.pivotLeftPoints[24], m.pivotRightPoints[24],\n                                           m.scaleCoeffs[24], m.widthCollisionCoeffs[24], m.showTerrainCoeffs[24],\n                                           m.pivotLeftColPoints[24], m.pivotRightColPoints[24], m.collisions[24],\n                                           -0.5f, 0.f, false);\n\n                SpriteInfo* cameramanRight = new SpriteInfo(&m.objects[25], m.pivotLeftPoints[25], m.pivotRightPoints[25],\n                                                   m.scaleCoeffs[25], m.widthCollisionCoeffs[25], m.showTerrainCoeffs[25],\n                                                   m.pivotLeftColPoints[25], m.pivotRightColPoints[25], m.collisions[25],\n                                                   0.5f, 0.f, false);\n\n                m.addSpriteInfo(i, cameramanLeft, Sprite_Position::NEAR_LEFT, false);\n                m.addSpriteInfo(i, cameramanRight, Sprite_Position::NEAR_RIGHT, false);\n            }\n            else if (i % 60 == 0){\n                SpriteInfo* man = new SpriteInfo(&m.objects[14], m.pivotLeftPoints[14], m.pivotRightPoints[14],\n                                                   m.scaleCoeffs[14], m.widthCollisionCoeffs[14], m.showTerrainCoeffs[14],\n                                                   m.pivotLeftColPoints[14], m.pivotRightColPoints[14], m.collisions[14],\n                                                   random_float(-0.61f, -0.77f), 0.f, false);\n\n                m.addSpriteInfo(i, man, Sprite_Position::NEAR_LEFT, false);\n            }\n            else if (i % 55 == 0){\n                SpriteInfo* woman = new SpriteInfo(&m.objects[30], m.pivotLeftPoints[30], m.pivotRightPoints[30],\n                                                   m.scaleCoeffs[30], m.widthCollisionCoeffs[30], m.showTerrainCoeffs[30],\n                                                   m.pivotLeftColPoints[30], m.pivotRightColPoints[30], m.collisions[30],\n                                                   random_float(-0.35f, -0.84f), 0.f, false);\n\n                SpriteInfo* man = new SpriteInfo(&m.objects[17], m.pivotLeftPoints[17], m.pivotRightPoints[17],\n                                                   m.scaleCoeffs[17], m.widthCollisionCoeffs[17], m.showTerrainCoeffs[17],\n                                                   m.pivotLeftColPoints[17], m.pivotRightColPoints[17], m.collisions[17],\n                                                   random_float(0.35f, 0.84f), 0.f, false);\n\n                m.addSpriteInfo(i, woman, Sprite_Position::NEAR_LEFT, false);\n                m.addSpriteInfo(i, man, Sprite_Position::NEAR_RIGHT, false);\n            }\n            else if (i % 63 == 0){\n                SpriteInfo* woman = new SpriteInfo(&m.objects[29], m.pivotLeftPoints[29], m.pivotRightPoints[29],\n                                                   m.scaleCoeffs[29], m.widthCollisionCoeffs[29], m.showTerrainCoeffs[29],\n                                                   m.pivotLeftColPoints[29], m.pivotRightColPoints[29], m.collisions[29],\n                                                   random_float(0.4f, 0.8f), 0.f, false);\n\n                m.addSpriteInfo(i, woman, Sprite_Position::NEAR_RIGHT, false);\n            }\n            else if (i % 65 == 0){\n                SpriteInfo* woman = new SpriteInfo(&m.objects[26], m.pivotLeftPoints[26], m.pivotRightPoints[26],\n                                                   m.scaleCoeffs[26], m.widthCollisionCoeffs[26], m.showTerrainCoeffs[26],\n                                                   m.pivotLeftColPoints[26], m.pivotRightColPoints[26], m.collisions[26],\n                                                   random_float(-0.4f, -0.7f), 0.f, false);\n\n                m.addSpriteInfo(i, woman, Sprite_Position::NEAR_LEFT, false);\n            }\n            else if (i % 74 == 0){\n                SpriteInfo* woman = new SpriteInfo(&m.objects[27], m.pivotLeftPoints[27], m.pivotRightPoints[27],\n                                                   m.scaleCoeffs[27], m.widthCollisionCoeffs[27], m.showTerrainCoeffs[27],\n                                                   m.pivotLeftColPoints[27], m.pivotRightColPoints[27], m.collisions[27],\n                                                   random_float(0.41f, 0.77f), 0.f, false);\n\n                m.addSpriteInfo(i, woman, Sprite_Position::NEAR_RIGHT, false);\n            }\n            else if (i % 95 == 0){\n                SpriteInfo* man = new SpriteInfo(&m.objects[18], m.pivotLeftPoints[18], m.pivotRightPoints[18],\n                                                   m.scaleCoeffs[18], m.widthCollisionCoeffs[18], m.showTerrainCoeffs[18],\n                                                   m.pivotLeftColPoints[18], m.pivotRightColPoints[18], m.collisions[18],\n                                                   random_float(0.39f, 0.85f), 0.f, false);\n\n                m.addSpriteInfo(i, man, Sprite_Position::NEAR_LEFT, false);\n            }\n            else if (i % 70 == 0){\n                SpriteInfo* man = new SpriteInfo(&m.objects[23], m.pivotLeftPoints[23], m.pivotRightPoints[23],\n                                                   m.scaleCoeffs[23], m.widthCollisionCoeffs[23], m.showTerrainCoeffs[23],\n                                                   m.pivotLeftColPoints[23], m.pivotRightColPoints[23], m.collisions[23],\n                                                   random_float(-0.61f, -0.77f), 0.f, false);\n\n                m.addSpriteInfo(i, man, Sprite_Position::NEAR_LEFT, false);\n            }\n            else if (i % 80 == 0){\n                SpriteInfo* man = new SpriteInfo(&m.objects[19], m.pivotLeftPoints[19], m.pivotRightPoints[19],\n                                                   m.scaleCoeffs[19], m.widthCollisionCoeffs[19], m.showTerrainCoeffs[19],\n                                                   m.pivotLeftColPoints[19], m.pivotRightColPoints[19], m.collisions[19],\n                                                   -0.66, 0.f, false);\n\n                m.addSpriteInfo(i, man, Sprite_Position::NEAR_LEFT, false);\n            }\n            else if (i % 90 == 0){\n                SpriteInfo* man1 = new SpriteInfo(&m.objects[20], m.pivotLeftPoints[20], m.pivotRightPoints[20],\n                                                   m.scaleCoeffs[20], m.widthCollisionCoeffs[20], m.showTerrainCoeffs[20],\n                                                   m.pivotLeftColPoints[20], m.pivotRightColPoints[20], m.collisions[20],\n                                                   random_float(-0.57f, -0.65f), 0.f, false);\n\n                SpriteInfo* man2 = new SpriteInfo(&m.objects[21], m.pivotLeftPoints[21], m.pivotRightPoints[21],\n                                                   m.scaleCoeffs[21], m.widthCollisionCoeffs[21],m.showTerrainCoeffs[21],\n                                                   m.pivotLeftColPoints[21], m.pivotRightColPoints[21], m.collisions[21],\n                                                   random_float(0.63f, 0.78f), 0.f, false);\n\n                m.addSpriteInfo(i, man1, Sprite_Position::NEAR_LEFT, false);\n                m.addSpriteInfo(i, man2, Sprite_Position::NEAR_RIGHT, false);\n            }\n        }\n\n        SpriteInfo* publicLeft = new SpriteInfo(&m.objects[33], m.pivotLeftPoints[33], m.pivotRightPoints[33],\n                                           m.scaleCoeffs[33], m.widthCollisionCoeffs[33], m.showTerrainCoeffs[33],\n                                           m.pivotLeftColPoints[33], m.pivotRightColPoints[33], m.collisions[33],\n                                           -offsetPublic, 0.f, false);\n\n        SpriteInfo* publicRight = new SpriteInfo(&m.objects[34], m.pivotLeftPoints[34], m.pivotRightPoints[34],\n                                           m.scaleCoeffs[34], m.widthCollisionCoeffs[34], m.showTerrainCoeffs[34],\n                                           m.pivotLeftColPoints[34], m.pivotRightColPoints[34], m.collisions[34],\n                                           offsetPublic, 0.f, false);\n\n        m.addSpriteInfo(j, publicLeft, Sprite_Position::FAR_LEFT, false);\n        m.addSpriteInfo(j, publicRight, Sprite_Position::FAR_RIGHT, false);\n\n        if (j < 668)\n            j += 3;\n    }\n\n    for (int i = 668; i <= 681; i++){\n        SpriteInfo* publicLeft = new SpriteInfo(&m.objects[33], m.pivotLeftPoints[33], m.pivotRightPoints[33],\n                                           m.scaleCoeffs[33], m.widthCollisionCoeffs[33], m.showTerrainCoeffs[33],\n                                           m.pivotLeftColPoints[33], m.pivotRightColPoints[33], m.collisions[33],\n                                           -offsetPublic, 0.f, false);\n\n        SpriteInfo* publicRight = new SpriteInfo(&m.objects[34], m.pivotLeftPoints[34], m.pivotRightPoints[34],\n                                           m.scaleCoeffs[34], m.widthCollisionCoeffs[34], m.showTerrainCoeffs[34],\n                                           m.pivotLeftColPoints[34], m.pivotRightColPoints[34], m.collisions[34],\n                                           offsetPublic, 0.f, false);\n\n        m.addSpriteInfo(i, publicLeft, Sprite_Position::FAR_LEFT, false);\n        m.addSpriteInfo(i, publicRight, Sprite_Position::FAR_RIGHT, false);\n        offsetPublic -= 0.1f;\n    }\n\n    // Set the logger status to start the flagger animation again\n    setLoggerStatus();\n\n    // Flagger\n    SpriteInfo* flagger = new SpriteInfo(&m.objects[0], m.pivotLeftPoints[0], m.pivotRightPoints[0], m.scaleCoeffs[0],\n                                         m.widthCollisionCoeffs[0], m.showTerrainCoeffs[0], m.pivotLeftColPoints[0],\n                                         m.pivotRightColPoints[0], m.collisions[0], -0.32f, 0.f, false);\n\n    /*\n     * First and second log goal flag\n     */\n\n    SpriteInfo* logRight = new SpriteInfo(&m.objects[44], m.pivotLeftPoints[44], m.pivotRightPoints[44],\n                                           m.scaleCoeffs[44], m.widthCollisionCoeffs[44], m.showTerrainCoeffs[44],\n                                           m.pivotLeftColPoints[44], m.pivotRightColPoints[44], m.collisions[44],\n                                           1.2f, 0.f, false);\n\n    SpriteInfo* logLeft = new SpriteInfo(&m.objects[44], m.pivotLeftPoints[44], m.pivotRightPoints[44],\n                                         m.scaleCoeffs[44], m.widthCollisionCoeffs[44], m.showTerrainCoeffs[44],\n                                         m.pivotLeftColPoints[44], m.pivotRightColPoints[44], m.collisions[44],\n                                         -1.2f, 0.f, false);\n\n    SpriteInfo* endFlag = new SpriteInfo(&m.objects[43], m.pivotLeftPoints[43], m.pivotRightPoints[43],\n                                         m.scaleCoeffs[43], m.widthCollisionCoeffs[43],m.showTerrainCoeffs[43],\n                                         m.pivotLeftColPoints[43], m.pivotRightColPoints[43], m.collisions[43],\n                                         -1.35f, -1.6f, false);\n\n    // Add the flagger\n\n    m.addSpriteInfo(504, flagger, Sprite_Position::NEAR_LEFT, false);\n\n    // First log goal flag\n    m.addSpriteInfo(505, logLeft, Sprite_Position::NEAR_LEFT, false);\n    m.addSpriteInfo(505, logRight, Sprite_Position::NEAR_RIGHT, false);\n    m.addSpriteInfo(506, endFlag, Sprite_Position::NEAR_LEFT, false);\n\n    // Second log goal flag\n    m.addSpriteInfo(682, logLeft, Sprite_Position::NEAR_LEFT, false);\n    m.addSpriteInfo(682, logRight, Sprite_Position::NEAR_RIGHT, false);\n    m.addSpriteInfo(683, endFlag, Sprite_Position::NEAR_LEFT, false);\n\n}\n",
+      "sha256": "749399930f43b3bda093e040450fb27caf987a756d07e90f547638bee841cb3a"
+    },
+    "biome": {
+      "path": "src/Scene/Biome/Biome.cpp",
+      "firstLine": 223,
+      "text": "void Biome::setGoalBiome(){\n\n    /*\n     * Set the colors of the biome\n     */\n\n    skyBiome = sf::Color(0, 207, 205);\n    sandBiome1 = sf::Color(255, 235, 221);\n    sandBiome2 = sf::Color(251, 229, 215);\n    roadBiome1 = sf::Color(156, 156, 156);\n    roadBiome2 = sf::Color(148, 148, 148);\n    rumbleBiome1 = sf::Color(156, 156, 156);\n    rumbleBiome2 = sf::Color(247, 247, 247);\n    laneBiome1 = sf::Color(156, 156, 156);\n    laneBiome2 = sf::Color(247, 247, 247);\n    rumbleLane1 = sf::Color(247, 247, 247);\n    rumbleLane2 = sf::Color(148, 148, 148);\n\n    // Set a default time and create a straight road\n    time = 80;\n    int not_count_lines = NOT_COUNT_LINES;\n    addBiome(350, 350, 350, 0, 0, false, false, threeTracksDistance, not_count_lines);\n\n    // Fill the scenario with the sprites\n\tvector<string> objectNames;\n    objectNames.reserve(45);\n    for (int i = 1; i <= 45; i++){\n        objectNames.push_back(std::to_string(i));\n    }\n\n    string path = \"Resources/Maps/MapStartGoal/\";\n\n    loadObjects(path, objectNames);\n    Logger::loadGoalBiomeSprites(*this);\n\n    goalBiome = true;\n    end = true;\n\n    // Set the background of the scenario\n    setBackgroundFront(\"Resources/Maps/MapStartGoal/front.png\");\n    setBackgroundBack(\"Resources/Maps/MapStartGoal/back.png\");\n}\n",
+      "sha256": "58231e8cb94128f36eb4e05906cfd469c19fbae3dbebb07594bf199f641a5313"
+    }
+  },
+  "goalPolicy": {
+    "id": 16,
+    "checkpointLine": -1,
+    "terrain": 1,
+    "roadTerrain": 0,
+    "terrainProfile": "goal-terrain-defaults-v1",
+    "randomProfile": "goal-offsets-sha256-u24-v1",
+    "seed": 0,
+    "panoramas": {
+      "front": {
+        "sourcePath": "Resources/Maps/MapStartGoal/front.png",
+        "sha256": "51ee135683bd40c39eb5fd48cb8b8557d50fc637e4be54f3f258f6fbc3b273fc",
+        "sizePx": [
+          2048,
+          256
+        ]
+      },
+      "back": {
+        "sourcePath": "Resources/Maps/MapStartGoal/back.png",
+        "sha256": "6ee619103994d653ec58ba777927afb3002ce1b92426732a4aeaf9cdc0161b3d",
+        "sizePx": [
+          2182,
+          256
+        ]
+      }
+    }
+  },
+  "randomCalls": [
+    {
+      "index": 0,
+      "sourceLine": 1510,
+      "context": "i=270:man1",
+      "objectId": 21,
+      "endpointTokens": [
+        "-0.57f",
+        "-0.65f"
+      ],
+      "unitInteger": 3831896,
+      "unitValue": 0.22839879989624023,
+      "portedBits": 3205929213
+    },
+    {
+      "index": 1,
+      "sourceLine": 1515,
+      "context": "i=270:man2",
+      "objectId": 22,
+      "endpointTokens": [
+        "0.63f",
+        "0.78f"
+      ],
+      "unitInteger": 12007545,
+      "unitValue": 0.7157054543495178,
+      "portedBits": 1060946778
+    },
+    {
+      "index": 2,
+      "sourceLine": 1448,
+      "context": "i=275:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 5433455,
+      "unitValue": 0.32385915517807007,
+      "portedBits": 3204594066
+    },
+    {
+      "index": 3,
+      "sourceLine": 1453,
+      "context": "i=275:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 3513641,
+      "unitValue": 0.2094293236732483,
+      "portedBits": 1055374811
+    },
+    {
+      "index": 4,
+      "sourceLine": 1494,
+      "context": "i=280:man",
+      "objectId": 24,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 1368889,
+      "unitValue": 0.0815921425819397,
+      "portedBits": 3206512772
+    },
+    {
+      "index": 5,
+      "sourceLine": 1486,
+      "context": "i=285:man",
+      "objectId": 19,
+      "endpointTokens": [
+        "0.39f",
+        "0.85f"
+      ],
+      "unitInteger": 368466,
+      "unitValue": 0.021962285041809082,
+      "portedBits": 1053612609
+    },
+    {
+      "index": 6,
+      "sourceLine": 1478,
+      "context": "i=296:woman",
+      "objectId": 28,
+      "endpointTokens": [
+        "0.41f",
+        "0.77f"
+      ],
+      "unitInteger": 12789430,
+      "unitValue": 0.7623094320297241,
+      "portedBits": 1060058853
+    },
+    {
+      "index": 7,
+      "sourceLine": 1440,
+      "context": "i=300:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 3850319,
+      "unitValue": 0.22949689626693726,
+      "portedBits": 3206909801
+    },
+    {
+      "index": 8,
+      "sourceLine": 1462,
+      "context": "i=315:woman",
+      "objectId": 30,
+      "endpointTokens": [
+        "0.4f",
+        "0.8f"
+      ],
+      "unitInteger": 4098931,
+      "unitValue": 0.24431532621383667,
+      "portedBits": 1056888310
+    },
+    {
+      "index": 9,
+      "sourceLine": 1470,
+      "context": "i=325:woman",
+      "objectId": 27,
+      "endpointTokens": [
+        "-0.4f",
+        "-0.7f"
+      ],
+      "unitInteger": 4718045,
+      "unitValue": 0.28121739625930786,
+      "portedBits": 3203923640
+    },
+    {
+      "index": 10,
+      "sourceLine": 1448,
+      "context": "i=330:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 8802933,
+      "unitValue": 0.5246956944465637,
+      "portedBits": 3206245110
+    },
+    {
+      "index": 11,
+      "sourceLine": 1453,
+      "context": "i=330:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 7219553,
+      "unitValue": 0.4303188920021057,
+      "portedBits": 1057985606
+    },
+    {
+      "index": 12,
+      "sourceLine": 1494,
+      "context": "i=350:man",
+      "objectId": 24,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 2090081,
+      "unitValue": 0.12457853555679321,
+      "portedBits": 3206628163
+    },
+    {
+      "index": 13,
+      "sourceLine": 1440,
+      "context": "i=360:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 865761,
+      "unitValue": 0.05160337686538696,
+      "portedBits": 3206432272
+    },
+    {
+      "index": 14,
+      "sourceLine": 1478,
+      "context": "i=370:woman",
+      "objectId": 28,
+      "endpointTokens": [
+        "0.41f",
+        "0.77f"
+      ],
+      "unitInteger": 2211114,
+      "unitValue": 0.13179266452789307,
+      "portedBits": 1055536711
+    },
+    {
+      "index": 15,
+      "sourceLine": 1462,
+      "context": "i=378:woman",
+      "objectId": 30,
+      "endpointTokens": [
+        "0.4f",
+        "0.8f"
+      ],
+      "unitInteger": 1202895,
+      "unitValue": 0.0716981291770935,
+      "portedBits": 1054571481
+    },
+    {
+      "index": 16,
+      "sourceLine": 1486,
+      "context": "i=380:man",
+      "objectId": 19,
+      "endpointTokens": [
+        "0.39f",
+        "0.85f"
+      ],
+      "unitInteger": 16522607,
+      "unitValue": 0.9848241209983826,
+      "portedBits": 1062719514
+    },
+    {
+      "index": 17,
+      "sourceLine": 1448,
+      "context": "i=385:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 12396475,
+      "unitValue": 0.7388874888420105,
+      "portedBits": 3208005946
+    },
+    {
+      "index": 18,
+      "sourceLine": 1453,
+      "context": "i=385:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 2241242,
+      "unitValue": 0.13358843326568604,
+      "portedBits": 1054127860
+    },
+    {
+      "index": 19,
+      "sourceLine": 1470,
+      "context": "i=390:woman",
+      "objectId": 27,
+      "endpointTokens": [
+        "-0.4f",
+        "-0.7f"
+      ],
+      "unitInteger": 8022055,
+      "unitValue": 0.47815173864364624,
+      "portedBits": 3205177151
+    },
+    {
+      "index": 20,
+      "sourceLine": 1440,
+      "context": "i=420:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 5074274,
+      "unitValue": 0.3024502992630005,
+      "portedBits": 3207105634
+    },
+    {
+      "index": 21,
+      "sourceLine": 1448,
+      "context": "i=440:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 16141905,
+      "unitValue": 0.9621325135231018,
+      "portedBits": 3209841206
+    },
+    {
+      "index": 22,
+      "sourceLine": 1453,
+      "context": "i=440:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 14814773,
+      "unitValue": 0.8830292820930481,
+      "portedBits": 1061707264
+    },
+    {
+      "index": 23,
+      "sourceLine": 1462,
+      "context": "i=441:woman",
+      "objectId": 30,
+      "endpointTokens": [
+        "0.4f",
+        "0.8f"
+      ],
+      "unitInteger": 13162925,
+      "unitValue": 0.7845714688301086,
+      "portedBits": 1060552056
+    },
+    {
+      "index": 24,
+      "sourceLine": 1478,
+      "context": "i=444:woman",
+      "objectId": 28,
+      "endpointTokens": [
+        "0.41f",
+        "0.77f"
+      ],
+      "unitInteger": 13625918,
+      "unitValue": 0.8121680021286011,
+      "portedBits": 1060359989
+    },
+    {
+      "index": 25,
+      "sourceLine": 1510,
+      "context": "i=450:man1",
+      "objectId": 21,
+      "endpointTokens": [
+        "-0.57f",
+        "-0.65f"
+      ],
+      "unitInteger": 1314315,
+      "unitValue": 0.07833927869796753,
+      "portedBits": 3205727806
+    },
+    {
+      "index": 26,
+      "sourceLine": 1515,
+      "context": "i=450:man2",
+      "objectId": 22,
+      "endpointTokens": [
+        "0.63f",
+        "0.78f"
+      ],
+      "unitInteger": 6976094,
+      "unitValue": 0.4158076047897339,
+      "portedBits": 1060192060
+    },
+    {
+      "index": 27,
+      "sourceLine": 1470,
+      "context": "i=455:woman",
+      "objectId": 27,
+      "endpointTokens": [
+        "-0.4f",
+        "-0.7f"
+      ],
+      "unitInteger": 14559047,
+      "unitValue": 0.8677868247032166,
+      "portedBits": 3207138248
+    },
+    {
+      "index": 28,
+      "sourceLine": 1486,
+      "context": "i=475:man",
+      "objectId": 19,
+      "endpointTokens": [
+        "0.39f",
+        "0.85f"
+      ],
+      "unitInteger": 6182605,
+      "unitValue": 0.36851197481155396,
+      "portedBits": 1057963112
+    },
+    {
+      "index": 29,
+      "sourceLine": 1440,
+      "context": "i=480:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 14337035,
+      "unitValue": 0.8545538783073425,
+      "portedBits": 3208587675
+    },
+    {
+      "index": 30,
+      "sourceLine": 1494,
+      "context": "i=490:man",
+      "objectId": 24,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 9076458,
+      "unitValue": 0.5409990549087524,
+      "portedBits": 3207745983
+    },
+    {
+      "index": 31,
+      "sourceLine": 1448,
+      "context": "i=495:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 929327,
+      "unitValue": 0.05539220571517944,
+      "portedBits": 3200325831
+    },
+    {
+      "index": 32,
+      "sourceLine": 1453,
+      "context": "i=495:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 11438741,
+      "unitValue": 0.6818020939826965,
+      "portedBits": 1060053008
+    },
+    {
+      "index": 33,
+      "sourceLine": 1462,
+      "context": "i=504:woman",
+      "objectId": 30,
+      "endpointTokens": [
+        "0.4f",
+        "0.8f"
+      ],
+      "unitInteger": 14298282,
+      "unitValue": 0.8522440195083618,
+      "portedBits": 1061006200
+    },
+    {
+      "index": 34,
+      "sourceLine": 1478,
+      "context": "i=518:woman",
+      "objectId": 28,
+      "endpointTokens": [
+        "0.41f",
+        "0.77f"
+      ],
+      "unitInteger": 8129026,
+      "unitValue": 0.48452770709991455,
+      "portedBits": 1058381108
+    },
+    {
+      "index": 35,
+      "sourceLine": 1440,
+      "context": "i=540:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 15277701,
+      "unitValue": 0.9106219410896301,
+      "portedBits": 3208738182
+    },
+    {
+      "index": 36,
+      "sourceLine": 1448,
+      "context": "i=550:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 9345244,
+      "unitValue": 0.5570199489593506,
+      "portedBits": 3206510843
+    },
+    {
+      "index": 37,
+      "sourceLine": 1453,
+      "context": "i=550:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 12680212,
+      "unitValue": 0.7557995319366455,
+      "portedBits": 1060661329
+    },
+    {
+      "index": 38,
+      "sourceLine": 1494,
+      "context": "i=560:man",
+      "objectId": 24,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 5612738,
+      "unitValue": 0.3345452547073364,
+      "portedBits": 3207191788
+    },
+    {
+      "index": 39,
+      "sourceLine": 1462,
+      "context": "i=567:woman",
+      "objectId": 30,
+      "endpointTokens": [
+        "0.4f",
+        "0.8f"
+      ],
+      "unitInteger": 5716593,
+      "unitValue": 0.3407354950904846,
+      "portedBits": 1057573524
+    },
+    {
+      "index": 40,
+      "sourceLine": 1486,
+      "context": "i=570:man",
+      "objectId": 19,
+      "endpointTokens": [
+        "0.39f",
+        "0.85f"
+      ],
+      "unitInteger": 6433428,
+      "unitValue": 0.38346219062805176,
+      "portedBits": 1058078491
+    },
+    {
+      "index": 41,
+      "sourceLine": 1470,
+      "context": "i=585:woman",
+      "objectId": 27,
+      "endpointTokens": [
+        "-0.4f",
+        "-0.7f"
+      ],
+      "unitInteger": 5493148,
+      "unitValue": 0.32741713523864746,
+      "portedBits": 3204388702
+    },
+    {
+      "index": 42,
+      "sourceLine": 1478,
+      "context": "i=592:woman",
+      "objectId": 28,
+      "endpointTokens": [
+        "0.41f",
+        "0.77f"
+      ],
+      "unitInteger": 9435100,
+      "unitValue": 0.5623757839202881,
+      "portedBits": 1058851294
+    },
+    {
+      "index": 43,
+      "sourceLine": 1440,
+      "context": "i=600:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 9204805,
+      "unitValue": 0.5486491322517395,
+      "portedBits": 3207766518
+    },
+    {
+      "index": 44,
+      "sourceLine": 1448,
+      "context": "i=605:woman",
+      "objectId": 31,
+      "endpointTokens": [
+        "-0.35f",
+        "-0.84f"
+      ],
+      "unitInteger": 2273841,
+      "unitValue": 0.135531485080719,
+      "portedBits": 3201643455
+    },
+    {
+      "index": 45,
+      "sourceLine": 1453,
+      "context": "i=605:man",
+      "objectId": 18,
+      "endpointTokens": [
+        "0.35f",
+        "0.84f"
+      ],
+      "unitInteger": 10148715,
+      "unitValue": 0.6049105525016785,
+      "portedBits": 1059420896
+    },
+    {
+      "index": 46,
+      "sourceLine": 1462,
+      "context": "i=630:woman",
+      "objectId": 30,
+      "endpointTokens": [
+        "0.4f",
+        "0.8f"
+      ],
+      "unitInteger": 9032362,
+      "unitValue": 0.5383707284927368,
+      "portedBits": 1058899831
+    },
+    {
+      "index": 47,
+      "sourceLine": 1470,
+      "context": "i=650:woman",
+      "objectId": 27,
+      "endpointTokens": [
+        "-0.4f",
+        "-0.7f"
+      ],
+      "unitInteger": 9585017,
+      "unitValue": 0.5713115334510803,
+      "portedBits": 3205646040
+    },
+    {
+      "index": 48,
+      "sourceLine": 1440,
+      "context": "i=660:man",
+      "objectId": 15,
+      "endpointTokens": [
+        "-0.61f",
+        "-0.77f"
+      ],
+      "unitInteger": 8538904,
+      "unitValue": 0.5089583396911621,
+      "portedBits": 3207659974
+    },
+    {
+      "index": 49,
+      "sourceLine": 1486,
+      "context": "i=665:man",
+      "objectId": 19,
+      "endpointTokens": [
+        "0.39f",
+        "0.85f"
+      ],
+      "unitInteger": 11718479,
+      "unitValue": 0.6984757781028748,
+      "portedBits": 1060509615
+    },
+    {
+      "index": 50,
+      "sourceLine": 1478,
+      "context": "i=666:woman",
+      "objectId": 28,
+      "endpointTokens": [
+        "0.41f",
+        "0.77f"
+      ],
+      "unitInteger": 6040889,
+      "unitValue": 0.3600650429725647,
+      "portedBits": 1057629378
+    }
+  ]
+}

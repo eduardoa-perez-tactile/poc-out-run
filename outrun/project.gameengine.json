@@ -99,6 +99,91 @@
           "assets/textures/traffic-catalog-reference.png",
           "assets/materials/traffic-catalog-draw.mat.json"
         ]
+      },
+      "biome-map01-data": {
+        "include": [
+          "assets/data/biomes/map01.json"
+        ]
+      },
+      "biome-map02-data": {
+        "include": [
+          "assets/data/biomes/map02.json"
+        ]
+      },
+      "biome-map03-data": {
+        "include": [
+          "assets/data/biomes/map03.json"
+        ]
+      },
+      "biome-map04-data": {
+        "include": [
+          "assets/data/biomes/map04.json"
+        ]
+      },
+      "biome-map05-data": {
+        "include": [
+          "assets/data/biomes/map05.json"
+        ]
+      },
+      "biome-map06-data": {
+        "include": [
+          "assets/data/biomes/map06.json"
+        ]
+      },
+      "biome-map07-data": {
+        "include": [
+          "assets/data/biomes/map07.json"
+        ]
+      },
+      "biome-map08-data": {
+        "include": [
+          "assets/data/biomes/map08.json"
+        ]
+      },
+      "biome-map09-data": {
+        "include": [
+          "assets/data/biomes/map09.json"
+        ]
+      },
+      "biome-map10-data": {
+        "include": [
+          "assets/data/biomes/map10.json"
+        ]
+      },
+      "biome-map11-data": {
+        "include": [
+          "assets/data/biomes/map11.json"
+        ]
+      },
+      "biome-map12-data": {
+        "include": [
+          "assets/data/biomes/map12.json"
+        ]
+      },
+      "biome-map13-data": {
+        "include": [
+          "assets/data/biomes/map13.json"
+        ]
+      },
+      "biome-map14-data": {
+        "include": [
+          "assets/data/biomes/map14.json"
+        ]
+      },
+      "biome-map15-data": {
+        "include": [
+          "assets/data/biomes/map15.json"
+        ]
+      },
+      "biome-goal-data": {
+        "include": [
+          "assets/data/biomes/goal.json"
+        ]
+      },
+      "biome-catalog-data": {
+        "include": [
+          "assets/data/biome-catalog.json"
+        ]
       }
     }
   },

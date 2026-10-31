@@ -175,7 +175,7 @@ class MapsTests(unittest.TestCase):
                 (lambda f:f.update(startPlacements=[{}]),'start placements')]:
                 f=copy.deepcopy(FIXTURES[i]);change(f)
                 with self.subTest(map=i,pattern=pattern),self.assertRaisesRegex(ValueError,pattern):self.compile(i,fixture=f)
-        for i in [0,4,-1,True,'2']:
+        for i in [0,17,-1,True,'2']:
             with self.assertRaisesRegex(ValueError,'unsupported map ID'):compiler.compile_map(FIXTURES[2],0,i)
         with self.assertRaisesRegex(ValueError,'source hash/path'):compiler.compile_map(FIXTURES[2],0,3)
 
