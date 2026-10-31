@@ -221,6 +221,14 @@ validation. Candidate evidence must identify exact head/base SHAs, and later cod
 invalidate affected results. Targeted headed-browser observations remain separate; no physical-
 phone testing is required or performed by CI.
 
+A complete coordinator-launched CI run of the required PR or milestone gate on the exact
+candidate may satisfy both the final gate and required CI; a duplicate full local run is not
+required. Every selected lane must run, and required independent review and manual/browser
+evidence still apply. Audit the actual head/base, current validators, raw artifacts and owned
+runner/session cleanup before accepting the result. Code or base changes invalidate affected
+prior results; an earlier local pass is not evidence for the changed candidate. This changes
+neither gate scope nor permission to skip a lane.
+
 ## PR evidence and completion
 
 Use the PR template: concrete behavior, exact test commands/results, relevant image/replay,

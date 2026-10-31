@@ -14,8 +14,8 @@
       "offset": 0,
       "default": [
         0,
-        0.21586050011389926,
-        0.9215818562772946,
+        0.2158605009317398,
+        0.9215818643569946,
         1
       ],
       "ui": {
@@ -34,6 +34,6 @@
   "textures": [],
   "samplerBinding": 1,
   "wgsl": "// Material DestinationSourceSky (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_sky: vec4f,\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var material_sampler: sampler;\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec3f = material.p_sky.xyz;\n  let v1: f32 = material.p_sky.w;\n  out.base_color = v0;\n  out.alpha = v1;\n  return out;\n}\n",
-  "hash": "1af93f040b41ff89",
-  "sourceHash": "69a172d71f86f00a"
+  "hash": "98ffd3a879c7decd",
+  "sourceHash": "e17de711a7ca724a"
 }

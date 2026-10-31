@@ -53,6 +53,10 @@ Props and panoramas use linear sampling at explicit LOD0; traffic retains its re
 policy. This follows the existing presentation choice, not a claim that all upstream SFML filtering
 was linear. Review new categories near/mid/far and in motion for pixel clusters, alpha edges,
 atlas bleed and source seams; sampled static frames alone are not temporal-quality evidence.
+The sky material declares explicit linear f32 color defaults, preserving the GPU values of
+`#0080f6`. Hex decoding uses host `Math.pow`: Node 22 and 26 differ by one double ULP here,
+which changes the SDK material hash despite identical GPU f32 values. Keep the numeric defaults
+stable and regenerate/validate pipeline warmup after a material change; do not allow extra pipelines.
 Panoramas wrap U and clamp V at source texel centers, sample the top 253 source rows at reference
 height 720 and contact the actual road crest. Preserve the goal's actual NPOT width and source
 seam imperfections. The pinned 30 panoramas' first six rows are alpha 0; transparent RGB is white
