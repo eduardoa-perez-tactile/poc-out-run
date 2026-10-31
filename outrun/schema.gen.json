@@ -73,6 +73,251 @@
       "package": "OutRun"
     },
     {
+      "name": "CollisionDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "motionValid",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "motionStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "locked",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "acceptedCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "z0",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "z1",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "l0",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "ls",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lc",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lr",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lf",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "drift",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "previousGap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "carryApplied",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "ledgerCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ledgerKind",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerId",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerEpoch",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerGeneration",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ContactAccepted",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "id",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "toi",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "playerX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playerZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "DrivingControlChanged",
       "kind": "event",
       "sim": true,

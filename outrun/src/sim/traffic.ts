@@ -1,17 +1,19 @@
 import {defineSystem,query,read,write,math,pcg32} from '@gameengine/runtime';
-import {DrivingState,DrivingResetRequested,TrafficPool,TrafficResetRequested,TrafficRebaseRequested,TrafficPassed,type TrafficResetRequestedValue} from '../schema.gen.ts';
+import {DrivingState,DrivingResetRequested,TrafficPool,TrafficResetRequested,TrafficRebaseRequested,TrafficPassed,CollisionDriver,ContactAccepted,type TrafficResetRequestedValue} from '../schema.gen.ts';
 import {loadMap01,sourcePlayerSample} from '../content/biome.ts';
 import {nearestTerrainRoad} from './terrain-math.ts';
 import {resetTrafficPool,rebaseTrafficPool,advanceTrafficPool,finalizeTrafficPool,type TrafficPlayerSample} from './traffic-math.ts';
+import {evaluateCollisionDriver} from './collision-state.ts';
 
 // Stable name owns creation, activation, AI ties and recycling in one native,
 // hashed RNG stream. Absent-owner worlds never dispatch or seed this system.
 export const AdvanceTraffic=defineSystem({
   name:'AdvanceTraffic',after:['AdvanceDriving'],
-  runIf:{query:query(read(TrafficPool))},query:query(write(TrafficPool)),
+  runIf:{query:query(read(TrafficPool))},queries:{owners:query(write(TrafficPool)),collisions:query(write(CollisionDriver))},
   resources:[read(DrivingState)],events:[TrafficResetRequested,TrafficRebaseRequested,DrivingResetRequested],
-  run(ctx,owners){
+  run(ctx,{owners,collisions}){
     if(owners.count!==1)throw new Error('Source traffic requires exactly one TrafficPool');
+    if(collisions.count>1)throw new Error('Source traffic supports one collision owner');
     const driving=ctx.resource(DrivingState),data=loadMap01();
     const previousDistance=driving.previousDistance[0]!,distance=driving.distance[0]!;
     const previousLateral=driving.previousLateral[0]!,lateral=driving.lateral[0]!;
@@ -51,10 +53,21 @@ export const AdvanceTraffic=defineSystem({
       }
       const lifecycle=shouldReset||rebases.length>0||driverReset;
       if(!player.playing&&!lifecycle)continue;
-      const advanced=advanceTrafficPool(pool,player,data,ctx.dt,ctx.rng,{suppressPass:lifecycle});
-      // #14 inserts collision eligibility here, while previous/current poses
-      // and the old lifetime still exist. #16 aggregates the approved events.
-      const finalized=finalizeTrafficPool(advanced,0xffffffff,ctx.rng);
+      const advanced=advanceTrafficPool(pool,player,data,ctx.dt,ctx.rng,{suppressPass:lifecycle,captureContact:collisions.count===1});
+      // Keep this system name/stream and old-life advance/finalize ordering.
+      // Ownerless worlds perform no detector work and retain the original mask.
+      let eligibilityMask=0xffffffff;
+      if(collisions.count===1)for(const contacts of collisions.chunks())for(let index=0;index<contacts.length;index++){
+        if(contacts.entity(index)!==chunk.entity(row))throw new Error('CollisionDriver must belong to the traffic/terrain driver');
+        const evaluation=evaluateCollisionDriver(contacts.get(CollisionDriver,index),{
+          active:driving.active[0]!==0,playing:driving.playing[0]!==0,manual:driving.manual[0]!==0,
+          legacySpeed:driving.legacySpeed[0]!,gear:driving.gear[0]!,steering:driving.steering[0]!,
+          distance,previousDistance,lateral,previousLateral,
+        },advanced,data,ctx.step,lifecycle);
+        contacts.set(CollisionDriver,index,evaluation.driver);eligibilityMask=evaluation.eligibilityMask;
+        if(evaluation.hit)ctx.events.emit(ContactAccepted,evaluation.hit);
+      }
+      const finalized=finalizeTrafficPool(advanced,eligibilityMask,ctx.rng);
       chunk.set(TrafficPool,row,finalized.pool);
       for(const award of finalized.awards)ctx.events.emit(TrafficPassed,award);
     }

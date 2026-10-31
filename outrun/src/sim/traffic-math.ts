@@ -1,5 +1,6 @@
 import {math,type Rng} from '@gameengine/runtime';
 import type {ReadonlySourceBiomeData,TrafficPoolValue,TrafficResetRequestedValue} from '../schema.gen.ts';
+import type {TrafficContactDeparture} from './collision-motion.ts';
 
 const f=math.fround;
 export const TRAFFIC_CAPACITY=32;
@@ -22,8 +23,10 @@ export interface TrafficStep {
   pool:TrafficPoolValue;passCandidates:TrafficPassCandidate[];recycleSlots:number[];
   /** End-exclusive live section; parked positions may equal this valid source row. */
   limitZ:number;
+  /** Optional old-life sweep before terminal park overwrites interpolation history. */
+  departures?:TrafficContactDeparture[];
 }
-export interface TrafficAdvanceOptions {suppressPass:boolean}
+export interface TrafficAdvanceOptions {suppressPass:boolean;captureContact?:boolean}
 
 export function createEmptyTrafficPool():TrafficPoolValue {
   return {mapId:1,initialized:false,population:20,seedLo:305419896,seedHi:2596069104,originZ:0,aiCursor:1,epoch:0,
@@ -146,6 +149,7 @@ export function advanceTrafficPool(pool:TrafficPoolValue,player:TrafficPlayerSam
   if(!Number.isFinite(dt)||dt<=0)throw new Error('Traffic step requires finite positive dt');
   const next=clonePool(pool),passCandidates:TrafficPassCandidate[]=[],recycleSlots:number[]=[];
   if(!player.playing)return {pool:next,passCandidates,recycleSlots,limitZ:limit};
+  const departures:TrafficContactDeparture[]|undefined=options.captureContact&&!options.suppressPass?[]:undefined;
   const playerIndex=trafficSegment(player.previousZ,data);
   trafficSegment(player.z,data);
   for(let slot=0;slot<next.population;slot++){
@@ -156,7 +160,17 @@ export function advanceTrafficPool(pool:TrafficPoolValue,player:TrafficPlayerSam
     if(next.speed[slot]!<0||next.speed[slot]!>160||Math.abs(next.offset[slot]!)>TRAFFIC_SPAWN_LANE_LIMIT)throw new Error(`Invalid traffic pose/speed in slot ${slot}`);
     const oldIndex=trafficSegment(oldZ,data);
     if(Math.abs(oldIndex-playerIndex)<=TRAFFIC_MOVE_SEGMENTS)next.z[slot]=f(oldZ+f(next.speed[slot]!*60*dt));
-    if(next.z[slot]!<0||next.z[slot]!>=limit){park(next,slot,next.z[slot]!,limit);continue;}
+    if(next.z[slot]!<0||next.z[slot]!>=limit){
+      // Capture the SAME already computed advance, not a second integrator.
+      // park deliberately replaces previousZ for presentation; contact retains
+      // the valid old life only until this incoming terminal crossing.
+      if(departures&&oldZ>=0&&oldZ<limit&&next.z[slot]!>=limit)departures.push({
+        slot,epoch:next.epoch,generation:next.generation[slot]!,z0:oldZ,z1:next.z[slot]!,
+        offset:next.previousOffset[slot]!,side:next.side[slot] as 0|1,
+        until:(limit-oldZ)/(next.z[slot]!-oldZ),
+      });
+      park(next,slot,next.z[slot]!,limit);continue;
+    }
     const index=trafficSegment(next.z[slot]!,data);
     if(!wasActive&&index>playerIndex&&index<playerIndex+TRAFFIC_VIEW_SEGMENTS){
       next.active[slot]=1;next.speed[slot]=rng.range(10,17)*10;
@@ -172,7 +186,9 @@ export function advanceTrafficPool(pool:TrafficPoolValue,player:TrafficPlayerSam
     if(next.active[slot]!==0&&next.speed[slot]!>0)next.motionTicks[slot]=(next.motionTicks[slot]!+1)%6;
     if(options.suppressPass){next.previousZ[slot]=next.z[slot]!;next.previousOffset[slot]=next.offset[slot]!;}
   }
-  return {pool:next,passCandidates,recycleSlots,limitZ:limit};
+  const result:TrafficStep={pool:next,passCandidates,recycleSlots,limitZ:limit};
+  if(departures)result.departures=departures;
+  return result;
 }
 
 export function finalizeTrafficPool(step:TrafficStep,eligibilityMask:number,rng:TrafficRandom):{pool:TrafficPoolValue;awards:TrafficPassCandidate[]} {
