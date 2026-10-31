@@ -52,20 +52,20 @@ Source regeneration uses `--map 2` or `--map 3` with `--source /path/to/clean/pi
 Source mode checks the pinned HEAD and tracked Resources/src cleanliness. Malformed path, ID,
 hash, syntax, numeric or placement bounds fail visibly rather than silently dropping records.
 
-`loadSourceBiome(1|2|3)` requests immutable records through explicit asset keys only when called;
+`loadSourceBiome` requests immutable records through explicit supported asset keys only when called;
 unsupported runtime IDs throw. `loadMap01()` and gameplay callers remain unchanged. Importing
 the module makes no eager API calls. This does not imply that the host defers raw data preload
 or that each biome is downloaded separately.
 
-The native desktop cook comparison adds exactly two base data entries: Map2 898618 bytes and
+**Historical PR68 measurement (the three-map catalog):** the native desktop cook added exactly two base data entries: Map2 898618 bytes and
 Map3 890051 bytes, with no removed entries or added textures/art. Existing Map1 remains 779901
 bytes; all three raw data payloads total 2568570 bytes. The compressed base.gpak grows from
 757261 to 865126 bytes (+107865), code.gpak from 154306 to 154538 (+232), and their combined
 size from 911567 to 1019664 (+108097). Catalog entries increase 45→47 (base 42→44; code 3 unchanged).
 The only changed existing file entry is src/main.ts (561029→561079 uncompressed bytes). These
-are this candidate's native desktop package measurements, not web download or phone memory data.
+are PR68's native desktop package measurements, not current full-catalog totals, web download or phone memory data.
 
-An isolated observational copy, using only public listData/loadData/assets.stats, passed in loose
+For that PR68 candidate, an isolated observational copy using only public listData/loadData/assets.stats passed in loose
 and cooked V8/Hermes. Before explicit reads and after first/repeated Map2/3 reads, the loose
 host's resident.data counter stays 0; the cooked host already reports 2568570 before reads and
 stays there. Texture/audio counters remain 0 and all four art groups remain unloaded. SIM hashes

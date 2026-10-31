@@ -1741,7 +1741,8 @@ export const schemaIr = {
                 "kind": {
                   "enum": [
                     "start",
-                    "authored"
+                    "authored",
+                    "goal"
                   ]
                 },
                 "sourceLine": {
@@ -1913,6 +1914,136 @@ export const schemaIr = {
       },
       "package": "OutRun",
       "doc": "Immutable source-compatible Map1 geometry/provenance. Source PNG paths are provenance, not runtime art references (child40)."
+    },
+    {
+      "name": "SourceBiomeCatalog",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "sourceCommit": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "profile": {
+            "const": "sourceCompatibility-original"
+          },
+          "forkGradient": {
+            "type": "integer"
+          },
+          "goalPolicy": {
+            "type": "object",
+            "properties": {
+              "randomProfile": {
+                "const": "goal-offsets-sha256-u24-v1"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "terrainProfile": {
+                "const": "goal-terrain-defaults-v1"
+              },
+              "terrain": {
+                "type": "integer"
+              },
+              "roadTerrain": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "randomProfile",
+              "seed",
+              "terrainProfile",
+              "terrain",
+              "roadTerrain"
+            ],
+            "additionalProperties": false
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "kind": {
+                  "enum": [
+                    "ordinary",
+                    "goal"
+                  ]
+                },
+                "stage": {
+                  "type": "integer"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "dataKey": {
+                  "type": "string",
+                  "x-ref": "SourceBiome"
+                },
+                "terminal": {
+                  "type": "boolean"
+                },
+                "hasCheckpoint": {
+                  "type": "boolean"
+                },
+                "checkpointLine": {
+                  "type": "integer"
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "left": {
+                      "type": "integer"
+                    },
+                    "right": {
+                      "type": "integer"
+                    },
+                    "sequential": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "left",
+                    "right",
+                    "sequential"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "stage",
+                "position",
+                "dataKey",
+                "terminal",
+                "hasCheckpoint",
+                "checkpointLine",
+                "links"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "sourceCommit",
+          "sourceHashes",
+          "profile",
+          "forkGradient",
+          "goalPolicy",
+          "entries"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "All fifteen ordinary source nodes and the genuine goal, ORIGINAL gradient0 realization. Goal randomness and uninitialized terrain are named deterministic port adaptations; other profiles and runtime handoff remain separate."
     }
   ]
 } as const;
@@ -2584,7 +2715,7 @@ export type SourceBiomeData = {
   }[];
   definitions: {
     id: number;
-    kind: "start" | "authored";
+    kind: "start" | "authored" | "goal";
     sourceLine: number;
     objectId: number;
     offsetX: number;
@@ -2619,3 +2750,36 @@ export type SourceBiomeData = {
 /** A loaded SourceBiome as `loadData` returns it (frozen). */
 export type ReadonlySourceBiomeData = DataRecord<SourceBiomeData>;
 export const SourceBiome = dataToken<SourceBiomeData>('SourceBiome');
+
+/** All fifteen ordinary source nodes and the genuine goal, ORIGINAL gradient0 realization. Goal randomness and uninitialized terrain are named deterministic port adaptations; other profiles and runtime handoff remain separate. */
+export type SourceBiomeCatalogData = {
+  sourceCommit: string;
+  sourceHashes: Record<string, string>;
+  profile: "sourceCompatibility-original";
+  forkGradient: number;
+  goalPolicy: {
+    randomProfile: "goal-offsets-sha256-u24-v1";
+    seed: number;
+    terrainProfile: "goal-terrain-defaults-v1";
+    terrain: number;
+    roadTerrain: number;
+  };
+  entries: {
+    id: number;
+    kind: "ordinary" | "goal";
+    stage: number;
+    position: number;
+    dataKey: string;
+    terminal: boolean;
+    hasCheckpoint: boolean;
+    checkpointLine: number;
+    links: {
+      left: number;
+      right: number;
+      sequential: number;
+    };
+  }[];
+};
+/** A loaded SourceBiomeCatalog as `loadData` returns it (frozen). */
+export type ReadonlySourceBiomeCatalogData = DataRecord<SourceBiomeCatalogData>;
+export const SourceBiomeCatalog = dataToken<SourceBiomeCatalogData>('SourceBiomeCatalog');

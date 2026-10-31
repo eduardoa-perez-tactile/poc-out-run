@@ -20,8 +20,16 @@ async function enterCatalog({input,step,render,world}:WorldTestContext){
   expect(world.count(TrafficPool)).toBe(0);expect(world.count(VehicleVisualSlot)).toBe(0);
   expect(world.resource(TrafficArtPreview).mode).toBe(1);
   expect(meshes.info('map01-art-props')!.vertices).toBe(256);
-  expect(Object.entries(assets.stats().groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort())
-    .toEqual(['map01-environment','traffic-catalog','traffic-source']);
+  const stats=assets.stats();
+  expect(Object.entries(stats.groups).filter(([,group])=>group.status==='loaded').map(([name])=>name).sort())
+    .toEqual(['biome-catalog-data','biome-map01-data','map01-environment','traffic-catalog','traffic-source']);
+  // These two explicit startup data pins are intentional; all other loaded
+  // groups still fail the exact set above. Data must add no texture/audio charge.
+  for(const name of ['biome-catalog-data','biome-map01-data']){
+    const group=stats.groups[name]!;
+    expect(group.members).toBe(1);expect(group.progress).toBe(1);expect(group.failed).toEqual([]);
+    expect(group.resident.textures).toBe(0);expect(group.resident.audio).toBe(0);
+  }
 }
 
 renderTest('traffic.catalog all512 original opaque probes match independent source-color controls',async ctx=>{

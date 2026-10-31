@@ -1,0 +1,467 @@
+{
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "mapPath": "Resources/Maps/MapLevels/Map14/map.txt",
+  "mapText": "GLOBAL_CONF\n\nTIME: 170\n\nTERRAIN: 2\n\nROAD_TERRAIN: 0\n\nCOLORS\n\nCOLOR_BACKGROUND: 141 234 233 255\nCOLOR_OUTSIDE_ROAD_1: 0 170 98 255\nCOLOR_OUTSIDE_ROAD_2: 0 186 112 255\nCOLOR_ROAD_1: 115 112 115 255\nCOLOR_ROAD_2: 124 121 124 255\nCOLOR_RUMBLE_1: 115 112 115 255\nCOLOR_RUMBLE_2: 246 246 246 255\nCOLOR_LANE_1: 115 112 115 255\nCOLOR_LANE_2: 246 246 246 255\nCOLOR_RUMBLE_LANE_1: 246 246 246 255\nCOLOR_RUMBLE_LANE_2: 115 112 115 255\n\nSTART_RELIEF\n\nSTRAIGHT: 80 80 80 0 3\nCURVE_RIGHT: 20 20 20 2.0 0 3 6\nHILL_RIGHT: 90 90 90 90 1.5 0 3\nHILL_LEFT: 90 90 90 -90 -1.5 0 3\nHILL_RIGHT: 90 90 90 90 1.5 0 3\nCURVE_RIGHT: 30 30 30 2.0 0 3 6\nCURVE_LEFT: 10 10 10 -3.5 0 3 6\nSTRAIGHT: 70 80 70 0 3\nCURVE_RIGHT: 30 30 30 0.5 0 3 6\nHILL_RIGHT: 60 60 60 60 3.0 0 3\nHILL_STRAIGHT: 40 50 40 80 3 4\nCURVE_LEFT: 40 50 40 -3.0 0 3 6\nCURVE_RIGHT: 40 50 40 3.0 0 3 6\nSTRAIGHT: 70 80 70 0 3\nHILL_STRAIGHT: 10 10 10 5 3 2\nHILL_STRAIGHT: 10 10 10 -5 3 2\nHILL_STRAIGHT: 10 10 10 5 3 2\nCURVE_RIGHT: 30 30 30 3.5 0 3 6\nCURVE_LEFT: 10 10 10 -2.0 0 3 6\nSTRAIGHT: 30 30 30 0 3\nHILL_LEFT: 90 90 90 90 -1.5 0 3\nHILL_RIGHT: 90 90 90 -90 1.5 0 3\nSTRAIGHT: 70 80 70 0 3\n\nSPRITES\n\nLINE_CHECKPOINT: 203\nSPRITE_NEAR_LEFT: 40 -0.4 0.0 0\nSPRITE_NEAR_RIGHT: 41 0.4 0.0 1\n\nGROUP_LINES: 205 265 10 5\nSPRITE_NEAR_LEFT: 1 -1.8 0.0 0\nSPRITE_NEAR_RIGHT: 2 1.2 0.0 1\n\nGROUP_LINES: 210 270 15 10 \nSPRITE_NEAR_LEFT: 2 -1.3 0.0 0\nSPRITE_NEAR_RIGHT: 1 1.7 0.0 1\n\nGROUP_LINES: 207 267 10 5\nSPRITE_NEAR_LEFT: 2 -2.0 0.0 0\nSPRITE_NEAR_RIGHT: 1 2.5 0.0 1\n\nGROUP_LINES: 206 263 15 1 \nSPRITE_NEAR_LEFT: 1 -2.5 0.0 0\nSPRITE_NEAR_RIGHT: 2 2.0 0.0 1\n\nGROUP_LINES: 261 621 40 1 \nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nGROUP_LINES: 290 760 40 1 \nSPRITE_NEAR_LEFT: 6 -1.2 0.0 0\n\nGROUP_LINES: 271 641 40 10 \nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nGROUP_LINES: 280 760 20 10 \nSPRITE_NEAR_RIGHT: 9 1.2 0.0 1\n\nGROUP_LINES: 276 766 20 2\nSPRITE_FAR_LEFT: 7 -1.5 0.0 0\nSPRITE_FAR_RIGHT: 8 2.0 0.0 1\n\nGROUP_LINES: 283 763 20 1 \nSPRITE_FAR_LEFT: 8 -2.0 0.0 0\nSPRITE_FAR_RIGHT: 7 1.5 0.0 1\n\nGROUP_LINES: 601 861 40 1 \nSPRITE_NEAR_RIGHT: 4 1.2 0.0 1\n\nGROUP_LINES: 573 873 10 5\nSPRITE_FAR_LEFT: 1 -1.6 0.0 0\nSPRITE_FAR_RIGHT: 2 1.2 0.0 1\n\nGROUP_LINES: 580 880 15 10 \nSPRITE_FAR_LEFT: 2 -1.4 0.0 0\nSPRITE_FAR_RIGHT: 1 1.6 0.0 1\n\nGROUP_LINES: 577 877 10 5\nSPRITE_FAR_LEFT: 2 -2.5 0.0 0\nSPRITE_FAR_RIGHT: 1 2.0 0.0 1\n\nGROUP_LINES: 575 875 15 1 \nSPRITE_FAR_LEFT: 1 -2.0 0.0 0\nSPRITE_FAR_RIGHT: 2 2.5 0.0 1\n\nGROUP_LINES: 961 1401 40 1\nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nGROUP_LINES: 901 1421 40 1\nSPRITE_NEAR_LEFT: 10 -1.3 0.0 0\n\nGROUP_LINES: 880 1430 40 1 \nSPRITE_NEAR_RIGHT: 12 1.3 0.0 1\n\nGROUP_LINES: 900 1450 40 1 \nSPRITE_NEAR_RIGHT: 13 1.2 0.0 1\n\nGROUP_LINES: 990 1440 30 1 \nSPRITE_FAR_LEFT: 11 -2.9 0.0 0\nSPRITE_FAR_RIGHT: 2 2.3 0.0 1\n\nGROUP_LINES: 980 1450 40 1 \nSPRITE_FAR_LEFT: 2 -2.3 0.0 0\nSPRITE_FAR_RIGHT: 11 2.9 0.0 1\n\nGROUP_LINES: 1460 1500 20 1\nSPRITE_NEAR_RIGHT: 4 1.2 0.0 1\n\nGROUP_LINES: 1465 1505 30 1 \nSPRITE_FAR_LEFT: 5 -2.9 0.0 0\nSPRITE_FAR_RIGHT: 5 2.3 0.0 1\n\nGROUP_LINES: 1460 1510 40 1 \nSPRITE_FAR_LEFT: 5 -2.3 0.0 0\nSPRITE_FAR_RIGHT: 5 2.9 0.0 1\n\nGROUP_LINES: 1520 2005 2 1 \nSPRITE_FAR_LEFT: 14 -1.3 0.0 0\nSPRITE_FAR_RIGHT: 14 1.3 0.0 1\n\nGROUP_LINES: 1522 2002 20 1\nSPRITE_NEAR_LEFT: 15 -1.4 0.0 0\nSPRITE_NEAR_RIGHT: 16 2.4 0.0 1\n\nGROUP_LINES: 1535 2015 30 1\nSPRITE_NEAR_LEFT: 16 -2.2 0.0 0\nSPRITE_NEAR_RIGHT: 15 3.5 0.0 1\n\nGROUP_LINES: 1527 2007 30 1\nSPRITE_NEAR_LEFT: 15 -3.5 0.0 0\nSPRITE_NEAR_RIGHT: 16 1.7 0.0 1\n\nGROUP_LINES: 1761 2131 40 1\nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nGROUP_LINES: 2003 2143 30 1 \nSPRITE_FAR_LEFT: 17 -1.8 0.0 0\nSPRITE_NEAR_RIGHT: 17 1.8 0.0 1\n\nGROUP_LINES: 2007 2147 30 1 \nSPRITE_NEAR_LEFT: 18 -1.3 0.0 0\nSPRITE_NEAR_RIGHT: 18 1.3 0.0 1\n\nGROUP_LINES: 2010 2140 30 1 \nSPRITE_NEAR_LEFT: 2 -2.5 0.0 0\nSPRITE_NEAR_RIGHT: 1 2.3 0.0 1\n\nGROUP_LINES: 2014 2144 30 1 \nSPRITE_NEAR_LEFT: 1 -2.0 0.0 0\nSPRITE_NEAR_RIGHT: 2 2.1 0.0 1\n\nGROUP_LINES: 2143 2463 20 1 \nSPRITE_NEAR_LEFT: 21 -1.25 0.0 0\nSPRITE_NEAR_RIGHT: 22 1.25 0.0 1\n\nGROUP_LINES: 2156 2466 20 1 \nSPRITE_NEAR_LEFT: 19 -1.25 0.0 0\nSPRITE_NEAR_RIGHT: 20 1.25 0.0 1\n\nGROUP_LINES: 2169 2469 20 1 \nSPRITE_NEAR_LEFT: 17 -1.25 0.0 0\nSPRITE_NEAR_RIGHT: 19 1.25 0.0 1\n\nLINE: 2470\nSPRITE_NEAR_LEFT: 38 -0.1 0.0 0\nSPRITE_NEAR_RIGHT: 39 0.1 0.0 1\n\nGROUP_LINES: 2473 3193 20 1 \nSPRITE_NEAR_LEFT: 17 -1.25 0.0 0\nSPRITE_NEAR_RIGHT: 6 1.25 0.0 1\n\nGROUP_LINES: 2186 3196 20 1 \nSPRITE_NEAR_LEFT: 6 -1.25 0.0 0\nSPRITE_NEAR_RIGHT: 11 1.25 0.0 1\n\nGROUP_LINES: 2499 3199 20 1 \nSPRITE_NEAR_LEFT: 23 -1.25 0.0 0\nSPRITE_NEAR_RIGHT: 17 1.25 0.0 1\n\nGROUP_LINES: 2541 2781 40 1\nSPRITE_NEAR_RIGHT: 4 1.2 0.0 1\n\nGROUP_LINES: 2791 3191 40 1\nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nGROUP_LINES: 3190 3570 2 2 \nSPRITE_FAR_LEFT: 24 -1.3 0.0 0\nSPRITE_FAR_RIGHT: 24 1.3 0.0 1\n\nGROUP_LINES: 3192 3572 20 2\nSPRITE_NEAR_LEFT: 25 -1.7 0.0 0\nSPRITE_NEAR_RIGHT: 26 2.4 0.0 1\n\nGROUP_LINES: 3197 3577 30 1\nSPRITE_NEAR_LEFT: 27 -2.2 0.0 0\nSPRITE_NEAR_RIGHT: 25 3.5 0.0 1\n\nGROUP_LINES: 3202 3582 30 2\nSPRITE_NEAR_LEFT: 26 -3.5 0.0 0\nSPRITE_NEAR_RIGHT: 27 1.7 0.0 1\n\nLINE: 3550\nSPRITE_NEAR_LEFT: 36 -0.1 0.0 0\nSPRITE_NEAR_RIGHT: 37 0.1 0.0 1\n\nGROUP_LINES: 3591 3761 40 1\nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nGROUP_LINES: 3613 3793 40 1\nSPRITE_NEAR_LEFT: 28 1.3 0.0 0\n\nGROUP_LINES: 3801 3851 20 1\nSPRITE_NEAR_RIGHT: 4 1.2 0.0 1\n\nGROUP_LINES: 3811 3861 20 1\nSPRITE_NEAR_LEFT: 29 1.3 0.0 0\n\nGROUP_LINES: 3810 4000 30 1 \nSPRITE_NEAR_LEFT: 2 -2.5 0.0 0\nSPRITE_NEAR_RIGHT: 1 2.3 0.0 1\n\nGROUP_LINES: 3815 4005 30 1 \nSPRITE_NEAR_LEFT: 1 -2.0 0.0 0\nSPRITE_NEAR_RIGHT: 2 2.1 0.0 1\n\nGROUP_LINES: 3600 4010 10 1 \nSPRITE_FAR_LEFT: 7 -2.9 0.0 0\nSPRITE_FAR_RIGHT: 30 2.3 0.0 1\n\nGROUP_LINES: 3615 4015 10 1 \nSPRITE_FAR_LEFT: 31 -2.3 0.0 0\nSPRITE_FAR_RIGHT: 8 2.9 0.0 1\n\nGROUP_LINES: 3607 4017 10 1 \nSPRITE_FAR_LEFT: 8 -1.3 0.0 0\nSPRITE_FAR_RIGHT: 7 2.8 0.0 1\n\nGROUP_LINES: 3612 4012 10 2\nSPRITE_FAR_LEFT: 30 -1.8 0.0 0\nSPRITE_FAR_RIGHT: 31 1.3 0.0 1\n\nGROUP_LINES: 4001 4171 40 1\nSPRITE_NEAR_RIGHT: 4 1.2 0.0 1\n\nGROUP_LINES: 4015 4690 2 1 \nSPRITE_FAR_LEFT: 14 -1.35 0.0 0\nSPRITE_FAR_RIGHT: 14 1.35 0.0 1\n\nGROUP_LINES: 4012 4688 20 2\nSPRITE_NEAR_LEFT: 2 -1.7 0.0 0\nSPRITE_NEAR_RIGHT: 1 2.4 0.0 1\n\nGROUP_LINES: 4018 4688 30 2\nSPRITE_NEAR_LEFT: 1 -2.2 0.0 0\nSPRITE_NEAR_RIGHT: 2 3.5 0.0 1\n\nGROUP_LINES: 4116 4496 20 2\nSPRITE_NEAR_LEFT: 30 -1.7 0.0 0\nSPRITE_NEAR_RIGHT: 31 2.4 0.0 1\n\nGROUP_LINES: 4224 4564 50 2\nSPRITE_NEAR_LEFT: 32 -2.2 0.0 0\nSPRITE_NEAR_RIGHT: 33 3.5 0.0 1\n\nGROUP_LINES: 4227 4690 40 1\nSPRITE_NEAR_LEFT: 29 -1.3 0.0 0\n\nGROUP_LINES: 4227 4690 40 1\nSPRITE_NEAR_RIGHT: 29 1.3 0.0 1\n\nGROUP_LINES: 4281 4421 40 1\nSPRITE_NEAR_LEFT: 3 -1.2 0.0 0\n\nLINE: 4695\nSPRITE_NEAR_LEFT: 34 -0.1 0.0 0\nSPRITE_NEAR_RIGHT: 35 0.1 0.0 1\n\nEND_FILE\n\n\n",
+  "mapSha256": "62949c0d3c9fec646d11513f156bf7e6a1a3fafc2fc726dfc2e39754b8e1b79c",
+  "implementationSources": {
+    "src/Logger/Logger.cpp": "837cc95c657c45ddf58749e3465b0f9eecd101989a506276f6de377a9daa4776",
+    "src/Scene/Biome/Biome.cpp": "4d2fc30642ccf24d7e303dc479266d4f96e3ec4dcd3fbea71ebfdf3372ec7c8e",
+    "src/Scene/Map/Map.cpp": "8de4c5730fd14fe625b982dda582e8a0d761efa0a3fa12dab3318dd5dd724f26",
+    "src/Game/Game.cpp": "7d9a96e6f68e5349d8566e984aa412c629ed78bc4d8c505d6fcf19655e2b0026",
+    "src/Globals.h": "199bc1899579ca793850d2a49065e9e499d1f8e7b32f32ceacf25678586a8ccd"
+  },
+  "objects": [
+    {
+      "id": 1,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/1.png",
+      "sha256": "216cdfb6b4d9a64c6cabaf7c3c0ed0e401380317f826dbcb228724885f3fc51d",
+      "sizePx": [
+        40,
+        128
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/1.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 2,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/2.png",
+      "sha256": "917f636fee9194685f7a244ae4b14980a45f673c43c1dc79786315e00b387577",
+      "sizePx": [
+        64,
+        71
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/2.txt",
+      "propertiesText": "SCALE: 1.2"
+    },
+    {
+      "id": 3,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/3.png",
+      "sha256": "a0b337537659ef3a8ab3c4e42236049c946f8e029f48e185463df12075392a84",
+      "sizePx": [
+        45,
+        42
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/3.txt",
+      "propertiesText": "SCALE: 1.2"
+    },
+    {
+      "id": 4,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/4.png",
+      "sha256": "5c8b9226b925d9b16c6e909a037febe86c9a39f9553ed5d8f2ef46b02d893631",
+      "sizePx": [
+        45,
+        42
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/4.txt",
+      "propertiesText": "SCALE: 1.2"
+    },
+    {
+      "id": 5,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/5.png",
+      "sha256": "73de1b214d059d84a79aea6e6fe5a11a96ae88b35cf0480977c2abe0de1fc94b",
+      "sizePx": [
+        120,
+        126
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/5.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 6,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/6.png",
+      "sha256": "0f7f62a222c2da209ef51496db767e62a95793bb48a25d89f7c5e8341c89884d",
+      "sizePx": [
+        44,
+        70
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/6.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 7,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/7.png",
+      "sha256": "c18338fd32966b4c2024e75a9c00bd250cc394e6169d2e78c00f01ff21df4f45",
+      "sizePx": [
+        116,
+        132
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/7.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 8,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/8.png",
+      "sha256": "b0f369ae5ce1f6780ff4f3ac6166b3ca3e9c1d4f2c3192f47b21f925a0281ab3",
+      "sizePx": [
+        116,
+        132
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/8.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 9,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/9.png",
+      "sha256": "611ca23c68226acd2e476b02416f655cc1ffe585162da864aa3883caeebc41db",
+      "sizePx": [
+        96,
+        56
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/9.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 10,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/10.png",
+      "sha256": "0e76d81257e5a1f175fb8bc4d27d164f675bbe79d86b8169b91c3478ed838c7f",
+      "sizePx": [
+        125,
+        169
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/10.txt",
+      "propertiesText": "SCALE: 0.6"
+    },
+    {
+      "id": 11,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/11.png",
+      "sha256": "73085222235b1598751a9073c26329d09978e598b172676970cc9273a8ee7df2",
+      "sizePx": [
+        116,
+        64
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/11.txt",
+      "propertiesText": "SCALE: 1.6"
+    },
+    {
+      "id": 12,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/12.png",
+      "sha256": "4d0527c94d493abf95df33034a2eb3b4fbad9d5764bb22ad358f1f60195fe534",
+      "sizePx": [
+        300,
+        145
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/12.txt",
+      "propertiesText": "SCALE: 0.4"
+    },
+    {
+      "id": 13,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/13.png",
+      "sha256": "e2c2258e8e9bdfdf13248c9cd6fa6dda4b24622e2ea91984f95d4883093e91d9",
+      "sizePx": [
+        236,
+        121
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/13.txt",
+      "propertiesText": "SCALE: 0.4"
+    },
+    {
+      "id": 14,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/14.png",
+      "sha256": "d376b5823461e2e17b7dc3abb107df1312807cb0ae7a0badf567a22fb158cb0e",
+      "sizePx": [
+        976,
+        30
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/14.txt",
+      "propertiesText": "COLLISION: 0"
+    },
+    {
+      "id": 15,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/15.png",
+      "sha256": "5f5df276dfe279a821ee4414dabffe5d7261b3e50ac60a7dbb06cde858b1749f",
+      "sizePx": [
+        108,
+        140
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/15.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 16,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/16.png",
+      "sha256": "00ed4b4c2a3baf338ff4d127bbe82a326f077b18bdb04d6c3cedff13cfb0e3e5",
+      "sizePx": [
+        108,
+        140
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/16.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 17,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/17.png",
+      "sha256": "07fd151937e8ead30abde16279910fd2272c41b5e593387a9ccd5eb4b0ca5b64",
+      "sizePx": [
+        162,
+        264
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/17.txt",
+      "propertiesText": "SCALE: 0.4"
+    },
+    {
+      "id": 18,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/18.png",
+      "sha256": "ca1b71edc8396f6edb06d4b336f1c54cff0cbc5e973dfa8dcd75ad99c7341975",
+      "sizePx": [
+        228,
+        136
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/18.txt",
+      "propertiesText": "SCALE: 0.3"
+    },
+    {
+      "id": 19,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/19.png",
+      "sha256": "a33616428421fa7505e03ef2da4eb35b1ae440bd5cc53950389b6f7d3d02acde",
+      "sizePx": [
+        120,
+        86
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/19.txt",
+      "propertiesText": "SCALE: 1.8"
+    },
+    {
+      "id": 20,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/20.png",
+      "sha256": "7a23cccd13a6e8acfd8b5a0db57a7ea2829c456404c69d136378fda142024e81",
+      "sizePx": [
+        44,
+        56
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/20.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 21,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/21.png",
+      "sha256": "d8472063c13644c818645ee355aea789a8544e3c9de1fae70121ceed4c1f48dc",
+      "sizePx": [
+        76,
+        56
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/21.txt",
+      "propertiesText": "SCALE: 1.3"
+    },
+    {
+      "id": 22,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/22.png",
+      "sha256": "2f7ca0c09061b122043c4b9d9745cf20acf364433ce0077a74f6184f222baef2",
+      "sizePx": [
+        64,
+        56
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/22.txt",
+      "propertiesText": "SCALE: 1.3"
+    },
+    {
+      "id": 23,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/23.png",
+      "sha256": "cd48609f1f17b084254c611704dee1f6df93796cfdcb40b01e89f6f390d1a1da",
+      "sizePx": [
+        296,
+        192
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/23.txt",
+      "propertiesText": "SCALE: 0.4"
+    },
+    {
+      "id": 24,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/24.png",
+      "sha256": "9924d6b26cd4968e717442b03a975cddea088bb1df377f61abebdeb38804c8e8",
+      "sizePx": [
+        976,
+        30
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/24.txt",
+      "propertiesText": "COLLISION: 0"
+    },
+    {
+      "id": 25,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/25.png",
+      "sha256": "1657d81c44d823f8edd6c3641e2292b29b9b1df543877b836463e3538ffe042e",
+      "sizePx": [
+        40,
+        96
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/25.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 26,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/26.png",
+      "sha256": "2f4194acff06c84de5a6907f697dfcf004857c6dcd64754598c603f09dfa8167",
+      "sizePx": [
+        284,
+        191
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/26.txt",
+      "propertiesText": "SCALE: 0.4"
+    },
+    {
+      "id": 27,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/27.png",
+      "sha256": "50849a4f2c8c4c496994e1596ef2ecb0aad10113ab590060cd907d19d432cdff",
+      "sizePx": [
+        86,
+        71
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/27.txt",
+      "propertiesText": "SCALE: 1.3"
+    },
+    {
+      "id": 28,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/28.png",
+      "sha256": "0b1dd01eb85790499b3ad1efdbe7a48a1669cc12bc36f884f3c5e689a18e489c",
+      "sizePx": [
+        116,
+        40
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/28.txt",
+      "propertiesText": "SCALE: 1.2"
+    },
+    {
+      "id": 29,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/29.png",
+      "sha256": "3f6bbb0724c9cdf8aa5e31ed7fd1eee8c2484b37814d5bcc776f25fca843e4db",
+      "sizePx": [
+        80,
+        47
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/29.txt",
+      "propertiesText": null
+    },
+    {
+      "id": 30,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/30.png",
+      "sha256": "194691993f26d916154696a0d8d439652bcfaa0910e829e3ff90c776f1618c5f",
+      "sizePx": [
+        124,
+        124
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/30.txt",
+      "propertiesText": "SCALE: 1.0\nWIDTH_COLLISION: 20\nPIVOT_COL_LEFT: 0.36 1\nPIVOT_COL_RIGHT: 0.64 1"
+    },
+    {
+      "id": 31,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/31.png",
+      "sha256": "42f5006725840941d99968f0ad55673ee3634be82f7d27d742f59f583db8b1f7",
+      "sizePx": [
+        124,
+        124
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/31.txt",
+      "propertiesText": "SCALE: 1.0\nWIDTH_COLLISION: 20\nPIVOT_COL_LEFT: 0.36 1\nPIVOT_COL_RIGHT: 0.64 1"
+    },
+    {
+      "id": 32,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/32.png",
+      "sha256": "70c631823240d43579e9532220df36a5a3b81ac8b27286ee84da356fae759097",
+      "sizePx": [
+        266,
+        169
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/32.txt",
+      "propertiesText": "SCALE: 0.5"
+    },
+    {
+      "id": 33,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/33.png",
+      "sha256": "3397cff1dbcec0a80931b2c03f1cc1f663de65f1f6f16b5434c7cb0d08a23d98",
+      "sizePx": [
+        144,
+        92
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/33.txt",
+      "propertiesText": "SCALE: 0.9"
+    },
+    {
+      "id": 34,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/34.png",
+      "sha256": "a9f3aa6ae2e1482d22a3fd04a4c4aa227be0d4ba0d600de0163650d8aa62d927",
+      "sizePx": [
+        224,
+        152
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/34.txt",
+      "propertiesText": "WIDTH_COLLISION: 8\nPIVOT_COL_LEFT: 0.02 1\nPIVOT_COL_RIGHT: 0.98 1"
+    },
+    {
+      "id": 35,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/35.png",
+      "sha256": "56be7ba4b9f8d2b7bd64f85349c5222cab3931a01571ecf1b3871b12e0ac0bba",
+      "sizePx": [
+        224,
+        152
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/35.txt",
+      "propertiesText": "WIDTH_COLLISION: 8\nPIVOT_COL_LEFT: 0.02 1\nPIVOT_COL_RIGHT: 0.98 1"
+    },
+    {
+      "id": 36,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/36.png",
+      "sha256": "3a008e634d2a04e38c0186bc52130a9cd1092b0496f0335e96dc9a9578e6b8e3",
+      "sizePx": [
+        224,
+        152
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/36.txt",
+      "propertiesText": "WIDTH_COLLISION: 8\nPIVOT_COL_LEFT: 0.02 1\nPIVOT_COL_RIGHT: 0.98 1"
+    },
+    {
+      "id": 37,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/37.png",
+      "sha256": "f39276a48c1c2915886deebd7a291a1527703574f65465366d1f7eb59f126a41",
+      "sizePx": [
+        224,
+        152
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/37.txt",
+      "propertiesText": "WIDTH_COLLISION: 8\nPIVOT_COL_LEFT: 0.02 1\nPIVOT_COL_RIGHT: 0.98 1"
+    },
+    {
+      "id": 38,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/38.png",
+      "sha256": "eb31441189e1fecd4432ee3d71c6282a2e44a0550307f5e4c408a357651b94b3",
+      "sizePx": [
+        224,
+        152
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/38.txt",
+      "propertiesText": "WIDTH_COLLISION: 8\nPIVOT_COL_LEFT: 0.02 1\nPIVOT_COL_RIGHT: 0.98 1"
+    },
+    {
+      "id": 39,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/39.png",
+      "sha256": "958c43e0d66977e2fccc3c7f7c7c15766dc8a5797262273750c0a5f8d9b5f243",
+      "sizePx": [
+        224,
+        152
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/39.txt",
+      "propertiesText": "WIDTH_COLLISION: 8\nPIVOT_COL_LEFT: 0.02 1\nPIVOT_COL_RIGHT: 0.98 1"
+    },
+    {
+      "id": 40,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/40.png",
+      "sha256": "e61c30a614a818aa8223ae4c02c4cdaa6d9f7ae7564e2ada3d46993e265cd8ba",
+      "sizePx": [
+        218,
+        154
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/40.txt",
+      "propertiesText": "SCALE: 0.65\nWIDTH_COLLISION: 14\nPIVOT_COL_LEFT: 0.064 1\nPIVOT_COL_RIGHT: 0.936 1"
+    },
+    {
+      "id": 41,
+      "sourcePath": "Resources/Maps/MapLevels/Map14/41.png",
+      "sha256": "bd8bb44cad61e0f505a1809b6eef419552ff995a62cafb249dffa4c007d79ba6",
+      "sizePx": [
+        218,
+        153
+      ],
+      "propertiesPath": "Resources/Maps/MapLevels/Map14/41.txt",
+      "propertiesText": "SCALE: 0.65\nWIDTH_COLLISION: 14\nPIVOT_COL_LEFT: 0.064 1\nPIVOT_COL_RIGHT: 0.936 1"
+    }
+  ],
+  "startPlacements": []
+}

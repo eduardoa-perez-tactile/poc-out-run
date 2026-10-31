@@ -27,7 +27,8 @@ for(const oracle of cases){
   worldTest(`content.biome${oracle.id} typed immutable source inventory and full placement prefixes`,()=>{
     const data=loadSourceBiome(oracle.id);
     expect([...listData(SourceBiome)].sort()).toEqual([
-      'data/biomes/map01.json','data/biomes/map02.json','data/biomes/map03.json',
+      'data/biomes/goal.json',
+      ...Array.from({length:15},(_,i)=>`data/biomes/map${String(i+1).padStart(2,'0')}.json`),
     ]);
     expect(data.id).toBe(oracle.id);expect(data.sourceCommit).toBe(PIN);
     expect(data.sourceHashes[`Resources/Maps/MapLevels/Map${oracle.id}/map.txt`]).toBe(oracle.mapSha);
@@ -137,7 +138,7 @@ for(const oracle of cases){
   },SCENE);
 }
 worldTest('content.biome explicit loader rejects unsupported runtime IDs visibly',()=>{
-  for(const id of [0,4,16,-1,NaN]){
+  for(const id of [0,17,999,-1,NaN,1.5,Infinity]){
     let message='';try{loadSourceBiome(id as SourceBiomeId);}catch(error){message=String(error);}
     expect(message).toBe(`Error: Unsupported source biome ${id}`);
   }

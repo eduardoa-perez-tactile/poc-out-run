@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import re
 import struct
 import subprocess
 from pathlib import Path
@@ -19,7 +20,14 @@ FIELDS=('y0','y1','curve','gap')
 def independent_commands(fixture):
     """Parse SOURCE operands, not compiler geometry/commands, for the C++ diagnostic."""
     commands=[];section=False
-    for line in fixture['mapText'].splitlines():
+    if 'mapText' not in fixture:
+        base=fixture['sourceRecipe']['biome']['text']
+        calls=re.findall(r'\baddBiome\(([^;]+)\)\s*;',base)
+        if len(calls)!=1 or [v.strip() for v in calls[0].split(',')]!=['350','350','350','0','0','false','false','threeTracksDistance','not_count_lines']:
+            raise ValueError('unsupported goal source base operands')
+        commands=['350 350 350 0 0 0 0']
+
+    for line in fixture.get('mapText','').splitlines():
         t=line.split()
         if not t:continue
         if t[0]=='START_RELIEF':section=True;continue
@@ -65,13 +73,18 @@ def compare_map_rows(data,source_rows,reference,map_id):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--binary',required=True)
-    parser.add_argument('--map',type=int,choices=[1,2,3],default=1);args=parser.parse_args()
+    parser.add_argument('--map',type=int,choices=range(1,17),default=1);args=parser.parse_args()
     if args.map!=1:
-        fixture=json.loads((P/f'fixtures/map{args.map:02}-source.json').read_text())
-        captured=json.loads((P/'fixtures/maps23-numeric.json').read_text());reference=captured['maps'][str(args.map)]
+        stem='goal' if args.map==16 else f'map{args.map:02}'
+        fixture=json.loads((P/f'fixtures/{stem}-source.json').read_text())
+        capture_file='maps23-numeric.json' if args.map in (2,3) else 'remaining-catalog-numeric.json'
+        captured=json.loads((P/'fixtures'/capture_file).read_text());reference=captured['maps'][str(args.map)]
         commands=independent_commands(fixture)
         if captured['sourceCommit']!=compiler.PIN or captured['kernelSha256']!=hashlib.sha256((ROOT/captured['kernel']).read_bytes()).hexdigest():raise ValueError('numeric capture source/kernel mismatch')
-        if hashlib.sha256(fixture['mapText'].encode()).hexdigest()!=reference['sourceMapSha256'] or hashlib.sha256(commands.encode()).hexdigest()!=reference['commandStreamSha256']:raise ValueError('numeric capture source command mismatch')
+        if args.map==16:
+            if {k:hashlib.sha256(fixture['sourceRecipe'][k]['text'].encode()).hexdigest() for k in ('logger','biome')}!=reference['sourceRecipeSha256']:raise ValueError('numeric capture goal source mismatch')
+        elif hashlib.sha256(fixture['mapText'].encode()).hexdigest()!=reference['sourceMapSha256']:raise ValueError('numeric capture map source mismatch')
+        if hashlib.sha256(commands.encode()).hexdigest()!=reference['commandStreamSha256']:raise ValueError('numeric capture source command mismatch')
         result=subprocess.run([args.binary],input=commands,text=True,capture_output=True,check=True)
         data=compiler.compile_map(fixture,0,args.map);different=compare_map_rows(data,result.stdout,reference,args.map)
         print(f"Map{args.map}: {data['totalCount']} rows/all4fields; {different} exact declared field differences; no generic tolerance or original-game-run claim")
