@@ -17,11 +17,13 @@ later requests it; do not use connected phones for installs, runs, profiling or 
 Use simulated mobile viewports/safe areas, desktop phone-low residency and structural checks,
 native/web parity and targeted real-browser checks. Hardware budgets remain design targets.
 
-All Chrome/browser test launches must stay in the background without interrupting the user's
-work or stealing focus. Never activate the browser, call `bringToFront`, launch in the
-foreground or cycle minimize/restore. Reuse an isolated test session when possible and clean
-up only test windows/processes owned by that session. Verify focus preservation and actual
-rendered pixels/behavior; an unavailable background browser lane remains blocked.
+Real-browser checks must launch Chrome in the background without interrupting the user's
+work or stealing focus. Use a dedicated owned test session, reusing it when possible;
+on macOS launch with `open -g` and use CDP `focus:false` where supported. Never launch in
+the foreground, call `bringToFront`, activate the browser or minimize/restore its windows.
+Verify focus preservation and actual rendered pixels/behavior; stop and report the blocked
+lane if background behavior cannot be preserved. Clean up only that session's owned test
+windows/processes.
 
 ## Conventions
 
