@@ -1,5 +1,5 @@
 import {defineSystem,query,read,write,RenderTime} from '@gameengine/runtime';
-import {DrivingState,DrivingInput,DrivingResetRequested,TerrainDriver,TerrainVisualState,CrashDriver,Map01ArtPreview,VehiclePreview} from '../schema.gen.ts';
+import {DrivingState,DrivingInput,DrivingResetRequested,TerrainDriver,TerrainVisualState,CrashDriver,Map01ArtPreview,VehiclePreview,RouteDriver} from '../schema.gen.ts';
 import {loadMap01} from '../content/biome.ts';
 import {MAP01_ART} from '../content/environments/map01.manifest.ts';
 import {VISUAL_FRAME_SECONDS} from '../content/vehicles/vehicle-poses.ts';
@@ -9,9 +9,12 @@ import {crashVehicleSample,type CrashVehicleSample} from './crash-presentation-m
 export const TerrainPresentation=defineSystem({
   name:'TerrainPresentation',stage:'LateUpdate',before:['Map01ArtPresentation','VehiclePresentation'],
   events:[DrivingResetRequested],
-  queries:{owners:query(read(TerrainDriver),write(TerrainVisualState)),crashes:query(read(CrashDriver))},
+  queries:{owners:query(read(TerrainDriver),write(TerrainVisualState)),crashes:query(read(CrashDriver)),routes:query(read(RouteDriver))},
   resources:[read(DrivingState),read(DrivingInput),read(RenderTime),write(Map01ArtPreview),write(VehiclePreview)],
-  run(ctx,{owners,crashes}){
+  run(ctx,{owners,crashes,routes}){
+    // The live route presenter is child74. This Map1-only adapter must never
+    // project destination SIM data through its fixed Map1 geometry.
+    if(routes.count!==0)return;
     if(crashes.count>1||crashes.count>owners.count)throw new Error('Crash presentation requires one matching terrain owner');
     const map=ctx.resource(Map01ArtPreview),vehicle=ctx.resource(VehiclePreview);
     if(owners.count!==1){

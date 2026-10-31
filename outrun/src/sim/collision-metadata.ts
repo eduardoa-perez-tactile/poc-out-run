@@ -61,8 +61,9 @@ export function collisionTrafficHull(model:number):CollisionTrafficHull {
 }
 
 /** Only preserved original source physics records participate; no image/frame IO. */
-export function collisionRoadsideHull(data:ReadonlySourceBiomeData,placement:CollisionPlacement):CollisionRoadsideHull|null {
-  if(data.id!==1||data.sourceCommit!==COLLISION_SOURCE_COMMIT||data.segmentLength!==COLLISION_SEGMENT_LENGTH)throw new Error('Unsupported collision source biome');
+export function collisionRoadsideHull(data:ReadonlySourceBiomeData,placement:CollisionPlacement,route=false):CollisionRoadsideHull|null {
+  const supported=route?Number.isInteger(data.id)&&data.id>=1&&data.id<=16:data.id===1;
+  if(!supported||data.sourceCommit!==COLLISION_SOURCE_COMMIT||data.segmentLength!==COLLISION_SEGMENT_LENGTH)throw new Error('Unsupported collision source biome');
   if(!Number.isInteger(placement.segment)||placement.segment<0||placement.segment>=data.segments.length||!Number.isInteger(placement.slot)||placement.slot<0||placement.slot>4||placement.id!==placement.segment*5+placement.slot)throw new Error('Invalid collision placement identity');
   const definition=data.definitions[placement.definition];
   if(!definition||definition.id!==placement.definition)throw new Error('Missing collision placement definition');

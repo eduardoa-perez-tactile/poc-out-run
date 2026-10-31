@@ -11,7 +11,7 @@ export const ResetMap01Driving=defineSystem({
     // Events expose previous and current rows: the last entry owns this step.
     let scene:string|undefined;
     for(const entry of ctx.events.read(EnterScene))scene=entry.scene;
-    const driving=scene==='scenes/driving-proof.scene.json'||scene==='scenes/driving-terrain.scene.json'||scene==='scenes/driving-traffic.scene.json'||scene==='scenes/driving-contact.scene.json'||scene==='scenes/driving-crash.scene.json';
+    const driving=scene==='scenes/driving-proof.scene.json'||scene==='scenes/driving-terrain.scene.json'||scene==='scenes/driving-traffic.scene.json'||scene==='scenes/driving-contact.scene.json'||scene==='scenes/driving-crash.scene.json'||scene==='scenes/original-route-sim.scene.json';
     const review=scene==='scenes/traffic-catalog.scene.json'||scene==='scenes/traffic-art.scene.json'||scene==='scenes/map01-data.scene.json'||scene==='scenes/map01-art.scene.json'||scene==='scenes/vehicle-preview.scene.json'||scene==='scenes/road-proof.scene.json'||scene==='scenes/hill-proof.scene.json'||scene==='scenes/fork-left.scene.json'||scene==='scenes/fork-right.scene.json'||scene==='scenes/destination-environment.scene.json'||scene==='scenes/environment-binding-proof.scene.json';
     if(!driving&&!review)return;
     // Write-only presentation reset: cooked scenes may omit default resources.

@@ -1,0 +1,26 @@
+{
+  "$schemaVersion": 2,
+  "id": "original-route-sim",
+  "resources": {
+    "DrivingState": { "active": true, "playing": true, "distance": 45000, "previousDistance": 45000 },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Route SIM evidence camera (live presenter is child74)",
+      "id": "camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Persistent ORIGINAL route actor authority",
+      "id": "driver",
+      "CollisionDriver": {},
+      "CrashDriver": {},
+      "RouteDriver": {},
+      "RouteTrafficCoordinates": {},
+      "TerrainDriver": {},
+      "TrafficPool": {}
+    }
+  ]
+}
