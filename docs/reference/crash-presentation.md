@@ -108,8 +108,42 @@ limit, not exact raw source RGBA equality. The original candidate PNG was untouc
 both owned hosts cleaned up. This proves actual missing-art invariance, not measured network
 delay or same-session late arrival.
 
-Background-browser contact-to-control evidence, final integrated gates and GitHub CI remain
-pending. Required Chrome checks must preserve focus, inspect actual pixels and behavior,
-and clean up only their owned session. Physical-phone testing is excluded. This document
-records implementation and bounded evidence; it does not mark #63, parent #14 or the game
-port complete.
+## Background browser evidence
+
+Four actual browser scenarios passed: low/high traffic and low/high roadside impacts,
+covering both naturally selected variants at 1280 × 720 and 852 × 393, DPR 1. These bounded
+collision fixtures exercised trusted UI resume, Space pause and held-throttle control return;
+they are not a complete race from the default start scene. The audit retained 34 PNG captures,
+2,953 OS focus samples, zero browser errors, absent owned browser PIDs and deleted test
+profiles. Chrome remained in the background. Independent review inspected and approved all 34 captures and their raw input, phase,
+focus and cleanup records.
+
+The low-traffic approach also checks fixed original `Car1/c1.png` texels (49–52, 25), rather
+than taking a screenshot baseline. Chrome uses `--force-color-profile=srgb`. The reference
+calculation decodes source sRGB, quantizes the scene to linear RGBA8, blends 0.4 of that scene
+with 0.6 of decoded default scrim `#05070d`, quantizes again, then encodes sRGB. Source amber
+[213, 115, 0] at x 49/50 becomes [141, 75, 13]; gray 65 at x 51 becomes [38, 42, 42]; gray 82
+at x 52 becomes [53, 53, 53]. All 12 RGB channels matched exactly at both viewports. Captures
+wait at least 300 ms for the documented 220 ms scrim transition. No baseline or tolerance was
+widened to obtain these matches.
+
+Three earlier trials remain failed evidence: the initial ICC-profile run, the sRGB run with
+an incorrect old color oracle, and the composite run with a resume polling race. When polling
+misses a brief running interval, the resume check requires a fresh one-way phase signal at a
+newer step. An observed running state is also valid; a stale paused snapshot is rejected.
+This adds no game-state writes.
+
+## Integrated validation and remaining review
+
+The local full gate passed all 19 stages in 334.93 seconds: 213 cases in each
+native V8/Hermes and V8/Wasm lane, 213 cooked V8 cases and 161 T1 cases on each GPU tier. An additional
+cooked Hermes run passed all 213 cases. All 13 existing tapes were validated on both native
+runtimes through eight budget replays, three registered replay cases and two explicit replay
+checks. The preservation audit above still distinguishes 192 full trace comparisons from
+three registered replay outcome comparisons.
+
+[PR #66](https://github.com/eduardoa-perez-tactile/poc-out-run/pull/66) records final exact-head
+GitHub CI and review evidence. Integration requires those checks to pass; browser evidence
+alone is insufficient. Physical-phone testing is excluded; these results make no
+hardware frame-time or thermal claim. This document does not mark #63, parent #14 or the
+full game port complete.
