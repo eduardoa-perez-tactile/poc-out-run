@@ -19,3 +19,7 @@ export {AdvanceTraffic} from './sim/traffic.ts';
 export {ResetCrashLifecycle,BeginCrashRecovery} from './sim/crash-lifecycle.ts';
 
 export {CrashDiagnosticsPresentation} from './render/crash-diagnostics-presentation.ts';
+
+export {EnvironmentBindingProof} from './render/environment-binding-proof.ts';
+export {EnvironmentPresentation} from './render/environment-presentation.ts';
+export {CaptureEnvironmentReviewInput} from './input/environment-review-input.ts';

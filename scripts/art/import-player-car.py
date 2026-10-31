@@ -18,7 +18,8 @@ def require(value, message):
     if not value:
         raise ValueError(message)
 
-def png_info(data):
+def png_info(data,*,max_dimension=2048,require_alpha=True):
+    require(type(max_dimension)is int and max_dimension>0, 'Invalid PNG dimension bound')
     require(data[:8] == b'\x89PNG\r\n\x1a\n', 'Invalid PNG signature')
     offset=8; chunks=[]; header=None; alpha=False; palette=False; idat=False
     while offset < len(data):
@@ -32,7 +33,7 @@ def png_info(data):
         if kind == b'IHDR':
             require(header is None and length == 13, 'Invalid PNG IHDR')
             w,h,depth,color,compression,filtering,interlace=struct.unpack('>IIBBBBB',payload)
-            require(0 < w <= 2048 and 0 < h <= 2048, 'Invalid PNG dimensions')
+            require(0 < w <= max_dimension and 0 < h <= max_dimension, 'Invalid PNG dimensions')
             valid={0:(1,2,4,8,16),2:(8,16),3:(1,2,4,8),4:(8,16),6:(8,16)}
             require(color in valid and depth in valid[color], 'Unsupported PNG color/depth')
             require(compression == filtering == 0 and interlace in (0,1), 'Invalid PNG encoding')
@@ -50,11 +51,11 @@ def png_info(data):
         chunks.append(kind);offset=end+4
     require(header is not None and idat and chunks[-1:] == [b'IEND'], 'Incomplete PNG')
     require(color != 3 or palette, 'Indexed PNG needs palette')
-    require(alpha, 'Vehicle PNG needs alpha or tRNS')
+    require(not require_alpha or alpha, 'Vehicle PNG needs alpha or tRNS')
     return header
 
-def decode_png(data):
-    w,h=png_info(data)
+def decode_png(data,*,max_dimension=2048,require_alpha=True):
+    w,h=png_info(data,max_dimension=max_dimension,require_alpha=require_alpha)
     offset=8; compressed=[]; palette=b''; transparency=b''
     while offset < len(data):
         length=struct.unpack('>I',data[offset:offset+4])[0]
@@ -64,9 +65,14 @@ def decode_png(data):
         elif kind==b'tRNS':transparency=payload
         elif kind==b'IDAT':compressed.append(payload)
         offset+=length+12
-    require(interlace==0 and ((color==6 and depth==8) or (color==3 and depth in (4,8))), 'Atlas decoder supports source RGBA8/indexed4/indexed8 only')
-    bpp=4 if color==6 else 1
-    stride=w*4 if color==6 else (w*depth+7)//8
+    require(interlace==0 and ((color==6 and depth==8) or (color==2 and depth==8 and not require_alpha) or (color==3 and depth in (4,8))), 'Atlas decoder supports source RGBA8/indexed4/indexed8; RGB8 requires explicit require_alpha=False')
+    bpp=4 if color==6 else 3 if color==2 else 1
+    stride=w*bpp if color in (2,6) else (w*depth+7)//8
+    transparent_rgb=None
+    if color==2 and transparency:
+        require(len(transparency)==6,'Invalid RGB PNG tRNS length')
+        transparent_rgb=struct.unpack('>HHH',transparency)
+        require(all(v<=255 for v in transparent_rgb),'RGB8 PNG tRNS sample exceeds8bits')
     try: decoded=zlib.decompress(b''.join(compressed))
     except zlib.error as error:raise ValueError('Invalid PNG compressed pixels') from error
     require(len(decoded)==h*(stride+1),'Invalid PNG scanline size')
@@ -87,6 +93,9 @@ def decode_png(data):
         for x in range(w):
             at=(y*w+x)*4
             if color==6:out[at:at+4]=row[x*4:x*4+4]
+            elif color==2:
+                rgb=row[x*3:x*3+3];alpha=0 if transparent_rgb is not None and tuple(rgb)==transparent_rgb else 255
+                out[at:at+4]=rgb+bytes([alpha])
             else:
                 index=row[x] if depth==8 else (row[x//2]>>(4 if x%2==0 else 0))&15
                 require(index*3+3<=len(palette),'PNG palette index missing')

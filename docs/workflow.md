@@ -13,13 +13,13 @@ for validation. Mobile remains a target through desktop viewport/safe-area tests
 residency and structural budgets, native/web parity and targeted real-browser checks. Physical
 phone frame-time, memory and thermal budgets remain design targets, not measured guarantees.
 
-Run Chrome/browser checks in the background without stealing user focus or popping up windows.
-Do not launch in the foreground, use `bringToFront` or browser activation, or cycle minimize/restore.
-Reuse an isolated test session when possible; clean up only the test windows/processes owned
-by that session, leaving the user's browser and other applications untouched.
-Verify both focus preservation and actual WebGPU pixels/behavior in background runs. Headless
-runs qualify only when the expected pixels and behavior are verified. If neither approach works
-without interrupting the user, report the required browser lane as blocked rather than passed.
+Run Chrome/browser checks, including headed Chrome, in the background without stealing user
+focus or popping up windows. Use a dedicated owned browser profile and reuse that test session
+when possible. Do not launch in the foreground, use `bringToFront` or browser activation, or cycle
+minimize/restore. Preserve the user's windows and other applications; clean up only the test
+session's owned windows/processes/profile. Verify focus preservation and actual WebGPU pixels
+and behavior. Headless runs qualify only when the expected pixels and behavior are verified.
+If a required check cannot remain in the background, report the browser lane as blocked.
 
 ## Branches and integration
 
@@ -220,6 +220,14 @@ existing policy requirement. Do not install a required status that merely skips 
 validation. Candidate evidence must identify exact head/base SHAs, and later code/base changes
 invalidate affected results. Targeted headed-browser observations remain separate; no physical-
 phone testing is required or performed by CI.
+
+A complete coordinator-launched CI run of the required PR or milestone gate on the exact
+candidate may satisfy both the final gate and required CI; a duplicate full local run is not
+required. Every selected lane must run, and required independent review and manual/browser
+evidence still apply. Audit the actual head/base, current validators, raw artifacts and owned
+runner/session cleanup before accepting the result. Code or base changes invalidate affected
+prior results; an earlier local pass is not evidence for the changed candidate. This changes
+neither gate scope nor permission to skip a lane.
 
 ## PR evidence and completion
 

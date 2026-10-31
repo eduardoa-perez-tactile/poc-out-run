@@ -12,6 +12,7 @@ They do not import runtime art, implement a UI, or claim that new assets have be
 |---|---|
 | Any art | [Art direction](art-direction.md) and [creation brief](creation-brief.md) |
 | Biome, sky, background or roadside prop | [Environment guide](environments.md) |
+| Import or deliver Map2–15/goal runtime art | [Destination environment delivery](destination-environments.md) |
 | Player car, traffic vehicle, wheel effect or animation | [Vehicles and animation](vehicles-animation.md) |
 | HUD, button, route symbol, menu or control | [UI and HUD](ui-hud.md) |
 | Export, manifest, pivot, atlas or engine import | [Asset delivery](asset-delivery.md) |
