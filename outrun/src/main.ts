@@ -15,3 +15,5 @@ export {TerrainPresentation} from './render/terrain-presentation.ts';
 export {AdvanceTraffic} from './sim/traffic.ts';
 
 export {ResetCrashLifecycle,BeginCrashRecovery} from './sim/crash-lifecycle.ts';
+
+export {CrashDiagnosticsPresentation} from './render/crash-diagnostics-presentation.ts';

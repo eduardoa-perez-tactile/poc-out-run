@@ -1,16 +1,18 @@
 import {defineSystem,query,read,write,RenderTime} from '@gameengine/runtime';
-import {DrivingState,DrivingInput,DrivingResetRequested,TerrainDriver,TerrainVisualState,Map01ArtPreview,VehiclePreview} from '../schema.gen.ts';
+import {DrivingState,DrivingInput,DrivingResetRequested,TerrainDriver,TerrainVisualState,CrashDriver,Map01ArtPreview,VehiclePreview} from '../schema.gen.ts';
 import {loadMap01} from '../content/biome.ts';
 import {MAP01_ART} from '../content/environments/map01.manifest.ts';
 import {VISUAL_FRAME_SECONDS} from '../content/vehicles/vehicle-poses.ts';
 import {terrainParallaxOffset,terrainVehiclePose} from './terrain-presentation-math.ts';
+import {crashVehicleSample,type CrashVehicleSample} from './crash-presentation-math.ts';
 
 export const TerrainPresentation=defineSystem({
   name:'TerrainPresentation',stage:'LateUpdate',before:['Map01ArtPresentation','VehiclePresentation'],
   events:[DrivingResetRequested],
-  query:query(read(TerrainDriver),write(TerrainVisualState)),
+  queries:{owners:query(read(TerrainDriver),write(TerrainVisualState)),crashes:query(read(CrashDriver))},
   resources:[read(DrivingState),read(DrivingInput),read(RenderTime),write(Map01ArtPreview),write(VehiclePreview)],
-  run(ctx,owners){
+  run(ctx,{owners,crashes}){
+    if(crashes.count>1||crashes.count>owners.count)throw new Error('Crash presentation requires one matching terrain owner');
     const map=ctx.resource(Map01ArtPreview),vehicle=ctx.resource(VehiclePreview);
     if(owners.count!==1){
       // Release only this adapter's mode/visibility overrides. Standalone review
@@ -39,9 +41,23 @@ export const TerrainPresentation=defineSystem({
         if(reset)ticks=0;
         else if(playing&&!recentering&&!first&&ctx.step>last)ticks+=ctx.step-last;
         if(last!==ctx.step)chunk.set(TerrainVisualState,i,{lastStep:ctx.step,animationTicks:ticks});
-        const sample=Math.floor(ticks*ctx.dt/VISUAL_FRAME_SECONDS);
+        let crashFrame:CrashVehicleSample|null=null;
+        if(crashes.count===1)for(const recovery of crashes.chunks())for(let row=0;row<recovery.length;row++){
+          if(recovery.entity(row)!==chunk.entity(i))throw new Error('Crash presentation owner must match terrain');
+          const crash=recovery.col(CrashDriver);
+          if(crash.mapId[row]!==driver.mapId[i])throw new Error('Crash presentation owner maps must match');
+          crashFrame=crashVehicleSample({phase:crash.phase[row]!,variant:crash.variant[row]!,
+            advances:crash.advances[row]!,reactionTick:crash.reactionTick[row]!});
+        }
+        const sample=crashFrame?.sample??Math.floor(ticks*ctx.dt/VISUAL_FRAME_SECONDS);
         const row=data.segments[Math.min(data.totalCount-1,driver.segment[i]!)]!;
-        const pose=playing||first||reset?terrainVehiclePose(driving.steering[0]!,row.y1-row.y0,((input.keyboard[0]!|input.ui[0]!)&2)!==0):vehicle.pose[0]!;
+        // A completed crash may receive no redraw before pause. Release only
+        // this live owner's inherited spin/reaction pose; keep ordinary pause
+        // behavior and standalone authored review poses unchanged.
+        const inheritedCrash=crashes.count===1&&crashFrame===null&&vehicle.pose[0]!>=18&&vehicle.pose[0]!<=21;
+        const ordinaryPose=playing||first||reset||inheritedCrash
+          ?terrainVehiclePose(driving.steering[0]!,row.y1-row.y0,((input.keyboard[0]!|input.ui[0]!)&2)!==0):vehicle.pose[0]!;
+        const pose=crashFrame?.pose??ordinaryPose,hidden=crashFrame?.hidden??recentering;
         ctx.set(Map01ArtPreview,{
           followDriving:true,playing,cameraOriginZ:current,previousCameraOriginZ:previous,
           lateral:driving.previousLateral[0]!+(driving.lateral[0]!-driving.previousLateral[0]!)*alpha,
@@ -51,9 +67,9 @@ export const TerrainPresentation=defineSystem({
           previousFrontOffset:terrainParallaxOffset(data,previous,1,MAP01_ART.backgrounds.front.sourceSizePx[0]),
         });
         ctx.set(VehiclePreview,{
-          autoplay:false,useWheelEffects:true,pose,sample,hidden:recentering,
-          leftEffect:driving.legacySpeed[0]!>0&&!recentering?driver.leftEffect[i]!:0,
-          rightEffect:driving.legacySpeed[0]!>0&&!recentering?driver.rightEffect[i]!:0,
+          autoplay:false,useWheelEffects:true,pose,sample,hidden,
+          leftEffect:driving.legacySpeed[0]!>0&&!hidden?driver.leftEffect[i]!:0,
+          rightEffect:driving.legacySpeed[0]!>0&&!hidden?driver.rightEffect[i]!:0,
         });
       }
     }
