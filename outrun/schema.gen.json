@@ -687,6 +687,36 @@
           "kind": "bool",
           "scalar": "u8",
           "lanes": 1
+        },
+        {
+          "name": "inputOwnerIndex",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwnerGeneration",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwned",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "appliedMapSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "appliedModeSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
@@ -753,6 +783,50 @@
           "scalar": "f32",
           "lanes": 1,
           "default": 1000
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReviewIsolation",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "sequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "modeSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
         }
       ],
       "package": "OutRun"

@@ -13,18 +13,28 @@
       "backOffset": 1000,
       "frontOffset": 1000
     },
+    "RoadProofState": {
+      "fixtureId": 1,
+      "distance": 45000,
+      "previousDistance": 45000,
+      "lateral": 0,
+      "speed": 7200,
+      "playing": false,
+      "spaceHeld": false
+    },
     "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
   },
   "entities": [
     {
       "name": "Destination Environment Camera",
       "id": "destination-camera",
-      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#000000ff" },
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#ff00ffff" },
       "LocalTransform": { "position": [0, 0, 10] }
     },
     {
       "name": "Destination road",
       "id": "destination-road",
+      "EnvironmentReviewIsolation": {},
       "EnvironmentReviewSlot": {},
       "LocalTransform": {},
       "MaterialOverrides": {},

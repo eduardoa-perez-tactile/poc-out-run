@@ -694,6 +694,36 @@ export const schemaIr = {
           "kind": "bool",
           "scalar": "u8",
           "lanes": 1
+        },
+        {
+          "name": "inputOwnerIndex",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwnerGeneration",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwned",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "appliedMapSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "appliedModeSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
@@ -760,6 +790,50 @@ export const schemaIr = {
           "scalar": "f32",
           "lanes": 1,
           "default": 1000
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReviewIsolation",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "sequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "modeSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
@@ -2457,6 +2531,11 @@ export interface EnvironmentResidencyViews {
   ioReady: Uint8Array;
   renderSettled: Uint8Array;
   failed: Uint8Array;
+  inputOwnerIndex: Uint32Array;
+  inputOwnerGeneration: Uint32Array;
+  inputOwned: Uint8Array;
+  appliedMapSequence: Uint32Array;
+  appliedModeSequence: Uint32Array;
 }
 export interface EnvironmentResidencyValue {
   epoch: number;
@@ -2468,9 +2547,14 @@ export interface EnvironmentResidencyValue {
   ioReady: boolean;
   renderSettled: boolean;
   failed: boolean;
+  inputOwnerIndex: number;
+  inputOwnerGeneration: number;
+  inputOwned: boolean;
+  appliedMapSequence: number;
+  appliedModeSequence: number;
 }
 /** EnvironmentResidency (resource, presentation-only) */
-export const EnvironmentResidency = typeToken<EnvironmentResidencyViews, EnvironmentResidencyValue>('EnvironmentResidency', 'resource', { sig: 'epoch:u32:1,incoming:u32:1,active:u32:1,ownsIncoming:bool:1,ownsActive:bool:1,ownsTraffic:bool:1,ioReady:bool:1,renderSettled:bool:1,failed:bool:1', read: (v: EnvironmentResidencyViews, i: number, o: Record<string, unknown>) => { o.epoch = v.epoch[i]; o.incoming = v.incoming[i]; o.active = v.active[i]; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsTraffic = v.ownsTraffic[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.failed = v.failed[i] !== 0; return o; } });
+export const EnvironmentResidency = typeToken<EnvironmentResidencyViews, EnvironmentResidencyValue>('EnvironmentResidency', 'resource', { sig: 'epoch:u32:1,incoming:u32:1,active:u32:1,ownsIncoming:bool:1,ownsActive:bool:1,ownsTraffic:bool:1,ioReady:bool:1,renderSettled:bool:1,failed:bool:1,inputOwnerIndex:u32:1,inputOwnerGeneration:u32:1,inputOwned:bool:1,appliedMapSequence:u32:1,appliedModeSequence:u32:1', read: (v: EnvironmentResidencyViews, i: number, o: Record<string, unknown>) => { o.epoch = v.epoch[i]; o.incoming = v.incoming[i]; o.active = v.active[i]; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsTraffic = v.ownsTraffic[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.failed = v.failed[i] !== 0; o.inputOwnerIndex = v.inputOwnerIndex[i]; o.inputOwnerGeneration = v.inputOwnerGeneration[i]; o.inputOwned = v.inputOwned[i] !== 0; o.appliedMapSequence = v.appliedMapSequence[i]; o.appliedModeSequence = v.appliedModeSequence[i]; return o; } });
 
 export interface EnvironmentReviewViews {
   enabled: Uint8Array;
@@ -2496,6 +2580,25 @@ export interface EnvironmentReviewValue {
 }
 /** EnvironmentReview (resource, presentation-only) */
 export const EnvironmentReview = typeToken<EnvironmentReviewViews, EnvironmentReviewValue>('EnvironmentReview', 'resource', { sig: 'enabled:bool:1,mapId:u32:1,mode:u32:1,batch:u32:1,trafficCount:u32:1,cameraOriginZ:f32:1,lateral:f32:1,backOffset:f32:1,frontOffset:f32:1', read: (v: EnvironmentReviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.mapId = v.mapId[i]; o.mode = v.mode[i]; o.batch = v.batch[i]; o.trafficCount = v.trafficCount[i]; o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; return o; } });
+
+export interface EnvironmentReviewIsolationViews {
+  held: Uint32Array;
+  sequence: Uint32Array;
+  mapId: Uint32Array;
+  mapSequence: Uint32Array;
+  mode: Uint32Array;
+  modeSequence: Uint32Array;
+}
+export interface EnvironmentReviewIsolationValue {
+  held: number;
+  sequence: number;
+  mapId: number;
+  mapSequence: number;
+  mode: number;
+  modeSequence: number;
+}
+/** EnvironmentReviewIsolation (component, sim) */
+export const EnvironmentReviewIsolation = typeToken<EnvironmentReviewIsolationViews, EnvironmentReviewIsolationValue>('EnvironmentReviewIsolation', 'component', { sig: 'held:u32:1,sequence:u32:1,mapId:u32:1,mapSequence:u32:1,mode:u32:1,modeSequence:u32:1', read: (v: EnvironmentReviewIsolationViews, i: number, o: Record<string, unknown>) => { o.held = v.held[i]; o.sequence = v.sequence[i]; o.mapId = v.mapId[i]; o.mapSequence = v.mapSequence[i]; o.mode = v.mode[i]; o.modeSequence = v.modeSequence[i]; return o; } });
 
 export interface EnvironmentReviewSlotViews {
   slot: Uint32Array;

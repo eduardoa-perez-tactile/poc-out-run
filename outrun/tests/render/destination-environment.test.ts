@@ -1,6 +1,6 @@
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {assets,EnterScene,meshes} from '@gameengine/runtime';
-import {EnvironmentReview,EnvironmentResidency,DrivingState} from '../../src/schema.gen.ts';
+import {EnvironmentReview,EnvironmentResidency,DrivingState,RoadProofState} from '../../src/schema.gen.ts';
 import {destinationEnvironment,destinationDataGroup,DESTINATION_ENVIRONMENT_IDS} from '../../src/content/environments/destination-environments.ts';
 import {environmentCatalogSamples} from '../../src/render/environment-catalog.ts';
 import {environmentPresentationStats} from '../../src/render/environment-presentation.ts';
@@ -37,8 +37,12 @@ for(const mapId of DESTINATION_ENVIRONMENT_IDS){
     const points:[number,number][]=[];
     for(let slot=0;slot<2;slot++)points.push([environmentCatalogSamples.probeX[slot]!,environmentCatalogSamples.probeY[slot]!]);
     for(let slot=0;slot<2;slot++)points.push([environmentCatalogSamples.controlX[slot]!,environmentCatalogSamples.controlY[slot]!]);
+    points.push([0,0]);
     const result=ctx.render.probe({width:1280,height:720,points}).points;
-    for(let slot=0;slot<2;slot++){expect(result[slot]!.rgba).toEqual(result[slot+2]!.rgba);expect(result[slot]!.rgba[3]).toBe(255);}
+    for(let slot=0;slot<2;slot++){
+      expect(result[slot]!.rgba).toEqual(result[slot+2]!.rgba);expect(result[slot]!.rgba[3]).toBe(255);
+      expect(JSON.stringify(result[slot]!.rgba)===JSON.stringify(result[4]!.rgba)).toBe(false);
+    }
     console.log('environment.destination independent panorama probes',{mapId,checked:2});
   },{scene:'scenes/destination-environment.scene.json',memory:'phone-low'});
   renderTest(`environment.destination map${mapId} every packed source witness matches independent source color`,async ctx=>{
@@ -50,10 +54,14 @@ for(const mapId of DESTINATION_ENVIRONMENT_IDS){
       for(let slot=0;slot<count;slot++)points.push([environmentCatalogSamples.probeX[slot]!,environmentCatalogSamples.probeY[slot]!]);
       for(let slot=0;slot<count;slot++)points.push([environmentCatalogSamples.controlX[slot]!,environmentCatalogSamples.controlY[slot]!]);
       const result=ctx.render.probe({width:1280,height:720,points}).points;
+      // The public probe is bounded to64 points: keep the32 independent pairs
+      // together and read the unchanged clear background separately, without a step.
+      const background=ctx.render.probe({width:1280,height:720,points:[[0,0]]}).points[0]!.rgba;
       expect(count).toBe(Math.min(32,manifest.images.length-batch*32));
       for(let slot=0;slot<count;slot++){
         expect(environmentCatalogSamples.objectId[slot]).toBe(manifest.images[batch*32+slot]!.objectId);
         expect(result[slot]!.rgba).toEqual(result[count+slot]!.rgba);expect(result[slot]!.rgba[3]).toBe(255);checked++;
+        expect(JSON.stringify(result[slot]!.rgba)===JSON.stringify(background)).toBe(false);
       }
     }
     expect(checked).toBe(manifest.images.length);expect(ctx.world.resource(DrivingState)).toEqual(before);
@@ -73,6 +81,17 @@ renderTest('environment.destination actual Map4 dense queried1000 and all32 cont
   if('validationErrors' in render)expect(render.validationErrors).toEqual([]);
   expect(render.drawCalls>0).toBe(true);
   console.log('environment.destination dense controlled art',{mapId:4,geometry:{...stats},render});
+},{scene:'scenes/destination-environment.scene.json',memory:'phone-low'});
+
+renderTest('environment.destination recorded review keys cannot activate legacy proof UI or clock',async ctx=>{
+  ctx.input.view(1280,720,1);await select(ctx,4,0);
+  const road=ctx.world.resource(RoadProofState);
+  for(let repeat=0;repeat<2;repeat++){
+    ctx.input.key('Digit4',true);await ctx.step(2);ctx.input.key('Digit4',false);await ctx.step(3);
+    expect(ctx.world.resource(RoadProofState)).toEqual(road);
+    const frame=ctx.render.stats({width:1280,height:720});
+    expect(frame.passes.includes('2d.ui')).toBe(false);expect(frame.drawCalls).toBe(6);
+  }
 },{scene:'scenes/destination-environment.scene.json',memory:'phone-low'});
 renderTest('environment.destination projected single and two page source art',async ctx=>{
   ctx.input.view(1280,720,1);
@@ -104,7 +123,7 @@ renderTest('environment.destination staged single two page cold projection and o
 
 renderTest('environment.destination invalid map mode and batch clear stale art and owned leases',async ctx=>{
   ctx.input.view(1280,720,1);
-  for(const invalid of [{mapId:1,mode:0,batch:0},{mapId:2,mode:3,batch:0},{mapId:2,mode:1,batch:999}]){
+  for(const invalid of [{mapId:1,mode:0,batch:0},{mapId:2,mode:4,batch:0},{mapId:2,mode:1,batch:999}]){
     await select(ctx,2,0);expect(ctx.world.resource(EnvironmentResidency).renderSettled).toBe(true);
     ctx.world.setResource(EnvironmentReview,invalid);await ctx.step(1);
     const failed=ctx.world.resource(EnvironmentResidency);

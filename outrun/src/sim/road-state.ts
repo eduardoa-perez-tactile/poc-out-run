@@ -1,5 +1,5 @@
-import { defineSystem, write, read, math, WorldView, KeyEvent, Keys } from '@gameengine/runtime';
-import { RoadProofState, RoadFixtureRequested, DrivingState } from '../schema.gen.ts';
+import { defineSystem, write, read, query, math, WorldView, KeyEvent, Keys } from '@gameengine/runtime';
+import { RoadProofState, RoadFixtureRequested, DrivingState, EnvironmentReviewIsolation } from '../schema.gen.ts';
 
 // Proof units: segment length 150 legacy world units; speed is world units/second,
 // not the source's per-update/HUD speed. This is a camera-road demo, not car handling.
@@ -25,7 +25,9 @@ export const RoadProofInput = defineSystem({
   after: ['SelectRoadFixture'],
   resources: [write(RoadProofState), read(DrivingState)],
   runOn: [KeyEvent],
-  run(ctx) {
+  query: query(read(EnvironmentReviewIsolation)),
+  run(ctx, review) {
+    if (review.count !== 0) return;
     if (ctx.resource(DrivingState).active[0]) return;
     let selectedFixture: number | undefined;
     for (const key of ctx.events.read(KeyEvent)) {
@@ -56,7 +58,9 @@ export const SelectRoadFixture = defineSystem({
   name: 'SelectRoadFixture',
   resources: [write(RoadProofState), read(DrivingState)],
   runOn: [RoadFixtureRequested],
-  run(ctx) {
+  query: query(read(EnvironmentReviewIsolation)),
+  run(ctx, review) {
+    if (review.count !== 0) return;
     if (ctx.resource(DrivingState).active[0]) return;
     for (const request of ctx.events.read(RoadFixtureRequested)) {
       const distance = ((request.distance % ROAD_PROOF_TRACK_LENGTH) + ROAD_PROOF_TRACK_LENGTH) % ROAD_PROOF_TRACK_LENGTH;
@@ -75,7 +79,9 @@ export const AdvanceRoadProof = defineSystem({
   after: ['RoadProofInput'],
   resources: [write(RoadProofState), read(DrivingState)],
   runIf: { resource: RoadProofState, field: 'playing' },
-  run(ctx) {
+  query: query(read(EnvironmentReviewIsolation)),
+  run(ctx, review) {
+    if (review.count !== 0) return;
     if (ctx.resource(DrivingState).active[0]) return;
     const state = ctx.resource(RoadProofState);
     const distance = state.distance[0]!;

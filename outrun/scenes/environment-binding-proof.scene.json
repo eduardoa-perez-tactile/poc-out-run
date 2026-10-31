@@ -3,6 +3,15 @@
   "id": "environment-binding-proof",
   "resources": {
     "DrivingState": { "active": false },
+    "RoadProofState": {
+      "fixtureId": 1,
+      "distance": 45000,
+      "previousDistance": 45000,
+      "lateral": 0,
+      "speed": 7200,
+      "playing": false,
+      "spaceHeld": false
+    },
     "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
   },
   "entities": [
@@ -15,6 +24,7 @@
     {
       "name": "Three Bindings and Ordered Overlap",
       "id": "binding-proof",
+      "EnvironmentReviewIsolation": {},
       "EnvironmentReviewSlot": { "slot": 99 },
       "LocalTransform": {},
       "MeshRenderer": {

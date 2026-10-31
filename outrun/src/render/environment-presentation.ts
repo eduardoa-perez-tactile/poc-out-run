@@ -1,5 +1,5 @@
-import {defineSystem,read,write,query,meshes,textures,assets,MaterialOverrides,ViewInfo,RenderStatus,entityString,KeyEvent,Keys,type MeshArrays,type SystemContext} from '@gameengine/runtime';
-import {EnvironmentReview,EnvironmentResidency,EnvironmentReviewSlot} from '../schema.gen.ts';
+import {defineSystem,read,write,query,meshes,textures,assets,MaterialOverrides,MeshRenderer,ViewInfo,RenderStatus,entityString,entityIndex,entityGen,type MeshArrays,type SystemContext} from '@gameengine/runtime';
+import {EnvironmentReview,EnvironmentResidency,EnvironmentReviewSlot,EnvironmentReviewIsolation} from '../schema.gen.ts';
 import {loadSourceBiome,type SourceBiomeId} from '../content/biome.ts';
 import {destinationEnvironment,destinationDataGroup} from '../content/environments/destination-environments.ts';
 import {createEnvironmentBuffers} from './environment-buffers.ts';
@@ -10,14 +10,15 @@ import {buildEnvironmentCatalog,environmentCatalogSamples} from './environment-c
 import {createEnvironmentReadiness,resetEnvironmentReadiness,submitEnvironmentReadiness,observeEnvironmentReadiness} from './environment-readiness.ts';
 import {ProjectionBuffers} from './projection-buffers.ts';
 import {environmentDiagnosticsEnabled,publishEnvironmentDiagnostics} from './environment-diagnostics.ts';
+import {createEnvironmentOcclusionFixture} from './environment-occlusion.ts';
 
 const SHARED='environment-review-shared';
 const names=['environment-road','environment-composite','environment-back','environment-front','environment-sky'];
 const buffers=createEnvironmentBuffers(),sky=new ProjectionBuffers(1),white=new Uint8Array([255,255,255]);
 const controlledTraffic=createEnvironmentTrafficFixture();
+const occlusionFixture=createEnvironmentOcclusionFixture();
 const readiness=createEnvironmentReadiness();
 let initialized=false,selectionKey='',controlKey='';
-let reviewHeld=0,lastInputStep=-1;
 export const environmentPresentationStats={uploads:0,submittedBytes:0,dataReads:0,mapId:0,mode:0,ready:false,failure:'',geometry:buffers.stats,samples:buffers.samples};
 function clear(){for(const name of names)if(meshes.info(name)!==null)meshes.destroy(name);}
 function upload(name:string,arrays:MeshArrays){
@@ -30,7 +31,7 @@ function publish(ctx:SystemContext){
   if(!environmentDiagnosticsEnabled())return;
   const config=ctx.get(EnvironmentReview),state=ctx.get(EnvironmentResidency),view=ctx.get(ViewInfo),status=ctx.get(RenderStatus);
   const current=environmentPresentationStats.mapId===config.mapId&&environmentPresentationStats.mode===config.mode;
-  const count=current&&state.ioReady&&config.mode!==0?environmentCatalogSamples.count:0;
+  const count=current&&state.ioReady&&(config.mode===1||config.mode===2)?environmentCatalogSamples.count:0;
   const samples=environmentCatalogSamples;
   publishEnvironmentDiagnostics({scope:'environment-art-review',enabled:config.enabled,mapId:config.mapId,mode:config.mode,batch:config.batch,
     step:ctx.step,frame:status.frame,viewport:{width:view.width,height:view.height},ioReady:state.ioReady,renderSettled:state.renderSettled,
@@ -41,10 +42,9 @@ function publish(ctx:SystemContext){
 
 export const EnvironmentPresentation=defineSystem({
   name:'EnvironmentPresentation',stage:'LateUpdate',after:['Map01ArtPresentation'],
-  events:[KeyEvent],
-  query:query(read(EnvironmentReviewSlot),write(MaterialOverrides)),
+  queries:{owners:query(read(EnvironmentReviewSlot),write(MaterialOverrides),write(MeshRenderer)),input:query(read(EnvironmentReviewIsolation))},
   resources:[write(EnvironmentReview),write(EnvironmentResidency),read(ViewInfo),read(RenderStatus)],
-  run(ctx,owners){
+  run(ctx,{owners,input}){
     const config=ctx.resource(EnvironmentReview),ledgerView=ctx.resource(EnvironmentResidency);
     // Binding witness slot99 is deliberately excluded, even with stale enabled config.
     let slots=0,ownerKey='';
@@ -52,36 +52,38 @@ export const EnvironmentPresentation=defineSystem({
       const slot=chunk.col(EnvironmentReviewSlot).slot[row]!;
       if(slot<5){const bit=1<<slot;if(slots&bit)throw new Error('Duplicate environment presentation slot');slots|=bit;ownerKey+=`${slot}:${entityString(chunk.entity(row))}/`;}
     }
-    const enabled=config.enabled[0]!==0&&slots===31&&owners.count===5;
+    const enabled=config.enabled[0]!==0&&slots===31&&owners.count===5&&input.count===1;
     if(!enabled){
       clear();
       if(ledgerView.ownsIncoming[0]!==0)releasePair(ledgerView.incoming[0]!);
       if(ledgerView.ownsActive[0]!==0)releasePair(ledgerView.active[0]!);
       if(ledgerView.ownsTraffic[0]!==0)assets.release(SHARED);
       if(textures.info('environment-source-controls')!==null)textures.destroy('environment-source-controls');
-      ctx.set(EnvironmentResidency,{incoming:0,active:0,ownsIncoming:false,ownsActive:false,ownsTraffic:false,ioReady:false,renderSettled:false,failed:false});
+      ctx.set(EnvironmentResidency,{incoming:0,active:0,ownsIncoming:false,ownsActive:false,ownsTraffic:false,ioReady:false,renderSettled:false,failed:false,
+        inputOwned:false,inputOwnerIndex:0,inputOwnerGeneration:0,appliedMapSequence:0,appliedModeSequence:0});
       resetEnvironmentReadiness(readiness,ledgerView.epoch[0]!);initialized=false;selectionKey='';controlKey='';
-      reviewHeld=0;lastInputStep=-1;environmentPresentationStats.ready=false;environmentPresentationStats.mapId=0;publish(ctx);return;
+      environmentPresentationStats.ready=false;environmentPresentationStats.mapId=0;publish(ctx);return;
     }
-    if(lastInputStep!==ctx.step){
-      for(const key of ctx.events.read(KeyEvent)){
-        const bit=key.code===Keys.Digit2?1:key.code===Keys.Digit3?2:key.code===Keys.Digit4?4:key.code===Keys.Digit0?8:key.code===Keys.KeyG?16:key.code===Keys.KeyC?32:key.code===Keys.KeyV?64:key.code===Keys.KeyR?128:0;
-        if(bit===0)continue;
-        const rising=key.down&&(reviewHeld&bit)===0;reviewHeld=key.down?reviewHeld|bit:reviewHeld&~bit;
-        if(!rising)continue;
-        if(bit<32){
-          const mapId=bit===1?2:bit===2?3:bit===4?4:bit===8?10:16;
-          ctx.set(EnvironmentReview,{mapId,mode:0,batch:0,cameraOriginZ:mapId===4?30450:45000,lateral:0,trafficCount:mapId===4?32:0});
-        }else ctx.set(EnvironmentReview,{mode:bit===32?1:bit===64?2:0,batch:0});
+    // Fixed-step capture retains absolute selector revisions across arbitrarily
+    // skipped renders. Never consume ephemeral raw KeyEvent rows here.
+    for(const chunk of input.chunks())for(let row=0;row<chunk.length;row++){
+      const entity=chunk.entity(row),index=entityIndex(entity),generation=entityGen(entity),captured=chunk.col(EnvironmentReviewIsolation);
+      const changedOwner=ledgerView.inputOwned[0]===0||ledgerView.inputOwnerIndex[0]!==index||ledgerView.inputOwnerGeneration[0]!==generation;
+      const appliedMap=changedOwner?0:ledgerView.appliedMapSequence[0]!,appliedMode=changedOwner?0:ledgerView.appliedModeSequence[0]!;
+      if(captured.mapSequence[row]!>appliedMap){
+        const mapId=captured.mapId[row]!;
+        ctx.set(EnvironmentReview,{mapId,mode:0,batch:0,cameraOriginZ:mapId===4?30450:45000,lateral:0,trafficCount:mapId===4?32:0});
       }
-      lastInputStep=ctx.step;
+      if(captured.modeSequence[row]!>appliedMode)ctx.set(EnvironmentReview,{mode:captured.mode[row]!,batch:0});
+      ctx.set(EnvironmentResidency,{inputOwned:true,inputOwnerIndex:index,inputOwnerGeneration:generation,
+        appliedMapSequence:captured.mapSequence[row]!,appliedModeSequence:captured.modeSequence[row]!});
     }
     const state=ctx.get(EnvironmentResidency),mapId=config.mapId[0]!,mode=config.mode[0]!,batch=config.batch[0]!;
     const key=`${mapId}/${mode}/${batch}/${ownerKey}`;
     if(state.failed&&selectionKey===key){publish(ctx);return;}
     try{
     const manifest=destinationEnvironment(mapId);
-    if(mode>2)throw new Error('Unknown destination environment review mode');
+    if(mode>3)throw new Error('Unknown destination environment review mode');
     if(!initialized||selectionKey!==key){
       clear();state.epoch++;state.ioReady=false;state.renderSettled=false;state.failed=false;
       if(state.ownsIncoming&&state.incoming!==mapId){releasePair(state.incoming);state.ownsIncoming=false;state.incoming=0;}
@@ -112,7 +114,8 @@ export const EnvironmentPresentation=defineSystem({
     const data=loadSourceBiome(mapId as SourceBiomeId);environmentPresentationStats.dataReads++;
     const view=ctx.resource(ViewInfo),width=view.width[0]!,height=Math.max(1,view.height[0]!),aspect=Math.fround(width/height);
     const page0=manifest.pages[0]!,page1=manifest.pages[1]??page0;
-    const catalog=mode!==0;
+    const catalog=mode===1||mode===2;
+    const occlusion=mode===3?occlusionFixture.build(manifest,width,height):null;
     const composite=buffers.build(data,{cameraOriginZ:config.cameraOriginZ[0]!,lateral:config.lateral[0]!,viewWidth:width,aspect},manifest,
       controlledTraffic.sample(data,config.cameraOriginZ[0]!,config.trafficCount[0]!));
     const skyColor='#'+data.palette[0]!.slice(0,3).map(channel=>channel.toString(16).padStart(2,'0')).join('');
@@ -122,12 +125,23 @@ export const EnvironmentPresentation=defineSystem({
       if(slot===1)values=`page0=${mode===2?manifest.back.image:page0.image};page1=${mode===2?manifest.front.image:page1.image};traffic=${catalog?'dynamic:environment-source-controls':'textures/traffic-source.png'};trafficSize=${catalog?'32 1':'1024 1280'}`;
       else if(slot===2)values=`image=${manifest.back.image};imageSize=${manifest.back.sizePx.join(' ')}`;
       else if(slot===3)values=`image=${manifest.front.image};imageSize=${manifest.front.sizePx.join(' ')}`;
-      else if(slot===4)values=`sky=${skyColor}`;
+      else if(slot===4){
+        const material=occlusion?'materials/environment-composite.material.ts':'materials/environment-sky.material.ts';
+        if(!chunk.is(MeshRenderer,row,'material',material))chunk.setField(MeshRenderer,row,'material',material);
+        values=occlusion?'page0=dynamic:environment-source-controls;page1=dynamic:environment-source-controls;traffic=dynamic:environment-source-controls;trafficSize=32 1':`sky=${skyColor}`;
+      }
       if(!chunk.is(MaterialOverrides,row,'values',values))chunk.setField(MaterialOverrides,row,'values',values);
     }
     // Recurring road/composite/background submissions continue during arrival;
     // the global upload budget is never suspended or increased for this proof.
-    if(catalog){
+    if(occlusion){
+      upload(names[1]!,occlusion.composite);upload(names[4]!,occlusion.controls);
+      if(controlKey!=='occlusion'||textures.info('environment-source-controls')===null){
+        textures.create('environment-source-controls',{width:32,height:1,srgb:true});
+        textures.write('environment-source-controls',occlusion.rgba);controlKey='occlusion';
+      }
+      for(const slot of [0,2,3])if(meshes.info(names[slot]!)!==null)meshes.destroy(names[slot]!);
+    }else if(catalog){
       upload(names[1]!,buildEnvironmentCatalog(manifest,batch,width,height,mode===2));
       const nextControl=`${mapId}/${mode}/${batch}`;
       if(controlKey!==nextControl||textures.info('environment-source-controls')===null){

@@ -12,11 +12,12 @@ probes solely to satisfy validation. Keep mobile viewport/safe-area tests, deskt
 residency and structural budgets, native/web parity, and targeted real-browser checks. Hardware
 frame-time, memory and thermal budgets remain design targets, never claimed measurements.
 
-Chrome/browser tests must stay in the background without stealing user focus or popping up
-windows. Never launch in the foreground, call `bringToFront`, activate the browser, or cycle
-minimize/restore. Verify that background WebGPU checks preserve focus and render the expected
-pixels and behavior. Headless checks count only when those pixels and behavior are verified;
-if neither mode works without interruption, keep the required browser lane visibly blocked.
+Chrome/browser tests, including headed Chrome, must stay in the background without stealing
+user focus or popping up windows. Use a dedicated owned browser profile and preserve the user's
+windows; clean up only the test session. Never launch in the foreground, call `bringToFront`,
+activate the browser, or cycle minimize/restore. Verify focus preservation and actual WebGPU
+pixels/behavior. Headless checks count only when those pixels and behavior are verified. If a
+required check cannot remain in the background, report that browser lane as blocked.
 
 ## Autonomous ticket coordination
 
