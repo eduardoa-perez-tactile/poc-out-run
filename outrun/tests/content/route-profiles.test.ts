@@ -108,3 +108,28 @@ worldTest('routes.profiles corrupted route catalog cannot suppress checkpoints o
   expect(()=>createRuntimeProfileSourceAccessor(Object.freeze([frozen(badBase),...bases.slice(1)]),tails,frozen(badCatalog))).toThrow();
   expect(catalog.entries[1]!.hasCheckpoint).toBe(true);expect(catalog.entries[0]!.hasCheckpoint).toBe(false);expect(catalog.entries[15]!.terminal).toBe(true);
 });
+
+
+worldTest('routes.profiles immutable validation accepts shared cycles rejects mutable own descendants and ignores inherited data',()=>{
+  const {bases,tails,catalog}=inputs();
+  // Extra enumerable metadata exercises the public factory's immutable-input
+  // contract without changing any source geometry, catalog policy or tail bits.
+  const shared=Object.freeze({label:'shared metadata'});
+  const cycle:{self?:unknown;first:unknown;second:unknown}={first:shared,second:shared};
+  cycle.self=cycle;Object.freeze(cycle);
+  const inheritedMutable={notOwned:{mutable:true}};
+  const inherited=Object.freeze(Object.assign(Object.create(inheritedMutable),{cycle,shared}));
+  const valid=Object.freeze({...catalog,validationMetadata:inherited});
+  const cache=createRuntimeProfileSourceAccessor(bases,tails,valid);
+  expect(cache.catalog===valid).toBe(true);expect(cache.get(1,0)===bases[0]).toBe(true);
+  expect(cycle.first===cycle.second).toBe(true);expect(cycle.self===cycle).toBe(true);
+  expect(Object.isFrozen(inheritedMutable.notOwned)).toBe(false);
+  // A frozen container is insufficient when an OWN nested child is mutable.
+  // Shared references and cycles must not accidentally hide that descendant.
+  const mutableChild={mutable:true};
+  const invalidCycle:{self?:unknown;shared:unknown;child:unknown}={shared,child:mutableChild};
+  invalidCycle.self=invalidCycle;Object.freeze(invalidCycle);
+  const invalid=Object.freeze({...catalog,validationMetadata:Object.freeze({first:shared,second:shared,cycle:invalidCycle})});
+  expect(()=>createRuntimeProfileSourceAccessor(bases,tails,invalid)).toThrow();
+  expect(Object.isFrozen(mutableChild)).toBe(false);expect(mutableChild.mutable).toBe(true);
+});

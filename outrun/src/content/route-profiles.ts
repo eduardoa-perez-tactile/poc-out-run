@@ -16,7 +16,11 @@ function digest(value:string):boolean {return typeof value==='string'&&/^[0-9a-f
 function immutable(value:unknown,seen:WeakSet<object>):void {
   if(value===null||typeof value!=='object'||seen.has(value))return;
   require(Object.isFrozen(value),'inputs must already be immutable');seen.add(value);
-  for(const item of Object.values(value))immutable(item,seen);
+  // Match Object.values' own enumerable string properties without materializing
+  // a temporary values array for every immutable row and placement at bootstrap.
+  for(const key in value)if(Object.prototype.hasOwnProperty.call(value,key)){
+    immutable((value as Record<string,unknown>)[key],seen);
+  }
 }
 
 function sameHashes(actual:Readonly<Record<string,string>>,expected:Readonly<Record<string,string>>):boolean {
