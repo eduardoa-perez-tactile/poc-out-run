@@ -3029,6 +3029,475 @@ export const schemaIr = {
       },
       "package": "OutRun",
       "doc": "Offline source-compiled minus/plus-one gradient tail heights as unsigned binary32 bit integers. Gradient zero retains the original SourceBiome record. Runtime composition validates all maps before route activation."
+    },
+    {
+      "name": "SourceRouteCohort",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "const": "sourceCompatibility-original-row-dictionary-v1"
+          },
+          "sourceCommit": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "y0": {
+                  "type": "number"
+                },
+                "y1": {
+                  "type": "number"
+                },
+                "curve": {
+                  "type": "number"
+                },
+                "gap": {
+                  "type": "number"
+                },
+                "mirror": {
+                  "type": "boolean"
+                },
+                "light": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "y0",
+                "y1",
+                "curve",
+                "gap",
+                "mirror",
+                "light"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "sourceCommit": {
+                      "type": "string"
+                    },
+                    "inputSha256": {
+                      "type": "string"
+                    },
+                    "sourceHashes": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "profile": {
+                      "const": "sourceCompatibility-original"
+                    },
+                    "forkGradient": {
+                      "type": "integer"
+                    },
+                    "segmentLength": {
+                      "type": "integer"
+                    },
+                    "playerOffsetZ": {
+                      "type": "integer"
+                    },
+                    "cameraHeight": {
+                      "type": "integer"
+                    },
+                    "referenceWidth": {
+                      "type": "integer"
+                    },
+                    "authoredCount": {
+                      "type": "integer"
+                    },
+                    "totalCount": {
+                      "type": "integer"
+                    },
+                    "swapLine": {
+                      "type": "integer"
+                    },
+                    "lastLine": {
+                      "type": "integer"
+                    },
+                    "checkpointLine": {
+                      "type": "integer"
+                    },
+                    "timeSeconds": {
+                      "type": "integer"
+                    },
+                    "terrain": {
+                      "type": "integer"
+                    },
+                    "roadTerrain": {
+                      "type": "integer"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "left": {
+                          "type": "integer"
+                        },
+                        "right": {
+                          "type": "integer"
+                        },
+                        "sequential": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "left",
+                        "right",
+                        "sequential"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "palette": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "commands": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sourceLine": {
+                            "type": "integer"
+                          },
+                          "command": {
+                            "type": "string"
+                          },
+                          "arguments": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "firstSegment": {
+                            "type": "integer"
+                          },
+                          "count": {
+                            "type": "integer"
+                          },
+                          "effective": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "required": [
+                          "sourceLine",
+                          "command",
+                          "arguments",
+                          "firstSegment",
+                          "count",
+                          "effective"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "sourcePath": {
+                            "type": "string"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "propertiesSha256": {
+                            "type": "string"
+                          },
+                          "hasProperties": {
+                            "type": "boolean"
+                          },
+                          "sourceSizePx": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "collision": {
+                            "type": "boolean"
+                          },
+                          "scale": {
+                            "type": "number"
+                          },
+                          "collisionWidthSourcePx": {
+                            "type": "number"
+                          },
+                          "showTerrain": {
+                            "type": "integer"
+                          },
+                          "pivotLeft": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "pivotRight": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "collisionPivotLeft": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "collisionPivotRight": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sourcePath",
+                          "sha256",
+                          "propertiesSha256",
+                          "hasProperties",
+                          "sourceSizePx",
+                          "collision",
+                          "scale",
+                          "collisionWidthSourcePx",
+                          "showTerrain",
+                          "pivotLeft",
+                          "pivotRight",
+                          "collisionPivotLeft",
+                          "collisionPivotRight"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "definitions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "kind": {
+                            "enum": [
+                              "start",
+                              "authored",
+                              "goal"
+                            ]
+                          },
+                          "sourceLine": {
+                            "type": "integer"
+                          },
+                          "objectId": {
+                            "type": "integer"
+                          },
+                          "offsetX": {
+                            "type": "number"
+                          },
+                          "offsetY": {
+                            "type": "number"
+                          },
+                          "side": {
+                            "type": "boolean"
+                          },
+                          "viewportYFactor": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind",
+                          "sourceLine",
+                          "objectId",
+                          "offsetX",
+                          "offsetY",
+                          "side",
+                          "viewportYFactor"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "placements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "segment": {
+                            "type": "integer"
+                          },
+                          "slot": {
+                            "type": "integer"
+                          },
+                          "definition": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "segment",
+                          "slot",
+                          "definition"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "overwritten": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "segment": {
+                            "type": "integer"
+                          },
+                          "slot": {
+                            "type": "integer"
+                          },
+                          "previousDefinition": {
+                            "type": "integer"
+                          },
+                          "definition": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "segment",
+                          "slot",
+                          "previousDefinition",
+                          "definition"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "candidatePlacements": {
+                      "type": "integer"
+                    },
+                    "maxWindowProps": {
+                      "type": "integer"
+                    },
+                    "objectOffsets": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sourceCommit",
+                    "inputSha256",
+                    "sourceHashes",
+                    "profile",
+                    "forkGradient",
+                    "segmentLength",
+                    "playerOffsetZ",
+                    "cameraHeight",
+                    "referenceWidth",
+                    "authoredCount",
+                    "totalCount",
+                    "swapLine",
+                    "lastLine",
+                    "checkpointLine",
+                    "timeSeconds",
+                    "terrain",
+                    "roadTerrain",
+                    "links",
+                    "palette",
+                    "commands",
+                    "objects",
+                    "definitions",
+                    "placements",
+                    "overwritten",
+                    "candidatePlacements",
+                    "maxWindowProps",
+                    "objectOffsets"
+                  ],
+                  "additionalProperties": false
+                },
+                "baseAssetSha256": {
+                  "type": "string"
+                },
+                "baseRows": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "profiles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "gradient": {
+                        "type": "integer"
+                      },
+                      "tailRows": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "required": [
+                      "gradient",
+                      "tailRows"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "base",
+                "baseAssetSha256",
+                "baseRows",
+                "profiles"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "format",
+          "sourceCommit",
+          "sourceHashes",
+          "rows",
+          "entries"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "All16 ORIGINAL map metadata plus a bit-exact shared dictionary for48 source profiles. Compiled offline without changing legacy biome/catalog/tail assets; composed once before simulation."
     }
   ]
 } as const;
@@ -4141,3 +4610,104 @@ export type SourceBiomeTailProfilesData = {
 /** A loaded SourceBiomeTailProfiles as `loadData` returns it (frozen). */
 export type ReadonlySourceBiomeTailProfilesData = DataRecord<SourceBiomeTailProfilesData>;
 export const SourceBiomeTailProfiles = dataToken<SourceBiomeTailProfilesData>('SourceBiomeTailProfiles');
+
+/** All16 ORIGINAL map metadata plus a bit-exact shared dictionary for48 source profiles. Compiled offline without changing legacy biome/catalog/tail assets; composed once before simulation. */
+export type SourceRouteCohortData = {
+  format: "sourceCompatibility-original-row-dictionary-v1";
+  sourceCommit: string;
+  sourceHashes: Record<string, string>;
+  rows: {
+    y0: number;
+    y1: number;
+    curve: number;
+    gap: number;
+    mirror: boolean;
+    light: number;
+  }[];
+  entries: {
+    base: {
+      id: number;
+      sourceCommit: string;
+      inputSha256: string;
+      sourceHashes: Record<string, string>;
+      profile: "sourceCompatibility-original";
+      forkGradient: number;
+      segmentLength: number;
+      playerOffsetZ: number;
+      cameraHeight: number;
+      referenceWidth: number;
+      authoredCount: number;
+      totalCount: number;
+      swapLine: number;
+      lastLine: number;
+      checkpointLine: number;
+      timeSeconds: number;
+      terrain: number;
+      roadTerrain: number;
+      links: {
+        left: number;
+        right: number;
+        sequential: number;
+      };
+      palette: number[][];
+      commands: {
+        sourceLine: number;
+        command: string;
+        arguments: number[];
+        firstSegment: number;
+        count: number;
+        effective: number[];
+      }[];
+      objects: {
+        id: number;
+        sourcePath: string;
+        sha256: string;
+        propertiesSha256: string;
+        hasProperties: boolean;
+        sourceSizePx: number[];
+        collision: boolean;
+        scale: number;
+        collisionWidthSourcePx: number;
+        showTerrain: number;
+        pivotLeft: number[];
+        pivotRight: number[];
+        collisionPivotLeft: number[];
+        collisionPivotRight: number[];
+      }[];
+      definitions: {
+        id: number;
+        kind: "start" | "authored" | "goal";
+        sourceLine: number;
+        objectId: number;
+        offsetX: number;
+        offsetY: number;
+        side: boolean;
+        viewportYFactor: number;
+      }[];
+      placements: {
+        id: number;
+        segment: number;
+        slot: number;
+        definition: number;
+      }[];
+      overwritten: {
+        segment: number;
+        slot: number;
+        previousDefinition: number;
+        definition: number;
+      }[];
+      candidatePlacements: number;
+      maxWindowProps: number;
+      objectOffsets: number[];
+    };
+    baseAssetSha256: string;
+    baseRows: number[];
+    profiles: {
+      gradient: number;
+      tailRows: number[];
+    }[];
+  }[];
+};
+/** A loaded SourceRouteCohort as `loadData` returns it (frozen). */
+export type ReadonlySourceRouteCohortData = DataRecord<SourceRouteCohortData>;
+export const SourceRouteCohort = dataToken<SourceRouteCohortData>('SourceRouteCohort');

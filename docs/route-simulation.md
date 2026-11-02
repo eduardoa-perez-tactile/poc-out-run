@@ -15,14 +15,27 @@ One entity co-owns `RouteDriver`, `RouteTrafficCoordinates`, `TerrainDriver`, `T
 it does not use EnterScene or a reset/rebase input event to replace the next biome. Worlds without
 a route owner retain their existing bounded proof behavior and native RNG ownership.
 
-`src/content/route-boot.ts` reads the 16 immutable bases, catalog and compact tail profiles during
-module evaluation, before fixed steps. `createRuntimeProfileSourceAccessor` composes frozen
-−1/0/+1 views once; `originalRouteSources().get(mapId,gradient)` is thereafter only a lookup.
-Gradient 0 retains the existing record. Authored rows and metadata remain shared; nonzero profiles
-replace source tail heights, without a runtime geometry compiler. Missing/invalid mounted content
-fails at startup, including direct replay, cooked/web and reload paths. No first-use IO/parse or
-asset-progress read occurs in active route SIM. This startup acquires no asset-group pins; that
-says nothing about raw data, decoded heap, web download size or later art readiness.
+`src/content/route-boot.ts` reads an offline-compiled route cohort and the catalog during
+module evaluation, before fixed steps. `createRouteCohortSourceAccessor` composes frozen −1/0/+1
+views once; `originalRouteSources().get(mapId,gradient)` is thereafter only a lookup. A dictionary
+contains 90,136 exact six-field row objects shared across 292,164 logical row references. The
+loader's frozen dictionary objects are the final runtime rows; there is no duplicate tuple-to-object
+expansion or runtime geometry compiler. Metadata remains shared across each map's three profiles.
+The existing injectable profile factory and all legacy biome/catalog/tail bytes are preserved.
+Production route startup no longer loads all 16 expanded legacy biome records into the data cache;
+legacy render/proof consumers still load their own records independently.
+
+`build-route-cohort.py` checks pinned source fixtures, legacy serialized bytes and the existing tail
+codec before emitting the additive cohort. Offline checks compare all 48 profiles, every row and all
+metadata exactly. The new asset is 15,461,300 raw bytes, in addition to the preserved legacy assets;
+row-object reduction is not a package-size saving or a measured heap reduction. Reference arrays,
+indices and placement metadata also remain live. Unchanged active-replay GC/allocation checks and
+fresh startup/cooked/web/HMR evidence determine whether this repair is acceptable.
+
+Missing/invalid mounted cohort content fails at startup, including direct replay, cooked/web and
+reload paths. No first-use IO/parse or asset-progress read occurs in active route SIM. Startup
+acquires no asset-group pins; that says nothing about raw data, decoded heap, web download size or
+later art readiness.
 
 `RouteDriver.camera/previousCamera` and `RouteTrafficCoordinates.rawZ/previousRawZ` retain source
 integer authority. `hydrateRouteTrafficPool` validates epochs and restores raw coordinates for
@@ -132,7 +145,7 @@ Use the smallest relevant root harness focus; all globs must select nonzero case
 | Edit | Focus |
 |---|---|
 | Graph, integer assignment, gradient calls, checkpoint/latch | `routes.math*` |
-| Immutable profiles/raw coordinate sampling | `routes.profiles*`, `routes.space*`, `routes.trafficState*` |
+| Immutable profiles/raw coordinate sampling | `routes.cohort*`, `routes.profiles*`, `routes.space*`, `routes.trafficState*` |
 | Controls/CF/recovery and raw motion | `routes.driving*` |
 | Canonical contacts/masks/ledger or traffic lifecycle | `routes.collision*`, `routes.traffic*` |
 | Transaction ordering, same-owner handoff | `routes.transaction*` |

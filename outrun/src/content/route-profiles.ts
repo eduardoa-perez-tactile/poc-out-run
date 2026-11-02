@@ -13,7 +13,7 @@ const TAIL_ROWS=1960;
 function require(value:unknown,message:string):asserts value {if(!value)throw new Error('Route profiles: '+message);}
 function integer(value:number,min:number,max:number):boolean {return Number.isInteger(value)&&value>=min&&value<=max;}
 function digest(value:string):boolean {return typeof value==='string'&&/^[0-9a-f]{64}$/.test(value);}
-function immutable(value:unknown,seen:WeakSet<object>):void {
+export function immutable(value:unknown,seen:WeakSet<object>):void {
   if(value===null||typeof value!=='object'||seen.has(value))return;
   require(Object.isFrozen(value),'inputs must already be immutable');seen.add(value);
   // Match Object.values' own enumerable string properties without materializing
@@ -28,7 +28,7 @@ function sameHashes(actual:Readonly<Record<string,string>>,expected:Readonly<Rec
 }
 /** Source catalog policy from build-catalog.py / Game.cpp45–210, never inferred
  * from a corrupt node (especially a Map1/goal checkpoint or false Map2 flag). */
-function validateCatalog(bases:readonly ReadonlySourceBiomeData[],tails:ReadonlySourceBiomeTailProfilesData,catalog:ReadonlySourceBiomeCatalogData):void {
+export function validateCatalog(bases:readonly ReadonlySourceBiomeData[],tails:Pick<ReadonlySourceBiomeTailProfilesData,'sourceHashes'>,catalog:ReadonlySourceBiomeCatalogData):void {
   require(sameHashes(catalog.sourceHashes,tails.sourceHashes)&&sameHashes(catalog.sourceHashes,bases[15]!.sourceHashes),'catalog source provenance mismatch');
   const policy=catalog.goalPolicy;
   require(Object.keys(policy).length===5&&policy.randomProfile==='goal-offsets-sha256-u24-v1'&&policy.seed===0&&
