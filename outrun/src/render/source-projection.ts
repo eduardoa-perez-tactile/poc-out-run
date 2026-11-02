@@ -20,10 +20,16 @@ export const sourceProjectionStats={cameraOriginZ:0,playerSampleZ:0,playerHeight
 export const sourceProjectionBuffers={left,right,ground,scale,clip,farLeft,farRight,farGround,farScale};
 // Full course data stays immutable; only this fixed 200-segment view is projected.
 // Canonical geometry has no viewport input. This adapter is presentation only.
-export function buildSourceRoad(data:ReadonlySourceBiomeData,cameraOriginZ:number,lateral:number,aspect:number){
+export function buildSourceRoad(data:ReadonlySourceBiomeData,cameraOriginZ:number,lateral:number,aspect:number,paletteOverride?:readonly number[]|Uint32Array){
   road.reset();scale.fill(0);clip.fill(-1000);left.fill(0);right.fill(0);ground.fill(0);
   farLeft.fill(0);farRight.fill(0);farGround.fill(0);farScale.fill(0);
-  if(data!==paletteData){for(let i=0;i<11;i++)for(let channel=0;channel<3;channel++)palette[i]![channel]=linear(data.palette[i]![channel]!);paletteData=data;}
+  if(paletteOverride){
+    if(paletteOverride.length!==33)throw new Error('Live road palette requires11 RGB roles');
+    for(let i=0;i<11;i++)for(let channel=0;channel<3;channel++)palette[i]![channel]=linear(paletteOverride[i*3+channel]!);
+    // A later legacy draw must restore its immutable source palette even when
+    // it projects the same profile after a live transition.
+    paletteData=null;
+  }else if(data!==paletteData){for(let i=0;i<11;i++)for(let channel=0;channel<3;channel++)palette[i]![channel]=linear(data.palette[i]![channel]!);paletteData=data;}
   const distance=Math.max(0,Math.min((data.totalCount-VISIBLE_SEGMENTS)*data.segmentLength,cameraOriginZ));
   const player=sourcePlayerSample(data,distance);
   sourceProjectionStats.cameraOriginZ=distance;sourceProjectionStats.playerSampleZ=player.playerZ;sourceProjectionStats.lateral=lateral;

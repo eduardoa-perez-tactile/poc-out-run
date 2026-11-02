@@ -84,7 +84,7 @@ export function createEnvironmentBuffers(){
     samples.objectId[q]=objectId;samples.frame[q]=frame;samples.fraction[q]=fraction;samples.fullHeight[q]=height;
   }
   const result={arrays,stats,samples,road:EMPTY_MESH as MeshArrays,
-    build(data:ReadonlySourceBiomeData,view:EnvironmentView,manifest:EnvironmentArtManifest,traffic:readonly EnvironmentTrafficSnapshot[]):MeshArrays{
+    build(data:ReadonlySourceBiomeData,view:EnvironmentView,manifest:EnvironmentArtManifest,traffic:readonly EnvironmentTrafficSnapshot[],paletteOverride?:readonly number[]|Uint32Array):MeshArrays{
       if(data!==previousData||manifest!==previousManifest)validate(data,manifest);
       require(Number.isFinite(view.cameraOriginZ)&&view.cameraOriginZ>=0&&Number.isFinite(view.lateral)&&Number.isFinite(view.viewWidth)&&view.viewWidth>0&&Number.isFinite(view.aspect)&&view.aspect>0,'Environment view invalid');
       require(traffic.length<=32,'Environment traffic exceeds32 slots');
@@ -95,7 +95,7 @@ export function createEnvironmentBuffers(){
         require(Number.isInteger(t.modelId)&&t.modelId>=1&&t.modelId<=32&&(t.side===0||t.side===1)&&Number.isFinite(t.z)&&t.z>=0&&t.z<data.totalCount*data.segmentLength&&Number.isFinite(t.offset)&&Number.isInteger(t.motionTicks)&&t.motionTicks>=0,'Environment traffic pose/model invalid');
         inputBySlot[t.slot]=i;
       }
-      result.road=buildSourceRoad(data,view.cameraOriginZ,view.lateral,view.aspect);
+      result.road=buildSourceRoad(data,view.cameraOriginZ,view.lateral,view.aspect,paletteOverride);
       composite.reset();uvs1.fill(0);samples.kind.fill(0);samples.segment.fill(-1);samples.slot.fill(-1);samples.placementId.fill(-1);samples.objectId.fill(0);samples.frame.fill(0);samples.fraction.fill(0);samples.fullHeight.fill(0);
       stats.visited=stats.props=stats.emitted=stats.hidden=stats.outside=stats.partial=stats.trafficVisible=stats.trafficHidden=stats.total=0;
       stats.trafficSelected=traffic.length;stats.roadQuads=sourceProjectionStats.visibleRoadSegments*9;

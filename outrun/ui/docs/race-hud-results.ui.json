@@ -1,0 +1,135 @@
+{
+  "$schemaVersion": 1,
+  "guid": "18db03d0-d2c6-4c5e-bc35-58d6b7f18ce4",
+  "name": "race-hud-results",
+  "title": "Race results",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Race hud results",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0,
+        "align": "center",
+        "justify": "center"
+      },
+      "children": [
+        "rh_result_panel"
+      ]
+    },
+    "rh_result_panel": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_result_title",
+        "rh_result_score_title",
+        "rh_result_score",
+        "rh_result_summary",
+        "rh_restart"
+      ],
+      "style": {
+        "pad": [
+          36,
+          56,
+          36,
+          56
+        ],
+        "w": 980,
+        "h": 640,
+        "dir": "column",
+        "align": "center",
+        "gap": 20,
+        "bg": "#101820fa",
+        "radius": 4
+      }
+    },
+    "rh_result_title": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 74,
+        "fitMin": 58,
+        "weight": 800,
+        "color": "#f7f700ff",
+        "w": "100%",
+        "h": 94,
+        "textAlign": "center"
+      },
+      "property": "title"
+    },
+    "rh_result_score_title": {
+      "type": "label",
+      "name": "Label",
+      "text": "FINAL SCORE",
+      "style": {
+        "fontSize": 30,
+        "weight": 800,
+        "color": "#f763e8ff",
+        "w": "100%",
+        "h": 40,
+        "textAlign": "center"
+      }
+    },
+    "rh_result_score": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 66,
+        "fitMin": 44,
+        "weight": 800,
+        "color": "#ffffffff",
+        "w": "100%",
+        "h": 92,
+        "textAlign": "center"
+      },
+      "property": "score"
+    },
+    "rh_result_summary": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 34,
+        "fitMin": 28,
+        "weight": 700,
+        "color": "#00c594ff",
+        "w": "100%",
+        "h": 56,
+        "textAlign": "center"
+      },
+      "property": "summary"
+    },
+    "rh_restart": {
+      "type": "use",
+      "doc": "race-hud-action",
+      "key": "restart"
+    }
+  },
+  "view": {
+    "behaviour": "dialog",
+    "dims": true,
+    "safe": true
+  },
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "title": {
+      "type": "text",
+      "default": "FINISH!"
+    },
+    "score": {
+      "type": "text",
+      "default": "148,360,000"
+    },
+    "summary": {
+      "type": "text",
+      "default": "TIME BONUS 42 S"
+    }
+  }
+}
