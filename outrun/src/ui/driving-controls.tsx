@@ -1,6 +1,6 @@
 import { app } from '@gameengine/runtime';
 import { createEffect, createSignal, defineUI, emit, onCleanup, untrack, useResource, views, type ViewHandle } from '@gameengine/ui';
-import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingPauseRequested } from '../schema.gen.ts';
+import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingPauseRequested, RaceState } from '../schema.gen.ts';
 import { DrivingControlsView, DrivingPauseView, type DrivingControlsModel } from '../views/driving-controls.view.tsx';
 
 export const DrivingControlsOverlay = defineUI({
@@ -8,6 +8,7 @@ export const DrivingControlsOverlay = defineUI({
   root() {
     const state = useResource(DrivingState);
     const input = useResource(DrivingInput);
+    const race = useResource(RaceState);
     const [resetVersion, setResetVersion] = createSignal(0);
     let controls: ViewHandle<DrivingControlsModel> | null = null;
     let pause: ViewHandle<Record<string, never>> | null = null;
@@ -16,11 +17,12 @@ export const DrivingControlsOverlay = defineUI({
       setResetVersion((value) => value + 1);
       emit(DrivingControlsCancelled, {});
     };
-    const model = (): DrivingControlsModel => ({ enabled: state()?.playing === true, heldMask: input()?.ui ?? 0, resetVersion: resetVersion() });
+    const model = (): DrivingControlsModel => ({ enabled: state()?.playing === true || (race()?.initialized === true && race()?.phase === 0), heldMask: input()?.ui ?? 0, resetVersion: resetVersion() });
     onCleanup(app.onLifecycle((lifecycle) => { if (lifecycle === 'background') cancel(); }));
     createEffect(() => {
       const active = state()?.active === true;
       const playing = state()?.playing === true;
+      const paused = race()?.initialized === true ? race()?.phase === 8 : !playing;
       const next = model();
       untrack(() => {
         if (active && !controls) controls = views.push(DrivingControlsView, next, {
@@ -36,10 +38,10 @@ export const DrivingControlsOverlay = defineUI({
         });
         else if (!active && controls) { controls.close({ immediate: true }); controls = null; }
         controls?.update(next);
-        if (active && !playing && !pause) pause = views.push(DrivingPauseView, {}, {
+        if (active && paused && !pause) pause = views.push(DrivingPauseView, {}, {
           onIntent: (name) => { if (name === 'resume') emit(DrivingPauseRequested, { paused: false }); },
         });
-        else if ((!active || playing) && pause) { pause.close({ immediate: true }); pause = null; }
+        else if ((!active || !paused) && pause) { pause.close({ immediate: true }); pause = null; }
       });
     });
     onCleanup(() => { controls?.close({ immediate: true }); pause?.close({ immediate: true }); });

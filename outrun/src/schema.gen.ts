@@ -1085,6 +1085,232 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "RaceOwner",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceRestartRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceState",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "lastPublishedPlaying",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "activeTick",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "racingAdmitted",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "bonusAwarded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "mapTimeSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 160
+        },
+        {
+          "name": "difficulty",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "raceEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "phase",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "resumePhase",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "processedStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "phaseTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "countdownTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "remainingTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "totalTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stageTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastStageTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "score",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "finishScore",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "finishRemainingSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "bonusDeciseconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "resultsHoldTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "outcome",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedCheckpoints",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedPassBatches",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedArrivals",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "controlMode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "admittedStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RoadFixtureRequested",
       "kind": "event",
       "sim": true,
@@ -1233,6 +1459,12 @@ export const schemaIr = {
       "kind": "resource",
       "sim": false,
       "fields": [
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
         {
           "name": "ownerValid",
           "kind": "bool",
@@ -4148,6 +4380,91 @@ export interface Map01ArtSlotValue {
 /** Map01ArtSlot (component, presentation-only) */
 export const Map01ArtSlot = typeToken<Map01ArtSlotViews, Map01ArtSlotValue>('Map01ArtSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01ArtSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
+export interface RaceOwnerViews {
+  enabled: Uint8Array;
+}
+export interface RaceOwnerValue {
+  enabled: boolean;
+}
+/** RaceOwner (component, sim) */
+export const RaceOwner = typeToken<RaceOwnerViews, RaceOwnerValue>('RaceOwner', 'component', { sig: 'enabled:bool:1', read: (v: RaceOwnerViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; return o; } });
+
+export type RaceRestartRequestedViews = Record<string, never>;
+export type RaceRestartRequestedValue = Record<string, never>;
+/** RaceRestartRequested (event, sim) */
+export const RaceRestartRequested = typeToken<RaceRestartRequestedViews, RaceRestartRequestedValue>('RaceRestartRequested', 'event');
+
+export interface RaceStateViews {
+  initialized: Uint8Array;
+  lastPublishedPlaying: Uint8Array;
+  activeTick: Uint8Array;
+  racingAdmitted: Uint8Array;
+  bonusAwarded: Uint8Array;
+  mapTimeSeconds: Uint32Array;
+  difficulty: Uint32Array;
+  population: Uint32Array;
+  mapId: Uint32Array;
+  raceEpoch: Uint32Array;
+  routeEpoch: Uint32Array;
+  phase: Uint32Array;
+  resumePhase: Uint32Array;
+  processedStep: Uint32Array;
+  phaseTicks: Uint32Array;
+  countdownTicks: Uint32Array;
+  remainingTicks: Uint32Array;
+  totalTicks: Uint32Array;
+  stageTicks: Uint32Array;
+  lastStageTicks: Uint32Array;
+  score: Uint32Array;
+  finishScore: Uint32Array;
+  finishRemainingSeconds: Uint32Array;
+  bonusDeciseconds: Uint32Array;
+  resultsHoldTicks: Uint32Array;
+  outcome: Uint32Array;
+  consumedCheckpoints: Uint32Array;
+  consumedPassBatches: Uint32Array;
+  consumedArrivals: Uint32Array;
+  controlMode: Uint32Array;
+  admittedStep: Uint32Array;
+  stage: Uint32Array;
+}
+export interface RaceStateValue {
+  initialized: boolean;
+  lastPublishedPlaying: boolean;
+  activeTick: boolean;
+  racingAdmitted: boolean;
+  bonusAwarded: boolean;
+  mapTimeSeconds: number;
+  difficulty: number;
+  population: number;
+  mapId: number;
+  raceEpoch: number;
+  routeEpoch: number;
+  phase: number;
+  resumePhase: number;
+  processedStep: number;
+  phaseTicks: number;
+  countdownTicks: number;
+  remainingTicks: number;
+  totalTicks: number;
+  stageTicks: number;
+  lastStageTicks: number;
+  score: number;
+  finishScore: number;
+  finishRemainingSeconds: number;
+  bonusDeciseconds: number;
+  resultsHoldTicks: number;
+  outcome: number;
+  consumedCheckpoints: number;
+  consumedPassBatches: number;
+  consumedArrivals: number;
+  controlMode: number;
+  admittedStep: number;
+  stage: number;
+}
+/** RaceState (resource, sim) */
+export const RaceState = typeToken<RaceStateViews, RaceStateValue>('RaceState', 'resource', { sig: 'initialized:bool:1,lastPublishedPlaying:bool:1,activeTick:bool:1,racingAdmitted:bool:1,bonusAwarded:bool:1,mapTimeSeconds:u32:1,difficulty:u32:1,population:u32:1,mapId:u32:1,raceEpoch:u32:1,routeEpoch:u32:1,phase:u32:1,resumePhase:u32:1,processedStep:u32:1,phaseTicks:u32:1,countdownTicks:u32:1,remainingTicks:u32:1,totalTicks:u32:1,stageTicks:u32:1,lastStageTicks:u32:1,score:u32:1,finishScore:u32:1,finishRemainingSeconds:u32:1,bonusDeciseconds:u32:1,resultsHoldTicks:u32:1,outcome:u32:1,consumedCheckpoints:u32:1,consumedPassBatches:u32:1,consumedArrivals:u32:1,controlMode:u32:1,admittedStep:u32:1,stage:u32:1', read: (v: RaceStateViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.lastPublishedPlaying = v.lastPublishedPlaying[i] !== 0; o.activeTick = v.activeTick[i] !== 0; o.racingAdmitted = v.racingAdmitted[i] !== 0; o.bonusAwarded = v.bonusAwarded[i] !== 0; o.mapTimeSeconds = v.mapTimeSeconds[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.mapId = v.mapId[i]; o.raceEpoch = v.raceEpoch[i]; o.routeEpoch = v.routeEpoch[i]; o.phase = v.phase[i]; o.resumePhase = v.resumePhase[i]; o.processedStep = v.processedStep[i]; o.phaseTicks = v.phaseTicks[i]; o.countdownTicks = v.countdownTicks[i]; o.remainingTicks = v.remainingTicks[i]; o.totalTicks = v.totalTicks[i]; o.stageTicks = v.stageTicks[i]; o.lastStageTicks = v.lastStageTicks[i]; o.score = v.score[i]; o.finishScore = v.finishScore[i]; o.finishRemainingSeconds = v.finishRemainingSeconds[i]; o.bonusDeciseconds = v.bonusDeciseconds[i]; o.resultsHoldTicks = v.resultsHoldTicks[i]; o.outcome = v.outcome[i]; o.consumedCheckpoints = v.consumedCheckpoints[i]; o.consumedPassBatches = v.consumedPassBatches[i]; o.consumedArrivals = v.consumedArrivals[i]; o.controlMode = v.controlMode[i]; o.admittedStep = v.admittedStep[i]; o.stage = v.stage[i]; return o; } });
+
 export interface RoadFixtureRequestedViews {
   fixtureId: Uint32Array;
   distance: Float32Array;
@@ -4211,6 +4528,7 @@ export interface RouteLiveSlotValue {
 export const RouteLiveSlot = typeToken<RouteLiveSlotViews, RouteLiveSlotValue>('RouteLiveSlot', 'component', { sig: 'slot:u32:1', read: (v: RouteLiveSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
 export interface RouteLiveVisualViews {
+  reconciled: Uint8Array;
   ownerValid: Uint8Array;
   ownsActive: Uint8Array;
   ownsIncoming: Uint8Array;
@@ -4243,6 +4561,7 @@ export interface RouteLiveVisualViews {
   palette: Uint32Array;
 }
 export interface RouteLiveVisualValue {
+  reconciled: boolean;
   ownerValid: boolean;
   ownsActive: boolean;
   ownsIncoming: boolean;
@@ -4275,7 +4594,7 @@ export interface RouteLiveVisualValue {
   palette: number[];
 }
 /** RouteLiveVisual (resource, presentation-only) */
-export const RouteLiveVisual = typeToken<RouteLiveVisualViews, RouteLiveVisualValue>('RouteLiveVisual', 'resource', { sig: 'ownerValid:bool:1,ownsActive:bool:1,ownsIncoming:bool:1,ownsShared:bool:1,failed:bool:1,ioReady:bool:1,renderSettled:bool:1,swapping:bool:1,transitionComplete:bool:1,ownerIndex:u32:1,ownerGeneration:u32:1,routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,active:u32:1,incoming:u32:1,epoch:u32:1,lastFrame:u32:1,lastStep:u32:1,animationTicks:u32:1,transitionTarget:u32:1,backgroundMapId:u32:1,slidePx:f32:1,nominalRemainder:f32:1,backOffset:f32:1,frontOffset:f32:1,parallaxAnchorCamera:f32:1,parallaxBaseBack:f32:1,parallaxBaseFront:f32:1,palette:array:33', read: (v: RouteLiveVisualViews, i: number, o: Record<string, unknown>) => { o.ownerValid = v.ownerValid[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsShared = v.ownsShared[i] !== 0; o.failed = v.failed[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.swapping = v.swapping[i] !== 0; o.transitionComplete = v.transitionComplete[i] !== 0; o.ownerIndex = v.ownerIndex[i]; o.ownerGeneration = v.ownerGeneration[i]; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.active = v.active[i]; o.incoming = v.incoming[i]; o.epoch = v.epoch[i]; o.lastFrame = v.lastFrame[i]; o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; o.transitionTarget = v.transitionTarget[i]; o.backgroundMapId = v.backgroundMapId[i]; o.slidePx = v.slidePx[i]; o.nominalRemainder = v.nominalRemainder[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.parallaxAnchorCamera = v.parallaxAnchorCamera[i]; o.parallaxBaseBack = v.parallaxBaseBack[i]; o.parallaxBaseFront = v.parallaxBaseFront[i]; o.palette = $r.lanes(v.palette, i, 33, o.palette); return o; } });
+export const RouteLiveVisual = typeToken<RouteLiveVisualViews, RouteLiveVisualValue>('RouteLiveVisual', 'resource', { sig: 'reconciled:bool:1,ownerValid:bool:1,ownsActive:bool:1,ownsIncoming:bool:1,ownsShared:bool:1,failed:bool:1,ioReady:bool:1,renderSettled:bool:1,swapping:bool:1,transitionComplete:bool:1,ownerIndex:u32:1,ownerGeneration:u32:1,routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,active:u32:1,incoming:u32:1,epoch:u32:1,lastFrame:u32:1,lastStep:u32:1,animationTicks:u32:1,transitionTarget:u32:1,backgroundMapId:u32:1,slidePx:f32:1,nominalRemainder:f32:1,backOffset:f32:1,frontOffset:f32:1,parallaxAnchorCamera:f32:1,parallaxBaseBack:f32:1,parallaxBaseFront:f32:1,palette:array:33', read: (v: RouteLiveVisualViews, i: number, o: Record<string, unknown>) => { o.reconciled = v.reconciled[i] !== 0; o.ownerValid = v.ownerValid[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsShared = v.ownsShared[i] !== 0; o.failed = v.failed[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.swapping = v.swapping[i] !== 0; o.transitionComplete = v.transitionComplete[i] !== 0; o.ownerIndex = v.ownerIndex[i]; o.ownerGeneration = v.ownerGeneration[i]; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.active = v.active[i]; o.incoming = v.incoming[i]; o.epoch = v.epoch[i]; o.lastFrame = v.lastFrame[i]; o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; o.transitionTarget = v.transitionTarget[i]; o.backgroundMapId = v.backgroundMapId[i]; o.slidePx = v.slidePx[i]; o.nominalRemainder = v.nominalRemainder[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.parallaxAnchorCamera = v.parallaxAnchorCamera[i]; o.parallaxBaseBack = v.parallaxBaseBack[i]; o.parallaxBaseFront = v.parallaxBaseFront[i]; o.palette = $r.lanes(v.palette, i, 33, o.palette); return o; } });
 
 export interface RouteBiomeEnteredViews {
   routeEpoch: Uint32Array;

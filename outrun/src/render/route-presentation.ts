@@ -25,6 +25,7 @@ const readiness=createEnvironmentReadiness();let readinessInitialized=false;
 export const routePresentationStats={mapId:0,backgroundMapId:0,incomingMapId:0,ready:false,failed:false,error:'',
   uploads:0,submittedBytes:0,frameUploadCalls:0,frameSubmittedBytes:0,geometry:buffers.stats};
 const group=(mapId:number)=>mapId===1?MAP1:'route-live-'+resolveRouteEnvironment(mapId).group;
+const privateGroups=Object.freeze([SHARED,...Array.from({length:16},(_,index)=>group(index+1))]);
 const remove=(slot:number)=>{const name=names[slot]!;if(meshes.info(name)!==null)meshes.destroy(name);};
 const clear=()=>{for(let slot=0;slot<names.length;slot++)remove(slot);};
 function upload(slot:number,arrays:MeshArrays){
@@ -49,6 +50,19 @@ export const RoutePresentation=defineSystem({
   resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(ViewInfo),read(RenderTime),read(RenderStatus)],
   run(ctx,{actors,slots}){
     const state=ctx.get(RouteLiveVisual),time=ctx.get(RenderTime),view=ctx.get(ViewInfo),render=ctx.get(RenderStatus);
+    if(!state.reconciled){
+      // A world/replay rebuild resets this ledger while native group pins can
+      // survive. Reconcile only this presenter's private namespace. Tracked
+      // leases remain valid across an ordinary code reload.
+      const native=assets.stats().groups;
+      for(const name of privateGroups){
+        const tracked=(state.ownsShared&&name===SHARED)||(state.ownsActive&&name===group(state.active))||(state.ownsIncoming&&name===group(state.incoming));
+        const status=native[name]?.status;
+        if(!tracked&&status&&status!=='unloaded'&&status!=='released')assets.release(name);
+      }
+      state.reconciled=true;
+      ctx.setField(RouteLiveVisual,'reconciled',true);
+    }
     const releaseAll=()=>{
       if(state.ownsIncoming)assets.release(group(state.incoming));
       if(state.ownsActive)assets.release(group(state.active));

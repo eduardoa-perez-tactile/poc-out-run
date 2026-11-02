@@ -34,6 +34,12 @@ behavior, and run applicable integration gates once per candidate. Do not add sp
 repeated broad validation, or harness/documentation projects that do not unblock game delivery.
 Chrome stays in the background and physical-phone testing remains excluded.
 
+## Play
+
+Run `npm run play` from the repository root to launch the connected ORIGINAL race.
+The live scene is `scenes/original-race.scene.json`; the browser preview also starts there.
+The older proof bootstrap remains the test-recording fixture until the milestone bootstrap change.
+
 ## Conventions
 
 The Git repository and npm harness live one directory above this game. Read ../AGENTS.md,

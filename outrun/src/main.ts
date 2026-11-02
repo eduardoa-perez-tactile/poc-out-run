@@ -27,3 +27,6 @@ export {EnvironmentPresentation} from './render/environment-presentation.ts';
 export {CaptureEnvironmentReviewInput} from './input/environment-review-input.ts';
 
 export {RoutePresentation} from './render/route-presentation.ts';
+
+export {AdmitRace,FinishRace} from './sim/race.ts';
+export {RaceHudOverlay} from './ui/race-hud.tsx';

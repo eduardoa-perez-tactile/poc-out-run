@@ -1,0 +1,429 @@
+{
+  "$schemaVersion": 1,
+  "guid": "30c694d7-4485-4d1e-9fb9-1f62c67f3bdf",
+  "name": "race-hud",
+  "title": "Live race HUD",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Race hud",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0
+      },
+      "children": [
+        "rh_top",
+        "rh_speed",
+        "rh_stage",
+        "rh_notice",
+        "rh_bonus"
+      ]
+    },
+    "rh_top": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_time",
+        "rh_score",
+        "rh_lap"
+      ],
+      "style": {
+        "pad": [
+          12,
+          20,
+          12,
+          20
+        ],
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "offset": [
+          32,
+          24
+        ],
+        "w": "78%",
+        "h": 124,
+        "dir": "row",
+        "align": "center",
+        "gap": 32,
+        "bg": "#101820d9"
+      }
+    },
+    "rh_time": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_time_label",
+        "rh_time_value"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "column",
+        "gap": 0,
+        "w": 220,
+        "h": 100
+      }
+    },
+    "rh_time_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "TIME",
+      "style": {
+        "fontSize": 28,
+        "weight": 800,
+        "color": "#f76300ff",
+        "h": 34
+      }
+    },
+    "rh_time_value": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 48,
+        "fitMin": 32,
+        "weight": 800,
+        "color": "#ffffffff",
+        "h": 62
+      },
+      "property": "time"
+    },
+    "rh_score": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_score_label",
+        "rh_score_value"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "column",
+        "gap": 0,
+        "w": 540,
+        "h": 100
+      }
+    },
+    "rh_score_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "SCORE",
+      "style": {
+        "fontSize": 28,
+        "weight": 800,
+        "color": "#f763e8ff",
+        "h": 34
+      }
+    },
+    "rh_score_value": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 48,
+        "fitMin": 32,
+        "weight": 800,
+        "color": "#ffffffff",
+        "h": 62
+      },
+      "property": "score"
+    },
+    "rh_lap": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_lap_label",
+        "rh_lap_value"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "column",
+        "gap": 0,
+        "w": 360,
+        "h": 100
+      }
+    },
+    "rh_lap_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "LAP",
+      "style": {
+        "fontSize": 28,
+        "weight": 800,
+        "color": "#00c594ff",
+        "h": 34
+      }
+    },
+    "rh_lap_value": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 48,
+        "fitMin": 32,
+        "weight": 800,
+        "color": "#ffffffff",
+        "h": 62
+      },
+      "property": "lap"
+    },
+    "rh_speed": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_speed_value",
+        "rh_speed_unit"
+      ],
+      "style": {
+        "pad": [
+          8,
+          16,
+          8,
+          16
+        ],
+        "position": "anchored",
+        "anchor": [
+          0,
+          1
+        ],
+        "offset": [
+          32,
+          -240
+        ],
+        "w": 376,
+        "h": 108,
+        "dir": "row",
+        "align": "center",
+        "gap": 16,
+        "bg": "#101820d9"
+      }
+    },
+    "rh_speed_value": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 58,
+        "fitMin": 44,
+        "weight": 800,
+        "color": "#ffffffff",
+        "w": 180,
+        "h": 80
+      },
+      "property": "speed"
+    },
+    "rh_speed_unit": {
+      "type": "label",
+      "name": "Label",
+      "text": "km/h",
+      "style": {
+        "fontSize": 30,
+        "weight": 700,
+        "color": "#f7f700ff",
+        "w": 112
+      }
+    },
+    "rh_stage": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_gear_value",
+        "rh_stage_value"
+      ],
+      "style": {
+        "pad": [
+          8,
+          16,
+          8,
+          16
+        ],
+        "position": "anchored",
+        "anchor": [
+          1,
+          1
+        ],
+        "offset": [
+          -32,
+          -240
+        ],
+        "w": 376,
+        "h": 108,
+        "dir": "column",
+        "align": "end",
+        "gap": 4,
+        "bg": "#101820d9"
+      }
+    },
+    "rh_gear_value": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 30,
+        "fitMin": 26,
+        "weight": 800,
+        "color": "#f7f700ff",
+        "w": "100%",
+        "h": 40,
+        "textAlign": "right"
+      },
+      "property": "gear"
+    },
+    "rh_stage_value": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 36,
+        "fitMin": 28,
+        "weight": 800,
+        "color": "#ffffffff",
+        "w": "100%",
+        "h": 46,
+        "textAlign": "right"
+      },
+      "property": "stage"
+    },
+    "rh_notice": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_notice_text"
+      ],
+      "style": {
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.29
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "w": 620,
+        "h": 180,
+        "dir": "column",
+        "align": "center",
+        "justify": "center"
+      },
+      "show": "showNotice"
+    },
+    "rh_notice_text": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 110,
+        "fitMin": 70,
+        "weight": 800,
+        "color": "#f7f700ff",
+        "shadowX": 3,
+        "shadowY": 4,
+        "shadowColor": "#101820ff",
+        "w": "100%",
+        "h": 136,
+        "textAlign": "center"
+      },
+      "property": "notice"
+    },
+    "rh_bonus": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.4
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "fontSize": 38,
+        "fitMin": 28,
+        "weight": 800,
+        "color": "#ffffffff",
+        "bg": "#101820e6",
+        "pad": [
+          12,
+          24,
+          12,
+          24
+        ],
+        "w": 720,
+        "h": 74,
+        "textAlign": "center"
+      },
+      "show": "showBonus",
+      "property": "bonus"
+    }
+  },
+  "view": {
+    "behaviour": "none",
+    "safe": true
+  },
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "time": {
+      "type": "text",
+      "default": "155"
+    },
+    "score": {
+      "type": "text",
+      "default": "0"
+    },
+    "lap": {
+      "type": "text",
+      "default": "00:00.00"
+    },
+    "speed": {
+      "type": "text",
+      "default": "0"
+    },
+    "gear": {
+      "type": "text",
+      "default": "AUTO · LOW"
+    },
+    "stage": {
+      "type": "text",
+      "default": "STAGE 1/5"
+    },
+    "notice": {
+      "type": "text",
+      "default": "READY"
+    },
+    "bonus": {
+      "type": "text",
+      "default": ""
+    },
+    "showNotice": {
+      "type": "yesno",
+      "default": true
+    },
+    "showBonus": {
+      "type": "yesno",
+      "default": false
+    },
+    "urgent": {
+      "type": "yesno",
+      "default": false,
+      "poses": {
+        "yes": {
+          "set": {
+            "rh_time_value": {
+              "color": "#ff5454ff"
+            }
+          }
+        }
+      }
+    }
+  }
+}

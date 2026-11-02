@@ -1,10 +1,11 @@
 import {defineSystem,query,read,write} from '@gameengine/runtime';
 import {RouteDriver,RouteTrafficCoordinates,RouteResetRequested,RouteForkChosen,RouteBiomeEntered,
   RouteCheckpointPassed,RouteGoalEntered,TerrainDriver,CrashDriver,TrafficPool,CollisionDriver,DrivingState,DrivingInput,
-  type RouteDriverValue} from '../schema.gen.ts';
+  RaceOwner,RaceState,type RouteDriverValue} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import {resetRouteDriver,advanceRouteState,type RouteDriverState,type RouteGradient} from './route-math.ts';
 import {prepareRoutePlayerTick} from './route-driving-math.ts';
+import {prepareGoalPlayerTick} from './goal-driving.ts';
 
 function state(value:RouteDriverValue):RouteDriverState{
   if(value.gradient!==-1&&value.gradient!==0&&value.gradient!==1)throw new Error('Invalid persisted route gradient');
@@ -16,9 +17,9 @@ function state(value:RouteDriverValue):RouteDriverState{
 export const AdvanceRoute=defineSystem({
   name:'AdvanceRoute',after:['AdvanceDriving'],before:['AdvanceTraffic'],
   runIf:{query:query(read(RouteDriver))},
-  query:query(write(RouteDriver),read(TerrainDriver),read(CrashDriver),read(TrafficPool),read(CollisionDriver),read(RouteTrafficCoordinates)),
-  resources:[write(DrivingState),write(DrivingInput)],events:[RouteResetRequested],
-  run(ctx,owners){
+  queries:{owners:query(write(RouteDriver),read(TerrainDriver),read(CrashDriver),read(TrafficPool),read(CollisionDriver),read(RouteTrafficCoordinates)),raceOwners:query(read(RaceOwner))},
+  resources:[write(DrivingState),write(DrivingInput),read(RaceState)],events:[RouteResetRequested],
+  run(ctx,{owners,raceOwners}){
     if(owners.count!==1)throw new Error('Route requires one co-owned terrain/traffic/contact/crash/integer-coordinate entity');
     let request:import('../schema.gen.ts').RouteResetRequestedValue|undefined;
     for(const event of ctx.events.read(RouteResetRequested))request=event;
@@ -44,7 +45,20 @@ export const AdvanceRoute=defineSystem({
         continue;
       }
       if(before.pending)throw new Error('Previous route actor transaction was not committed');
-      if(!driving.active[0]||!driving.playing[0]||before.goalEntered)continue;
+      if(!driving.active[0]||!driving.playing[0])continue;
+      if(before.goalEntered){
+        const race=ctx.resource(RaceState),mode=race.controlMode[0];
+        const raceChunk=raceOwners.chunks().find(part=>part.length>0);
+        if(raceOwners.count!==1||!raceChunk||raceChunk.entity(0)!==chunk.entity(row)||raceChunk.col(RaceOwner).enabled[0]===0||!race.initialized[0]||(mode!==2&&mode!==3&&mode!==4))continue;
+        if(before.mapId!==16)throw new Error('Ending requires genuine goal entry');
+        const data=content.get(16,before.gradient as RouteGradient);
+        const prepared=prepareGoalPlayerTick({distance:before.camera,lateral:driving.lateral[0]!,legacySpeed:driving.legacySpeed[0]!,gear:driving.gear[0]!,steering:driving.steering[0]!,playing:true,manual:driving.manual[0]!==0},terrain,crash,mode,ctx.dt,data);
+        ctx.set(DrivingState,{previousDistance:before.camera,previousLateral:driving.lateral[0]!});
+        chunk.set(RouteDriver,row,{previousCamera:before.camera,camera:prepared.driving.distance,processedStep:ctx.step,
+          pending:true,pendingStep:ctx.step,pendingReset:false,pendingHandoff:false,pendingFromMapId:16,pendingFromGradient:before.gradient,
+          pendingOldMapEpoch:before.mapEpoch,pendingPreviousCamera:before.camera,pendingOutgoingCamera:prepared.driving.distance,pendingRawCamera:prepared.unwrappedCamera});
+        continue;
+      }
       if(terrain.mapId!==before.mapId||crash.mapId!==before.mapId)throw new Error('Route physical owner map mismatch');
       const old=state(before),data=content.get(old.mapId as import('../content/biome.ts').SourceBiomeId,old.gradient);
       const bits=held.keyboard[0]!|held.ui[0]!;
