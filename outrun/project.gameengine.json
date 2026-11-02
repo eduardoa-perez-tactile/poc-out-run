@@ -267,6 +267,98 @@
         "include": [
           "assets/textures/environments/goal-*.png"
         ]
+      },
+      "route-live-map01": {
+        "include": [
+          "assets/textures/map01-*.png",
+          "assets/materials/map01-*.material.ts",
+          "assets/materials/map01-*-draw.mat.json"
+        ]
+      },
+      "route-live-shared": {
+        "include": [
+          "assets/textures/traffic-source.png",
+          "assets/materials/traffic-composite.material.ts",
+          "assets/materials/environment-composite.material.ts",
+          "assets/materials/map01-panorama.material.ts",
+          "assets/materials/environment-sky.material.ts",
+          "assets/materials/road.material.ts"
+        ]
+      },
+      "route-live-map02-environment": {
+        "include": [
+          "assets/textures/environments/map02-*.png"
+        ]
+      },
+      "route-live-map10-environment": {
+        "include": [
+          "assets/textures/environments/map10-*.png"
+        ]
+      },
+      "route-live-map03-environment": {
+        "include": [
+          "assets/textures/environments/map03-*.png"
+        ]
+      },
+      "route-live-map04-environment": {
+        "include": [
+          "assets/textures/environments/map04-*.png"
+        ]
+      },
+      "route-live-map05-environment": {
+        "include": [
+          "assets/textures/environments/map05-*.png"
+        ]
+      },
+      "route-live-map06-environment": {
+        "include": [
+          "assets/textures/environments/map06-*.png"
+        ]
+      },
+      "route-live-map07-environment": {
+        "include": [
+          "assets/textures/environments/map07-*.png"
+        ]
+      },
+      "route-live-map08-environment": {
+        "include": [
+          "assets/textures/environments/map08-*.png"
+        ]
+      },
+      "route-live-map09-environment": {
+        "include": [
+          "assets/textures/environments/map09-*.png"
+        ]
+      },
+      "route-live-map11-environment": {
+        "include": [
+          "assets/textures/environments/map11-*.png"
+        ]
+      },
+      "route-live-map12-environment": {
+        "include": [
+          "assets/textures/environments/map12-*.png"
+        ]
+      },
+      "route-live-map13-environment": {
+        "include": [
+          "assets/textures/environments/map13-*.png"
+        ]
+      },
+      "route-live-map14-environment": {
+        "include": [
+          "assets/textures/environments/map14-*.png"
+        ]
+      },
+      "route-live-map15-environment": {
+        "include": [
+          "assets/textures/environments/map15-*.png"
+        ]
+      },
+      "route-live-goal-environment": {
+        "include": [
+          "assets/textures/environments/goal-*.png"
+        ]
       }
     }
   },

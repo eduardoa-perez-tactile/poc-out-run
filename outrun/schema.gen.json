@@ -1208,6 +1208,212 @@
       "package": "OutRun"
     },
     {
+      "name": "RouteLiveSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteLiveVisual",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "ownerValid",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsActive",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsIncoming",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsShared",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "failed",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ioReady",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "renderSettled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "swapping",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "transitionComplete",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownerIndex",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ownerGeneration",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "active",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "incoming",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastFrame",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "animationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "transitionTarget",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "backgroundMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slidePx",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "nominalRemainder",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "parallaxAnchorCamera",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "parallaxBaseBack",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "parallaxBaseFront",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "palette",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 33
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RouteBiomeEntered",
       "kind": "event",
       "sim": true,

@@ -25,3 +25,5 @@ export {CrashDiagnosticsPresentation} from './render/crash-diagnostics-presentat
 export {EnvironmentBindingProof} from './render/environment-binding-proof.ts';
 export {EnvironmentPresentation} from './render/environment-presentation.ts';
 export {CaptureEnvironmentReviewInput} from './input/environment-review-input.ts';
+
+export {RoutePresentation} from './render/route-presentation.ts';

@@ -25,6 +25,15 @@ Verify focus preservation and actual rendered pixels/behavior; stop and report t
 lane if background behavior cannot be preserved. Clean up only that session's owned test
 windows/processes.
 
+## Current delivery priority
+
+Finish the complete playable game as quickly as possible. Do not initiate optimization or profiling
+passes unless the user explicitly asks. Focus implementation on connected player-facing features;
+keep the edit loop to build checks and focused core gameplay checks, reuse evidence for unchanged
+behavior, and run applicable integration gates once per candidate. Do not add speculative tests,
+repeated broad validation, or harness/documentation projects that do not unblock game delivery.
+Chrome stays in the background and physical-phone testing remains excluded.
+
 ## Conventions
 
 The Git repository and npm harness live one directory above this game. Read ../AGENTS.md,

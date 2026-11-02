@@ -1215,6 +1215,212 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "RouteLiveSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteLiveVisual",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "ownerValid",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsActive",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsIncoming",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsShared",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "failed",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ioReady",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "renderSettled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "swapping",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "transitionComplete",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownerIndex",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ownerGeneration",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "active",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "incoming",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastFrame",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "animationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "transitionTarget",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "backgroundMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slidePx",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "nominalRemainder",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "parallaxAnchorCamera",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "parallaxBaseBack",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "parallaxBaseFront",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "palette",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 33
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RouteBiomeEntered",
       "kind": "event",
       "sim": true,
@@ -3994,6 +4200,82 @@ export interface RoadProofVisualCacheValue {
 }
 /** RoadProofVisualCache (resource, presentation-only) */
 export const RoadProofVisualCache = typeToken<RoadProofVisualCacheViews, RoadProofVisualCacheValue>('RoadProofVisualCache', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,lateral:f32:1,aspect:f32:1', read: (v: RoadProofVisualCacheViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
+
+export interface RouteLiveSlotViews {
+  slot: Uint32Array;
+}
+export interface RouteLiveSlotValue {
+  slot: number;
+}
+/** RouteLiveSlot (component, presentation-only) */
+export const RouteLiveSlot = typeToken<RouteLiveSlotViews, RouteLiveSlotValue>('RouteLiveSlot', 'component', { sig: 'slot:u32:1', read: (v: RouteLiveSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+export interface RouteLiveVisualViews {
+  ownerValid: Uint8Array;
+  ownsActive: Uint8Array;
+  ownsIncoming: Uint8Array;
+  ownsShared: Uint8Array;
+  failed: Uint8Array;
+  ioReady: Uint8Array;
+  renderSettled: Uint8Array;
+  swapping: Uint8Array;
+  transitionComplete: Uint8Array;
+  ownerIndex: Uint32Array;
+  ownerGeneration: Uint32Array;
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  active: Uint32Array;
+  incoming: Uint32Array;
+  epoch: Uint32Array;
+  lastFrame: Uint32Array;
+  lastStep: Uint32Array;
+  animationTicks: Uint32Array;
+  transitionTarget: Uint32Array;
+  backgroundMapId: Uint32Array;
+  slidePx: Float32Array;
+  nominalRemainder: Float32Array;
+  backOffset: Float32Array;
+  frontOffset: Float32Array;
+  parallaxAnchorCamera: Float32Array;
+  parallaxBaseBack: Float32Array;
+  parallaxBaseFront: Float32Array;
+  palette: Uint32Array;
+}
+export interface RouteLiveVisualValue {
+  ownerValid: boolean;
+  ownsActive: boolean;
+  ownsIncoming: boolean;
+  ownsShared: boolean;
+  failed: boolean;
+  ioReady: boolean;
+  renderSettled: boolean;
+  swapping: boolean;
+  transitionComplete: boolean;
+  ownerIndex: number;
+  ownerGeneration: number;
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  active: number;
+  incoming: number;
+  epoch: number;
+  lastFrame: number;
+  lastStep: number;
+  animationTicks: number;
+  transitionTarget: number;
+  backgroundMapId: number;
+  slidePx: number;
+  nominalRemainder: number;
+  backOffset: number;
+  frontOffset: number;
+  parallaxAnchorCamera: number;
+  parallaxBaseBack: number;
+  parallaxBaseFront: number;
+  palette: number[];
+}
+/** RouteLiveVisual (resource, presentation-only) */
+export const RouteLiveVisual = typeToken<RouteLiveVisualViews, RouteLiveVisualValue>('RouteLiveVisual', 'resource', { sig: 'ownerValid:bool:1,ownsActive:bool:1,ownsIncoming:bool:1,ownsShared:bool:1,failed:bool:1,ioReady:bool:1,renderSettled:bool:1,swapping:bool:1,transitionComplete:bool:1,ownerIndex:u32:1,ownerGeneration:u32:1,routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,active:u32:1,incoming:u32:1,epoch:u32:1,lastFrame:u32:1,lastStep:u32:1,animationTicks:u32:1,transitionTarget:u32:1,backgroundMapId:u32:1,slidePx:f32:1,nominalRemainder:f32:1,backOffset:f32:1,frontOffset:f32:1,parallaxAnchorCamera:f32:1,parallaxBaseBack:f32:1,parallaxBaseFront:f32:1,palette:array:33', read: (v: RouteLiveVisualViews, i: number, o: Record<string, unknown>) => { o.ownerValid = v.ownerValid[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsShared = v.ownsShared[i] !== 0; o.failed = v.failed[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.swapping = v.swapping[i] !== 0; o.transitionComplete = v.transitionComplete[i] !== 0; o.ownerIndex = v.ownerIndex[i]; o.ownerGeneration = v.ownerGeneration[i]; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.active = v.active[i]; o.incoming = v.incoming[i]; o.epoch = v.epoch[i]; o.lastFrame = v.lastFrame[i]; o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; o.transitionTarget = v.transitionTarget[i]; o.backgroundMapId = v.backgroundMapId[i]; o.slidePx = v.slidePx[i]; o.nominalRemainder = v.nominalRemainder[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.parallaxAnchorCamera = v.parallaxAnchorCamera[i]; o.parallaxBaseBack = v.parallaxBaseBack[i]; o.parallaxBaseFront = v.parallaxBaseFront[i]; o.palette = $r.lanes(v.palette, i, 33, o.palette); return o; } });
 
 export interface RouteBiomeEnteredViews {
   routeEpoch: Uint32Array;
