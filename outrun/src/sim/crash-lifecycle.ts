@@ -1,9 +1,9 @@
 import {defineSystem,query,read,write,EnterScene} from '@gameengine/runtime';
-import {CrashDriver,CollisionDriver,TerrainDriver,DrivingState,DrivingResetRequested,
+import {CrashDriver,CollisionDriver,TerrainDriver,DrivingState,DrivingResetRequested,RouteDriver,
   TrafficResetRequested,TrafficRebaseRequested,type CrashDriverValue} from '../schema.gen.ts';
 import {loadMap01,sourcePlayerSample} from '../content/biome.ts';
 import {nearestTerrainRoad,terrainWheelContact} from './terrain-math.ts';
-import {resetCrashRecovery,beginCrashRecovery} from './crash-recovery-math.ts';
+import {resetCrashRecovery,beginCrashRecovery,beginRouteCrashRecovery} from './crash-recovery-math.ts';
 
 // All lifecycle barriers apply even while paused; the ordinary input reducer
 // still owns requested driver pose/speed and pause precedence after this system.
@@ -39,9 +39,10 @@ export const ResetCrashLifecycle=defineSystem({
 // the producer's immediate physical latch. Persisted count/step guards reject
 // stale latches before any RNG draw; no decoded event or invented witness.
 /** Validate the immediate producer latch before accessing the native RNG. */
-export function hasNewCrashImpact(crash:CrashDriverValue,count:number,step:number,mapId:number,locked:boolean):boolean {
-  if(mapId!==crash.mapId||mapId!==1)throw new Error('Crash/contact owner maps must match');
+export function hasNewCrashImpact(crash:CrashDriverValue,count:number,step:number,mapId:number,locked:boolean,route=false):boolean {
+  if(mapId!==crash.mapId||(route? !Number.isInteger(mapId)||mapId<1||mapId>16:mapId!==1))throw new Error('Crash/contact owner maps must match');
   if(count===crash.consumedAcceptedCount)return false;
+  if(route&&mapId===16)throw new Error('Goal cannot produce a new physical contact');
   if(count!==crash.consumedAcceptedCount+1||crash.phase!==0||locked||crash.pendingStep!==step)
     throw new Error('Incoherent crash acceptance sequence');
   if((crash.kind!==1&&crash.kind!==2)||![75,100,200].includes(crash.handlingCap)||
@@ -53,22 +54,26 @@ export function hasNewCrashImpact(crash:CrashDriverValue,count:number,step:numbe
 export const BeginCrashRecovery=defineSystem({
   name:'BeginCrashRecovery',after:['AdvanceTraffic'],
   runIf:{query:query(read(CrashDriver))},
-  queries:{owners:query(write(CrashDriver),write(TerrainDriver)),contacts:query(write(CollisionDriver))},
+  queries:{owners:query(write(CrashDriver),write(TerrainDriver)),contacts:query(write(CollisionDriver)),routes:query(read(RouteDriver))},
   resources:[read(DrivingState)],
-  run(ctx,{owners,contacts}){
+  run(ctx,{owners,contacts,routes}){
     if(owners.count!==1||contacts.count!==1)throw new Error('Crash recovery requires one matching collision owner');
+    if(routes.count>1)throw new Error('Crash recovery supports one route owner');
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
       const crash=chunk.get(CrashDriver,row);
       for(const collisions of contacts.chunks())for(let index=0;index<collisions.length;index++){
         if(collisions.entity(index)!==chunk.entity(row))throw new Error('CrashDriver must belong to the collision/terrain driver');
         const collision=collisions.col(CollisionDriver),count=collision.acceptedCount[index]!;
-        if(!hasNewCrashImpact(crash,count,ctx.step,collision.mapId[index]!,collision.locked[index]!==0))return;
+        const route=routes.count===1?routes.chunks().find(part=>part.length>0):undefined;
+        if(route&&(route.entity(0)!==chunk.entity(row)||route.col(RouteDriver).mapId[0]!==crash.mapId||route.col(RouteDriver).pending[0]!==0))
+          throw new Error('Crash route authority must be committed on the same owner');
+        if(!hasNewCrashImpact(crash,count,ctx.step,collision.mapId[index]!,collision.locked[index]!==0,route!==undefined))return;
         const state=ctx.resource(DrivingState);
         if(!state.active[0]||!state.playing[0])throw new Error('Crash acceptance requires a running driver');
 
         const variant=ctx.rng.range(0,2);
         if(variant!==0&&variant!==1)throw new Error('Invalid crash variant');
-        chunk.set(CrashDriver,row,beginCrashRecovery(crash,crash,variant,count));
+        chunk.set(CrashDriver,row,route?beginRouteCrashRecovery(crash,crash,variant,count):beginCrashRecovery(crash,crash,variant,count));
         // Diagnostics apply on the accepted tick too; preserve its completed
         // physical pose while removing ordinary terrain's hide/skid effects.
         const smoke=crash.impactSpeed>0?1:0;

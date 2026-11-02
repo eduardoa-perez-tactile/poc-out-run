@@ -18,13 +18,26 @@ export function crashCadence(value:number):3|4|5|6{
 }
 export function resetCrashRecovery(mapId=1):CrashDriverValue{
   require(mapId===1,'unsupported map');
+  return emptyCrashRecovery(mapId);
+}
+export function resetRouteCrashRecovery(mapId:number):CrashDriverValue{
+  require(Number.isInteger(mapId)&&mapId>=1&&mapId<=16,'unsupported route map');
+  return emptyCrashRecovery(mapId);
+}
+function emptyCrashRecovery(mapId:number):CrashDriverValue{
   return {mapId,phase:0,consumedAcceptedCount:0,pendingStep:0,variant:0,kind:0,impactSpeed:0,handlingCap:0,collisionDir:0,curve:0,
     totalAdvances:0,advances:0,cadenceTick:0,decrement:0,reactionTick:0,recenterTarget:0};
 }
 /** Latch only. The ordinary hit-tick pose belongs to AdvanceDriving, not this helper. */
 export function beginCrashRecovery(previous:CrashDriverValue,contact:Readonly<Pick<ContactAcceptedValue,'mapId'|'kind'|'impactSpeed'|'handlingCap'|'collisionDir'|'curve'>>,variant:0|1,acceptedCount:number):CrashDriverValue{
+  return beginRecovery(previous,contact,variant,acceptedCount,false);
+}
+export function beginRouteCrashRecovery(previous:CrashDriverValue,contact:Readonly<Pick<ContactAcceptedValue,'mapId'|'kind'|'impactSpeed'|'handlingCap'|'collisionDir'|'curve'>>,variant:0|1,acceptedCount:number):CrashDriverValue{
+  return beginRecovery(previous,contact,variant,acceptedCount,true);
+}
+function beginRecovery(previous:CrashDriverValue,contact:Readonly<Pick<ContactAcceptedValue,'mapId'|'kind'|'impactSpeed'|'handlingCap'|'collisionDir'|'curve'>>,variant:0|1,acceptedCount:number,route:boolean):CrashDriverValue{
   require(previous.phase===0,'cannot begin while locked');
-  require(contact.mapId===previous.mapId&&contact.mapId===1,'contact map mismatch');
+  require(contact.mapId===previous.mapId&&(route?Number.isInteger(contact.mapId)&&contact.mapId>=1&&contact.mapId<=15:contact.mapId===1),'contact map mismatch');
   require(variant===0||variant===1,'invalid spin variant');
   require(Number.isInteger(acceptedCount)&&acceptedCount>0&&acceptedCount<=0xffffffff&&acceptedCount===previous.consumedAcceptedCount+1,'incoherent acceptance count');
   require(contact.kind===1||contact.kind===2,'invalid contact kind');
@@ -32,7 +45,7 @@ export function beginCrashRecovery(previous:CrashDriverValue,contact:Readonly<Pi
   require([75,100,200].includes(contact.handlingCap),'invalid captured handling cap');
   require(Number.isFinite(contact.collisionDir)&&Number.isFinite(contact.curve),'nonfinite captured drift');
   const total=impact>0?crashLapCount(impact)*8:0;
-  return {...resetCrashRecovery(previous.mapId),phase:impact>0?1:2,consumedAcceptedCount:acceptedCount,
+  return {...emptyCrashRecovery(previous.mapId),phase:impact>0?1:2,consumedAcceptedCount:acceptedCount,
     variant,kind:contact.kind,impactSpeed:impact,handlingCap:q(contact.handlingCap),collisionDir:q(contact.collisionDir),curve:q(contact.curve),
     totalAdvances:total,decrement:total>0?q(impact/total):0};
 }
@@ -40,17 +53,34 @@ export function beginCrashRecovery(previous:CrashDriverValue,contact:Readonly<Pi
 /** One locked fixed tick, replacing ordinary terrain integration. No inputs/RNG/render clock. */
 export function advanceCrashRecovery(previous:CrashDriverValue,source:TerrainDrivingSample,terrain:TerrainDriverValue,
   data:ReadonlySourceBiomeData,dt:number):CrashRecoveryResult{
-  require(previous.mapId===1&&terrain.mapId===1&&data.id===1,'unsupported recovery map');
+  return advanceRecovery(previous,source,terrain,data,dt);
+}
+/** Route movement has already happened exactly once, before destination recovery.
+ * This entry finishes the same recovery phases without proof endpoint cancellation.
+ * originCamera is in the destination domain (zero on a biome handoff).
+ */
+export function finishCrashRecoveryAtCamera(previous:CrashDriverValue,source:TerrainDrivingSample,terrain:TerrainDriverValue,
+  data:ReadonlySourceBiomeData,dt:number,preparedCamera:number,originCamera:number):CrashRecoveryResult{
+  require([preparedCamera,originCamera].every(value=>Number.isInteger(value)&&value>=0&&value<data.totalCount*data.segmentLength),'invalid prepared route camera');
+  return advanceRecovery(previous,source,terrain,data,dt,{camera:preparedCamera,originCamera});
+}
+function advanceRecovery(previous:CrashDriverValue,source:TerrainDrivingSample,terrain:TerrainDriverValue,
+  data:ReadonlySourceBiomeData,dt:number,route?:Readonly<{camera:number;originCamera:number}>):CrashRecoveryResult{
+  require(route!==undefined
+    ?Number.isInteger(data.id)&&data.id>=1&&data.id<=16&&previous.mapId===data.id&&terrain.mapId===data.id
+    :previous.mapId===1&&terrain.mapId===1&&data.id===1,'unsupported recovery map');
   require(Number.isFinite(dt)&&dt>0,'invalid fixed dt');
   require(Number.isInteger(previous.phase)&&previous.phase>=0&&previous.phase<=3,'invalid phase');
   require([source.distance,source.lateral,source.steering,terrain.previousGap].every(Number.isFinite),'nonfinite physical pose');
   speed(source.legacySpeed);
   let driving:TerrainDrivingResult['driving']={distance:q(source.distance),lateral:q(source.lateral),legacySpeed:q(source.legacySpeed),
     gear:source.gear,steering:q(source.steering),playing:source.playing};
+  if(route)driving.distance=route.camera;
   const limit=q(data.lastLine*data.segmentLength);
   require(limit>0&&source.distance>=0,'invalid camera bound');
   const point=(distance:number)=>{
-    const segment=Math.floor(q(distance+data.playerOffsetZ)/data.segmentLength),row=data.segments[segment];
+    const sampled=Math.floor(q(distance+data.playerOffsetZ)/data.segmentLength);
+    const segment=route?sampled%data.totalCount:sampled,row=data.segments[segment];
     require(row!==undefined,'player outside source rows');return{segment,row};
   };
   const diagnostics=(next:TerrainDriverValue,hidden:boolean,movingSpin:boolean)=>{
@@ -60,7 +90,7 @@ export function advanceCrashRecovery(previous:CrashDriverValue,source:TerrainDri
       skidding:false,recentering:hidden};
   };
   // Endpoint cancellation also runs when the game was already paused there.
-  if(terrain.sectionEnd||driving.distance>=limit){
+  if(!route&&(terrain.sectionEnd||driving.distance>=limit)){
     driving={...driving,distance:limit,legacySpeed:0,gear:0,steering:0,playing:false};
     return {crash:resetCrashRecovery(previous.mapId),driving,driver:diagnostics({...terrain,sectionEnd:true,recenterTarget:0},false,false),lockedThisTick:false};
   }
@@ -69,18 +99,20 @@ export function advanceCrashRecovery(previous:CrashDriverValue,source:TerrainDri
   require([75,100,200].includes(previous.handlingCap),'invalid persisted handling cap');
   require([previous.collisionDir,previous.curve,previous.decrement,previous.recenterTarget].every(Number.isFinite),'nonfinite recovery operand');
   let crash={...previous},driver={...terrain,sectionEnd:false},ls=driving.lateral,lc=ls,lr=ls,drift=0,carryApplied=false;
-  const l0=driving.lateral,z0=q(driving.distance+data.playerOffsetZ),previousGap=q(terrain.previousGap);
+  const l0=driving.lateral,z0=q((route?route.originCamera:driving.distance)+data.playerOffsetZ),previousGap=q(terrain.previousGap);
   driving.steering=0;
   if(previous.phase===1){
     require([8,16,24,32].includes(previous.totalAdvances)&&Number.isInteger(previous.advances)&&previous.advances>=0&&previous.advances<previous.totalAdvances,'invalid spin advances');
     const before=speed(driving.legacySpeed),period=crashCadence(before);
     require(Number.isInteger(previous.cadenceTick)&&previous.cadenceTick>=0&&previous.cadenceTick<period&&previous.decrement>0,'invalid cadence state');
-    const delta=q(before*60*dt),distanceDelta=previous.kind===2?q(delta*q(.5)):delta;
     require(previous.kind===1||previous.kind===2,'invalid spin direction kind');
-    driving.distance=q(Math.max(0,Math.min(limit,q(driving.distance+(previous.kind===2?-distanceDelta:distanceDelta)))));
-    if(driving.distance>=limit){
-      driving={...driving,legacySpeed:0,gear:0,steering:0,playing:false};
-      return {crash:resetCrashRecovery(previous.mapId),driving,driver:diagnostics({...driver,sectionEnd:true,recenterTarget:0},false,false),lockedThisTick:false};
+    if(!route){
+      const delta=q(before*60*dt),distanceDelta=previous.kind===2?q(delta*q(.5)):delta;
+      driving.distance=q(Math.max(0,Math.min(limit,q(driving.distance+(previous.kind===2?-distanceDelta:distanceDelta)))));
+      if(driving.distance>=limit){
+        driving={...driving,legacySpeed:0,gear:0,steering:0,playing:false};
+        return {crash:resetCrashRecovery(previous.mapId),driving,driver:diagnostics({...driver,sectionEnd:true,recenterTarget:0},false,false),lockedThisTick:false};
+      }
     }
     crash.cadenceTick++;
     if(crash.cadenceTick===period){

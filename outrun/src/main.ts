@@ -1,4 +1,5 @@
 import './content/biome-boot.ts';
+import './content/route-boot.ts';
 
 export { RoadViewSetup, RoadProofInput, SelectRoadFixture, AdvanceRoadProof } from './sim/road-state.ts';
 export { RoadPresentation } from './render/road-presentation.ts';
@@ -15,6 +16,7 @@ export {ResetMap01Driving} from './sim/map01-entry.ts';
 export {TerrainPresentation} from './render/terrain-presentation.ts';
 
 export {AdvanceTraffic} from './sim/traffic.ts';
+export {AdvanceRoute} from './sim/routes.ts';
 
 export {ResetCrashLifecycle,BeginCrashRecovery} from './sim/crash-lifecycle.ts';
 

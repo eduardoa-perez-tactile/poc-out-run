@@ -317,6 +317,27 @@ def compile_goal(fixture,gradient):
     header={'TIME:':int(times[0]),'TERRAIN:':fixture['goalPolicy']['terrain'],'ROAD_TERRAIN:':fixture['goalPolicy']['roadTerrain']}
     return finish_map(fixture,16,gradient,descriptor,objects,segments,commands,definitions,winners,overwritten,len(recipe['writes']),-1,swap,header,palette,dict(fixture['implementationSources']),path)
 
+def compile_route_profile(fixture,gradient,map_id=1):
+    """Additive ORIGINAL route entry, including genuine goal nonzero tails.
+
+    Existing review compile_map/compile_goal and CLI contracts stay unchanged.
+    Reuse their authored result and the SAME finish_map/expand assembler; never
+    synthesize heights or mutate the caller's source fixture.
+    """
+    map_spec(map_id)
+    need(type(gradient)is int and gradient in (-1,0,1),'route-profile',1,'fork gradient must be integer -1,0,1')
+    base=compile_map(fixture,0,map_id)
+    if gradient==0:return base
+    authored=base['authoredCount']
+    path=fixture['mapPath'] if map_id!=16 else fixture['sourceRecipe']['biome']['path']
+    palette=dict(zip(COLORS,base['palette']))
+    header={'TIME:':base['timeSeconds'],'TERRAIN:':base['terrain'],'ROAD_TERRAIN:':base['roadTerrain']}
+    winners={(p['segment'],p['slot']):p['definition'] for p in base['placements']}
+    return finish_map(fixture,map_id,gradient,map_spec(map_id),base['objects'],
+        [dict(row) for row in base['segments'][:authored]],base['commands'],base['definitions'],
+        winners,list(base['overwritten']),base['candidatePlacements'],base['checkpointLine'],
+        base['swapLine'] if base['swapLine']<authored else 0,header,palette,dict(base['sourceHashes']),path)
+
 # Source-oracle comparison only: platform cosf vs Python double cos rounded to
 # f32 differs in exactly these measured source-profile fields. Never use this
 # tolerance in runtime state, committed-data equality or replay verification.

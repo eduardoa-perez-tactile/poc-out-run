@@ -31,6 +31,7 @@ function store(driver:CollisionDriverValue,keys:readonly CollisionKey[]):Collisi
   }
   return next;
 }
+export {ledger as readCollisionLedger,store as writeCollisionLedger};
 /** Optional-owner adapter inside the original AdvanceTraffic RNG owner, after
  * advance and before finalize. No contact can inspect the replacement life. */
 export function evaluateCollisionDriver(previous:CollisionDriverValue,driving:DrivingStateValue,

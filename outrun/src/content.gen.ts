@@ -23,6 +23,12 @@ registerContent({
       "data/biomes/map13.json",
       "data/biomes/map14.json",
       "data/biomes/map15.json"
+    ],
+    "SourceRouteCohort": [
+      "data/routes/original-route-cohort.json"
+    ],
+    "SourceBiomeTailProfiles": [
+      "data/routes/original-tail-profiles.json"
     ]
   },
   "collections": {}

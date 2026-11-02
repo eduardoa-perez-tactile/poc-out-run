@@ -47,7 +47,7 @@ function rowRange(data:ReadonlySourceBiomeData,z0:number,z1:number){
   const last=Math.min(data.segments.length-1,Math.floor((Math.max(z0,z1)+PLAYER_COLLIDER.halfLength)/150));
   return {first,last};
 }
-function eachRoadside(data:ReadonlySourceBiomeData,z0:number,z1:number,visit:(key:CollisionKey,slot:number,motion:CollisionStaticMotion,hull:CollisionHull)=>void){
+function eachRoadside(data:ReadonlySourceBiomeData,z0:number,z1:number,visit:(key:CollisionKey,slot:number,motion:CollisionStaticMotion,hull:CollisionHull)=>void,route=false){
   const {first,last}=rowRange(data,z0,z1);
   for(let row=first;row<=last;row++){
     const start=data.objectOffsets[row],end=data.objectOffsets[row+1];
@@ -57,7 +57,7 @@ function eachRoadside(data:ReadonlySourceBiomeData,z0:number,z1:number,visit:(ke
       const placement=data.placements[i]!;
       require(placement.segment===row&&placement.slot>=0&&placement.slot<5&&(mask&(1<<placement.slot))===0,'invalid source placement row/slot');
       mask|=1<<placement.slot;
-      const box=collisionRoadsideHull(data,placement);if(!box)continue;
+      const box=collisionRoadsideHull(data,placement,route);if(!box)continue;
       require(q(box.maxZ-box.minZ)===150,'roadside band must remain150');
       visit({kind:'roadside',mapId:data.id,id:box.placementId,epoch:0,generation:0},box.slot,
         {kind:'static',x:box.centerX,z:q((box.minZ+box.maxZ)/2)},{halfWidth:box.halfWidth,halfLength:75});
@@ -77,6 +77,9 @@ function eachTraffic(pool:Readonly<TrafficPoolValue>,departures:readonly Traffic
       {kind:'traffic',z0:pool.previousZ[slot]!,z1:pool.z[slot]!,offset0:pool.previousOffset[slot]!,offset1:pool.offset[slot]!,side:pool.side[slot] as 0|1},collisionTrafficHull(slot+1));
   }
 }
+// Route queries reuse source five-slot placement validation and contact ordering.
+// Their canonical wrap/old-life motion policy is a separate caller-owned layer.
+export {eachRoadside as visitCollisionRoadside,earlier as collisionContactEarlier};
 /** Pure detector at AdvanceTraffic's advance/finalize seam: pool still contains
  * the OLD generation/side and physical pre/current poses. No RNG or writes. */
 export function queryCollisionContacts(player:CollisionPlayerMotion,pool:Readonly<TrafficPoolValue>,data:ReadonlySourceBiomeData,
