@@ -11,7 +11,7 @@ specific guidance.
 ## The game
 
 Internal personal OutRun prototype on Game Engine, targeting mobile and web in landscape.
-The current code is the engine starter; OutRun gameplay is migrated in small playable slices.
+The game includes the connected ORIGINAL race; remaining selections, audio and modes are tracked separately.
 Fast desktop iteration is the priority. Physical-phone testing is excluded unless the user
 later requests it; do not use connected phones for installs, runs, profiling or screenshots.
 Use simulated mobile viewports/safe areas, desktop phone-low residency and structural checks,
@@ -38,7 +38,9 @@ Chrome stays in the background and physical-phone testing remains excluded.
 
 Run `npm run play` from the repository root to launch the connected ORIGINAL race.
 The live scene is `scenes/original-race.scene.json`; the browser preview also starts there.
-The older proof bootstrap remains the test-recording fixture until the milestone bootstrap change.
+The project starts directly in that race. The harness runs legacy recordings in an owned copy
+with the proof bootstrap; only that copy's startScene differs. Production checks and exports
+use the actual race startup.
 
 ## Conventions
 

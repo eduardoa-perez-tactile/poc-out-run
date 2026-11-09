@@ -362,7 +362,7 @@
       }
     }
   },
-  "startScene": "scenes/road-proof.scene.json",
+  "startScene": "scenes/original-race.scene.json",
   "check": {
     "smoke": {
       "frames": 120
