@@ -2,7 +2,7 @@
 import {defineSystem,query,read,write,meshes,assets,MaterialOverrides,MeshRenderer,ViewInfo,RenderTime,RenderStatus,
   entityIndex,entityGen,type MeshArrays} from '@gameengine/runtime';
 import {RouteDriver,RouteTrafficCoordinates,TerrainDriver,TrafficPool,CrashDriver,DrivingState,DrivingInput,
-  RouteLiveSlot,RouteLiveVisual,VehiclePreview} from '../schema.gen.ts';
+  RouteLiveSlot,RouteLiveVisual,VehiclePreview,RaceState} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import type {SourceBiomeId} from '../content/biome.ts';
 import {buildSourceRoad,sourceProjectionStats} from './source-projection.ts';
@@ -47,7 +47,7 @@ export const RoutePresentation=defineSystem({
   name:'RoutePresentation',stage:'LateUpdate',before:['VehiclePresentation'],
   queries:{actors:query(read(RouteDriver),read(RouteTrafficCoordinates),read(TerrainDriver),read(TrafficPool),read(CrashDriver)),
     slots:query(read(RouteLiveSlot),write(MeshRenderer),write(MaterialOverrides))},
-  resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(ViewInfo),read(RenderTime),read(RenderStatus)],
+  resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(RaceState),read(ViewInfo),read(RenderTime),read(RenderStatus)],
   run(ctx,{actors,slots}){
     const state=ctx.get(RouteLiveVisual),time=ctx.get(RenderTime),view=ctx.get(ViewInfo),render=ctx.get(RenderStatus);
     if(!state.reconciled){
@@ -154,7 +154,7 @@ export const RoutePresentation=defineSystem({
       }
       if(driving.playing&&!terrain.recentering&&!reset&&ctx.step>oldStep)state.animationTicks+=ctx.step-oldStep;
       const vehicle=ctx.get(VehiclePreview);
-      ctx.set(VehiclePreview,{...routeVehiclePreview(data,terrain,crash,driving,held.keyboard|held.ui,state.animationTicks,vehicle.pose,reset,ctx.dt)});
+      ctx.set(VehiclePreview,{...routeVehiclePreview(data,terrain,crash,driving,held.keyboard|held.ui,state.animationTicks,vehicle.pose,reset,ctx.dt,ctx.get(RaceState))});
       const trafficSamples=traffic.sample(data,pool,coordinates,time.alpha,driving.playing);
       let composite:MeshArrays;
       if(environment.kind==='map1'){

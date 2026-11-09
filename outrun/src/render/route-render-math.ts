@@ -1,7 +1,7 @@
 // Presentation adapters for the delivered immutable route cohort and live actors.
 import type {
   ReadonlySourceBiomeData,RouteDriverValue,RouteTrafficCoordinatesValue,TrafficPoolValue,
-  DrivingStateValue,TerrainDriverValue,CrashDriverValue,VehiclePreviewValue,
+  DrivingStateValue,TerrainDriverValue,CrashDriverValue,VehiclePreviewValue,RaceStateValue,
 } from '../schema.gen.ts';
 import type {DestinationEnvironmentId,EnvironmentArtManifest} from '../content/environments/environment-art.ts';
 import {MAP01_ART} from '../content/environments/map01.manifest.ts';
@@ -13,6 +13,7 @@ import {terrainVehiclePose,terrainParallaxOffset} from './terrain-presentation-m
 import {crashVehicleSample} from './crash-presentation-math.ts';
 import {wrapMap01Texels} from './map01-art-backgrounds.ts';
 import {VISUAL_FRAME_SECONDS} from '../content/vehicles/vehicle-poses.ts';
+import {RacePhase,ENDING_ACCELERATION} from '../sim/race-flow-math.ts';
 
 interface RouteEnvironmentCommon {
   readonly group:string;
@@ -96,10 +97,31 @@ export type RouteVehiclePatch=Pick<VehiclePreviewValue,'enabled'|'autoplay'|'use
 export function routeVehiclePreview(
   data:ReadonlySourceBiomeData,terrain:Readonly<TerrainDriverValue>,crash:Readonly<CrashDriverValue>,
   driving:Readonly<DrivingStateValue>,heldBits:number,animationTicks:number,previousPose:number,refreshOrdinary:boolean,dt=1/60,
+  race?:Readonly<Pick<RaceStateValue,'initialized'|'phase'|'resumePhase'|'phaseTicks'>>,
 ):RouteVehiclePatch {
   if(terrain.mapId!==data.id||crash.mapId!==data.id)throw new Error('Route vehicle owner maps must agree');
   const row=data.segments[terrain.segment];if(!row)throw new Error('Route vehicle source row is missing');
   const recovery=crashVehicleSample(crash),inheritedCrash=!recovery&&previousPose>=18&&previousPose<=21;
+  // Pinned PlayerCar.cpp1554–1688 drawEndDriftRound owns the goal body:
+  // zero-based textures146/147/121 are one-based files147/148/122.
+  // Recovery still wins. Ending autopilot ignores held accelerator/brake keys.
+  const phase=race?.phase===RacePhase.Paused?race.resumePhase:race?.phase;
+  if(!recovery&&data.id===16&&race?.initialized&&
+    (phase===RacePhase.EndingRoll||phase===RacePhase.EndingBrake||phase===RacePhase.Bonus||phase===RacePhase.Results)){
+    let pose=0,sample=Math.floor(animationTicks*dt/VISUAL_FRAME_SECONDS)%3;
+    if(phase===RacePhase.Bonus||phase===RacePhase.Results||(phase===RacePhase.EndingBrake&&driving.legacySpeed<=0)){pose=18;sample=1;}
+    else if(phase===RacePhase.EndingBrake){
+      if(driving.legacySpeed>=100){pose=9;sample=Math.floor(race.phaseTicks*dt/VISUAL_FRAME_SECONDS)%3;}
+      else if(driving.legacySpeed>=60){
+        // Source brake-left textures64..71 advance once then hold71. Reuse
+        // the existing20fps presentation cadence, anchored at the100 threshold
+        // via the source constant deceleration, independently of rendered frames.
+        pose=10;sample=Math.min(7,Math.floor((100-driving.legacySpeed)/(ENDING_ACCELERATION*3)/VISUAL_FRAME_SECONDS));
+      }else {pose=22;sample=driving.legacySpeed>=40?0:1;}
+    }
+    const smoke=phase===RacePhase.EndingBrake&&driving.legacySpeed>0?1:0;
+    return {enabled:true,autoplay:false,useWheelEffects:true,pose,sample,hidden:false,leftEffect:smoke,rightEffect:smoke};
+  }
   const ordinary=driving.playing||refreshOrdinary||inheritedCrash?terrainVehiclePose(driving.steering,row.y1-row.y0,(heldBits&2)!==0):previousPose;
   const hidden=recovery?.hidden??terrain.recentering;
   return {enabled:true,autoplay:false,useWheelEffects:true,pose:recovery?.pose??ordinary,
