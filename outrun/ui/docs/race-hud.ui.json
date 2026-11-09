@@ -47,7 +47,7 @@
           24
         ],
         "w": "78%",
-        "h": 124,
+        "h": 128,
         "dir": "row",
         "align": "center",
         "gap": 32,
@@ -66,7 +66,7 @@
         "dir": "column",
         "gap": 0,
         "w": 220,
-        "h": 100
+        "h": 104
       }
     },
     "rh_time_label": {
@@ -77,7 +77,7 @@
         "fontSize": 28,
         "weight": 800,
         "color": "#f76300ff",
-        "h": 34
+        "h": 42
       }
     },
     "rh_time_value": {
@@ -105,7 +105,7 @@
         "dir": "column",
         "gap": 0,
         "w": 540,
-        "h": 100
+        "h": 104
       }
     },
     "rh_score_label": {
@@ -116,7 +116,7 @@
         "fontSize": 28,
         "weight": 800,
         "color": "#f763e8ff",
-        "h": 34
+        "h": 42
       }
     },
     "rh_score_value": {
@@ -144,7 +144,7 @@
         "dir": "column",
         "gap": 0,
         "w": 360,
-        "h": 100
+        "h": 104
       }
     },
     "rh_lap_label": {
@@ -155,7 +155,7 @@
         "fontSize": 28,
         "weight": 800,
         "color": "#00c594ff",
-        "h": 34
+        "h": 42
       }
     },
     "rh_lap_value": {
