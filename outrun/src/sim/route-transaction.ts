@@ -4,6 +4,7 @@ import type {RouteDriverValue,RouteTrafficCoordinatesValue,DrivingStateValue,Ter
 import type {RouteContent,RouteDriverState,RouteGradient} from './route-math.ts';
 import {publishRoutePassAwards} from './route-math.ts';
 import {prepareRoutePlayerTick,finishRoutePlayerTick} from './route-driving-math.ts';
+import {prepareGoalPlayerTick,finishGoalPlayerTick} from './goal-driving.ts';
 import {resetTerrainDriver,nearestTerrainRoad,terrainWheelContact} from './terrain-math.ts';
 import {resetRouteCrashRecovery} from './crash-recovery-math.ts';
 import {sampleRouteZ} from './route-space.ts';
@@ -34,11 +35,11 @@ function resetCollision(previous:CollisionDriverValue,step:number):CollisionDriv
  * Route intent is schema-owned; repeat preparation is pure and checked exactly.
  */
 export function commitRouteActors(before:RouteActorSnapshot,controls:DrivingControls,content:RouteContent,
-  dt:number,step:number,rng:TrafficRandom,population=before.pool.population):RouteActorResult{
+  dt:number,step:number,rng:TrafficRandom,population=before.pool.population,endingMode:2|3|4|null=null):RouteActorResult{
   dt=math.fround(dt);need(dt===math.fround(1/60),'requires nominal source60Hz');
   const route=before.route;
   need(route.initialized&&route.pending&&route.pendingStep===step,'missing current route intent');
-  need(route.pendingFromMapId>=1&&route.pendingFromMapId<=15,'invalid outgoing route map');
+  need(route.pendingFromMapId>=1&&(route.pendingFromMapId<=15||(route.pendingFromMapId===16&&route.goalEntered&&endingMode!==null&&!route.pendingHandoff&&!route.pendingReset)),'invalid outgoing route map');
   const outgoing=content.get(route.pendingFromMapId as SourceBiomeId,gradient(route.pendingFromGradient));
   const destination=content.get(route.mapId as SourceBiomeId,gradient(route.gradient));
   const oldIdentity={mapId:outgoing.id,routeEpoch:route.routeEpoch,mapEpoch:route.pendingOldMapEpoch};
@@ -60,14 +61,16 @@ export function commitRouteActors(before:RouteActorSnapshot,controls:DrivingCont
   need(before.terrain.mapId===outgoing.id&&before.crash.mapId===outgoing.id&&before.collision.mapId===outgoing.id,'physical maps differ from outgoing intent');
   need(before.driving.distance===route.pendingPreviousCamera,'driving camera differs from route authority');
   const rawPool=hydrateRouteTrafficPool(before.pool,before.coordinates,oldIdentity,outgoing);
-  const prepared=prepareRoutePlayerTick({...before.driving,distance:route.pendingPreviousCamera},before.terrain,before.crash,controls,dt,outgoing);
+  const prepared=endingMode!==null&&outgoing.id===16
+    ?prepareGoalPlayerTick({...before.driving,distance:route.pendingPreviousCamera},before.terrain,before.crash,endingMode,dt,outgoing)
+    :prepareRoutePlayerTick({...before.driving,distance:route.pendingPreviousCamera},before.terrain,before.crash,controls,dt,outgoing);
   need(prepared.driving.distance===route.pendingOutgoingCamera&&prepared.unwrappedCamera===route.pendingRawCamera,'preparation differs from route intent');
   need(route.camera===(route.pendingHandoff?0:prepared.driving.distance),'route commit camera mismatch');
   const player={previousZ:route.pendingPreviousCamera+702,z:prepared.unwrappedCamera+702,
     // Source handleEvent controls precede outgoing NPC AI; CF/bounds finish later.
     previousLateral:prepared.driving.lateral,lateral:prepared.driving.lateral,
     previousSide:before.terrain.roadSide,side:before.terrain.roadSide,playing:before.driving.playing};
-  const advanced=advanceTrafficPool(rawPool,player,outgoing,dt,rng,{suppressPass:false,route:domain});
+  const advanced=advanceTrafficPool(rawPool,player,outgoing,dt,rng,{suppressPass:outgoing.id===16,route:domain});
   // Exit keeps outgoing pass eligibility, but never accepts an outgoing impact.
   // Only control + longitudinal movement occurred there: do not invent old-map
   // CF/recovery finishing before the real destination finishing below.
@@ -80,7 +83,9 @@ export function commitRouteActors(before:RouteActorSnapshot,controls:DrivingCont
     outgoingMask=queryRouteCollisionContacts(controlTrace,advanced.pool,outgoing,
       readCollisionLedger(before.collision),{mode:'sweep',locked:prepared.lockedThisTick}).eligibilityMask;
   }
-  const physical=finishRoutePlayerTick(prepared,destination,route.pendingHandoff?{outgoingCamera:route.pendingOutgoingCamera}:null);
+  const physical=endingMode!==null&&outgoing.id===16
+    ?finishGoalPlayerTick(prepared,destination,endingMode)
+    :finishRoutePlayerTick(prepared,destination,route.pendingHandoff?{outgoingCamera:route.pendingOutgoingCamera}:null);
   const driving={...before.driving,...physical.driving,previousDistance:route.pendingHandoff?0:route.pendingPreviousCamera,
     previousLateral:route.pendingHandoff?physical.driving.lateral:before.driving.lateral};
   const transferred=route.pendingHandoff

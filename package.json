@@ -19,6 +19,7 @@
     "gate:pr": "node scripts/harness.mjs pr",
     "gate:milestone": "node scripts/harness.mjs milestone",
     "test:plan": "node scripts/harness.mjs plan",
-    "test:budget": "node scripts/harness.mjs budget"
+    "test:budget": "node scripts/harness.mjs budget",
+    "play": "node outrun/.gameengine/engine/tools/cli/bin/gameengine.mjs run --project outrun --scene scenes/original-race.scene.json"
   }
 }

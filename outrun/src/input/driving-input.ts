@@ -1,17 +1,20 @@
 import { defineSystem, write, read, query, math, KeyEvent, Keys } from '@gameengine/runtime';
-import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested, TerrainDriver } from '../schema.gen.ts';
+import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested, TerrainDriver, RaceOwner, RaceState } from '../schema.gen.ts';
 
 import {loadMap01} from '../content/biome.ts';
 
 export const CaptureDrivingInput = defineSystem({
   name: 'CaptureDrivingInput',
-  query:query(read(TerrainDriver)),
+  queries:{sourceDrivers:query(read(TerrainDriver)),raceOwners:query(read(RaceOwner))},
   events: [KeyEvent, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested],
-  resources: [write(DrivingState), write(DrivingInput)],
-  run(ctx,sourceDrivers) {
+  resources: [write(DrivingState), write(DrivingInput), read(RaceState)],
+  run(ctx,{sourceDrivers,raceOwners}) {
     const state = ctx.resource(DrivingState);
     if (!state.active[0]) return;
     const held = ctx.resource(DrivingInput);
+    const race = ctx.resource(RaceState);
+    const countdown = raceOwners.count===1 && race.initialized[0]!==0 && race.phase[0]===0;
+    const acceptsControls = () => state.playing[0]!==0 || countdown;
     const setPaused = (paused: boolean) => {
       ctx.setField(DrivingState, 'playing', !paused);
       ctx.set(DrivingInput, { keyboard: 0, ui: 0, shiftUp: false, shiftDown: false });
@@ -54,7 +57,7 @@ export const CaptureDrivingInput = defineSystem({
         const control = key.code === Keys.ArrowUp ? 0 : key.code === Keys.ArrowDown ? 1 : key.code === Keys.ArrowLeft ? 2 : key.code === Keys.ArrowRight ? 3 : -1;
         if (control >= 0) {
           const bit = 1 << control;
-          ctx.setField(DrivingInput, 'keyboard', key.down && state.playing[0] ? held.keyboard[0]! | bit : held.keyboard[0]! & ~bit);
+          ctx.setField(DrivingInput, 'keyboard', key.down && acceptsControls() ? held.keyboard[0]! | bit : held.keyboard[0]! & ~bit);
         }
       }
     }
@@ -63,7 +66,7 @@ export const CaptureDrivingInput = defineSystem({
       const field = input.source === 0 ? 'keyboard' : 'ui';
       const bits = input.source === 0 ? held.keyboard[0]! : held.ui[0]!;
       const bit = 1 << input.control;
-      ctx.setField(DrivingInput, field, input.down && state.playing[0] ? bits | bit : bits & ~bit);
+      ctx.setField(DrivingInput, field, input.down && acceptsControls() ? bits | bit : bits & ~bit);
     }
     // Explicit pause/resume runs after controls: a modal always releases prior holds.
     for (const request of ctx.events.read(DrivingPauseRequested)) setPaused(request.paused);

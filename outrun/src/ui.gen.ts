@@ -76,5 +76,59 @@ declare module '@gameengine/ui' {
       areas: never;
       refs: 'order';
     };
+    /**
+     * Live race HUD: a view (ui/docs/race-hud.ui.json)
+     *
+     * Properties:
+     *   - `time`: text, default "155"
+     *   - `score`: text, default "0"
+     *   - `lap`: text, default "00:00.00"
+     *   - `speed`: text, default "0"
+     *   - `gear`: text, default "AUTO · LOW"
+     *   - `stage`: text, default "STAGE 1/5"
+     *   - `notice`: text, default "READY"
+     *   - `bonus`: text, default ""
+     *   - `showNotice`: yesno, default true
+     *   - `showBonus`: yesno, default false
+     *   - `urgent`: yesno, default false
+     * Events: none
+     * Code areas: none
+     * Refs: none
+     */
+    'race-hud': {
+      props: { time: string | { loc: string } | LocText; score: string | { loc: string } | LocText; lap: string | { loc: string } | LocText; speed: string | { loc: string } | LocText; gear: string | { loc: string } | LocText; stage: string | { loc: string } | LocText; notice: string | { loc: string } | LocText; bonus: string | { loc: string } | LocText; showNotice: boolean; showBonus: boolean; urgent: boolean };
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Race restart action: a widget, button (ui/docs/race-hud-action.ui.json)
+     *
+     * Properties:
+     *   - `label`: text, default "RACE AGAIN"
+     * Events: `<id>`
+     * Code areas: none
+     * Refs: none
+     */
+    'race-hud-action': {
+      props: { label: string | { loc: string } | LocText };
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Race results: a view, dialog (ui/docs/race-hud-results.ui.json)
+     *
+     * Properties:
+     *   - `title`: text, default "FINISH!"
+     *   - `score`: text, default "148,360,000"
+     *   - `summary`: text, default "TIME BONUS 42 S"
+     * Events: `restart`
+     * Code areas: none
+     * Refs: `restart`
+     */
+    'race-hud-results': {
+      props: { title: string | { loc: string } | LocText; score: string | { loc: string } | LocText; summary: string | { loc: string } | LocText };
+      areas: never;
+      refs: 'restart';
+    };
   }
 }

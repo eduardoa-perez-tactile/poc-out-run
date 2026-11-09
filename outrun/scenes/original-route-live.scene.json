@@ -1,0 +1,131 @@
+{
+  "$schemaVersion": 2,
+  "id": "original-route-live",
+  "resources": {
+    "DrivingState": { "active": true, "playing": true, "distance": 45000, "previousDistance": 45000 },
+    "VehiclePreview": { "enabled": true, "scale": 3.2, "autoplay": false, "placeholder": false },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Live ORIGINAL race camera",
+      "id": "camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Persistent ORIGINAL route actor authority",
+      "id": "driver",
+      "CollisionDriver": {},
+      "CrashDriver": {},
+      "RouteDriver": {},
+      "RouteTrafficCoordinates": {},
+      "TerrainDriver": {},
+      "TrafficPool": {}
+    },
+    {
+      "name": "Live route road",
+      "id": "route-live-road",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-road",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": {}
+    },
+    {
+      "name": "Live route composite",
+      "id": "route-live-composite",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-composite",
+        "material": "materials/environment-composite.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": { "slot": 1 }
+    },
+    {
+      "name": "Live route back",
+      "id": "route-live-back",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-back",
+        "material": "materials/map01-panorama.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": { "slot": 2 }
+    },
+    {
+      "name": "Live route front",
+      "id": "route-live-front",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-front",
+        "material": "materials/map01-panorama.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": { "slot": 3 }
+    },
+    {
+      "name": "Live route sky",
+      "id": "route-live-sky",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-sky",
+        "material": "materials/environment-sky.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": { "slot": 4 }
+    },
+    {
+      "name": "Live route incoming-back",
+      "id": "route-live-incoming-back",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-incoming-back",
+        "material": "materials/map01-panorama.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": { "slot": 5 }
+    },
+    {
+      "name": "Live route incoming-front",
+      "id": "route-live-incoming-front",
+      "LocalTransform": {},
+      "MaterialOverrides": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:route-live-incoming-front",
+        "material": "materials/map01-panorama.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "RouteLiveSlot": { "slot": 6 }
+    },
+    {
+      "name": "Live player car",
+      "id": "live-player",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/player-ferrari1.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:player-car",
+        "material": "materials/player-car.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "VehicleVisualSlot": {}
+    }
+  ]
+}
