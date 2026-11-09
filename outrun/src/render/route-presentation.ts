@@ -45,11 +45,39 @@ function panorama(slot:number,layer:number,aspect:number,offset:number,size:read
 
 export const RoutePresentation=defineSystem({
   name:'RoutePresentation',stage:'LateUpdate',before:['VehiclePresentation'],
+  // Default resources exist before scheduling. Run once on each fresh world to
+  // reconcile native private pins, then keep ownerless proof frames native-only.
+  // Partial slot/actor loss and retained leases still enter the cleanup path.
+  runIf:{any:[
+    {query:query(read(RouteDriver),read(RouteTrafficCoordinates),read(TerrainDriver),read(TrafficPool),read(CrashDriver))},
+    {query:query(read(RouteLiveSlot))},
+    {resource:RouteLiveVisual,field:'reconciled',value:false},
+    {resource:RouteLiveVisual,field:'ownerValid'},
+    {resource:RouteLiveVisual,field:'ownsActive'},
+    {resource:RouteLiveVisual,field:'ownsIncoming'},
+    {resource:RouteLiveVisual,field:'ownsShared'},
+  ]},
   queries:{actors:query(read(RouteDriver),read(RouteTrafficCoordinates),read(TerrainDriver),read(TrafficPool),read(CrashDriver)),
     slots:query(read(RouteLiveSlot),write(MeshRenderer),write(MaterialOverrides))},
   resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(RaceState),read(ViewInfo),read(RenderTime),read(RenderStatus)],
   run(ctx,{actors,slots}){
-    const state=ctx.get(RouteLiveVisual),time=ctx.get(RenderTime),view=ctx.get(ViewInfo),render=ctx.get(RenderStatus);
+    // Validate authored slots even when their actor is absent. An inactive
+    // optional presenter must still report malformed/duplicate slot ownership.
+    let slotMask=0;
+    if(slots.count!==0)for(const chunk of slots.chunks())for(let row=0;row<chunk.length;row++){
+      const slot=chunk.col(RouteLiveSlot).slot[row]!;
+      if(slot>6||(slotMask&(1<<slot)))throw new Error('Duplicate or invalid live route mesh slot');slotMask|=1<<slot;
+    }
+    const inactive=actors.count!==1||slots.count!==7||slotMask!==127;
+    const ledger=ctx.resource(RouteLiveVisual);
+    // Native scalar columns avoid copying the palette and rewriting a complete
+    // resource every rendered frame in legacy proof scenes. A fresh world must
+    // still reconcile its private native pins; owner loss must still clean once.
+    if(actors.count===0&&slots.count===0&&ledger.reconciled[0]!==0&&ledger.ownerValid[0]===0&&
+      ledger.ownsActive[0]===0&&ledger.ownsIncoming[0]===0&&ledger.ownsShared[0]===0){
+      readinessInitialized=false;routePresentationStats.ready=false;return;
+    }
+    const state=ctx.get(RouteLiveVisual);
     if(!state.reconciled){
       // A world/replay rebuild resets this ledger while native group pins can
       // survive. Reconcile only this presenter's private namespace. Tracked
@@ -69,18 +97,14 @@ export const RoutePresentation=defineSystem({
       if(state.ownsShared)assets.release(SHARED);
       state.active=state.incoming=0;state.ownsActive=state.ownsIncoming=state.ownsShared=false;
     };
-    let slotMask=0;
-    for(const chunk of slots.chunks())for(let row=0;row<chunk.length;row++){
-      const slot=chunk.col(RouteLiveSlot).slot[row]!;
-      if(slot>6||(slotMask&(1<<slot)))throw new Error('Duplicate or invalid live route mesh slot');slotMask|=1<<slot;
-    }
-    if(actors.count!==1||slots.count!==7||slotMask!==127){
+    if(inactive){
       clear();releaseAll();
       if(state.ownerValid)ctx.set(VehiclePreview,{enabled:false,useWheelEffects:false,hidden:false});
       state.ownerValid=false;state.ioReady=state.renderSettled=state.failed=false;state.swapping=false;
       ctx.set(RouteLiveVisual,state);readinessInitialized=false;routePresentationStats.ready=false;return;
     }
     if(ctx.step===0)return;
+    const time=ctx.get(RenderTime),view=ctx.get(ViewInfo),render=ctx.get(RenderStatus);
     for(const chunk of actors.chunks())for(let row=0;row<chunk.length;row++){
       const route=chunk.get(RouteDriver,row),pool=chunk.get(TrafficPool,row),coordinates=chunk.get(RouteTrafficCoordinates,row),
         terrain=chunk.get(TerrainDriver,row),crash=chunk.get(CrashDriver,row),entity=chunk.entity(row);
