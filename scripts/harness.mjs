@@ -6,6 +6,7 @@ import { performance } from 'node:perf_hooks';
 import { classifyPaths, parseNameStatus } from './lib/plan.mjs';
 import { budgetReplayPaths, verifiedReplayReport } from './lib/replay-budgets.mjs';
 import { activeReplayReport } from './lib/active-replay-budget.mjs';
+import { createRegressionFixture } from './lib/regression-fixture.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const config = JSON.parse(readFileSync(join(root, 'harness.config.json'), 'utf8'));
@@ -15,6 +16,7 @@ const [mode = 'plan', ...args] = process.argv.slice(2);
 const steps = [];
 let selectedPlan;
 let budgetReplaysVerified = false;
+let regressionFixture;
 mkdirSync(output, { recursive: true });
 let locked = false;
 
@@ -85,9 +87,20 @@ function run(label, command, argv, cwd = project, engineTest = false, jsonCheck 
   return { text, json };
 }
 
+function regressionProject() {
+  regressionFixture ??= createRegressionFixture({ root, project, output,
+    sdkRoot: process.env.GAMEENGINE_ROOT || join(project, '.gameengine/engine'),
+    engineVersion: config.engineVersion });
+  return regressionFixture.project;
+}
+
 function engine(label, argv, test = false, jsonCheck = undefined) {
   const [command, prefix] = engineCommand();
-  return run(label, command, [...prefix, ...argv, '--json'], project, test, jsonCheck);
+  // Only regression execution gets the legacy bootstrap. gen/fmt/check and
+  // its production cook + 120-frame smoke always use the actual project.
+  const cwd = argv[0] === 'test' || argv[0] === 'replay' ? regressionProject() : project;
+  console.log(`PROJECT ${label}: ${cwd}`);
+  return run(label, command, [...prefix, ...argv, '--json'], cwd, test, jsonCheck);
 }
 
 function preflight() {
@@ -130,7 +143,7 @@ function activeBudgets(tier, budgetName) {
     if (Object.hasOwn(value, 'activeReplay') && value.activeReplay !== true) throw new Error(`Budget ${file} activeReplay must be true when present`);
   }
   if (budgetName === undefined && !entries.some(({ value }) => value.activeReplay === true)) return;
-  run(`active-replay-${tier}`, process.execPath, [join(root, 'scripts/active-replay-budget.mjs'), '--project', project,
+  run(`active-replay-${tier}`, process.execPath, [join(root, 'scripts/active-replay-budget.mjs'), '--project', regressionProject(),
     '--gpu-tier', tier, '--out', join(output, `active-replay-${tier}.json`), ...(budgetName === undefined ? [] : ['--budget', budgetName])], root, false, activeReplayReport);
 }
 
@@ -206,6 +219,9 @@ try {
   console.error(e.message);
   process.exitCode = 1;
 } finally {
+  // A failed lane still verifies provenance and cleans its one owned fixture.
+  // Inside .artifacts/harness, CI workspace teardown also covers a hard kill.
+  try { regressionFixture?.dispose(); } catch (e) { console.error(`Regression fixture integrity: ${e.message}`); process.exitCode = 1; }
   if (locked) rmSync(join(output, 'engine.lock'), { recursive: true, force: true });
   if (mode !== 'plan') writeFileSync(join(output, `${mode}.json`), JSON.stringify({ mode, ok: !process.exitCode, engineVersion: config.engineVersion, steps }, null, 2) + '\n');
 }
