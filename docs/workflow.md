@@ -2,12 +2,41 @@
 
 This is a personal internal prototype: mobile and web, landscape, deterministic TypeScript
 gameplay on Game Engine 0.1.21. The working game is `outrun/`. Commands below run at the repo root.
-The game currently proves straight/curved road projection, synthetic hill/object clipping
-and recorded road-state controls. These fixtures do not prove car handling,
-traffic AI or race flow. Historical browser bootstrap evidence is recorded in
-[engine setup](engine-setup.md); current coverage is in [the matrix](test-matrix.md).
+The project starts in the connected ORIGINAL race with driving, traffic, collisions, route
+transitions, HUD and results. Complete-game audio, selections and modes remain tracked in the
+backlog. Historical bootstrap evidence is in [engine setup](engine-setup.md); the
+[behavior matrix](test-matrix.md) is a coverage reference for selecting affected checks.
 
-Fast iteration takes priority. Physical-phone testing is excluded unless the user later requests
+## Delivery-first execution
+
+Finish working player-facing features. During implementation use a build/hot-reload check and
+one short smoke check of the changed player flow. Add or run a focused automated test only
+when it proves meaningful new behavior or a reproducible regression. No test-per-edit,
+test-per-save, full-suite checkpoint or speculative test expansion is required.
+
+Run one required exact-head CI gate on the finished, independently usable candidate. Its
+complete result also satisfies handoff. A local full gate is only for a concrete CI diagnostic,
+never a routine prerequisite, and cannot replace required CI. Do not repeat a passed gate
+because a reviewer replied, a PR became ready, or a squash produced the same tested tree.
+Arrange ready-for-review before starting final CI to avoid an unnecessary replacement run. Material code/base changes require affected evidence to be
+refreshed and all required GitHub checks to pass for the actual candidate. Reuse evidence for
+unchanged behavior and document its scope briefly in the PR.
+
+Use `gate:milestone` only for an explicitly completed milestone or a game-bearing main
+promotion, not each feature, checkpoint or documentation change. The matrix selects relevant
+checks; it is not a requirement to repeat every listed scenario on every ticket. Run a new
+browser check only for directly affected browser/platform behavior, and keep it short.
+
+Do not start optimization or profiling passes unless the user explicitly requests them.
+Do not expand the harness, custom automation or proof reports unless requested or the smallest
+bounded diagnostic/fix is necessary for a concrete reproducible delivery blocker. After a
+repeated validation failure, stop the rerun loop: preserve the failure, identify its cause in
+one short triage, then fix that cause or report the blocker.
+Keep unrelated ready feature work moving; an open parent acceptance checklist alone does not
+block independently usable work whose implementation dependencies are already integrated.
+Keep parent completion and missing acceptance evidence honest.
+
+Physical-phone testing is excluded unless the user later requests
 it: do not install/run/profile/capture a game on a connected phone, or build a phone probe solely
 for validation. Mobile remains a target through desktop viewport/safe-area tests, phone-low
 residency and structural budgets, native/web parity and targeted real-browser checks. Physical
@@ -44,8 +73,8 @@ git switch develop
 git pull --ff-only
 git switch -c feature/road-hills
 npm run test:plan -- --base origin/develop
-# edit, run focused checks, inspect the result
-npm run gate:pr -- --base origin/develop
+# implement, check build/hot reload, smoke the changed player flow
+# the finished candidate runs one required exact-head gate:pr in CI
 git add <specific-files>
 git commit -m "feat: clip road scenery behind hills"
 git push -u origin feature/road-hills
@@ -64,26 +93,26 @@ For every ticket, the primary agent acts as coordinator and uses subagents. The 
 owns scope, integration, validation and completion; delegation does not transfer those duties.
 
 1. Read the issue, dependencies and current PR state; claim the ticket and record its bounded
-   outcome and acceptance criteria. Select an unblocked dependency before starting dependent
-   implementation. Continue an existing matching branch/PR, or start a feature/fix/chore branch
-   from updated develop. Do not switch a shared checkout while another agent is editing it.
+   outcome and acceptance criteria. Check concrete implementation dependencies before
+   starting dependent work; track unrelated parent acceptance separately. Continue an existing
+   matching branch/PR, or start a feature/fix/chore branch from updated develop. Do not switch a shared checkout while another agent is editing it.
 2. Delegate a specific implementation task to a subagent with explicit file ownership, inputs,
    expected output and focused validation. Use additional implementation subagents only for
    independent work with disjoint ownership. Integrate shared schema, entry-point and config
    changes sequentially through the coordinator; keep every save compiling.
 3. Use a separate reviewer subagent to inspect the integrated diff against the ticket's
    acceptance criteria and engine boundaries. The reviewer must not approve its own
-   implementation. Include architecture or measured desktop structural/performance review when
-   relevant; use the engine's reviewer instructions for those reviews.
-4. Resolve actionable review findings, run focused checks during edits, and have the coordinator
-   run the required integration gates against the actual candidate. Serialize engine commands
+   implementation. Keep review proportional to the changed behavior; do not initiate a
+   performance study or new validation workstream for routine feature review.
+4. Resolve blocking findings, use the minimum edit loop below, and have the coordinator run
+   the required integration gate once against the finished candidate. Serialize engine commands
    across agents and wait for editor native builds; subagents must coordinate before starting
    tests that share the host, session or SDK checkout.
-5. Record subagent contributions/findings, resolved findings, exact tested head/base SHAs,
-   commands/results and required screenshots/replays/targeted browser observations in the PR.
-   Any implementation or base change requires the affected checks and review to be refreshed.
-6. When the ticket's applicable gates, review and evidence pass, mark its PR ready and squash
-   merge into develop through GitHub. Verify the resulting develop commit and issue acceptance
+5. Record contributions/review, tested head/base, command results and applicable existing or
+   new screenshot/replay/browser evidence directly in the PR. Do not create a separate report
+   or automation project just to restate it. Refresh affected checks/review for material changes.
+6. Mark the finished PR ready before launching final CI. Once applicable checks, review and
+   evidence pass, squash-merge into develop through GitHub. Verify the resulting develop commit and issue acceptance
    criteria. Close the issue only after its implementation is integrated; report whether it
    has also reached main. Keep blocked or unfinished work in draft with a precise blocker.
 
@@ -138,61 +167,64 @@ toolchains, with supported native cooker overrides. Follow [engine setup](engine
 portable commands and the headed-WebGPU requirement on this Mac. Do not substitute native tests
 for an unavailable web lane.
 
-## The edit loop
+## The minimum edit loop
 
-1. State the behavior being changed and the smallest observation proving it works.
-2. Run the test plan against the actual PR base. Inspect engine editor state/console before
-   starting checks; wait for any native build to finish.
-3. For a bug, reproduce it in a focused test first. For a feature, add its behavioral test with
-   the implementation. Do not add tests for comments or implementation details.
-4. Edit one behavior. Use hot reload and `npm run test:focus -- "driving.*"` until it works.
-   Use `"road.state*"` for the road proof controls and `"road.clipping*"` for hill/crop behavior.
-   Add `driving.*` tests with the car-handling implementation.
-5. For schema changes, run `gameengine gen` from outrun before saving dependent imports.
-6. For visible work, inspect a real frame during this loop. Do not wait for final integration
-   to discover a road seam or hidden touch target.
-7. At handoff run `npm run gate:pr -- --base origin/develop`; attach required manual evidence.
+1. State the player-visible change and one short observation that will prove it works.
+2. Run `npm run test:plan -- --base origin/develop` before editing; it selects gate scope and
+   does not execute or prove gameplay. Inspect editor state before engine commands and wait
+   for native builds. Serialize shared engine CLI/session work across agents.
+3. Implement the feature. Use build feedback and hot reload; smoke the changed flow once the
+   behavior is ready. A meaningful focused test can replace repeated manual reproduction.
+   Do not run a test on every save or expand coverage for unrelated behavior.
+4. Generate schema bindings before dependent imports when the schema changes. Use official
+   UI document commands for UI. Inspect one representative real frame for a visible change.
+5. At the finished PR boundary, run one required exact-head `gate:pr` in CI and attach only
+   the applicable additional observation. A local full gate is only for a concrete CI
+   diagnostic, never a routine prerequisite or substitute for required CI. Do not run
+   individual full lanes and then repeat them in the gate.
 
-`test:focus` refuses an empty selection. `--changed` is not dependency analysis: engine source
-changes can cause it to run the whole suite. Use explicit test-name globs while iterating and
-the full T0 suite at the PR boundary. Keep the fast loop independent of device packaging.
+`test:focus` refuses an empty selection. Use an explicit behavior-name glob when a focused
+check is justified; `--changed` may select the entire suite. `test:fast`, `test:parity`,
+`test:visual`, `test:web` and `test:cooked` are available diagnostic commands, not extra routine
+steps on top of a gate that already ran those lanes.
 
-The harness serializes its own engine commands, checks the pinned version, and records logs,
-step results and wall times in `.artifacts/harness/`. It does not control engine commands
-started outside the harness. Remove a stale engine.lock only after confirming its PID is dead.
+The harness serializes its commands, checks the pinned version and records results in
+`.artifacts/harness/`. It does not control commands started elsewhere. Remove a stale lock
+only after confirming its PID is dead. Preserve failed results; do not bless snapshots or
+rehash replays to manufacture a passing gate.
 
 ## Gates and cadence
 
-| When | Command | What it proves |
+| When | Minimum action | Scope |
 |---|---|---|
-| Docs/config policy and every hosted PR | `npm run verify` + `npm run test:harness` | Repository configuration and test-selection harness; no game execution |
-| Each behavior edit | `npm run test:focus -- "driving.*"` | Relevant T0 behavior on V8 |
-| Before a checkpoint commit | `npm run test:fast` | All T0 on V8; optional for intermediate WIP saves |
-| Every game PR/handoff | `npm run gate:pr -- --base origin/develop` | Generated files, canonical formatting, engine check (types/validation/cook/120-frame smoke), all native T0 parity; additional lanes selected below |
-| Sim/schema/input change | PR gate adds `test:web` | V8/wasm hash parity; not a real browser test |
-| Presentation/UI/material change | PR gate adds `test:visual` and `test:web` | T1 at mobile + compat with phone-low residency; browser observation still required |
-| Assets/scenes/prefabs/load paths | PR gate adds visual, cooked, web | Import/loading references and cooked behavior |
-| Before game/engine main promotion or integration milestone | `npm run gate:milestone` + relevant manual evidence | Core, both render tiers, cooked T0, web parity, plus targeted actual-browser validation; no physical-phone test |
+| Documentation-only candidate | `verify` + `test:harness`, once through applicable CI | No engine build, game/browser run or phone work |
+| Feature implementation | Build/hot reload + one short changed-flow smoke | Add/run one focused automated selection only when meaningful |
+| Finished game PR | One required exact-head `gate:pr` in CI | Local full gate only for concrete CI diagnostics; required checks remain mandatory |
+| Directly affected browser behavior | One short background-browser observation | Reuse unchanged controls, layout, lifecycle and outcome evidence |
+| Explicit finished milestone/game-bearing main promotion | `gate:milestone` + applicable observations | Complete candidate, not each feature checkpoint |
 
-The path classifier is conservative for unknown paths. `src/sim/` contains simulation-only
-files. Put presentation in `src/presentation/`, `src/render/`, and `src/ui/`. A change affecting
-pixels through sim state also needs a focused visual check even if its path is sim-only.
-Run additional lanes explicitly when the change warrants it; path selection is a floor.
+The current classifier selects native core for game changes, web parity for simulation/input,
+visual and web lanes for presentation/UI, and visual/cooked/web lanes for assets or scene/load
+paths. Unknown project paths select broad coverage. The existing selected lanes, budgets and
+required branch checks remain mandatory; this policy prevents extra or repeated runs and does
+not change the harness or allow a skipped lane to pass. A docs-only candidate requires no
+engine validation; existing CI setup may still provision the SDK before its docs-only gate.
+Harness changes retain the project integrity checks their actual scope requires.
 
-Docs-only PRs require no engine. Harness-only PRs still exercise native project integrity.
-The classifier includes committed changes since merge-base, staged/unstaged edits, untracked
-files, deletions, and both ends of renames. A missing base ref is an error; fetch it first.
+Manual evidence is proportional to the change. A text-box fix uses a focused layout/frame
+check, not another full race. An additional content variant uses inventory validation and a
+representative new visual category. Repeat a long race only when race/mode outcome behavior
+changes or when establishing its first required acceptance. Test relevant mobile/safe-area
+layouts when layout changes; do not repeat the entire matrix for an unrelated feature.
 
-Budget warm-cache goals: focus <=2 s, full T0 <=5 s, native PR core <=30 s, render add-on <=30 s.
-These are iteration targets, not measured guarantees. Report a slow gate and fix the cause;
-do not remove coverage to make the timing look good. Cold imports/toolchains run separately.
-Read logs only on failure; rerun broader suites only after changes or unresolved failures.
+Existing `activeReplay: true` budgets still run inside each selected visual gate and enforce
+actual recorded workload coverage. Their standalone `test:budget` command is for an affected
+budget failure, not an additional step before or after the same gate. Preserve current tests,
+goldens and limits; no new profiling/optimization pass is authorized by this workflow.
 
-Budgets marked `activeReplay: true` also capture their full recorded workload through the
-[active replay lane](active-replay-budgets.md) after each visual tier. Use
-`npm run test:budget -- --gpu-tier mobile --budget terrain.json` for one marked scenario.
-This starts capture at paused step 0 and requires exact recorded-step coverage; an idle-only
-capture cannot pass allocation or GC checks. Focused T0 iteration stays unchanged.
+A slow check is a visible cost, not a new optimization ticket. Keep its result, reuse valid
+evidence, and continue feature delivery when independent work is ready. Escalate a concrete
+blocker after bounded triage instead of starting a harness rewrite or repeated broad runs.
 
 ## GitHub checks and runner activation
 
@@ -214,19 +246,19 @@ The Mac is a trusted interactive host, not an isolated VM. The helper rejects fo
 all external contributors to need workflow approval before any registration. Never approve an
 external-fork run for this host. See [engine CI](engine-ci.md) for setup, invocation and cleanup.
 
-Until real positive and negative execution proofs establish that engine-gate is reliable,
-branch rules continue to require repo-policy only. Then add engine-gate without removing the
-existing policy requirement. Do not install a required status that merely skips unavailable
-validation. Candidate evidence must identify exact head/base SHAs, and later code/base changes
-invalidate affected results. Targeted headed-browser observations remain separate; no physical-
-phone testing is required or performed by CI.
+The engine-gate activation proofs are complete; both repo-policy and engine-gate are required.
+Keep these protections. Candidate evidence identifies exact head/base SHAs; material changes
+invalidate affected results and require the actual candidate's required checks to pass.
+Targeted browser observations remain separate only when the changed behavior needs them.
+No physical-phone testing is required or performed by CI.
 
-A complete coordinator-launched CI run of the required PR or milestone gate on the exact
-candidate may satisfy both the final gate and required CI; a duplicate full local run is not
-required. Every selected lane must run, and required independent review and manual/browser
-evidence still apply. Audit the actual head/base, current validators, raw artifacts and owned
-runner/session cleanup before accepting the result. Code or base changes invalidate affected
-prior results; an earlier local pass is not evidence for the changed candidate. This changes
+One complete coordinator-launched exact-head CI run of the required PR or milestone gate
+satisfies both the final gate and required CI. Do not add a duplicate local full run; use a
+local full gate only to diagnose a concrete CI failure, while keeping required CI mandatory.
+Every selected lane must run, and required independent review and manual/browser evidence
+still apply. Audit the actual head/base, current validators, raw artifacts and owned
+runner/session cleanup before accepting the result. Material code or base changes invalidate
+affected prior results; an earlier local pass is not evidence for the changed candidate. This changes
 neither gate scope nor permission to skip a lane.
 
 ## PR evidence and completion
@@ -235,9 +267,10 @@ Use the PR template: concrete behavior, exact test commands/results, relevant im
 and remaining gaps. Do not check boxes for unrun tests. A missing web host is a blocked web
 lane, not a pass. A focused passing test does not replace the PR gate.
 
-Review golden differences visually before approving specific shots. Record/re-pin replay
-hashes only for an intended simulation change and explain it in the PR. Before a behavior-
-preserving refactor, record a hash trace; afterward compare it with --hash-trace-baseline.
+Review changed golden images before approving them. Record/re-pin replay hashes only for an
+intended simulation change and explain it in the PR. Reuse existing replay/hash evidence for
+unchanged simulation; add a before/after hash trace only for an authorized behavior-preserving
+refactor whose affected behavior cannot be established by existing checks.
 
 For game/engine main promotion, add a targeted actual WebGPU browser playthrough of the changed
 flows and the desktop mobile-viewport/phone-low checks from the matrix. Keep it short and
