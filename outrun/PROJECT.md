@@ -27,11 +27,28 @@ windows/processes.
 
 ## Current delivery priority
 
-Finish the complete playable game as quickly as possible. Do not initiate optimization or profiling
-passes unless the user explicitly asks. Focus implementation on connected player-facing features;
-keep the edit loop to build checks and focused core gameplay checks, reuse evidence for unchanged
-behavior, and run applicable integration gates once per candidate. Do not add speculative tests,
-repeated broad validation, or harness/documentation projects that do not unblock game delivery.
+Finish the complete playable game as quickly as possible. The unit of progress is a working
+player-facing feature. Follow the delivery-first policy in ../AGENTS.md and ../docs/workflow.md:
+
+- During implementation, use build/type checks or hot reload plus one short changed-flow smoke.
+  Add/run focused automated tests only for meaningful behavior or a concrete regression. No
+  full suite, browser session or new test is required for each edit/save/checkpoint commit.
+- Run the existing required PR gate once on the finished candidate through exact-head CI.
+  A local full gate is only for a concrete CI diagnostic, never a routine prerequisite. Reuse
+  CI results instead of duplicating them locally or repeating their render/web/cooked lanes.
+  A material candidate/base change or unresolved failure requires the affected checks and
+  protected CI to pass again; unchanged behavior can reuse its existing evidence.
+- Use the matrix to select affected behavior only. Fixing a text box needs a focused preview,
+  not a repeated full race. Full race/mode acceptance belongs to relevant outcome changes and
+  completed milestones. Run the milestone gate at those milestones/main promotion, not per feature.
+- Do not start optimization/profiling passes unless explicitly requested by the user. Expand
+  coverage or validation infrastructure only when requested or necessary for the smallest fix
+  to a concrete delivery blocker; use minimal diagnosis. After two failed attempts at the same
+  validation blockage, preserve/report it and move to independent ready
+  feature work where possible; leave its merge blocked rather than expanding the harness.
+- Keep PR evidence short and reuse harness output. Docs-only work uses policy/harness CI,
+  without an engine build or browser check. Existing tests/budgets and protected checks stay intact.
+
 Chrome stays in the background and physical-phone testing remains excluded.
 
 ## Play
@@ -72,9 +89,10 @@ require gate:milestone plus applicable real-browser evidence. Required tooling o
 that is unavailable blocks integration/promotion; a green hosted repo-policy check alone does
 not prove game validation. The bootstrap wasm-host gap is resolved; reproduce the native/web
 and headed-browser setup through ../docs/engine-setup.md. Physical-phone evidence is not a gate.
-During edits run focused V8 tests; at handoff run the root gate:pr harness against the PR base.
-The harness adds visual, web and cooked checks based on changed paths. See the test matrix for
-targeted browser evidence. Missing required tooling is a blocked lane, never a pass.
+During edits follow the minimum checks above; a focused V8 test is selected when meaningful.
+Run the root gate:pr once at the finished PR boundary through required CI. Its selected visual,
+web and cooked lanes do not need separate reruns. Use the matrix for relevant browser evidence;
+reuse unchanged observations. Missing required tooling blocks that lane, never counts as a pass.
 
 This is a personal internal project. Do not import upstream README or legal documents, and do
 not add store/public deployment work. Native and browser validation still matter.
