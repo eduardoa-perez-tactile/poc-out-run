@@ -80,6 +80,62 @@ declare module '@gameengine/ui' {
       refs: 'order';
     };
     /**
+     * Menu choice: a widget, button (ui/docs/menu-choice.ui.json)
+     *
+     * Properties:
+     *   - `label`: text, default "CHOOSE"
+     * Events: `<id>`
+     * Code areas: none
+     * Refs: none
+     */
+    'menu-choice': {
+      props: { label: string | { loc: string } | LocText };
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Pre race art: a view, screen (ui/docs/pre-race-art.ui.json)
+     *
+     * Properties:
+     *   - `screen`: enum home | options | mode | gears | car, default "home"
+     *   - `backgroundImage`: image, default {"guid":"92a936c8-c393-55b4-99fa-1577809ea30a"}
+     *   - `logoImage`: image, default {"guid":"bb996565-daa0-5c2e-a839-98aa54e5afc1"}
+     *   - `carImage`: image, default {"guid":"ea2af638-351f-5fc8-9336-ea546c30f216"}
+     *   - `gearLeftImage`: image, default {"guid":"2fe74eb6-149a-58a2-bc45-71dd8be04c0b"}
+     *   - `gearRightImage`: image, default {"guid":"f8c832b0-274e-558e-ab03-f42e31b70f84"}
+     *   - `showLogo`: yesno, default true
+     *   - `showCar`: yesno, default false
+     *   - `showGears`: yesno, default false
+     * Events: none
+     * Code areas: none
+     * Refs: none
+     */
+    'pre-race-art': {
+      props: { screen: 'home' | 'options' | 'mode' | 'gears' | 'car'; backgroundImage: string; logoImage: string; carImage: string; gearLeftImage: string; gearRightImage: string; showLogo: boolean; showCar: boolean; showGears: boolean };
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Pre race controls: a view, screen (ui/docs/pre-race-controls.ui.json)
+     *
+     * Properties:
+     *   - `screen`: enum home | options | mode | gears | car, default "home"
+     *   - `heading`: text, default ""
+     *   - `primaryLabel`: text, default "START"
+     *   - `secondaryLabel`: text, default "OPTIONS"
+     *   - `detailLabel`: text, default ""
+     *   - `availabilityLabel`: text, default ""
+     *   - `selectedRow`: number, default 0
+     * Events: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`
+     * Code areas: none
+     * Refs: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`
+     */
+    'pre-race-controls': {
+      props: { screen: 'home' | 'options' | 'mode' | 'gears' | 'car'; heading: string | { loc: string } | LocText; primaryLabel: string | { loc: string } | LocText; secondaryLabel: string | { loc: string } | LocText; detailLabel: string | { loc: string } | LocText; availabilityLabel: string | { loc: string } | LocText; selectedRow: number };
+      areas: never;
+      refs: 'primary' | 'secondary' | 'tertiary' | 'back' | 'accept' | 'previous' | 'next';
+    };
+    /**
      * Live race HUD: a view (ui/docs/race-hud.ui.json)
      *
      * Properties:
@@ -137,14 +193,14 @@ declare module '@gameengine/ui' {
      * Radio controls: a view, screen (ui/docs/radio-controls.ui.json)
      *
      * Properties: none
-     * Events: `previous`, `next`, `start`
+     * Events: `previous`, `next`, `start`, `back`
      * Code areas: none
-     * Refs: `previous`, `next`, `start`
+     * Refs: `previous`, `next`, `start`, `back`
      */
     'radio-controls': {
       props: {};
       areas: never;
-      refs: 'previous' | 'next' | 'start';
+      refs: 'previous' | 'next' | 'start' | 'back';
     };
     /**
      * Radio selection: a view, screen (ui/docs/radio-selection.ui.json)

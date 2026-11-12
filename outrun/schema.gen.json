@@ -1078,6 +1078,90 @@
       "package": "OutRun"
     },
     {
+      "name": "PreRaceAction",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "action",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "value",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "PreRaceSelection",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "page",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cursor",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "difficulty",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "car",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "launch",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RaceOwner",
       "kind": "component",
       "sim": true,
@@ -2851,6 +2935,12 @@
           "name": "hidden",
           "kind": "bool",
           "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "loadedCar",
+          "kind": "u32",
+          "scalar": "u32",
           "lanes": 1
         }
       ],

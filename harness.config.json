@@ -1,10 +1,34 @@
 {
   "project": "outrun",
-  "productionScene": "scenes/radio-selection.scene.json",
+  "productionScene": "scenes/pre-race.scene.json",
   "engineVersion": "0.1.34",
-  "targets": ["mobile", "web"],
+  "targets": [
+    "mobile",
+    "web"
+  ],
   "orientation": "landscape",
-  "landscapeSizes": [[882, 344], [852, 393], [1080, 810], [1280, 720], [720, 540]],
+  "landscapeSizes": [
+    [
+      882,
+      344
+    ],
+    [
+      852,
+      393
+    ],
+    [
+      1080,
+      810
+    ],
+    [
+      1280,
+      720
+    ],
+    [
+      720,
+      540
+    ]
+  ],
   "budgets": {
     "phoneLowFrameP95Ms": 33.3,
     "phoneMidFrameP95Ms": 16.7,

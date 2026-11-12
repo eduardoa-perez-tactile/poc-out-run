@@ -1,7 +1,7 @@
 import {defineSystem,query,read,write} from '@gameengine/runtime';
 import {RouteDriver,RouteTrafficCoordinates,RouteResetRequested,RouteForkChosen,RouteBiomeEntered,
   RouteCheckpointPassed,RouteGoalEntered,TerrainDriver,CrashDriver,TrafficPool,CollisionDriver,DrivingState,DrivingInput,
-  RaceOwner,RaceState,type RouteDriverValue} from '../schema.gen.ts';
+  RaceOwner,RaceState,PreRaceSelection,type RouteDriverValue} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import {resetRouteDriver,advanceRouteState,type RouteDriverState,type RouteGradient} from './route-math.ts';
 import {prepareRoutePlayerTick} from './route-driving-math.ts';
@@ -18,7 +18,7 @@ export const AdvanceRoute=defineSystem({
   name:'AdvanceRoute',after:['AdvanceDriving'],before:['AdvanceTraffic'],
   runIf:{query:query(read(RouteDriver))},
   queries:{owners:query(write(RouteDriver),read(TerrainDriver),read(CrashDriver),read(TrafficPool),read(CollisionDriver),read(RouteTrafficCoordinates)),raceOwners:query(read(RaceOwner))},
-  resources:[write(DrivingState),write(DrivingInput),read(RaceState)],events:[RouteResetRequested],
+  resources:[write(DrivingState),write(DrivingInput),read(RaceState),read(PreRaceSelection)],events:[RouteResetRequested],
   run(ctx,{owners,raceOwners}){
     if(owners.count!==1)throw new Error('Route requires one co-owned terrain/traffic/contact/crash/integer-coordinate entity');
     let request:import('../schema.gen.ts').RouteResetRequestedValue|undefined;
@@ -29,13 +29,14 @@ export const AdvanceRoute=defineSystem({
       const reset=!before.initialized||request!==undefined;
       if(reset){
         if(request&&![9,20,32].includes(request.population))throw new Error('Invalid recorded route population');
+        const selection=ctx.get(PreRaceSelection);
         const transition=resetRouteDriver(state(before),request??before,content,ctx.rng,ctx.step);
         // Full lifecycle cancellation is recorded; ordinary handoffs never clear holds.
         ctx.set(DrivingInput,{keyboard:0,ui:0,shiftUp:false,shiftDown:false,upHeld:false,downHeld:false,pauseHeld:false,modeHeld:false});
         // A fresh scene uses source auto mode; inherited resource defaults may
         // differ between loose patches and cooked full rows. Recorded resets
         // remain the explicit configuration boundary, including while paused.
-        ctx.set(DrivingState,{active:true,manual:request?.manual??false,legacySpeed:0,gear:0,steering:0,
+        ctx.set(DrivingState,{active:true,manual:request?.manual??(selection.launch?selection.manual:false),legacySpeed:0,gear:0,steering:0,
           distance:45000,previousDistance:45000,lateral:0,previousLateral:0});
         chunk.set(RouteDriver,row,{...transition.route,pending:true,pendingStep:ctx.step,pendingReset:true,pendingHandoff:false,
           pendingFromMapId:1,pendingFromGradient:transition.route.gradient,pendingOldMapEpoch:1,

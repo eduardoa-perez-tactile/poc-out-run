@@ -1085,6 +1085,90 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "PreRaceAction",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "action",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "value",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "PreRaceSelection",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "page",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cursor",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "difficulty",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "car",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "launch",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RaceOwner",
       "kind": "component",
       "sim": true,
@@ -2859,6 +2943,12 @@ export const schemaIr = {
           "kind": "bool",
           "scalar": "u8",
           "lanes": 1
+        },
+        {
+          "name": "loadedCar",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
@@ -4418,6 +4508,42 @@ export interface Map01ArtSlotValue {
 /** Map01ArtSlot (component, presentation-only) */
 export const Map01ArtSlot = typeToken<Map01ArtSlotViews, Map01ArtSlotValue>('Map01ArtSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01ArtSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
+export interface PreRaceActionViews {
+  action: Uint32Array;
+  value: Int32Array;
+}
+export interface PreRaceActionValue {
+  action: number;
+  value: number;
+}
+/** PreRaceAction (event, sim) */
+export const PreRaceAction = typeToken<PreRaceActionViews, PreRaceActionValue>('PreRaceAction', 'event', { sig: 'action:u32:1,value:i32:1', read: (v: PreRaceActionViews, i: number, o: Record<string, unknown>) => { o.action = v.action[i]; o.value = v.value[i]; return o; } });
+
+export interface PreRaceSelectionViews {
+  enabled: Uint8Array;
+  page: Uint32Array;
+  cursor: Uint32Array;
+  difficulty: Uint32Array;
+  population: Uint32Array;
+  manual: Uint8Array;
+  car: Uint32Array;
+  launch: Uint8Array;
+  held: Uint32Array;
+}
+export interface PreRaceSelectionValue {
+  enabled: boolean;
+  page: number;
+  cursor: number;
+  difficulty: number;
+  population: number;
+  manual: boolean;
+  car: number;
+  launch: boolean;
+  held: number;
+}
+/** PreRaceSelection (resource, sim) */
+export const PreRaceSelection = typeToken<PreRaceSelectionViews, PreRaceSelectionValue>('PreRaceSelection', 'resource', { sig: 'enabled:bool:1,page:u32:1,cursor:u32:1,difficulty:u32:1,population:u32:1,manual:bool:1,car:u32:1,launch:bool:1,held:u32:1', read: (v: PreRaceSelectionViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.page = v.page[i]; o.cursor = v.cursor[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; o.car = v.car[i]; o.launch = v.launch[i] !== 0; o.held = v.held[i]; return o; } });
+
 export interface RaceOwnerViews {
   enabled: Uint8Array;
 }
@@ -5094,6 +5220,7 @@ export interface VehiclePreviewViews {
   leftEffect: Uint32Array;
   rightEffect: Uint32Array;
   hidden: Uint8Array;
+  loadedCar: Uint32Array;
 }
 export interface VehiclePreviewValue {
   enabled: boolean;
@@ -5109,9 +5236,10 @@ export interface VehiclePreviewValue {
   leftEffect: number;
   rightEffect: number;
   hidden: boolean;
+  loadedCar: number;
 }
 /** VehiclePreview (resource, presentation-only) */
-export const VehiclePreview = typeToken<VehiclePreviewViews, VehiclePreviewValue>('VehiclePreview', 'resource', { sig: 'enabled:bool:1,pose:u32:1,sample:u32:1,effect:u32:1,scale:f32:1,placeholder:bool:1,autoplay:bool:1,loaded:bool:1,reconciled:bool:1,useWheelEffects:bool:1,leftEffect:u32:1,rightEffect:u32:1,hidden:bool:1', read: (v: VehiclePreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.pose = v.pose[i]; o.sample = v.sample[i]; o.effect = v.effect[i]; o.scale = v.scale[i]; o.placeholder = v.placeholder[i] !== 0; o.autoplay = v.autoplay[i] !== 0; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; o.useWheelEffects = v.useWheelEffects[i] !== 0; o.leftEffect = v.leftEffect[i]; o.rightEffect = v.rightEffect[i]; o.hidden = v.hidden[i] !== 0; return o; } });
+export const VehiclePreview = typeToken<VehiclePreviewViews, VehiclePreviewValue>('VehiclePreview', 'resource', { sig: 'enabled:bool:1,pose:u32:1,sample:u32:1,effect:u32:1,scale:f32:1,placeholder:bool:1,autoplay:bool:1,loaded:bool:1,reconciled:bool:1,useWheelEffects:bool:1,leftEffect:u32:1,rightEffect:u32:1,hidden:bool:1,loadedCar:u32:1', read: (v: VehiclePreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.pose = v.pose[i]; o.sample = v.sample[i]; o.effect = v.effect[i]; o.scale = v.scale[i]; o.placeholder = v.placeholder[i] !== 0; o.autoplay = v.autoplay[i] !== 0; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; o.useWheelEffects = v.useWheelEffects[i] !== 0; o.leftEffect = v.leftEffect[i]; o.rightEffect = v.rightEffect[i]; o.hidden = v.hidden[i] !== 0; o.loadedCar = v.loadedCar[i]; return o; } });
 
 export interface VehicleVisualSlotViews {
   slot: Uint32Array;

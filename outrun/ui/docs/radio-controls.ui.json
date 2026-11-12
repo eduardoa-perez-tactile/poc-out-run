@@ -30,7 +30,8 @@
       "children": [
         "rc_previous",
         "rc_next",
-        "rc_start"
+        "rc_start",
+        "rc_back"
       ]
     },
     "rc_previous": {
@@ -106,6 +107,31 @@
       },
       "props": {
         "label": "START"
+      }
+    },
+    "rc_back": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "back",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "offset": [
+          24,
+          24
+        ],
+        "w": 280,
+        "h": 176
+      },
+      "props": {
+        "label": "BACK"
       }
     }
   },
