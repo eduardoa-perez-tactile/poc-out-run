@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {assets,meshes,EnterScene} from '@gameengine/runtime';
 import {DrivingState,DrivingInput,DrivingResetRequested,DrivingPauseRequested,TerrainDriver,TerrainVisualState,
@@ -40,7 +41,7 @@ renderTest('terrain.profile recorded source drive skid edge pause and recenter',
   // scene, driving reset, pause and control below is replayable recorded input.
   expect(world.count(TerrainDriver)).toBe(0);
   input.view(1280,720,1);
-  input.emit(EnterScene,{scene:'scenes/driving-terrain.scene.json',release:''});await step(1);
+  input.emit(EnterScene,{scene:recordedScene('scenes/driving-terrain.scene.json'),release:''});await step(1);
   // Native readback waits queued assets without manufacturing simulated time.
   render.probe({width:1280,height:720,points:[[640,60],[640,650]]});await step(1);
   expect(assets.progress('map01-environment')).toBe(1);expect(assets.progress('player-ferrari1')).toBe(1);

@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type WorldTestContext,type RenderContext} from '@gameengine/test';
 import {EnterScene,assets,meshes} from '@gameengine/runtime';
 import {Map01ArtPreview,Map01ArtSlot,DrivingState,RoadProofState} from '../../src/schema.gen.ts';
@@ -32,7 +33,7 @@ renderTest('environment.profile canonical recorded dense travel',async({world,in
   // below is recorded input, so the resulting tape is valid for budget playback.
   expect(world.count(Map01ArtSlot)).toBe(0);
   input.view(1280,720,1);
-  input.emit(EnterScene,{scene:'scenes/map01-art.scene.json',release:''});await ready(step);
+  input.emit(EnterScene,{scene:recordedScene('scenes/map01-art.scene.json'),release:''});await ready(step);
   input.key('Digit9',true);await step(1);input.key('Digit9',false);await step(1);
   expect(world.resource(Map01ArtPreview).cameraOriginZ).toBe(1930*150);
   render.probe({width:1280,height:720,points:[[640,60],[640,650]]});await step(1);
@@ -159,13 +160,13 @@ renderTest('environment.lifecycle disable and scene exit release exactly the own
   expect(world.resource(Map01ArtPreview).controlHeld).toBe(31);
   expect(world.resource(Map01ArtPreview).backOffset===1000).toBe(false);
   expect(world.resource(Map01ArtPreview).frontOffset===1000).toBe(false);
-  input.emit(EnterScene,{scene:'scenes/map01-data.scene.json',release:''});await step(2);
+  input.emit(EnterScene,{scene:recordedScene('scenes/map01-data.scene.json'),release:''});await step(2);
   expect(world.count(Map01ArtSlot)).toBe(0);
   expect(world.resource(Map01ArtPreview).enabled).toBe(false);
   expect(world.resource(Map01ArtPreview).loaded).toBe(false);
   for(const name of NAMES)expect(meshes.info(name)).toBe(null);
   expect(assets.stats().groups[GROUP]!.status).toBe('released');
-  input.emit(EnterScene,{scene:'scenes/map01-art.scene.json',release:''});await ready(step);
+  input.emit(EnterScene,{scene:recordedScene('scenes/map01-art.scene.json'),release:''});await ready(step);
   expect(world.count(Map01ArtSlot)).toBe(1);
   const reset=world.resource(Map01ArtPreview);
   expect(reset.playing).toBe(false);

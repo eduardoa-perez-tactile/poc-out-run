@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import { renderTest, expect } from '@gameengine/test';
 import { meshes,assets,EnterScene } from '@gameengine/runtime';
 import { VehiclePreview,VehicleVisualSlot,RoadProofState } from '../../src/schema.gen.ts';
@@ -163,3 +164,15 @@ renderTest('vehicle.lifecycle resource reset reconciles a surviving native group
   expect(world.resource(VehiclePreview).reconciled).toBe(true);
   expect(assets.stats().groups['player-ferrari1']!.status).toBe('released');
 },SCENE);
+
+// Source for vehicle-pipeline.greplay: exactly one recorded entry and121fixed ticks.
+renderTest('vehicle.pipeline canonical recorded preview startup',async({input,step,world,render})=>{
+  input.emit(EnterScene,{scene:recordedScene('scenes/vehicle-preview.scene.json'),release:''});
+  await step(121);
+  expect(world.count(VehicleVisualSlot)).toBe(1);
+  expect(world.resource(VehiclePreview).enabled).toBe(true);
+  expect(world.resource(VehiclePreview).loaded).toBe(true);
+  expect(meshes.info('player-car')!.vertices).toBe(12);
+  expect(assets.stats().groups['player-ferrari1']!.status).toBe('loaded');
+  expect(render.stats({width:1280,height:720}).drawCalls).toBeGreaterThan(0);
+});

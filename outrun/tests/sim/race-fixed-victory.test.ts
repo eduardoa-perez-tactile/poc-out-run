@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 // Independent playback: input choices come ONLY from this frozen static fixture.
 import {worldTest,expect} from '@gameengine/test';
 import {EnterScene} from '@gameengine/runtime';
@@ -7,6 +8,13 @@ import {RacePhase,COUNTDOWN_TICKS} from '../../src/sim/race-flow-math.ts';
 import plan from '../fixtures/routes/normal-timed-victory.inputs.json';
 
 const KEYS=['ArrowUp','ArrowDown','ArrowLeft','ArrowRight']as const;
+// SDK0.1.34 stores scenes:current as a GUID. The frozen0.1.21 input plan and
+// every physical/timing/event assertion stay unchanged; only these whole-world
+// identity hashes migrate (compact old/new trace differs only in that document).
+const GUID_HASHES=[
+ {atStep:22816,legacy:'05b28ef37f8891c2',hash:'f01116dd7cb52c9c'},
+ {atStep:28191,legacy:'5f249dab77554454',hash:'ec2cbd6af79b213a'},
+]as const;
 worldTest('race.victory fixed normal keyboard inputs win five stages ending results and recorded restart',async({world,step,input})=>{
  expect(plan.format).toBe('outrun-normal-timed-fixed-inputs-v1');
  expect(plan.sourceCommit).toBe('6882721c99bc79365f815f68d389bf5078129e68');expect(plan.engineVersion).toBe('0.1.21');
@@ -24,7 +32,7 @@ worldTest('race.victory fixed normal keyboard inputs win five stages ending resu
  for(const command of plan.commands)targets.add(command[0]!);
  for(const milestone of plan.expected.milestones)targets.add(milestone.atStep);
  for(const hash of plan.expected.hashes)targets.add(hash.atStep);
- input.view(1280,720,1);input.emit(EnterScene,{scene:plan.scene,release:''});
+ input.view(1280,720,1);input.emit(EnterScene,{scene:recordedScene(plan.scene),release:''});
  let current=0,commandIndex=0,checkedMilestones=0;
  let owner:ReturnType<typeof world.entities>[number]|undefined;
  for(const target of [...targets].sort((a,b)=>a-b)){
@@ -36,7 +44,7 @@ worldTest('race.victory fixed normal keyboard inputs win five stages ending resu
   // Observation targets are frozen in the fixture. No observation selects input.
   const milestone=plan.expected.milestones.find(row=>row.atStep===target);
   const expectedHash=plan.expected.hashes.find(row=>row.atStep===target);
-  if(expectedHash)expect(world.hash()).toBe(expectedHash.hash);
+  if(expectedHash){const migrated=GUID_HASHES.find(row=>row.atStep===target);expect(migrated?.legacy).toBe(expectedHash.hash);expect(world.hash()).toBe(migrated!.hash);}
   if(!milestone)continue;
   checkedMilestones++;
   const owners=world.entities(RaceOwner);expect(owners.length).toBe(1);
@@ -75,7 +83,7 @@ worldTest('race.victory fixed normal keyboard inputs win five stages ending resu
  expect(world.get(actor,CrashDriver)).toEqual(plan.expected.final.crash);
  expect(world.resource(RaceState).phase).toBe(RacePhase.Results);
  expect(world.resource(RaceState).score).toBe(world.resource(RaceState).finishScore);
- const victoryHash=world.hash();expect(victoryHash).toBe('5f249dab77554454');
+ const victoryHash=world.hash();expect(victoryHash).toBe(GUID_HASHES[1].hash);
  // Prescribed recorded intent after full real-input victory; same actor resets.
  expect(plan.restart.atStep).toBe(current+1);input.emit(RaceRestartRequested,{});await step(plan.restart.observeAfterSteps);current+=plan.restart.observeAfterSteps;
  expect(world.entities(RaceOwner).length).toBe(1);expect(world.entities(RaceOwner)[0]).toBe(actor);

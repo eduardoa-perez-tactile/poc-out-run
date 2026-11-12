@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect} from '@gameengine/test';
 import {EnterScene,assets,meshes} from '@gameengine/runtime';
 import {DrivingState,DrivingResetRequested,DrivingPauseRequested,TrafficPool,TrafficPassed} from '../../src/schema.gen.ts';
@@ -7,7 +8,7 @@ import {trafficCompositeStats,TRAFFIC_COMPOSITE_BYTES} from '../../src/render/tr
 
 renderTest('traffic.art.profile canonical source busy drive measures composite residency and submissions',async({world,input,step,render})=>{
   input.view(1280,720,1);
-  input.emit(EnterScene,{scene:'scenes/driving-traffic.scene.json',release:''});await step(2);
+  input.emit(EnterScene,{scene:recordedScene('scenes/driving-traffic.scene.json'),release:''});await step(2);
   for(let frame=0;frame<120&&(assets.progress('map01-environment')<1||assets.progress('traffic-source')<1||assets.progress('player-ferrari1')<1);frame++)await step(1);
   for(const group of ['map01-environment','traffic-source','player-ferrari1'])expect(assets.progress(group)).toBe(1);
   await step(200);
@@ -31,8 +32,11 @@ renderTest('traffic.art.profile canonical source busy drive measures composite r
     expect(trafficCompositeStats.total).toBeLessThanOrEqual(288);
     expect(trafficCompositeStats.visible).toBeLessThanOrEqual(32);
     const mesh=meshes.info('map01-art-props')!;expect(mesh.vertices).toBe(288*4);
-    // Pinned native mesh book accounting, separately measured from raw arrays.
-    expect(mesh.bytes).toBe(76032);
+    // SDK0.1.34 MeshInfo reports52-byte vertices +32-bit indices; its
+    // stored byte count excludes the separate UV1 stream. Raw API submission
+    // still includes UV1 and remains pinned independently below.
+    expect(mesh.triangles).toBe(288*2);
+    expect(mesh.bytes).toBe(288*4*52+288*6*4);
     expect(trafficCompositeStats.submittedBytes).toBe(TRAFFIC_COMPOSITE_BYTES);
     // One road, one shared props/traffic mesh and two panoramas: replacement,
     // never an additional car uploader. Actual loose+cooked sample=4/469016.

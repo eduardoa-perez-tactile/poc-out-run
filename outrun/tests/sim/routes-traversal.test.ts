@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {expect,worldTest,type WorldTestContext} from '@gameengine/test';
 import {EnterScene} from '@gameengine/runtime';
 import {CollisionDriver,CrashDriver,DrivingState,RouteBiomeEntered,RouteCheckpointPassed,RouteDriver,
@@ -51,7 +52,7 @@ async function playback({world,step,input}:WorldTestContext,plan:Plan,steps:numb
     input.view(1280,720,1);
     let owner:ReturnType<typeof world.entities>[number]|undefined;
     if(offset===1){
-      input.emit(EnterScene,{scene:SCENE.scene,release:''});
+      input.emit(EnterScene,{scene:recordedScene(SCENE.scene),release:''});
       await step(1);
       const bootstrapOwners=world.entities(RouteDriver);expect(bootstrapOwners.length).toBe(1);
       owner=bootstrapOwners[0]!;
