@@ -1,3 +1,4 @@
+import {expectReleasedGroup} from '../helpers/released-group.ts';
 import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type WorldTestContext,type RenderContext} from '@gameengine/test';
 import {EnterScene,assets,meshes} from '@gameengine/runtime';
@@ -146,7 +147,7 @@ renderTest('environment.lifecycle disable and scene exit release exactly the own
   expect(assets.stats().groups['player-ferrari1']?.status==='loaded').toBe(false);
   world.setResource(Map01ArtPreview,{enabled:false});await step(1);
   for(const name of NAMES)expect(meshes.info(name)).toBe(null);
-  expect(assets.stats().groups[GROUP]!.status).toBe('released');
+  expectReleasedGroup(GROUP);
   world.setResource(Map01ArtPreview,{enabled:true});await ready(step);
   for(const name of NAMES)expect(meshes.info(name)!==null).toBe(true);
   world.setResource(Map01ArtPreview,{
@@ -165,7 +166,7 @@ renderTest('environment.lifecycle disable and scene exit release exactly the own
   expect(world.resource(Map01ArtPreview).enabled).toBe(false);
   expect(world.resource(Map01ArtPreview).loaded).toBe(false);
   for(const name of NAMES)expect(meshes.info(name)).toBe(null);
-  expect(assets.stats().groups[GROUP]!.status).toBe('released');
+  expectReleasedGroup(GROUP);
   input.emit(EnterScene,{scene:recordedScene('scenes/map01-art.scene.json'),release:''});await ready(step);
   expect(world.count(Map01ArtSlot)).toBe(1);
   const reset=world.resource(Map01ArtPreview);
@@ -181,12 +182,12 @@ renderTest('environment.lifecycle slot loss and resource reset reconcile ownersh
   input.view(1280,720,1);await ready(step);
   world.setResource(Map01ArtPreview,{enabled:false,loaded:false,reconciled:false});await step(1);
   expect(world.resource(Map01ArtPreview).reconciled).toBe(true);
-  expect(assets.stats().groups[GROUP]!.status).toBe('released');
+  expectReleasedGroup(GROUP);
   world.setResource(Map01ArtPreview,{enabled:true});await ready(step);
   for(const entity of world.entities(Map01ArtSlot))world.despawn(entity);
   await step(1);
   for(const name of NAMES)expect(meshes.info(name)).toBe(null);
   expect(world.resource(Map01ArtPreview).enabled).toBe(false);
-  expect(assets.stats().groups[GROUP]!.status).toBe('released');
+  expectReleasedGroup(GROUP);
   await step(8);expect(world.resource(Map01ArtPreview).loaded).toBe(false);
 },SCENE);

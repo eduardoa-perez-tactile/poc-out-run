@@ -11,7 +11,7 @@
       "name": "Driving pause",
       "style": {
         "w": 1160,
-        "h": 900,
+        "h": 700,
         "pad": 24,
         "bg": "#15283dff",
         "radius": 24,
@@ -53,7 +53,7 @@
         "pivot": "centre",
         "offset": [
           0,
-          -310
+          -250
         ]
       }
     },
@@ -72,7 +72,7 @@
         "pivot": "centre",
         "offset": [
           0,
-          54
+          -60
         ]
       },
       "props": {
@@ -90,7 +90,7 @@
         "pad": 0,
         "dir": "row",
         "w": 1112,
-        "h": 124,
+        "h": 140,
         "gap": 12,
         "position": "anchored",
         "anchor": [
@@ -100,7 +100,7 @@
         "pivot": "centre",
         "offset": [
           0,
-          240
+          120
         ]
       }
     },
@@ -111,7 +111,7 @@
       "style": {
         "w": 0,
         "grow": 1,
-        "h": 124
+        "h": 140
       },
       "props": {
         "label": {
@@ -126,7 +126,7 @@
       "style": {
         "w": 0,
         "grow": 1,
-        "h": 124
+        "h": 140
       },
       "props": {
         "label": {
@@ -140,7 +140,7 @@
       "key": "mute",
       "style": {
         "w": 1112,
-        "h": 124,
+        "h": 140,
         "position": "anchored",
         "anchor": [
           0.5,
@@ -149,7 +149,7 @@
         "pivot": "centre",
         "offset": [
           0,
-          378
+          270
         ]
       },
       "props": {

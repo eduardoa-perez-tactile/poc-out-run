@@ -1,3 +1,4 @@
+import {expectReleasedGroup} from '../helpers/released-group.ts';
 import {renderTest,expect} from '@gameengine/test';
 import {assets,EnterScene,meshes,textures} from '@gameengine/runtime';
 import {EnvironmentReview,EnvironmentResidency,DrivingState,TrafficPool} from '../../src/schema.gen.ts';
@@ -39,9 +40,9 @@ for(const [width,height] of [[1280,720],[852,393]] as const){
     ctx.input.emit(EnterScene,{scene:'scenes/road-proof.scene.json',release:''});await ctx.step(2);
     const exited=ctx.world.resource(EnvironmentResidency);
     expect(exited.ownsActive).toBe(false);expect(exited.ownsIncoming).toBe(false);expect(exited.ownsTraffic).toBe(false);
-    expect(assets.stats().groups[manifest.assetId]!.status).toBe('released');
+    expectReleasedGroup(manifest.assetId);
     expect(assets.stats().groups[destinationDataGroup(10)]!.status).toBe('unloaded');
-    expect(assets.stats().groups['environment-review-shared']!.status).toBe('released');
+    expectReleasedGroup('environment-review-shared');
     expect(meshes.info('environment-composite')).toBe(null);expect(textures.info('environment-source-controls')).toBe(null);
     for(const name of ['biome-map01-data','biome-catalog-data'])expect(assets.stats().groups[name]!.status).toBe('loaded');
   },{scene:'scenes/destination-environment.scene.json',memory:'phone-low'});
