@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "f6a02cd2-54d6-4092-8fca-8bc0b4427a41",
   "id": "original-race",
   "resources": {
     "DrivingState": { "active": true, "playing": true, "distance": 45000, "previousDistance": 45000 },

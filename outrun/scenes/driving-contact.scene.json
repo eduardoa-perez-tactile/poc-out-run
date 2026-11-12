@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "0d9bb04d-d810-43eb-bede-44db368d9fe8",
   "id": "driving-contact",
   "resources": {
     "DrivingInput": {

@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "2c8b3241-9d26-4754-8773-98edb634d22e",
   "id": "destination-environment",
   "resources": {
     "DrivingState": { "active": false },

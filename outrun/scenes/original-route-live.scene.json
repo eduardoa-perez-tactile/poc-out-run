@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "077f9808-3b95-4ef5-ae48-0c0ae0e69518",
   "id": "original-route-live",
   "resources": {
     "DrivingState": { "active": true, "playing": true, "distance": 45000, "previousDistance": 45000 },

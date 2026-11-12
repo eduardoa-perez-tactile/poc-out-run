@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "a7cf1738-148f-4550-b2ff-8146e0d9b285",
   "id": "map01-data",
   "resources": {
     "DrivingInput": {

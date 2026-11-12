@@ -1,7 +1,7 @@
 # OutRun development workflow
 
 This is a personal internal prototype: mobile and web, landscape, deterministic TypeScript
-gameplay on Game Engine 0.1.21. The working game is `outrun/`. Commands below run at the repo root.
+gameplay on Game Engine 0.1.34. The working game is `outrun/`. Commands below run at the repo root.
 The project starts in the connected ORIGINAL race with driving, traffic, collisions, route
 transitions, HUD and results. Complete-game audio, selections and modes remain tracked in the
 backlog. Historical bootstrap evidence is in [engine setup](engine-setup.md); the
@@ -150,7 +150,7 @@ on develop until the complete main candidate qualifies.
 ## Machine setup
 
 Use Node 22 or later. The harness has no npm dependencies; no npm install is required.
-Install Game Engine 0.1.21 separately. The engine and generated machine paths are ignored.
+Install Game Engine 0.1.34 separately. The engine and generated machine paths are ignored.
 
 For this existing machine, `npm run setup` uses the engine linked under `outrun/.gameengine`.
 On a fresh checkout, either put the pinned `gameengine` CLI on PATH, or set `GAMEENGINE_ROOT`

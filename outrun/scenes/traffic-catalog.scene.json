@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "ed567b67-9f3a-475b-b7d7-a6e87a5a3a87",
   "id": "traffic-catalog",
   "resources": {
     "DrivingState": { "active": false },
