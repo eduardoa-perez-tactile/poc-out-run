@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {worldTest,expect} from '@gameengine/test';
 import {EnterScene,math} from '@gameengine/runtime';
 import {DrivingState,DrivingInput,DrivingResetRequested,DrivingPauseRequested,TrafficPool,TrafficPassed} from '../../src/schema.gen.ts';
@@ -7,7 +8,7 @@ import {loadMap01} from '../../src/content/biome.ts';
 // real scene handoff and seeded pool boot rather than a hand-authored SIM state.
 worldTest('traffic.profile canonical busy drive passes recycles and freezes on recorded pause',async({world,input,step})=>{
   await step(1);
-  input.emit(EnterScene,{scene:'scenes/driving-traffic.scene.json',release:''});await step(2);
+  input.emit(EnterScene,{scene:recordedScene('scenes/driving-traffic.scene.json'),release:''});await step(2);
   expect(world.count(TrafficPool)).toBe(1);
   const owner=world.entities(TrafficPool)[0]!,initial=world.get(owner,TrafficPool);
   expect(initial.initialized).toBe(true);expect(initial.population).toBe(32);

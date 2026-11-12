@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {worldTest,expect,type WorldTestContext} from '@gameengine/test';
 import {EnterScene,math,Time} from '@gameengine/runtime';
 import {DrivingState,DrivingPauseRequested,DrivingResetRequested,TrafficResetRequested,TrafficPool,TrafficPassed,TerrainDriver,
@@ -35,7 +36,7 @@ function bounded(pool:TrafficPoolValue,data:ReadonlySourceBiomeData){
 async function setup(ctx:WorldTestContext,originZ:number,camera:number,arm:0|1,speed=180){
   const {world,input,step}=ctx;
   input.view(1280,720,1);
-  input.emit(EnterScene,{scene:'scenes/driving-traffic.scene.json',release:''});await step(2);
+  input.emit(EnterScene,{scene:recordedScene('scenes/driving-traffic.scene.json'),release:''});await step(2);
   input.emit(DrivingPauseRequested,{paused:true});await step(1);
   const data=loadMap01();originalRows(data);
   const center=arm===1?f(sourcePlayerSample(data,camera).gap/1600):0;

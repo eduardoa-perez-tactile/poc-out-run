@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {worldTest,expect,type WorldTestContext} from '@gameengine/test';
 import {EnterScene,math} from '@gameengine/runtime';
 import {CrashDriver,CollisionDriver,TerrainDriver,TrafficPool,TrafficPassed,ContactAccepted,DrivingState,DrivingInput,
@@ -20,7 +21,7 @@ function physicalHit(hit:ContactAcceptedValue){return {...hit,toi:q(hit.toi),pla
 async function run(ctx:WorldTestContext,fixture:Fixture,view:readonly[number,number]=[1280,720]){
   const {world,input,step}=ctx,data=loadMap01();
   input.view(view[0],view[1],1);
-  input.emit(EnterScene,{scene:'scenes/driving-crash.scene.json',release:''});await step(2);
+  input.emit(EnterScene,{scene:recordedScene('scenes/driving-crash.scene.json'),release:''});await step(2);
   input.emit(DrivingPauseRequested,{paused:true});await step(1);
   const lateral=fixture.kind===1?q(-1886.494140625/1600):q(data.segments[Math.floor(fixture.z/150)]!.gap/1600+.5);
   input.emit(DrivingResetRequested,{manual:false,legacySpeed:fixture.speed,distance:fixture.z-data.playerOffsetZ,lateral});

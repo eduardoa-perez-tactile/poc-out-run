@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {assets,meshes,textures,EnterScene,RenderStatus} from '@gameengine/runtime';
 import {DrivingState,RoadProofState,EnvironmentReview,EnvironmentReviewSlot,EnvironmentResidency} from '../../src/schema.gen.ts';
@@ -14,7 +15,7 @@ renderTest('environment.profile canonical recorded destination art workload',asy
   // no world.setResource, authored pool or invisible simulation command.
   expect(ctx.world.count(EnvironmentReviewSlot)).toBe(0);
   ctx.input.view(WIDTH,HEIGHT,1);
-  ctx.input.emit(EnterScene,{scene:'scenes/destination-environment.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/destination-environment.scene.json'),release:''});await ctx.step(2);
   const driving=ctx.world.resource(DrivingState),road=ctx.world.resource(RoadProofState);
   const phases:unknown[]=[],transitions:unknown[]=[];
   let previousUploads=environmentPresentationStats.uploads,previousBytes=environmentPresentationStats.submittedBytes;
@@ -88,7 +89,7 @@ renderTest('environment.profile canonical recorded destination art workload',asy
     await key('KeyR');await projection(mapId,`map${mapId} restored projection`);
   }
   await key('Digit2');await projection(2,'return Map2');simulationUnchanged();
-  ctx.input.emit(EnterScene,{scene:'scenes/road-proof.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/road-proof.scene.json'),release:''});await ctx.step(2);
   const exited=ctx.world.resource(EnvironmentResidency),final=assets.stats();
   expect(exited.ownsActive).toBe(false);expect(exited.ownsIncoming).toBe(false);expect(exited.ownsTraffic).toBe(false);
   expect(Object.entries(final.groups).filter(([,g])=>g.status==='loaded').map(([name])=>name).sort()).toEqual(BOOT);
@@ -103,7 +104,7 @@ renderTest('environment.profile canonical recorded destination art workload',asy
 // residency cohort. Never register this world.setResource case as a budget tape.
 renderTest('environment.residency all15 destination families return to Map2 without retaining pins',async ctx=>{
   ctx.input.view(WIDTH,HEIGHT,1);
-  ctx.input.emit(EnterScene,{scene:'scenes/destination-environment.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/destination-environment.scene.json'),release:''});await ctx.step(2);
   const driving=ctx.world.resource(DrivingState),road=ctx.world.resource(RoadProofState);
   const allArtNames=DESTINATION_ENVIRONMENT_IDS.map(id=>destinationEnvironment(id).assetId);
   const observations:unknown[]=[],inflight:unknown[]=[];
@@ -158,7 +159,7 @@ renderTest('environment.residency all15 destination families return to Map2 with
     previousMap=mapId;
   }
   expect(observations.length).toBe(16);isolated();
-  ctx.input.emit(EnterScene,{scene:'scenes/road-proof.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/road-proof.scene.json'),release:''});await ctx.step(2);
   const exited=ctx.world.resource(EnvironmentResidency),final=assets.stats();
   expect(exited.ownsActive).toBe(false);expect(exited.ownsIncoming).toBe(false);expect(exited.ownsTraffic).toBe(false);
   expect(Object.entries(final.groups).filter(([,g])=>g.status==='loaded').map(([name])=>name).sort()).toEqual(BOOT);

@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type RenderStats} from '@gameengine/test';
 import {EnterScene} from '@gameengine/runtime';
 import {RaceState,RouteDriver,TrafficPool,DrivingState,DrivingInput} from '../../src/schema.gen.ts';
@@ -7,6 +8,13 @@ import {COUNTDOWN_TICKS,RacePhase} from '../../src/sim/race-flow-math.ts';
 // race, residency/allocation measurement or physical-device performance result.
 // The fixed frontier is at most7 route mesh slots +1 player mesh +8 UI batches.
 const DRAW_FRONTIER=16;
+// Authored HUD panel #101820d9. SDK0.1.34 blends UI in linear space: bound
+// its darkest observed pixels even over a white underlay, not a gamma-space
+// <100 threshold. Glyph contrast remains independently required below.
+const panelAlpha=217/255;
+const srgbToLinear=(v:number)=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
+const linearToSrgb=(v:number)=>v<=.0031308?v*12.92:1.055*v**(1/2.4)-.055;
+const PANEL_MAX=[16,24,32].map(v=>Math.ceil(linearToSrgb(srgbToLinear(v/255)*panelAlpha+1-panelAlpha)*255)+1);
 function actualFrame(frame:RenderStats){
   expect(frame.drawCalls).toBeGreaterThanOrEqual(6);expect(frame.drawCalls).toBeLessThanOrEqual(DRAW_FRONTIER);
   expect(frame.worldOccluded).toBe(false);expect(frame.pipelinesCreatedThisFrame).toBe(0);
@@ -19,7 +27,7 @@ renderTest('race.profile recorded normal traffic countdown drive pause and resum
   input.view(size.width,size.height,1);
   // No scene override: the regression bootstrap and this real scene entry are
   // both in the canonical tape. Production no-override startup is checked apart.
-  input.emit(EnterScene,{scene:'scenes/original-race.scene.json',release:''});await step(1);
+  input.emit(EnterScene,{scene:recordedScene('scenes/original-race.scene.json'),release:''});await step(1);
   const owners=world.entities(RouteDriver);expect(owners.length).toBe(1);const owner=owners[0]!;
   const initial=world.resource(RaceState);
   expect(initial.phase).toBe(RacePhase.Countdown);expect(initial.remainingTicks).toBe(160*60);
@@ -40,7 +48,9 @@ renderTest('race.profile recorded normal traffic countdown drive pause and resum
   expect(ui.rect('race-hud')!==null).toBe(true);
   const counter=render.probe({...size,regions:[[34,49,148,46]]}).regions[0]!;
   for(let channel=0;channel<3;channel++){
-    expect(counter.max[channel]!).toBeGreaterThan(220);expect(counter.min[channel]!).toBeLessThan(100);
+    expect(counter.max[channel]!).toBeGreaterThan(220);
+    expect(counter.min[channel]!).toBeLessThanOrEqual(PANEL_MAX[channel]!);
+    expect(counter.max[channel]!-counter.min[channel]!).toBeGreaterThan(100);
   }
   expect(ui.interactables().some(item=>item.id==='driving-controls.pause'&&item.enabled&&item.hittable)).toBe(true);
   expect(world.hash()).toBe(initialHash);expect(world.resource(RaceState)).toEqual(initial);
