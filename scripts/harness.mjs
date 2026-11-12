@@ -89,6 +89,7 @@ function run(label, command, argv, cwd = project, engineTest = false, jsonCheck 
 
 function regressionProject() {
   regressionFixture ??= createRegressionFixture({ root, project, output,
+    productionScene: config.productionScene,
     sdkRoot: process.env.GAMEENGINE_ROOT || join(project, '.gameengine/engine'),
     engineVersion: config.engineVersion });
   return regressionFixture.project;

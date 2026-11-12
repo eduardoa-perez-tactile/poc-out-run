@@ -1,0 +1,9 @@
+guid = "c0cbe8b6-90bc-57f5-90c5-da45dbabf508"
+importer = "texture"
+[settings]
+kind = "texture"
+atlas = "none"
+trim = false
+compression = "none"
+mipmaps = false
+filter = "nearest"

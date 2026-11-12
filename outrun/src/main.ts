@@ -30,3 +30,5 @@ export {RoutePresentation} from './render/route-presentation.ts';
 
 export {AdmitRace,FinishRace} from './sim/race.ts';
 export {RaceHudOverlay} from './ui/race-hud.tsx';
+export {RaceAudioLifecycle,RaceAudioPresentation} from './audio/race-audio.ts';
+export {CaptureRadioSelectionInput,RadioSelectionOverlay} from './ui/radio-selection.tsx';

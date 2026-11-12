@@ -4,13 +4,19 @@ Keep the engine source, SDKs and build outputs outside this game repository. The
 Game Engine CLI/native hosts can stay in use; select the separately built wasm host through
 the supported `GAMEENGINE_HOST_WEB` override. Physical-phone testing is outside this workflow.
 
+Audio uses the released presentation `audio.voice` and `audio.music` APIs (available together
+from 0.1.31). The project pins 0.1.34. Official `gameengine fmt` materializes scene GUIDs; generated
+content references use the existing asset sidecar GUIDs.
+The SDK prerequisite PR records compatibility checks; historical bootstrap results below
+still describe their original candidates, not proof of a newer SDK run.
+
 ## Pinned inputs
 
 | Input | Verified version/revision |
 |---|---|
 | Official engine source | `git@github.com:tactilegames/game-engine.git` |
-| Engine tag/commit | `v0.1.21`, `56980953204edc42f6e7c8cd7dc5c39500f2c710` |
-| Rust | `1.94.1`, `e408947bfd200af42db322daf0fadfe7e26d3bd1` |
+| Engine tag/commit | `v0.1.34`, `e24cc9f7b672d4e29c9dac2fe5434a004fecab5f` |
+| Rust | `1.99.1` |
 | Rust target | `wasm32-unknown-emscripten` |
 | pnpm | `10.33.0`, matching the engine packageManager |
 | Emscripten | `6.0.10`, compiler `d6c521a7f05449857c76bd99e396895583cf2083` |
@@ -31,14 +37,14 @@ export OUTRUN_ENGINE_SOURCE=/absolute/path/to/game-engine-source
 export OUTRUN_EMSDK=/absolute/path/to/emsdk
 export OUTRUN_GAME_ROOT=/absolute/path/to/poc-out-run
 git clone git@github.com:tactilegames/game-engine.git "$OUTRUN_ENGINE_SOURCE"
-git -C "$OUTRUN_ENGINE_SOURCE" checkout --detach v0.1.21
+git -C "$OUTRUN_ENGINE_SOURCE" checkout --detach v0.1.34
 git clone https://github.com/emscripten-core/emsdk.git "$OUTRUN_EMSDK"
 git -C "$OUTRUN_EMSDK" checkout d7b4130688bfa348392b921ab04015aa15c4f154
-rustup toolchain install 1.94.1 --profile minimal
-rustup target add --toolchain 1.94.1 wasm32-unknown-emscripten
+rustup toolchain install 1.99.1 --profile minimal
+rustup target add --toolchain 1.99.1 wasm32-unknown-emscripten
 "$OUTRUN_EMSDK/emsdk" install 6.0.10
 "$OUTRUN_EMSDK/emsdk" activate 6.0.10
-export RUSTUP_TOOLCHAIN=1.94.1
+export RUSTUP_TOOLCHAIN=1.99.1
 export GAMEENGINE_EMSDK="$OUTRUN_EMSDK"
 source "$OUTRUN_EMSDK/emsdk_env.sh"
 cd "$OUTRUN_ENGINE_SOURCE"

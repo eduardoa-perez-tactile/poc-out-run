@@ -40,10 +40,15 @@ export const DrivingControlsView = defineView<DrivingControlsModel>({
   },
 });
 
-export const DrivingPauseView = defineView<Record<string, never>>({
-  name: 'DrivingPause', blockInput: true, dims: true,
-  description: 'Minimal blocking driving pause. Intent: resume.', samples: { paused: {} },
-  render: (_, { intent }) => <Widget id="driving-pause" doc="driving-pause" onIntent={(_, event) => {
-    if (event.path.at(-1) === 'resume') intent('resume');
+export interface DrivingPauseModel {musicLabel?:string;sfxLabel?:string;muteLabel?:string;}
+export const DrivingPauseView = defineView<DrivingPauseModel>({
+  name: 'DrivingPause', layer: 'overlay', blockInput: true, dims: true,
+  description: 'Driving pause and sound levels.', samples: { paused: {} },
+  render: (model, { intent }) => <Widget id="driving-pause" doc="driving-pause" props={{
+    musicLabel:()=>model().musicLabel??'MUSIC 65%',
+    sfxLabel:()=>model().sfxLabel??'SFX 80%',muteLabel:()=>model().muteLabel??'MUTE ALL',
+  }} onIntent={(_, event) => {
+    const action=event.path.at(-1);
+    if(action)intent(action);
   }} />,
 });

@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "cb37e45c-a12e-462e-9cb2-4871c91c6ff1",
   "id": "driving-traffic",
   "resources": {
     "DrivingInput": {

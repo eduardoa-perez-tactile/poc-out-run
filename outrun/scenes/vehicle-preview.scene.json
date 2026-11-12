@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "e8c4f4bf-cfbc-4da6-abd1-ddccbee19d0a",
   "id": "vehicle-preview",
   "resources": {
     "RoadProofState": {

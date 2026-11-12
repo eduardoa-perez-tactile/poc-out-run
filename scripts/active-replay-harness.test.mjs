@@ -10,6 +10,8 @@ test('a zero-exit empty active capture blocks the visual harness before its next
   try{
     for(const path of ['scripts/lib','outrun/tests/budgets','outrun/tests/replays','outrun/scenes','outrun/.gameengine','fake-sdk/tools/cli/bin'])mkdirSync(join(dir,path),{recursive:true});
     for(const file of ['scripts/harness.mjs','scripts/lib/plan.mjs','scripts/lib/replay-budgets.mjs','scripts/lib/active-replay-budget.mjs','scripts/lib/regression-fixture.mjs','harness.config.json'])copyFileSync(resolve(file),join(dir,file));
+    const harnessConfig=JSON.parse(readFileSync(join(dir,'harness.config.json'),'utf8'));
+    writeFileSync(join(dir,'harness.config.json'),JSON.stringify({...harnessConfig,productionScene:'scenes/original-race.scene.json'}));
     writeFileSync(join(dir,'package.json'),'{"type":"module"}');
     writeFileSync(join(dir,'outrun/tests/replays/fixture.greplay'),'mock replay: only the parent process boundary is under test');
     writeFileSync(join(dir,'outrun/tests/budgets/fixture.json'),JSON.stringify({activeReplay:true,replay:'tests/replays/fixture.greplay',structural:{drawCallsMax:10,pipelinesCreatedDuringPlay:0,gcPausesOver4msMax:0,jsAllocatedMBMax:80}}));

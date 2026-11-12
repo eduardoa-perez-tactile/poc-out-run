@@ -1,0 +1,6 @@
+guid = "8e8a93b7-b6cb-5708-8c9c-99096c126b2c"
+importer = "audio"
+[settings]
+codec = "opus"
+mono = false
+bitrate = 96000
