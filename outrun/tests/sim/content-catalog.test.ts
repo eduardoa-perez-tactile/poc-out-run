@@ -1,5 +1,5 @@
 import {worldTest,expect} from '@gameengine/test';
-import {assets,listData} from '@gameengine/runtime';
+import {assets,listData,assetPath,loadData} from '@gameengine/runtime';
 import {DrivingState,SourceBiome,SourceBiomeCatalog,type ReadonlySourceBiomeData} from '../../src/schema.gen.ts';
 import {loadSourceBiome,loadSourceBiomeCatalog,type SourceBiomeId} from '../../src/content/biome.ts';
 
@@ -78,7 +78,12 @@ for(const oracle of cases)worldTest(`content.catalog map${oracle.id} source inve
 worldTest('content.catalog complete graph resolves all source paths and excludes start goal checkpoints',()=>{
   const catalog=loadSourceBiomeCatalog();
   const keys=['data/biomes/goal.json',...Array.from({length:15},(_,i)=>`data/biomes/map${String(i+1).padStart(2,'0')}.json`)];
-  expect([...listData(SourceBiome)]).toEqual(keys);expect([...listData(SourceBiomeCatalog)]).toEqual(['data/biome-catalog.json']);
+  // SDK0.1.34 enumerates stable GUIDs, not source paths or source order.
+  const biomeIds=[...listData(SourceBiome)],catalogIds=[...listData(SourceBiomeCatalog)];
+  expect(biomeIds.map(id=>assetPath(id)).sort()).toEqual(keys.map(key=>`assets/${key}`));
+  expect(catalogIds.map(id=>assetPath(id))).toEqual(['assets/data/biome-catalog.json']);
+  expect(biomeIds.map(id=>loadData(SourceBiome,id).id).sort((a,b)=>a-b)).toEqual(Array.from({length:16},(_,i)=>i+1));
+  expect(loadData(SourceBiomeCatalog,catalogIds[0]!)).toEqual(catalog);
   expect(catalog.entries.length).toBe(16);expect(catalog.entries.map(e=>e.id)).toEqual(Array.from({length:16},(_,i)=>i+1));
   const rows=[[1],[2,3],[4,5,6],[7,8,9,10],[11,12,13,14,15]];
   for(let stage=0;stage<5;stage++)for(let position=0;position<rows[stage]!.length;position++){
