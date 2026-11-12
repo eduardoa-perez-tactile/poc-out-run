@@ -3,12 +3,12 @@ import type {PreRaceSelectionValue} from '../schema.gen.ts';
 import {MAIN_MENU_ART,GEAR_ART,CAR_MENU_ART,CAR_PREVIEW_KEYS,OPTIONS_ART} from '../content/pre-race-art.ts';
 import {MenuPage} from '../sim/pre-race-selection.ts';
 export interface PreRaceSelectionModel {
-  screen:string;backgroundImage:string;logoImage:string;carImage:string;gearLeftImage:string;gearRightImage:string;
+  screen:'home'|'options'|'mode'|'gears'|'car';backgroundImage:string;logoImage:string;carImage:string;gearLeftImage:string;gearRightImage:string;
   heading:string;primaryLabel:string;secondaryLabel:string;detailLabel:string;availabilityLabel:string;
   showLogo:boolean;showCar:boolean;showGears:boolean;selectedRow:number;
 }
 export function preRaceSelectionModel(s:PreRaceSelectionValue):PreRaceSelectionModel {
-  const screen=['home','options','mode','gears','car'][s.page]??'home';
+  const screen=(['home','options','mode','gears','car'] as const)[s.page]??'home';
   const labels=s.page===MenuPage.Options?[`DIFFICULTY  ${['EASY','NORMAL','HARD'][s.difficulty]}`,`TRAFFIC  ${s.population===9?'LOW':s.population===32?'HIGH':'MEDIUM'}`]
     :s.page===MenuPage.Mode?['ORIGINAL','CONTINUOUS']:s.page===MenuPage.Gears?['AUTOMATIC','MANUAL']:s.page===MenuPage.Car?[`FERRARI ${s.car+1} / 14`,'']:['START','OPTIONS'];
   return {screen,backgroundImage:s.page===MenuPage.Car?CAR_MENU_ART.background:s.page===MenuPage.Options?OPTIONS_ART.background:MAIN_MENU_ART.background,
