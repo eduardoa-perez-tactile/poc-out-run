@@ -4,31 +4,31 @@ import { registerContent } from '@gameengine/runtime';
 registerContent({
   "data": {
     "SourceBiomeCatalog": [
-      "data/biome-catalog.json"
+      "262cc526-735c-44a2-aa96-5f610374b415"
     ],
     "SourceBiome": [
-      "data/biomes/goal.json",
-      "data/biomes/map01.json",
-      "data/biomes/map02.json",
-      "data/biomes/map03.json",
-      "data/biomes/map04.json",
-      "data/biomes/map05.json",
-      "data/biomes/map06.json",
-      "data/biomes/map07.json",
-      "data/biomes/map08.json",
-      "data/biomes/map09.json",
-      "data/biomes/map10.json",
-      "data/biomes/map11.json",
-      "data/biomes/map12.json",
-      "data/biomes/map13.json",
-      "data/biomes/map14.json",
-      "data/biomes/map15.json"
+      "03915b2a-01e0-4f90-baa1-6a2c514d7cd4",
+      "23f979a6-89e7-4a0e-b22f-b1c6e5f8a323",
+      "2c6e5f59-9493-4b3b-aed6-8be417bc9a8d",
+      "30c4b1fc-63e4-4ba0-bdac-8c628a084184",
+      "a40551dd-25e2-4f2e-96b8-50efef914902",
+      "ad1b061e-6eb9-4af4-8cf6-f1fac81bf72d",
+      "b1eea8e3-3a13-44c5-b2c6-af51608069c9",
+      "bbbebeb9-f23f-492d-9f70-def56b3c770e",
+      "c392c0eb-a6f6-482d-896e-7e80e72752cf",
+      "d0a99954-c1cf-43ff-8f3c-4a23b6261540",
+      "d9b72e11-5403-4c4f-a72e-e55003b0ff7f",
+      "e27f13f4-bcad-4ced-83a7-954c5b3a7292",
+      "e3fe30ac-99d1-4f43-a267-86cc3b502f10",
+      "ec9e13f4-6b80-4166-be21-40ae2f3989e5",
+      "eec2b522-598b-4801-b448-dea4a6dd5e43",
+      "fd906fe2-6b05-418e-bd34-9dbaa78a2fae"
     ],
     "SourceRouteCohort": [
-      "data/routes/original-route-cohort.json"
+      "4b6e7668-3358-48a4-9ca1-51f434479740"
     ],
     "SourceBiomeTailProfiles": [
-      "data/routes/original-tail-profiles.json"
+      "b01c13dc-28e2-4961-8771-b913a0baa0c1"
     ]
   },
   "collections": {}

@@ -1,0 +1,62 @@
+import {app,defineSystem,write,KeyEvent,Keys,scenes} from '@gameengine/runtime';
+import {createEffect,defineUI,onCleanup,untrack,useResource,views,type ViewHandle} from '@gameengine/ui';
+import {RadioSelectionInput} from '../schema.gen.ts';
+import {getRaceAudioSettings,subscribeRaceAudioSettings,RadioAudioPreview} from '../audio/race-audio.ts';
+import {RadioSelectionView,radioSelectionModel,type RadioSelectionModel} from '../views/radio-selection.view.tsx';
+
+/** Recorded keyboard transport. Defaults outside this menu preserve existing race tapes. */
+export const CaptureRadioSelectionInput=defineSystem({
+  name:'CaptureRadioSelectionInput',stage:'PreUpdate',skipUnchanged:true,
+  resources:[write(RadioSelectionInput)],events:[KeyEvent],
+  run(ctx){
+    const state=ctx.get(RadioSelectionInput);
+    if(!state.enabled){
+      if(state.left||state.right||state.confirm||state.held)ctx.set(RadioSelectionInput,{left:0,right:0,confirm:0,held:0});
+      return;
+    }
+    let changed=false;
+    for(const key of ctx.events.read(KeyEvent)){
+      const bit=key.code===Keys.ArrowLeft?1:key.code===Keys.ArrowRight?2:key.code===Keys.Enter?4:0;
+      if(!bit)continue;
+      const rising=key.down&&(state.held&bit)===0;
+      state.held=key.down?state.held|bit:state.held&~bit;changed=true;
+      if(rising){if(bit===1)state.left++;else if(bit===2)state.right++;else state.confirm++;}
+    }
+    if(changed)ctx.set(RadioSelectionInput,state);
+  }
+});
+
+export const RadioSelectionOverlay=defineUI({name:'RadioSelectionOverlay',root(){
+  const input=useResource(RadioSelectionInput);
+  let view:ViewHandle<RadioSelectionModel>|null=null,preview:RadioAudioPreview|null=null,confirmed=false;
+  let seen={left:0,right:0,confirm:0};
+  const update=()=>view?.update(radioSelectionModel(getRaceAudioSettings().radio));
+  const close=()=>{view?.close({immediate:true});view=null;preview?.dispose();preview=null;};
+  const choose=(direction:number)=>{if(confirmed)return;preview?.move(direction);update();};
+  const start=()=>{
+    if(confirmed||!preview)return;
+    confirmed=true;preview.confirm();view?.close({immediate:true});view=null;
+    // Public scene entry records the confirmation's transition as normal input.
+    scenes.enter('scenes/original-race.scene.json');
+  };
+  const unsubscribe=subscribeRaceAudioSettings(update);
+  const off=app.onLifecycle(state=>preview?.setForeground(state==='foreground'));
+  createEffect(()=>{
+    const raw=input(),enabled=raw?.enabled===true;
+    const keys=raw?{left:raw.left,right:raw.right,confirm:raw.confirm}:null;
+    untrack(()=>{
+    if(!enabled){close();confirmed=false;return;}
+    if(!preview&&!confirmed){
+      seen={left:0,right:0,confirm:0};preview=new RadioAudioPreview();
+      view=views.push(RadioSelectionView,radioSelectionModel(0),{onIntent:name=>{if(name==='previous')choose(-1);else if(name==='next')choose(1);else if(name==='start')start();}});
+    }
+    if(!keys||confirmed)return;
+    for(let n=0;n<Math.min(32,Math.max(0,keys.left-seen.left));n++)choose(-1);
+    for(let n=0;n<Math.min(32,Math.max(0,keys.right-seen.right));n++)choose(1);
+    if(keys.confirm>seen.confirm)start();
+    seen={left:keys.left,right:keys.right,confirm:keys.confirm};
+    });
+  });
+  onCleanup(()=>{unsubscribe();off();close();});
+  return null;
+}});

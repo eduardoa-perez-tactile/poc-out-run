@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "32633f97-fe4e-4fda-a27b-2b2858aad598",
   "id": "traffic-art",
   "resources": {
     "DrivingState": { "active": false },

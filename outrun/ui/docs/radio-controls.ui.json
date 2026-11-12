@@ -1,0 +1,119 @@
+{
+  "$schemaVersion": 1,
+  "guid": "92904d0f-e43a-4aaa-a8c4-b15c5349f9e7",
+  "name": "radio-controls",
+  "title": "Radio controls",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Radio controls",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "children": [
+        "rc_previous",
+        "rc_next",
+        "rc_start"
+      ]
+    },
+    "rc_previous": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "previous",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0,
+          1
+        ],
+        "pivot": [
+          0,
+          1
+        ],
+        "offset": [
+          24,
+          -24
+        ],
+        "w": 320,
+        "h": 176
+      },
+      "props": {
+        "label": "< PREV"
+      }
+    },
+    "rc_next": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "next",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          1,
+          1
+        ],
+        "pivot": [
+          1,
+          1
+        ],
+        "offset": [
+          -24,
+          -24
+        ],
+        "w": 320,
+        "h": 176
+      },
+      "props": {
+        "label": "NEXT >"
+      }
+    },
+    "rc_start": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "start",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          1,
+          0
+        ],
+        "pivot": [
+          1,
+          0
+        ],
+        "offset": [
+          -24,
+          24
+        ],
+        "w": 320,
+        "h": 176
+      },
+      "props": {
+        "label": "START"
+      }
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": true
+  },
+  "transition": {
+    "type": "instant"
+  }
+}

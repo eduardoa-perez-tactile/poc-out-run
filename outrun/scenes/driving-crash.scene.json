@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "75e75377-9987-471b-8ff3-1a5fef9d5fb9",
   "id": "driving-crash",
   "resources": {
     "DrivingInput": {

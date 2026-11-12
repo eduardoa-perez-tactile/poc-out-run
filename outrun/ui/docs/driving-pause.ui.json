@@ -10,14 +10,14 @@
       "type": "element",
       "name": "Driving pause",
       "style": {
-        "w": 720,
-        "h": 400,
-        "pad": 40,
+        "w": 1160,
+        "h": 900,
+        "pad": 24,
         "bg": "#15283dff",
         "radius": 24,
         "align": "center",
         "justify": "center",
-        "gap": 32,
+        "gap": 12,
         "position": "anchored",
         "anchor": [
           0.5,
@@ -31,6 +31,8 @@
       },
       "children": [
         "dp_title",
+        "dp_volume_row",
+        "dp_mute",
         "dp_resume"
       ]
     },
@@ -39,9 +41,20 @@
       "name": "Label",
       "text": "PAUSED",
       "style": {
-        "fontSize": 56,
+        "fontSize": 44,
         "weight": 800,
-        "color": "#ffffffff"
+        "color": "#ffffffff",
+        "h": 64,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          -310
+        ]
       }
     },
     "dp_resume": {
@@ -50,10 +63,99 @@
       "key": "resume",
       "style": {
         "w": 320,
-        "h": 176
+        "h": 176,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          54
+        ]
       },
       "props": {
         "label": "RESUME"
+      }
+    },
+    "dp_volume_row": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "dp_music",
+        "dp_sfx"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "row",
+        "w": 1112,
+        "h": 124,
+        "gap": 12,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          240
+        ]
+      }
+    },
+    "dp_music": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "music-volume",
+      "style": {
+        "w": 0,
+        "grow": 1,
+        "h": 124
+      },
+      "props": {
+        "label": {
+          "property": "musicLabel"
+        }
+      }
+    },
+    "dp_sfx": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "sfx-volume",
+      "style": {
+        "w": 0,
+        "grow": 1,
+        "h": 124
+      },
+      "props": {
+        "label": {
+          "property": "sfxLabel"
+        }
+      }
+    },
+    "dp_mute": {
+      "type": "use",
+      "doc": "driving-action",
+      "key": "mute",
+      "style": {
+        "w": 1112,
+        "h": 124,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          378
+        ]
+      },
+      "props": {
+        "label": {
+          "property": "muteLabel"
+        }
       }
     }
   },
@@ -65,5 +167,19 @@
   },
   "transition": {
     "type": "instant"
+  },
+  "properties": {
+    "musicLabel": {
+      "type": "text",
+      "default": "MUSIC 65%"
+    },
+    "sfxLabel": {
+      "type": "text",
+      "default": "SFX 80%"
+    },
+    "muteLabel": {
+      "type": "text",
+      "default": "MUTE ALL"
+    }
   }
 }

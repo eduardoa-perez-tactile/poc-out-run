@@ -53,9 +53,10 @@ Chrome stays in the background and physical-phone testing remains excluded.
 
 ## Play
 
-Run `npm run play` from the repository root to launch the connected ORIGINAL race.
-The live scene is `scenes/original-race.scene.json`; the browser preview also starts there.
-The project starts directly in that race. The harness runs legacy recordings in an owned copy
+Run `npm run play` from the repository root to open the original radio selection screen.
+Choose with Left/Right or the touch buttons, then Enter or START launches the connected
+ORIGINAL race in `scenes/original-race.scene.json`. The browser follows the same flow.
+The harness runs legacy recordings in an owned copy
 with the proof bootstrap; only that copy's startScene differs. Production checks and exports
 use the actual race startup.
 

@@ -362,7 +362,7 @@
       }
     }
   },
-  "startScene": "scenes/original-race.scene.json",
+  "startScene": "scenes/radio-selection.scene.json",
   "check": {
     "smoke": {
       "frames": 120
@@ -372,6 +372,19 @@
     "budgets": {
       "phone-low": {
         "textures": 125829120
+      }
+    }
+  },
+  "audio": {
+    "banks": [
+      "audio/race/core.bank"
+    ],
+    "maxVoices": 16,
+    "loudness": -16,
+    "normalize": true,
+    "overrides": {
+      "phone-low": {
+        "maxVoices": 16
       }
     }
   }

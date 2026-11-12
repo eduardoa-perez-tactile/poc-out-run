@@ -1,0 +1,18 @@
+{
+  "$schemaVersion": 2,
+  "guid": "9f91c263-8379-4a7a-b0a6-13bb413d14f2",
+  "id": "radio-selection",
+  "resources": {
+    "DrivingState": { "active": false, "playing": false },
+    "RadioSelectionInput": { "enabled": true },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Radio selection camera",
+      "id": "camera",
+      "Camera": { "space": "Space2D", "clearColor": "#0094ffff" },
+      "LocalTransform": {}
+    }
+  ]
+}

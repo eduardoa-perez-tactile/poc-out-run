@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "34be2bdf-4cb8-476a-b218-2e28603e6827",
   "id": "driving-proof",
   "resources": {
     "DrivingState": {

@@ -53,15 +53,18 @@ declare module '@gameengine/ui' {
     /**
      * Driving pause: a view, dialog (ui/docs/driving-pause.ui.json)
      *
-     * Properties: none
-     * Events: `resume`
+     * Properties:
+     *   - `musicLabel`: text, default "MUSIC 65%"
+     *   - `sfxLabel`: text, default "SFX 80%"
+     *   - `muteLabel`: text, default "MUTE ALL"
+     * Events: `music-volume`, `sfx-volume`, `mute`, `resume`
      * Code areas: none
-     * Refs: `resume`
+     * Refs: `music-volume`, `sfx-volume`, `mute`, `resume`
      */
     'driving-pause': {
-      props: {};
+      props: { musicLabel: string | { loc: string } | LocText; sfxLabel: string | { loc: string } | LocText; muteLabel: string | { loc: string } | LocText };
       areas: never;
-      refs: 'resume';
+      refs: 'music-volume' | 'sfx-volume' | 'mute' | 'resume';
     };
     /**
      * Hill proof: a view, screen (ui/docs/hill-proof.ui.json)
@@ -129,6 +132,35 @@ declare module '@gameengine/ui' {
       props: { title: string | { loc: string } | LocText; score: string | { loc: string } | LocText; summary: string | { loc: string } | LocText };
       areas: never;
       refs: 'restart';
+    };
+    /**
+     * Radio controls: a view, screen (ui/docs/radio-controls.ui.json)
+     *
+     * Properties: none
+     * Events: `previous`, `next`, `start`
+     * Code areas: none
+     * Refs: `previous`, `next`, `start`
+     */
+    'radio-controls': {
+      props: {};
+      areas: never;
+      refs: 'previous' | 'next' | 'start';
+    };
+    /**
+     * Radio selection: a view, screen (ui/docs/radio-selection.ui.json)
+     *
+     * Properties:
+     *   - `titleImage`: image, default "textures/radio/soundtrack1"
+     *   - `dialImage`: image, default "textures/radio/radio1"
+     *   - `handImage`: image, default "textures/radio/hand1"
+     * Events: none
+     * Code areas: none
+     * Refs: none
+     */
+    'radio-selection': {
+      props: { titleImage: string; dialImage: string; handImage: string };
+      areas: never;
+      refs: never;
     };
   }
 }

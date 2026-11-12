@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "8a6b4177-0cf8-44db-bb14-a95dc6fdc2d2",
   "id": "environment-binding-proof",
   "resources": {
     "DrivingState": { "active": false },

@@ -29,6 +29,8 @@ test('a zero-exit false-green replay response blocks structural rendering and fa
     mkdirSync(join(dir, 'outrun/tests/budgets'), { recursive: true });
     mkdirSync(join(dir, 'outrun/tests/replays'), { recursive: true });
     for (const file of ['scripts/harness.mjs', 'scripts/lib/plan.mjs', 'scripts/lib/replay-budgets.mjs', 'scripts/lib/active-replay-budget.mjs', 'scripts/lib/regression-fixture.mjs', 'harness.config.json']) copyFileSync(resolve(file), join(dir, file));
+    const harnessConfig = JSON.parse(readFileSync(join(dir, 'harness.config.json'), 'utf8'));
+    writeFileSync(join(dir, 'harness.config.json'), JSON.stringify({ ...harnessConfig, productionScene: 'scenes/original-race.scene.json' }));
     writeFileSync(join(dir, 'outrun/tests/budgets/hill.json'), JSON.stringify(entry('tests/replays/hill.greplay').value));
     writeFileSync(join(dir, 'outrun/tests/replays/hill.greplay'), 'not read by the fake engine');
     // Use the real candidate-copy boundary; only the SDK process is a stub.

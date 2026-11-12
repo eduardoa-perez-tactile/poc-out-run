@@ -49,5 +49,16 @@ test('regression fixture preserves candidate files, rejects tampering, keeps fai
     assert.equal(readFileSync(join(project,'project.gameengine.json'),'utf8'),config);
     assert.equal(readFileSync(join(project,'src/main.ts'),'utf8'),'export const candidate = 7;\n');
     assert.equal(existsSync(join(sdkRoot,'tools/cli/bin/gameengine.mjs')),true);
+
+    // Production may start at the radio screen; the owned legacy replay copy
+    // still changes only startScene, never the menu or race implementation.
+    const radioConfig=config.replace('scenes/original-race.scene.json','scenes/radio-selection.scene.json');
+    put(join(project,'project.gameengine.json'),radioConfig);
+    put(join(project,'scenes/radio-selection.scene.json'),'{}\n');
+    const menu=createRegressionFixture({root,project,sdkRoot,output:join(root,'.artifacts/menu'),productionScene:'scenes/radio-selection.scene.json',engineVersion:'0.1.34'});
+    assert.equal(menu.provenance.productionStartScene,'scenes/radio-selection.scene.json');
+    assert.equal(readFileSync(join(menu.project,'project.gameengine.json'),'utf8'),config.replace('scenes/original-race.scene.json','scenes/road-proof.scene.json'));
+    menu.dispose();
+    assert.equal(readFileSync(join(project,'project.gameengine.json'),'utf8'),radioConfig);
   }finally{rmSync(root,{recursive:true,force:true});}
 });

@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "76f8f705-b42c-48fb-a826-280b95d1e8b4",
   "id": "map01-art",
   "resources": {
     "DrivingState": { "active": false },

@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "4c18212f-f8e9-41c5-ac67-e521fa085c14",
   "id": "hill-proof",
   "resources": {
     "RoadProofState": { "fixtureId": 3, "distance": 33000, "previousDistance": 33000, "speed": 7200, "playing": true },

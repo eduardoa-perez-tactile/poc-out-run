@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "0e075360-f4ad-4251-ae15-7fe91bbc9f95",
   "id": "original-route-sim",
   "resources": {
     "DrivingState": { "active": true, "playing": true, "distance": 45000, "previousDistance": 45000 },

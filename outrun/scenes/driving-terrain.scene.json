@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "a1cf0ad3-60f1-47ea-8791-c80c541e059b",
   "id": "driving-terrain",
   "resources": {
     "DrivingInput": {
