@@ -1,3 +1,4 @@
+import {expectReleasedGroup} from '../helpers/released-group.ts';
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {EnterScene,assets} from '@gameengine/runtime';
 import {DrivingState,DrivingResetRequested,DrivingPauseRequested,TrafficPool,TrafficResetRequested} from '../../src/schema.gen.ts';
@@ -46,7 +47,7 @@ renderTest('traffic.art lifecycle pause holds sampled frames and exit releases o
   input.emit(EnterScene,{scene:'scenes/map01-art.scene.json',release:''});await step(2);
   render.probe({width:852,height:393,points:[[426,10]]});
   expect(world.count(TrafficPool)).toBe(0);
-  expect(assets.stats().groups['traffic-source']!.status).toBe('released');
+  expectReleasedGroup('traffic-source');
   expect(assets.stats().groups['map01-environment']!.status).toBe('loaded');
   console.log('traffic.art released cache residency',assets.stats());
   input.emit(EnterScene,{scene:'scenes/driving-traffic.scene.json',release:''});await ready(step);
@@ -57,7 +58,7 @@ renderTest('traffic.art lifecycle pause holds sampled frames and exit releases o
   expect(world.count(TrafficPool)).toBe(0);expect(assets.stats().groups['traffic-catalog']!.status).toBe('loaded');
   input.emit(EnterScene,{scene:'scenes/driving-traffic.scene.json',release:''});await ready(step);
   render.probe({width:852,height:393,points:[[0,0]]});
-  expect(world.count(TrafficPool)).toBe(1);expect(assets.stats().groups['traffic-catalog']!.status).toBe('released');
+  expect(world.count(TrafficPool)).toBe(1);expectReleasedGroup('traffic-catalog');
   expect(assets.stats().groups['traffic-source']!.status).toBe('loaded');
 
 },SCENE);

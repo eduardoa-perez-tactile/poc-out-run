@@ -1,3 +1,4 @@
+import {releaseTestCache} from '../helpers/release-test-cache.ts';
 import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect} from '@gameengine/test';
 import {EnterScene,assets,meshes} from '@gameengine/runtime';
@@ -7,6 +8,7 @@ import {map01ArtStats} from '../../src/render/map01-art-buffers.ts';
 import {trafficCompositeStats,TRAFFIC_COMPOSITE_BYTES} from '../../src/render/traffic-buffers.ts';
 
 renderTest('traffic.art.profile canonical source busy drive measures composite residency and submissions',async({world,input,step,render})=>{
+  releaseTestCache();
   input.view(1280,720,1);
   input.emit(EnterScene,{scene:recordedScene('scenes/driving-traffic.scene.json'),release:''});await step(2);
   for(let frame=0;frame<120&&(assets.progress('map01-environment')<1||assets.progress('traffic-source')<1||assets.progress('player-ferrari1')<1);frame++)await step(1);

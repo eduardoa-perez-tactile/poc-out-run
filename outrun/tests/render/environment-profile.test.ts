@@ -1,3 +1,4 @@
+import {releaseTestCache} from '../helpers/release-test-cache.ts';
 import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {assets,meshes,textures,EnterScene,RenderStatus} from '@gameengine/runtime';
@@ -103,6 +104,7 @@ renderTest('environment.profile canonical recorded destination art workload',asy
 // Deliberately noncanonical: absolute presentation-only selection proves a full
 // residency cohort. Never register this world.setResource case as a budget tape.
 renderTest('environment.residency all15 destination families return to Map2 without retaining pins',async ctx=>{
+  releaseTestCache();
   ctx.input.view(WIDTH,HEIGHT,1);
   ctx.input.emit(EnterScene,{scene:recordedScene('scenes/destination-environment.scene.json'),release:''});await ctx.step(2);
   const driving=ctx.world.resource(DrivingState),road=ctx.world.resource(RoadProofState);

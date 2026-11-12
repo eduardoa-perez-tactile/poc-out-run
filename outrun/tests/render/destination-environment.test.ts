@@ -1,3 +1,4 @@
+import {expectReleasedGroup} from '../helpers/released-group.ts';
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {assets,EnterScene,meshes} from '@gameengine/runtime';
 import {EnvironmentReview,EnvironmentResidency,DrivingState,RoadProofState} from '../../src/schema.gen.ts';
@@ -105,19 +106,19 @@ renderTest('environment.destination staged single two page cold projection and o
   await select(ctx,10,0);expect(environmentPresentationStats.uploads>initialUploads).toBe(true);
   console.log('environment.destination A to B ownership',{ledger:ctx.world.resource(EnvironmentResidency),groups:assets.stats().groups});
   expect(ctx.world.resource(EnvironmentResidency).renderSettled).toBe(true);
-  expect(assets.stats().groups['map02-environment']!.status).toBe('released');
+  expectReleasedGroup('map02-environment');
   // Data has no GPU/audio retention: settle marks an unpinned data group unloaded.
   expect(assets.stats().groups['biome-map02-data']!.status).toBe('unloaded');
   await select(ctx,2,0);
   expect(ctx.world.resource(EnvironmentResidency).active).toBe(2);
-  expect(assets.stats().groups['map10-environment']!.status).toBe('released');
+  expectReleasedGroup('map10-environment');
   expect(assets.stats().groups['biome-map10-data']!.status).toBe('unloaded');
   for(const name of ['biome-map01-data','biome-catalog-data'])expect(assets.stats().groups[name]!.status).toBe('loaded');
   console.log('environment.destination staged residency',{stats:assets.stats(),uploads:environmentPresentationStats.uploads,submittedBytes:environmentPresentationStats.submittedBytes});
   ctx.input.emit(EnterScene,{scene:'scenes/road-proof.scene.json',release:''});await ctx.step(1);
   const state=ctx.world.resource(EnvironmentResidency);
   expect(state.ownsActive).toBe(false);expect(state.ownsIncoming).toBe(false);expect(state.ownsTraffic).toBe(false);
-  expect(assets.stats().groups['environment-review-shared']!.status).toBe('released');
+  expectReleasedGroup('environment-review-shared');
   expect(meshes.info('environment-composite')).toBe(null);
 },{scene:'scenes/destination-environment.scene.json',memory:'phone-low'});
 

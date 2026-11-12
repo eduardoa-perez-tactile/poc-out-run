@@ -1,3 +1,4 @@
+import {releaseTestCache} from '../helpers/release-test-cache.ts';
 import {recordedScene} from '../helpers/recorded-scene.ts';
 import {renderTest,expect,type WorldTestContext} from '@gameengine/test';
 import {assets,meshes,EnterScene} from '@gameengine/runtime';
@@ -37,6 +38,7 @@ function chargedGroups(){
 }
 
 renderTest('terrain.profile recorded source drive skid edge pause and recenter',async({world,input,step,render})=>{
+  releaseTestCache();
   // Configured project startup, not an unrecorded test-scene override. Every
   // scene, driving reset, pause and control below is replayable recorded input.
   expect(world.count(TerrainDriver)).toBe(0);
