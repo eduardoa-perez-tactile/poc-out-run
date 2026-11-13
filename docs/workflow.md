@@ -2,10 +2,10 @@
 
 This is a personal internal prototype: mobile and web, landscape, deterministic TypeScript
 gameplay on Game Engine 0.1.34. The working game is `outrun/`. Commands below run at the repo root.
-The project starts at the original radio dashboard: choose a track, then start the connected
-ORIGINAL race with driving, traffic, collisions, route transitions, HUD, results and audio.
-Remaining selections and modes are tracked in the
-backlog. Historical bootstrap evidence is in [engine setup](engine-setup.md); the
+The project starts at the original main menu: configure difficulty and traffic, choose
+ORIGINAL mode, transmission and vehicle, then choose radio music and start the connected race.
+Driving, traffic, collisions, route transitions, HUD, results and audio are playable.
+Continuous/Survival modes and remaining features are tracked in the backlog. Historical bootstrap evidence is in [engine setup](engine-setup.md); the
 [behavior matrix](test-matrix.md) is a coverage reference for selecting affected checks.
 
 ## Delivery-first execution

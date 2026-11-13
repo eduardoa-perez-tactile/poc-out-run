@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {worldTest,expect} from '@gameengine/test';
 import {EnterScene} from '@gameengine/runtime';
 import {RaceState,RaceRestartRequested,RouteDriver,RouteTrafficCoordinates,TerrainDriver,TrafficPool,CrashDriver,CollisionDriver,
@@ -8,7 +9,7 @@ import {COUNTDOWN_TICKS,RACE_HZ,RacePhase,createRaceFlow,admitRaceTick,finishRac
 const SCENE={scene:'scenes/original-race.scene.json'};
 
 worldTest('race.flow real countdown holds throttle until GO then pause timeout and recorded restart preserve one actor',async({world,step,input})=>{
-  input.emit(EnterScene,{scene:'scenes/original-race.scene.json',release:''});
+  input.emit(EnterScene,{scene:recordedScene('scenes/original-race.scene.json'),release:''});
   await step(1);const owner=world.entities(RouteDriver)[0]!;
   const initial=world.resource(RaceState),initialTicks=initial.remainingTicks;
   expect(initial.phase).toBe(RacePhase.Countdown);expect(initialTicks).toBe(160*RACE_HZ);

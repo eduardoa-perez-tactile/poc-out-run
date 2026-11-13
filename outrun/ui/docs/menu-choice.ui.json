@@ -1,0 +1,60 @@
+{
+  "$schemaVersion": 1,
+  "guid": "9c570cc5-c7ad-41cc-a4e0-0b4197302d1c",
+  "name": "menu-choice",
+  "title": "Menu choice",
+  "kind": "widget",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Menu choice",
+      "style": {
+        "dir": "row",
+        "pad": 0,
+        "align": "center",
+        "radius": 0,
+        "w": 720,
+        "h": 100,
+        "justify": "center"
+      },
+      "children": [
+        "mc_label"
+      ]
+    },
+    "mc_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "{label}",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 64,
+        "color": "#00ff00ff",
+        "shadowX": 3,
+        "shadowY": 3,
+        "shadowColor": "#000000ff"
+      }
+    }
+  },
+  "behaviour": "button",
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "label": {
+      "type": "text",
+      "default": "CHOOSE"
+    }
+  },
+  "states": {
+    "pressed": {
+      "set": {
+        "root": {
+          "bg": "#ffffff33"
+        }
+      }
+    }
+  }
+}

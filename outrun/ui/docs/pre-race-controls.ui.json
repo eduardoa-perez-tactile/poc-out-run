@@ -1,0 +1,462 @@
+{
+  "$schemaVersion": 1,
+  "guid": "28ff0b9e-e7d4-447f-86ac-93bc2b891230",
+  "name": "pre-race-controls",
+  "title": "Pre race controls",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Pre race controls",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "children": [
+        "pc_heading",
+        "pc_availability",
+        "pc_primary",
+        "pc_secondary",
+        "pc_tertiary",
+        "pc_car_name",
+        "pc_selector",
+        "pc_back",
+        "pc_accept",
+        "pc_previous",
+        "pc_next"
+      ]
+    },
+    "pc_heading": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.14
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "90%",
+        "h": 100,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 68,
+        "color": "#ffffffff",
+        "textAlign": "center",
+        "shadowX": 3,
+        "shadowY": 3,
+        "shadowColor": "#000000ff"
+      },
+      "property": "heading"
+    },
+    "pc_availability": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.82
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "90%",
+        "h": 70,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 42,
+        "color": "#ff5555ff",
+        "textAlign": "center",
+        "shadowX": 3,
+        "shadowY": 3,
+        "shadowColor": "#000000ff"
+      },
+      "property": "availabilityLabel"
+    },
+    "pc_primary": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "primary",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.58
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": 900,
+        "h": 100
+      },
+      "props": {
+        "label": {
+          "property": "primaryLabel"
+        }
+      }
+    },
+    "pc_secondary": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "secondary",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.68
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": 900,
+        "h": 100
+      },
+      "props": {
+        "label": {
+          "property": "secondaryLabel"
+        }
+      }
+    },
+    "pc_tertiary": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "tertiary",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.78
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": 900,
+        "h": 100
+      },
+      "props": {
+        "label": {
+          "property": "detailLabel"
+        }
+      }
+    },
+    "pc_car_name": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.275
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "70%",
+        "h": 84,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 56,
+        "color": "#f7f700ff",
+        "textAlign": "center",
+        "hide": true
+      },
+      "property": "primaryLabel"
+    },
+    "pc_selector": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "b6929a94-6cfc-539b-9f3b-a94d55ed1315"
+      },
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.23,
+          0.58
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": 72,
+        "h": 54,
+        "fit": "contain",
+        "attach": true
+      }
+    },
+    "pc_back": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "back",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0,
+          1
+        ],
+        "pivot": [
+          0,
+          1
+        ],
+        "offset": [
+          24,
+          -24
+        ],
+        "w": 270,
+        "h": 120
+      },
+      "props": {
+        "label": "BACK"
+      }
+    },
+    "pc_accept": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "accept",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          1,
+          1
+        ],
+        "pivot": [
+          1,
+          1
+        ],
+        "offset": [
+          -24,
+          -24
+        ],
+        "w": 390,
+        "h": 120
+      },
+      "props": {
+        "label": "CONTINUE"
+      }
+    },
+    "pc_previous": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "previous",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.41,
+          1
+        ],
+        "pivot": [
+          0.5,
+          1
+        ],
+        "offset": [
+          0,
+          -24
+        ],
+        "w": 170,
+        "h": 120
+      },
+      "props": {
+        "label": "<"
+      }
+    },
+    "pc_next": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "next",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.59,
+          1
+        ],
+        "pivot": [
+          0.5,
+          1
+        ],
+        "offset": [
+          0,
+          -24
+        ],
+        "w": 170,
+        "h": 120
+      },
+      "props": {
+        "label": ">"
+      }
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": true
+  },
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "screen": {
+      "type": "enum",
+      "values": [
+        "home",
+        "options",
+        "mode",
+        "gears",
+        "car"
+      ],
+      "default": "home",
+      "poses": {
+        "gears": {
+          "set": {
+            "pc_primary": {
+              "hide": true
+            },
+            "pc_secondary": {
+              "hide": true
+            },
+            "pc_tertiary": {
+              "hide": true
+            },
+            "pc_selector": {
+              "hide": true
+            }
+          }
+        },
+        "car": {
+          "set": {
+            "pc_primary": {
+              "hide": true
+            },
+            "pc_secondary": {
+              "hide": true
+            },
+            "pc_tertiary": {
+              "hide": true
+            },
+            "pc_car_name": {
+              "hide": false
+            },
+            "pc_selector": {
+              "hide": true
+            },
+            "pc_heading": {
+              "ty": 64
+            }
+          }
+        },
+        "home": {
+          "set": {
+            "pc_tertiary": {
+              "hide": true
+            },
+            "pc_previous": {
+              "hide": true
+            },
+            "pc_next": {
+              "hide": true
+            }
+          }
+        },
+        "options": {
+          "set": {
+            "pc_tertiary": {
+              "hide": true
+            }
+          }
+        },
+        "mode": {
+          "set": {
+            "pc_previous": {
+              "hide": true
+            },
+            "pc_next": {
+              "hide": true
+            }
+          }
+        }
+      }
+    },
+    "heading": {
+      "type": "text",
+      "default": ""
+    },
+    "primaryLabel": {
+      "type": "text",
+      "default": "START"
+    },
+    "secondaryLabel": {
+      "type": "text",
+      "default": "OPTIONS"
+    },
+    "detailLabel": {
+      "type": "text",
+      "default": ""
+    },
+    "availabilityLabel": {
+      "type": "text",
+      "default": ""
+    },
+    "selectedRow": {
+      "type": "number",
+      "default": 0,
+      "format": "value",
+      "drivers": [
+        {
+          "type": "range",
+          "min": 0,
+          "max": 2,
+          "empty": {
+            "set": {
+              "pc_selector": {
+                "ty": 0
+              }
+            }
+          },
+          "full": {
+            "set": {
+              "pc_selector": {
+                "ty": 216
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

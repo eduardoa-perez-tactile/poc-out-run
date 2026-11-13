@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {worldTest,expect,type WorldTestContext} from '@gameengine/test';
 import {EnterScene,math} from '@gameengine/runtime';
 import {CollisionDriver,ContactAccepted,DrivingState,DrivingResetRequested,DrivingPauseRequested,
@@ -9,7 +10,7 @@ import {trafficLogicalX} from '../../src/sim/traffic-math.ts';
 const f=math.fround;
 async function setup(ctx:WorldTestContext,distance:number,lateral:number,speed:number){
   ctx.input.view(1280,720,1);
-  ctx.input.emit(EnterScene,{scene:'scenes/driving-contact.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/driving-contact.scene.json'),release:''});await ctx.step(2);
   ctx.input.emit(DrivingPauseRequested,{paused:true});await ctx.step(1);
   ctx.input.emit(DrivingResetRequested,{manual:false,legacySpeed:speed,distance,lateral});
   ctx.input.emit(TrafficResetRequested,{mapId:1,population:32,seedLo:9,seedHi:2596069104,originZ:0});
@@ -77,16 +78,16 @@ worldTest('collision.integration pause freezes detector and reset rebase and sce
   expect(ctx.world.get(owner,CollisionDriver).ledgerCount).toBe(0);
   ctx.input.emit(DrivingResetRequested,{manual:false,legacySpeed:0,distance:45000,lateral:0});await ctx.step(1);
   expect(ctx.world.events(ContactAccepted).length).toBe(0);expect(ctx.world.get(owner,CollisionDriver).acceptedCount).toBe(0);
-  ctx.input.emit(EnterScene,{scene:'scenes/driving-traffic.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/driving-traffic.scene.json'),release:''});await ctx.step(2);
   expect(ctx.world.count(CollisionDriver)).toBe(0);
-  ctx.input.emit(EnterScene,{scene:'scenes/driving-contact.scene.json',release:''});await ctx.step(2);
+  ctx.input.emit(EnterScene,{scene:recordedScene('scenes/driving-contact.scene.json'),release:''});await ctx.step(2);
   expect(ctx.world.count(CollisionDriver)).toBe(1);
   const reentered=ctx.world.get(ctx.world.entities(CollisionDriver)[0]!,CollisionDriver);
   expect(reentered.acceptedCount).toBe(0);expect(reentered.ledgerCount).toBe(0);
 });
 worldTest('collision.integration live initial traffic contact survives parking later in the same recorded tick',async ctx=>{
   const {input,step,world}=ctx,data=loadMap01();input.view(1280,720,1);
-  input.emit(EnterScene,{scene:'scenes/driving-contact.scene.json',release:''});await step(2);
+  input.emit(EnterScene,{scene:recordedScene('scenes/driving-contact.scene.json'),release:''});await step(2);
   input.emit(DrivingPauseRequested,{paused:true});await step(1);
   input.emit(TrafficResetRequested,{mapId:1,population:32,seedLo:9,seedHi:2596069104,originZ:807445});await step(1);
   const owner=world.entities(CollisionDriver)[0]!,seeded=world.get(owner,TrafficPool);

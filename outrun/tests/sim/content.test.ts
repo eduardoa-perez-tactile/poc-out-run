@@ -1,3 +1,4 @@
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import {worldTest,expect} from '@gameengine/test';
 import {EnterScene} from '@gameengine/runtime';
 import {Map01Preview,DrivingState,DrivingInput,RoadProofState} from '../../src/schema.gen.ts';
@@ -31,7 +32,7 @@ worldTest('content.map01 recorded reentry clears driving activation and every st
 },SCENE);
 worldTest('content.map01 dense canonical recorded startup',async({input,step,world})=>{
   input.view(1280,720,1);
-  input.emit(EnterScene,{scene:'scenes/map01-data.scene.json',release:''});await step(1);
+  input.emit(EnterScene,{scene:recordedScene('scenes/map01-data.scene.json'),release:''});await step(1);
   input.key('Digit9',true);await step(1);input.key('Digit9',false);await step(120);
   expect(world.resource(Map01Preview).enabled).toBe(true);
   expect(loadMap01().placements.length).toBe(1475);

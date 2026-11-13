@@ -11,5 +11,5 @@ export const RadioSelectionView=defineView<RadioSelectionModel>({
   samples:{first:radioSelectionModel(0),middle:radioSelectionModel(4),last:radioSelectionModel(8)},
   render:(model,{intent})=><View id="radio-screen" style={{width:'100%',height:'100%'}}><Widget id="radio-selection" doc="radio-selection" props={{
     titleImage:()=>model().titleImage,dialImage:()=>model().dialImage,handImage:()=>model().handImage,
-  }}/><Widget id="radio-controls" doc="radio-controls" onIntent={(_,event)=>{const name=event.path.at(-1);if(name==='previous'||name==='next'||name==='start')intent(name);}}/></View>,
+  }}/><Widget id="radio-controls" doc="radio-controls" onIntent={(_,event)=>{const name=event.path.at(-1);if(name==='previous'||name==='next'||name==='start'||name==='back')intent(name);}}/></View>,
 });

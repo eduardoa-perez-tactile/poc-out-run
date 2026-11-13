@@ -32,3 +32,5 @@ export {AdmitRace,FinishRace} from './sim/race.ts';
 export {RaceHudOverlay} from './ui/race-hud.tsx';
 export {RaceAudioLifecycle,RaceAudioPresentation} from './audio/race-audio.ts';
 export {CaptureRadioSelectionInput,RadioSelectionOverlay} from './ui/radio-selection.tsx';
+export {CapturePreRaceSelection,ApplyPreRaceConfiguration} from './sim/pre-race-selection.ts';
+export {PreRaceSelectionOverlay} from './ui/pre-race-selection.tsx';

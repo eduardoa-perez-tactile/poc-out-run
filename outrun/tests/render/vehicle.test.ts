@@ -1,3 +1,6 @@
+import {releaseTestCache} from '../helpers/release-test-cache.ts';
+import {expectReleasedGroup} from '../helpers/released-group.ts';
+import {recordedScene} from '../helpers/recorded-scene.ts';
 import { renderTest, expect } from '@gameengine/test';
 import { meshes,assets,EnterScene } from '@gameengine/runtime';
 import { VehiclePreview,VehicleVisualSlot,RoadProofState } from '../../src/schema.gen.ts';
@@ -31,6 +34,7 @@ for(let effect=1;effect<=5;effect++) {
   },SCENE);
 }
 renderTest('vehicle.residency selected car and fixed pool survive repeated preview changes',async({input,step,render,world})=>{
+  releaseTestCache();
   input.view(882,344,1);
   for(let i=0;i<46;i++) {
     world.setResource(VehiclePreview,{pose:i%23,sample:i,effect:i%6});
@@ -108,7 +112,7 @@ renderTest('vehicle.lifecycle disabling destroys geometry releases preload and r
   expect(assets.stats().groups['player-ferrari1']!.status).toBe('loaded');
   world.setResource(VehiclePreview,{enabled:false});await step(1);
   expect(meshes.info('player-car')).toBe(null);
-  expect(assets.stats().groups['player-ferrari1']!.status).toBe('released');
+  expectReleasedGroup('player-ferrari1');
   expect(world.resource(VehiclePreview).loaded).toBe(false);
   world.setResource(VehiclePreview,{enabled:true});await step(3);
   render.probe({width:1280,height:720,points:[[640,620]]});await step(1);
@@ -123,7 +127,7 @@ renderTest('vehicle.lifecycle losing the preview slot or leaving its scene relea
   expect(meshes.info('player-car')).toBe(null);
   expect(world.resource(VehiclePreview).loaded).toBe(false);
   expect(world.resource(VehiclePreview).enabled).toBe(false);
-  expect(assets.stats().groups['player-ferrari1']!.status).toBe('released');
+  expectReleasedGroup('player-ferrari1');
   input.emit(EnterScene,{scene:'scenes/vehicle-preview.scene.json',release:''});await step(3);
   render.probe({width:1280,height:720,points:[[0,0]]});await step(1);
   expect(world.count(VehicleVisualSlot)).toBe(1);
@@ -134,7 +138,7 @@ renderTest('vehicle.lifecycle losing the preview slot or leaving its scene relea
   expect(meshes.info('player-car')).toBe(null);
   expect(world.resource(VehiclePreview).loaded).toBe(false);
   expect(world.resource(VehiclePreview).enabled).toBe(false);
-  expect(assets.stats().groups['player-ferrari1']!.status).toBe('released');
+  expectReleasedGroup('player-ferrari1');
 },SCENE);
 
 renderTest('vehicle.lifecycle disabling an initial preload cannot resurrect preview state',async({input,step,world})=>{
@@ -148,7 +152,7 @@ renderTest('vehicle.lifecycle disabling an initial preload cannot resurrect prev
   expect(meshes.info('player-car')).toBe(null);
   expect(world.resource(VehiclePreview).enabled).toBe(false);
   expect(world.resource(VehiclePreview).loaded).toBe(false);
-  expect(assets.stats().groups['player-ferrari1']!.status).toBe('released');
+  expectReleasedGroup('player-ferrari1');
 },SCENE);
 
 renderTest('vehicle.lifecycle resource reset reconciles a surviving native group pin',async({input,step,render,world})=>{
@@ -161,5 +165,17 @@ renderTest('vehicle.lifecycle resource reset reconciles a surviving native group
   await step(1);
   expect(meshes.info('player-car')).toBe(null);
   expect(world.resource(VehiclePreview).reconciled).toBe(true);
-  expect(assets.stats().groups['player-ferrari1']!.status).toBe('released');
+  expectReleasedGroup('player-ferrari1');
 },SCENE);
+
+// Source for vehicle-pipeline.greplay: exactly one recorded entry and121fixed ticks.
+renderTest('vehicle.pipeline canonical recorded preview startup',async({input,step,world,render})=>{
+  input.emit(EnterScene,{scene:recordedScene('scenes/vehicle-preview.scene.json'),release:''});
+  await step(121);
+  expect(world.count(VehicleVisualSlot)).toBe(1);
+  expect(world.resource(VehiclePreview).enabled).toBe(true);
+  expect(world.resource(VehiclePreview).loaded).toBe(true);
+  expect(meshes.info('player-car')!.vertices).toBe(12);
+  expect(assets.stats().groups['player-ferrari1']!.status).toBe('loaded');
+  expect(render.stats({width:1280,height:720}).drawCalls).toBeGreaterThan(0);
+});

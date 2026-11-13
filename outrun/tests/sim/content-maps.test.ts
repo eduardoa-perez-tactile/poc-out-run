@@ -1,5 +1,5 @@
 import {worldTest,expect} from '@gameengine/test';
-import {listData} from '@gameengine/runtime';
+import {listData,assetPath,loadData} from '@gameengine/runtime';
 import {SourceBiome} from '../../src/schema.gen.ts';
 import {loadSourceBiome,type SourceBiomeId} from '../../src/content/biome.ts';
 
@@ -26,10 +26,14 @@ const cases=[
 for(const oracle of cases){
   worldTest(`content.biome${oracle.id} typed immutable source inventory and full placement prefixes`,()=>{
     const data=loadSourceBiome(oracle.id);
-    expect([...listData(SourceBiome)].sort()).toEqual([
-      'data/biomes/goal.json',
-      ...Array.from({length:15},(_,i)=>`data/biomes/map${String(i+1).padStart(2,'0')}.json`),
+    // Keep the complete source inventory assertion while enumeration returns GUIDs.
+    const biomeIds=[...listData(SourceBiome)];
+    expect(biomeIds.map(id=>assetPath(id)).sort()).toEqual([
+      'assets/data/biomes/goal.json',
+      ...Array.from({length:15},(_,i)=>`assets/data/biomes/map${String(i+1).padStart(2,'0')}.json`),
     ]);
+    const guid=biomeIds.find(id=>assetPath(id)===`assets/data/biomes/map${String(oracle.id).padStart(2,'0')}.json`);
+    expect(guid!==undefined).toBe(true);expect(loadData(SourceBiome,guid!)).toEqual(data);
     expect(data.id).toBe(oracle.id);expect(data.sourceCommit).toBe(PIN);
     expect(data.sourceHashes[`Resources/Maps/MapLevels/Map${oracle.id}/map.txt`]).toBe(oracle.mapSha);
     expect(data.profile).toBe('sourceCompatibility-original');expect(data.forkGradient).toBe(0);

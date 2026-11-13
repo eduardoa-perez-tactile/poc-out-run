@@ -359,10 +359,88 @@
         "include": [
           "assets/textures/environments/goal-*.png"
         ]
+      },
+      "player-ferrari2": {
+        "include": [
+          "assets/textures/player-ferrari2.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari3": {
+        "include": [
+          "assets/textures/player-ferrari3.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari4": {
+        "include": [
+          "assets/textures/player-ferrari4.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari5": {
+        "include": [
+          "assets/textures/player-ferrari5.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari6": {
+        "include": [
+          "assets/textures/player-ferrari6.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari7": {
+        "include": [
+          "assets/textures/player-ferrari7.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari8": {
+        "include": [
+          "assets/textures/player-ferrari8.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari9": {
+        "include": [
+          "assets/textures/player-ferrari9.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari10": {
+        "include": [
+          "assets/textures/player-ferrari10.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari11": {
+        "include": [
+          "assets/textures/player-ferrari11.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari12": {
+        "include": [
+          "assets/textures/player-ferrari12.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari13": {
+        "include": [
+          "assets/textures/player-ferrari13.png",
+          "assets/materials/player-car.material.ts"
+        ]
+      },
+      "player-ferrari14": {
+        "include": [
+          "assets/textures/player-ferrari14.png",
+          "assets/materials/player-car.material.ts"
+        ]
       }
     }
   },
-  "startScene": "scenes/radio-selection.scene.json",
+  "startScene": "scenes/pre-race.scene.json",
   "check": {
     "smoke": {
       "frames": 120

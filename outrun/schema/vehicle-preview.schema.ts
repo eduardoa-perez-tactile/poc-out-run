@@ -4,6 +4,7 @@ export const VehiclePreview = resource('VehiclePreview', {
   enabled: bool(), pose: u32(), sample: u32(), effect: u32(), scale: f32({ default: 3.2 }),
   placeholder: bool(), autoplay: bool(), loaded: bool(), reconciled: bool(),
   useWheelEffects: bool(), leftEffect: u32(), rightEffect: u32(), hidden: bool(),
+  loadedCar: u32(),
 }, { sim: false });
 export const VehicleVisualSlot = component('VehicleVisualSlot', {
   slot: u32(),
