@@ -13,10 +13,13 @@ worldTest('menus.controls-help keyboard and touch navigation preserve choices an
   ctx.input.key('Enter',false);ctx.input.key('ArrowRight',false);ctx.input.key('Space',false);
   expect(ctx.world.resource(PreRaceSelection).page).toBe(MenuPage.Help);
   expect(ctx.world.resource(DrivingState).active).toBe(false);
-  ctx.input.key('Escape',true);await ctx.step(1);ctx.input.key('Escape',false);
+  ctx.input.key('Escape',true);await ctx.step(2);ctx.input.key('Escape',false);
   expect(ctx.world.resource(PreRaceSelection).page).toBe(MenuPage.Home);
   // Touch uses the same recorded menu actions as the help/back document buttons.
   ctx.input.emit(PreRaceAction,{action:MenuAction.Help,value:0});await ctx.step(1);
+  expect(ctx.world.resource(PreRaceSelection).page).toBe(MenuPage.Help);
+  ctx.input.emit(PreRaceAction,{action:MenuAction.Back,value:0});await ctx.step(1);
+  ctx.input.key('KeyH',true);await ctx.step(1);ctx.input.key('KeyH',false);
   expect(ctx.world.resource(PreRaceSelection).page).toBe(MenuPage.Help);
   ctx.input.emit(PreRaceAction,{action:MenuAction.Back,value:0});await ctx.step(1);
   const returned=ctx.world.resource(PreRaceSelection);

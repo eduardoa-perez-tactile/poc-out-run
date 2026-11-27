@@ -20,7 +20,7 @@ export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0
     if(s.page!==MenuPage.Home||!Number.isInteger(value)||value<0||value>=252)return s;
     return {...s,difficulty:value%3,population:[9,20,32][Math.floor(value/3)%3]!,manual:Math.floor(value/9)%2===1,car:Math.floor(value/18)};
   }
-  if(action===MenuAction.Help&&s.page===MenuPage.Home){s.page=MenuPage.Help;s.cursor=0;return s;}
+  if(action===MenuAction.Help&&s.page===MenuPage.Home){s.page=MenuPage.Help;s.cursor=0;s.held=0;return s;}
   if(action===MenuAction.Rankings&&s.page===MenuPage.Home){s.page=MenuPage.Rankings;s.held=0;return s;}
   if(action===MenuAction.Select){
     if(s.page===MenuPage.Home||s.page===MenuPage.Options||s.page===MenuPage.Mode)s.cursor=clamp(Math.trunc(value),s.page===MenuPage.Mode?2:1);
@@ -67,7 +67,7 @@ export const CapturePreRaceSelection=defineSystem({
     // Apply a startup restore before fresh menu input from the same tick.
     for(const event of ctx.events.read(PreRaceAction))if(event.action===MenuAction.RestoreSettings){state=reducePreRace(state,event.action,event.value);changed=true;}
     for(const key of ctx.events.read(KeyEvent)){
-      if(state.page===MenuPage.Rankings)continue;
+      if(state.page===MenuPage.Rankings||state.page===MenuPage.Help)continue;
       const binding=bindings.find(entry=>entry[0]===key.code);if(!binding)continue;
       const [,bit,action]=binding;
       if(state.page===MenuPage.Radio&&action!==MenuAction.Back){if(!key.down){state.held&=~bit;changed=true;}continue;}

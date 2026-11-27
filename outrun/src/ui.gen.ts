@@ -24,15 +24,24 @@ declare module '@gameengine/ui' {
     /**
      * Controls help screen: a view, screen (ui/docs/controls-help-screen.ui.json)
      *
-     * Properties: none
-     * Events: `back`
+     * Properties:
+     *   - `left`: text, default "TURN LEFT : LEFT"
+     *   - `right`: text, default "TURN RIGHT : RIGHT"
+     *   - `throttle`: text, default "ACCELERATE : UP"
+     *   - `brake`: text, default "BRAKE : DOWN"
+     *   - `up`: text, default "GEAR UP : E"
+     *   - `down`: text, default "GEAR DOWN : Q"
+     *   - `status`: text, default "SELECT A CONTROL, PRESS ENTER, THEN PRESS A KEY"
+     *   - `selected`: number, default 0
+     *   - `capturing`: yesno, default false
+     * Events: `bind-left`, `bind-right`, `bind-throttle`, `bind-brake`, `bind-up`, `bind-down`, `back`
      * Code areas: none
-     * Refs: `back`
+     * Refs: `bind-left`, `bind-right`, `bind-throttle`, `bind-brake`, `bind-up`, `bind-down`, `back`
      */
     'controls-help-screen': {
-      props: {};
+      props: { left: string | { loc: string } | LocText; right: string | { loc: string } | LocText; throttle: string | { loc: string } | LocText; brake: string | { loc: string } | LocText; up: string | { loc: string } | LocText; down: string | { loc: string } | LocText; status: string | { loc: string } | LocText; selected: number; capturing: boolean };
       areas: never;
-      refs: 'back';
+      refs: 'bind-left' | 'bind-right' | 'bind-throttle' | 'bind-brake' | 'bind-up' | 'bind-down' | 'back';
     };
     /**
      * Driving action: a widget, button (ui/docs/driving-action.ui.json)

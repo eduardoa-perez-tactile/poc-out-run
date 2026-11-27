@@ -23,3 +23,10 @@ export const DrivingResetRequested = event('DrivingResetRequested', {
 }, { sim: true });
 // Explicit UI pause/resume intent; keyboard Space shares its authoritative reducer.
 export const DrivingPauseRequested = event('DrivingPauseRequested', { paused: bool() }, { sim: true });
+// Zero means the original binding; unchanged defaults remain inert in replays.
+export const DrivingBindings=resource('DrivingBindings',{
+  left:u32(),right:u32(),throttle:u32(),brake:u32(),up:u32(),down:u32(),
+},{sim:true});
+export const KeyboardBindingsRequested=event('KeyboardBindingsRequested',{
+  left:u32(),right:u32(),throttle:u32(),brake:u32(),up:u32(),down:u32(),
+},{sim:true});

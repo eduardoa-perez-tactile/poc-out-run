@@ -4,7 +4,6 @@ import {GameSettingsStore} from '../content/game-settings.ts';
 import {GameSettingsSync} from './game-settings-sync.ts';
 import {PreRaceSelection,PreRaceAction} from '../schema.gen.ts';
 import {MenuAction,MenuPage} from '../sim/pre-race-selection.ts';
-import {ControlsHelpView} from '../views/controls-help.view.tsx';
 import {showRankings} from './rankings.tsx';
 import {PreRaceSelectionView,preRaceSelectionModel,type PreRaceSelectionModel} from '../views/pre-race-selection.view.tsx';
 const actions:Record<string,number>={previous:MenuAction.Previous,next:MenuAction.Next,up:MenuAction.Up,down:MenuAction.Down,accept:MenuAction.Accept,back:MenuAction.Back,options:MenuAction.Options,rankings:MenuAction.Rankings,help:MenuAction.Help};
@@ -12,7 +11,7 @@ export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',ro
   const preferences=new GameSettingsSync(new GameSettingsStore({
     get:(key,fallback)=>gameengine.kv.get(key,fallback),set:(key,value)=>gameengine.kv.set(key,value),
   }),value=>emit(PreRaceAction,{action:MenuAction.RestoreSettings,value}));
-  const state=useResource(PreRaceSelection);let browserOpen=false;let view:ViewHandle<PreRaceSelectionModel>|null=null;let help:ViewHandle<{}>|null=null;
+  const state=useResource(PreRaceSelection);let browserOpen=false;let view:ViewHandle<PreRaceSelectionModel>|null=null;
   const close=()=>{view?.close({immediate:true});view=null;};
   createEffect(()=>{
     const s=state();
@@ -20,9 +19,6 @@ export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',ro
     const active=s?.enabled===true&&s.page<MenuPage.Radio;
     const model=active?preRaceSelectionModel({...s}):null;
     untrack(()=>{
-      if(s?.enabled&&s.page===MenuPage.Help){
-        if(!help)help=views.push(ControlsHelpView,{}, {onIntent:name=>{if(name==='back')emit(PreRaceAction,{action:MenuAction.Back,value:0});}});
-      }else if(help){help.close({immediate:true});help=null;}
       if(s?.enabled&&s.page===MenuPage.Rankings&&!browserOpen){
         browserOpen=showRankings({mode:s.mode,difficulty:s.difficulty,population:s.population},undefined,()=>{
           browserOpen=false;emit(PreRaceAction,{action:MenuAction.Back,value:0});
@@ -37,5 +33,5 @@ export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',ro
       }});
     });
   });
-  onCleanup(()=>{close();help?.close({immediate:true});help=null;});return null;
+  onCleanup(close);return null;
 }});
