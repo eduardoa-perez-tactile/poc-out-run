@@ -4,7 +4,7 @@ import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RaceMode,RouteDriver,
 export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6} as const;
 export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8} as const;
 const clamp=(n:number,max:number)=>Math.max(0,Math.min(max,n));
-/** Pure recorded-input reducer. Original and Continuous are playable; Survival remains unavailable. */
+/** Pure recorded-input reducer. All three source race modes are playable. */
 export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0):PreRaceSelectionValue {
   const s={...before};if(!s.enabled||s.launch)return s;
   if(action===MenuAction.Select){
@@ -30,7 +30,7 @@ export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0
   }else if(s.page===MenuPage.Mode){
     const step=direction||(action===MenuAction.Up?-1:action===MenuAction.Down?1:0);
     if(step)s.cursor=clamp(s.cursor+step,2);
-    if(action===MenuAction.Accept&&s.cursor<2){s.mode=s.cursor;s.page=MenuPage.Gears;s.cursor=Number(s.manual);}
+    if(action===MenuAction.Accept){s.mode=s.cursor;s.page=MenuPage.Gears;s.cursor=Number(s.manual);}
   }else if(s.page===MenuPage.Gears){
     if(direction){s.cursor=clamp(s.cursor+direction,1);s.manual=s.cursor===1;}
     if(action===MenuAction.Accept){s.manual=s.cursor===1;s.page=MenuPage.Car;s.cursor=s.car;}
@@ -70,7 +70,7 @@ export const ApplyPreRaceConfiguration=defineSystem({
   resources:[read(PreRaceSelection),write(RaceState),write(RaceMode)],
   run(ctx,owners){const selection=ctx.get(PreRaceSelection),race=ctx.get(RaceState);
     if(!selection.launch||race.initialized)return;
-    if(selection.mode!==0&&selection.mode!==1)throw new Error("Unsupported race mode");
+    if(selection.mode!==0&&selection.mode!==1&&selection.mode!==2)throw new Error("Unsupported race mode");
     ctx.set(RaceMode,{value:selection.mode});
     ctx.set(RaceState,{difficulty:selection.difficulty,population:selection.population});
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){

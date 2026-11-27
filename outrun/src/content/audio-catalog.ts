@@ -3,6 +3,9 @@
 // only short effects and the source stereo coastal ambience belong to the resident bank.
 export const AUDIO_BANK_KEY='audio/race/core.bank';
 export const RACE_SOUNDS={
+  "survivalStart": "audio/race/sfx/survival-start",
+  "survivalFinishFirst": "audio/race/sfx/survival-finish-first",
+  "survivalFinishSecond": "audio/race/sfx/survival-finish-second",
   "continuousFinishSecond": "audio/race/sfx/continuous-finish-second",
   "continuousFinishFirst": "audio/race/sfx/continuous-finish-first",
   "continuousStart": "audio/race/sfx/continuous-start",
@@ -50,6 +53,9 @@ export const RACE_SOUNDS={
 } as const;
 export type RaceSoundName=keyof typeof RACE_SOUNDS;
 export const RACE_SOUND_DURATIONS={
+  "survivalStart": 3.599977,
+  "survivalFinishFirst": 4.16,
+  "survivalFinishSecond": 6.8,
   "continuousFinishSecond": 4.104083,
   "continuousFinishFirst": 5.596009,
   "continuousStart": 2.799977,

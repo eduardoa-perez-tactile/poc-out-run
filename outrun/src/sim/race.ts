@@ -11,8 +11,8 @@ function modeCode(mode:RaceControlMode):number {
   return mode==='player'?RaceControl.Player:mode==='recovery'?RaceControl.Recovery:mode==='roll'?RaceControl.Roll:mode==='brake'?RaceControl.Brake:RaceControl.Locked;
 }
 function flow(value:RaceStateValue):RaceFlow {
-  if(!Number.isInteger(value.phase)||value.phase<0||value.phase>8||!Number.isInteger(value.resumePhase)||value.resumePhase<0||value.resumePhase>8||value.outcome>2)throw new Error('Invalid persisted race phase');
-  return {...value,phase:value.phase as RacePhaseCode,resumePhase:value.resumePhase as RacePhaseCode,outcome:value.outcome as 0|1|2};
+  if(!Number.isInteger(value.phase)||value.phase<0||value.phase>8||!Number.isInteger(value.resumePhase)||value.resumePhase<0||value.resumePhase>8||value.outcome>3)throw new Error('Invalid persisted race phase');
+  return {...value,phase:value.phase as RacePhaseCode,resumePhase:value.resumePhase as RacePhaseCode,outcome:value.outcome as 0|1|2|3};
 }
 function configuration(value:RaceStateValue):RaceConfiguration {
   if(value.difficulty!==0&&value.difficulty!==1&&value.difficulty!==2)throw new Error('Invalid race difficulty');
@@ -84,7 +84,7 @@ export const FinishRace=defineSystem({
         crashPhase:crash.phase,legacySpeed:driving.legacySpeed,leftEffect:terrain.leftEffect,rightEffect:terrain.rightEffect,
         checkpointCount:route.checkpointCount,checkpointStep:route.checkpointStep,checkpointBonusSeconds:route.checkpointBonusSeconds,
         passAwardCount:route.passAwardCount,passAwardStep:route.passAwardStep,passAwardAmount:route.passAwardAmount,
-        arrivalCount:route.arrivalCount,arrivalStep:route.arrivalStep});
+        arrivalCount:route.arrivalCount,arrivalStep:route.arrivalStep},ctx.get(RaceMode).value);
       // A phase transition can terminally lock this tick. Countdown completion
       // and resume retain their admission lock until the following fixed tick.
       const code=admission.activeTick?modeCode(raceControlMode(next.phase)):previous.controlMode,playing=code!==RaceControl.Locked;

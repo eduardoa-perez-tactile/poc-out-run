@@ -43,6 +43,9 @@
     "audio/race/sfx/wave",
     "audio/race/sfx/continuous-start",
     "audio/race/sfx/continuous-finish-first",
-    "audio/race/sfx/continuous-finish-second"
+    "audio/race/sfx/continuous-finish-second",
+    "audio/race/sfx/survival-start",
+    "audio/race/sfx/survival-finish-first",
+    "audio/race/sfx/survival-finish-second"
   ]
 }
