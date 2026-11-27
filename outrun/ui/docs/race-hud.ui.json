@@ -19,7 +19,9 @@
         "rh_speed",
         "rh_stage",
         "rh_notice",
-        "rh_bonus"
+        "rh_bonus",
+        "rh_route",
+        "rh_checkpoint"
       ]
     },
     "rh_top": {
@@ -362,6 +364,118 @@
       },
       "show": "showBonus",
       "property": "bonus"
+    },
+    "rh_route": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "ui/sprites/star",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          1,
+          1
+        ],
+        "offset": [
+          -32,
+          -364
+        ],
+        "w": 128,
+        "h": 88,
+        "fit": "contain"
+      },
+      "property": "routeTree"
+    },
+    "rh_checkpoint": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_checkpoint_title",
+        "rh_extended",
+        "rh_checkpoint_lap_label",
+        "rh_checkpoint_lap"
+      ],
+      "style": {
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.18
+        ],
+        "pivot": [
+          0.5,
+          0
+        ],
+        "w": 600,
+        "h": 240,
+        "dir": "column",
+        "align": "center",
+        "gap": 8
+      },
+      "show": "showCheckpoint"
+    },
+    "rh_checkpoint_title": {
+      "type": "label",
+      "name": "Label",
+      "text": "CHECKPOINT!",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 72,
+        "fitMin": 48,
+        "color": "#f7f700ff",
+        "outline": 2,
+        "outlineColor": "#0000ffff",
+        "w": "100%",
+        "h": 68,
+        "textAlign": "center"
+      }
+    },
+    "rh_extended": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "6ccb7a38-d37c-5c15-ad5a-91e84ca04731"
+      },
+      "style": {
+        "size": 32,
+        "w": 435,
+        "h": 48,
+        "fit": "contain"
+      }
+    },
+    "rh_checkpoint_lap_label": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "1b159898-d6d5-5d22-afe9-55816cda1bbf"
+      },
+      "style": {
+        "size": 32,
+        "w": 84,
+        "h": 33,
+        "fit": "contain"
+      }
+    },
+    "rh_checkpoint_lap": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 52,
+        "fitMin": 38,
+        "color": "#92c2baff",
+        "outline": 2,
+        "outlineColor": "#000000ff",
+        "w": "100%",
+        "h": 60,
+        "textAlign": "center"
+      },
+      "property": "checkpointLap"
     }
   },
   "view": {
@@ -424,6 +538,20 @@
           }
         }
       }
+    },
+    "routeTree": {
+      "type": "image",
+      "default": {
+        "guid": "271b8a1d-9c98-55a9-a3ff-897996f69f73"
+      }
+    },
+    "checkpointLap": {
+      "type": "text",
+      "default": "00 '42 ''36"
+    },
+    "showCheckpoint": {
+      "type": "yesno",
+      "default": false
     }
   }
 }
