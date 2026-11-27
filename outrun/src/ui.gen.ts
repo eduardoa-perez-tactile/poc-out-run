@@ -9,6 +9,32 @@ import type { LocText } from '@gameengine/ui';
 declare module '@gameengine/ui' {
   interface UiDocumentTypes {
     /**
+     * Controls help backdrop: a view, screen (ui/docs/controls-help-backdrop.ui.json)
+     *
+     * Properties: none
+     * Events: none
+     * Code areas: none
+     * Refs: none
+     */
+    'controls-help-backdrop': {
+      props: {};
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Controls help screen: a view, screen (ui/docs/controls-help-screen.ui.json)
+     *
+     * Properties: none
+     * Events: `back`
+     * Code areas: none
+     * Refs: `back`
+     */
+    'controls-help-screen': {
+      props: {};
+      areas: never;
+      refs: 'back';
+    };
+    /**
      * Driving action: a widget, button (ui/docs/driving-action.ui.json)
      *
      * Properties:
@@ -126,14 +152,14 @@ declare module '@gameengine/ui' {
      *   - `detailLabel`: text, default ""
      *   - `availabilityLabel`: text, default ""
      *   - `selectedRow`: number, default 0
-     * Events: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`, `rankings`
+     * Events: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`, `rankings`, `help`
      * Code areas: none
-     * Refs: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`, `rankings`
+     * Refs: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`, `rankings`, `help`
      */
     'pre-race-controls': {
       props: { screen: 'home' | 'options' | 'mode' | 'gears' | 'car'; heading: string | { loc: string } | LocText; primaryLabel: string | { loc: string } | LocText; secondaryLabel: string | { loc: string } | LocText; detailLabel: string | { loc: string } | LocText; availabilityLabel: string | { loc: string } | LocText; selectedRow: number };
       areas: never;
-      refs: 'primary' | 'secondary' | 'tertiary' | 'back' | 'accept' | 'previous' | 'next' | 'rankings';
+      refs: 'primary' | 'secondary' | 'tertiary' | 'back' | 'accept' | 'previous' | 'next' | 'rankings' | 'help';
     };
     /**
      * Live race HUD: a view (ui/docs/race-hud.ui.json)

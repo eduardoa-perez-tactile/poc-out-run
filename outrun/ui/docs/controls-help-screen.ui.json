@@ -1,0 +1,429 @@
+{
+  "$schemaVersion": 1,
+  "guid": "fb3f6abc-4650-488c-b25c-36b4b5a72a29",
+  "name": "controls-help-screen",
+  "title": "Controls help screen",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Controls help screen",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": [
+          44,
+          120,
+          44,
+          120
+        ],
+        "dir": "column",
+        "gap": 16,
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "align": "center"
+      },
+      "children": [
+        "hc_title",
+        "hc_intro",
+        "hc_columns",
+        "hc_menu",
+        "hc_back"
+      ]
+    },
+    "hc_title": {
+      "type": "label",
+      "name": "Label",
+      "text": "CONTROLS / HELP",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 76,
+        "h": 90,
+        "w": "100%",
+        "color": "#ff3030ff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      }
+    },
+    "hc_intro": {
+      "type": "label",
+      "name": "Label",
+      "text": "KEYBOARD AND TOUCH DRIVING",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 38,
+        "h": 44,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      }
+    },
+    "hc_columns": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "hc_keyboard",
+        "hc_touch"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "row",
+        "gap": 72,
+        "w": "100%",
+        "h": 0,
+        "grow": 1
+      }
+    },
+    "hc_keyboard": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "hc_k_heading",
+        "hc_key_0",
+        "hc_key_1",
+        "hc_key_2",
+        "hc_key_3",
+        "hc_key_4",
+        "hc_key_5"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "column",
+        "gap": 8,
+        "w": 0,
+        "grow": 1,
+        "h": "100%"
+      }
+    },
+    "hc_touch": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "hc_t_heading",
+        "hc_touch_0",
+        "hc_touch_1",
+        "hc_touch_2",
+        "hc_touch_3",
+        "hc_auto",
+        "hc_manual"
+      ],
+      "style": {
+        "pad": 0,
+        "dir": "column",
+        "gap": 8,
+        "w": 0,
+        "grow": 1,
+        "h": "100%"
+      }
+    },
+    "hc_k_heading": {
+      "type": "label",
+      "name": "Label",
+      "text": "KEYBOARD",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 52,
+        "h": 62,
+        "w": "100%",
+        "color": "#ffff00ff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_key_0": {
+      "type": "label",
+      "name": "Label",
+      "text": "LEFT / RIGHT : STEER",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_key_1": {
+      "type": "label",
+      "name": "Label",
+      "text": "UP : ACCELERATE",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_key_2": {
+      "type": "label",
+      "name": "Label",
+      "text": "DOWN : BRAKE",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_key_3": {
+      "type": "label",
+      "name": "Label",
+      "text": "Q / E : SHIFT DOWN / UP",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_key_4": {
+      "type": "label",
+      "name": "Label",
+      "text": "M : AUTO / MANUAL",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_key_5": {
+      "type": "label",
+      "name": "Label",
+      "text": "SPACE : PAUSE / RESUME",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_t_heading": {
+      "type": "label",
+      "name": "Label",
+      "text": "TOUCH",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 52,
+        "h": 62,
+        "w": "100%",
+        "color": "#ffff00ff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_touch_0": {
+      "type": "label",
+      "name": "Label",
+      "text": "HOLD LEFT / RIGHT : STEER",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_touch_1": {
+      "type": "label",
+      "name": "Label",
+      "text": "HOLD ACCEL : ACCELERATE",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_touch_2": {
+      "type": "label",
+      "name": "Label",
+      "text": "HOLD BRAKE : BRAKE",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_touch_3": {
+      "type": "label",
+      "name": "Label",
+      "text": "TAP PAUSE / RESUME",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 44,
+        "h": 68,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_auto": {
+      "type": "label",
+      "name": "Label",
+      "text": "SELECT AUTOMATIC FOR TOUCH PLAY",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 34,
+        "h": 62,
+        "w": "100%",
+        "color": "#ffff00ff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_manual": {
+      "type": "label",
+      "name": "Label",
+      "text": "MANUAL SHIFTING USES Q / E",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 32,
+        "h": 52,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "hc_menu": {
+      "type": "label",
+      "name": "Label",
+      "text": "MENU: ARROWS CHOOSE   ENTER CONFIRMS   ESC GOES BACK",
+      "style": {
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 34,
+        "h": 48,
+        "w": "100%",
+        "color": "#0ac9ebff",
+        "fitMin": 26,
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      }
+    },
+    "hc_back": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "back",
+      "props": {
+        "label": "BACK TO MENU"
+      },
+      "style": {
+        "w": 620,
+        "h": 128
+      }
+    }
+  },
+  "view": {
+    "behaviour": "screen"
+  }
+}
