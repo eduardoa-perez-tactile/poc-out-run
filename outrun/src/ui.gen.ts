@@ -51,14 +51,15 @@ declare module '@gameengine/ui' {
     /**
      * Driving controls: a view, screen (ui/docs/driving-controls.ui.json)
      *
-     * Properties: none
+     * Properties:
+     *   - `manual`: yesno, default false
      * Events: `pause`
-     * Code areas: `left`, `right`, `brake`, `throttle`
+     * Code areas: `left`, `right`, `brake`, `throttle`, `gearDown`, `gearUp`
      * Refs: `pause`
      */
     'driving-controls': {
-      props: {};
-      areas: 'left' | 'right' | 'brake' | 'throttle';
+      props: { manual: boolean };
+      areas: 'left' | 'right' | 'brake' | 'throttle' | 'gearDown' | 'gearUp';
       refs: 'pause';
     };
     /**

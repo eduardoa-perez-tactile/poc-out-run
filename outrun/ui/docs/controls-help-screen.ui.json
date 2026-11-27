@@ -358,7 +358,7 @@
     "hc_auto": {
       "type": "label",
       "name": "Label",
-      "text": "SELECT AUTOMATIC FOR TOUCH PLAY",
+      "text": "HOLD ACCEL AND TAP GEAR - / GEAR +",
       "style": {
         "font": {
           "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
@@ -376,7 +376,7 @@
     "hc_manual": {
       "type": "label",
       "name": "Label",
-      "text": "MANUAL SHIFTING USES Q / E",
+      "text": "MANUAL: TOUCH GEARS OR Q / E",
       "style": {
         "font": {
           "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
