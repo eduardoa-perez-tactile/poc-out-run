@@ -18,7 +18,7 @@ import {resolveRouteEnvironment,createRouteTrafficAdapter,interpolateRouteView,r
 
 const names=['route-live-road','route-live-composite','route-live-back','route-live-front','route-live-sky','route-live-incoming-back','route-live-incoming-front'] as const;
 const SHARED='route-live-shared',MAP1='route-live-map01';
-const source=originalRouteSources(),buffers=createEnvironmentBuffers(),traffic=createRouteTrafficAdapter();
+const buffers=createEnvironmentBuffers(),traffic=createRouteTrafficAdapter();
 const atlas={sizePx:MAP01_ART.atlas.sizePx,byObjectId:map01AtlasLookup(MAP01_ART.images)};
 const sky=new ProjectionBuffers(1),white=new Uint8Array([255,255,255]),targetPalette=new Array<number>(33).fill(0);
 const readiness=createEnvironmentReadiness();let readinessInitialized=false;
@@ -61,6 +61,7 @@ export const RoutePresentation=defineSystem({
     slots:query(read(RouteLiveSlot),write(MeshRenderer),write(MaterialOverrides))},
   resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(RaceState),read(ViewInfo),read(RenderTime),read(RenderStatus)],
   run(ctx,{actors,slots}){
+    const source=originalRouteSources(ctx.get(RaceState).mode);
     // Validate authored slots even when their actor is absent. An inactive
     // optional presenter must still report malformed/duplicate slot ownership.
     let slotMask=0;

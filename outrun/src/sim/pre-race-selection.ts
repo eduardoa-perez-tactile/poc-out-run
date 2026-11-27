@@ -4,7 +4,7 @@ import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RouteDriver,TrafficPo
 export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6} as const;
 export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8} as const;
 const clamp=(n:number,max:number)=>Math.max(0,Math.min(max,n));
-/** Pure recorded-input reducer. Unimplemented modes remain selectable but cannot launch. */
+/** Pure recorded-input reducer. Original and Continuous are playable; Survival remains unavailable. */
 export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0):PreRaceSelectionValue {
   const s={...before};if(!s.enabled||s.launch)return s;
   if(action===MenuAction.Select){
@@ -14,7 +14,7 @@ export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0
   const direction=action===MenuAction.Previous?-1:action===MenuAction.Next?1:0;
   if(action===MenuAction.Back){
     s.page=s.page===MenuPage.Radio?MenuPage.Car:s.page===MenuPage.Car?MenuPage.Gears:s.page===MenuPage.Gears?MenuPage.Mode:MenuPage.Home;
-    s.cursor=s.page===MenuPage.Car?s.car:s.page===MenuPage.Gears?Number(s.manual):0;return s;
+    s.cursor=s.page===MenuPage.Car?s.car:s.page===MenuPage.Gears?Number(s.manual):s.page===MenuPage.Mode?s.mode:0;return s;
   }
   if(s.page===MenuPage.Radio){if(action===MenuAction.Launch){s.launch=true;s.enabled=false;s.page=MenuPage.Race;s.held=0;}return s;}
   if(action===MenuAction.Options&&s.page===MenuPage.Home){s.page=MenuPage.Options;s.cursor=0;return s;}
@@ -30,7 +30,7 @@ export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0
   }else if(s.page===MenuPage.Mode){
     const step=direction||(action===MenuAction.Up?-1:action===MenuAction.Down?1:0);
     if(step)s.cursor=clamp(s.cursor+step,2);
-    if(action===MenuAction.Accept&&s.cursor===0){s.page=MenuPage.Gears;s.cursor=Number(s.manual);}
+    if(action===MenuAction.Accept&&s.cursor<2){s.mode=s.cursor;s.page=MenuPage.Gears;s.cursor=Number(s.manual);}
   }else if(s.page===MenuPage.Gears){
     if(direction){s.cursor=clamp(s.cursor+direction,1);s.manual=s.cursor===1;}
     if(action===MenuAction.Accept){s.manual=s.cursor===1;s.page=MenuPage.Car;s.cursor=s.car;}
@@ -70,7 +70,8 @@ export const ApplyPreRaceConfiguration=defineSystem({
   resources:[read(PreRaceSelection),write(RaceState)],
   run(ctx,owners){const selection=ctx.get(PreRaceSelection),race=ctx.get(RaceState);
     if(!selection.launch||race.initialized)return;
-    ctx.set(RaceState,{difficulty:selection.difficulty,population:selection.population});
+    if(selection.mode!==0&&selection.mode!==1)throw new Error("Unsupported race mode");
+    ctx.set(RaceState,{mode:selection.mode,difficulty:selection.difficulty,population:selection.population});
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
       if(chunk.col(RaceOwner).enabled[row]!==0&&!chunk.get(RouteDriver,row).initialized)chunk.set(TrafficPool,row,{population:selection.population});
     }

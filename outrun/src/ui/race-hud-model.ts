@@ -18,11 +18,11 @@ export function raceHudModel(race:Readonly<RaceStateValue>,driving:Readonly<Driv
   return {time:String(Math.ceil(race.remainingTicks/60)),score:formatRaceScore(race.score),lap:formatRaceTime(race.stageTicks),
     speed:String(Math.trunc(Math.fround(Math.fround(driving.legacySpeed)*Math.fround(1.65)))),
     gear:`${driving.manual?'MANUAL':'AUTO'} · ${driving.gear===0?'LOW':'HIGH'}`,
-    stage:race.mapId===16?'GOAL':`STAGE ${Math.min(5,race.stage+1)}/5`,notice,
+    stage:race.mapId===16?'GOAL':`STAGE ${Math.min(race.mode===1?15:5,race.stage+1)}/${race.mode===1?15:5}`,notice,
     bonus:`TIME BONUS ${Math.floor(race.bonusDeciseconds/10)}.${race.bonusDeciseconds%10} S`,
     showNotice:notice.length>0,showBonus:finishing,urgent:race.remainingTicks<=10*60&&race.phase===1};
 }
 export function raceResultsModel(race:Readonly<RaceStateValue>):RaceResultsModel{
   return {title:race.outcome===1?'FINISH!':'TIME UP',score:formatRaceScore(race.score),
-    summary:race.outcome===1?`TIME BONUS ${race.finishRemainingSeconds} S`:`STAGE ${Math.min(5,race.stage+1)} · TRY AGAIN`};
+    summary:race.outcome===1?`TIME BONUS ${race.finishRemainingSeconds} S`:`STAGE ${Math.min(race.mode===1?15:5,race.stage+1)} · TRY AGAIN`};
 }

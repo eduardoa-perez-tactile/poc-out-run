@@ -67,16 +67,17 @@ export function emptyRouteDriver():RouteDriverState {
     passAwardCount:0,passAwardStep:0,passAwardAmount:0,passAwardOldMapEpoch:0,processedStep:0};
 }
 /** Recorded full reset only. The caller owns the AdvanceRoute native stream. */
-export function resetRouteDriver(previous:RouteDriverState,request:RouteReset,content:RouteContent,rng:RouteRandom,step:number):RouteTransition {
+export function resetRouteDriver(previous:RouteDriverState,request:RouteReset,content:RouteContent,rng:RouteRandom,step:number,mode:number=0):RouteTransition {
+  need(mode===0||mode===1,'unsupported game mode');
   uint(step,'step');uint(request.seedLo,'seedLo');uint(request.seedHi,'seedHi');
   const epoch=increment(previous.routeEpoch,'route epoch');
   // V8 may expose an overallocated native dispatch view (capacity16). Only the
   // first four PCG words are logical state; keep the borrowed view connected.
   need(rng.state.length>=4,'native RNG needs four borrowed words');
   rng.state.set(pcg32(request.seedLo,request.seedHi,0x524f5554,0).state);
-  const selected=gradient(rng);profile(content,1,selected);
+  const selected=mode===1?0:gradient(rng);profile(content,1,selected);
   const route:RouteDriverState={...emptyRouteDriver(),initialized:true,routeEpoch:epoch,mapEpoch:1,
-    gradient:selected,seedLo:request.seedLo,seedHi:request.seedHi,rangeCalls:1,entryCount:1,processedStep:step};
+    gradient:selected,seedLo:request.seedLo,seedHi:request.seedHi,rangeCalls:mode===1?0:1,entryCount:1,processedStep:step};
   return {route,events:[{...identity(route),kind:'entry',fromMapId:0,gradient:selected}],entry:null};
 }
 /** Source int assignment: FLOAT addition/subtraction rounds before truncation. */
@@ -108,7 +109,8 @@ export function sourceRouteTransferZ(rawZ:number,outgoingCamera:number):number {
 /** Prepared camera is the one source integer movement, already source-wrapped.
  * This reducer owns graph/latches only; it never advances physics or traffic. */
 export function advanceRouteState(previous:RouteDriverState,camera:number,priorRoadSide:0|1,playing:boolean,
-  content:RouteContent,rng:RouteRandom,step:number):RouteTransition {
+  content:RouteContent,rng:RouteRandom,step:number,mode:number=0):RouteTransition {
+  need(mode===0||mode===1,'unsupported game mode');
   need(previous.initialized,'route requires recorded reset');uint(step,'step');integer(camera,'prepared camera');
   need(camera>=0,'negative prepared camera');need(priorRoadSide===0||priorRoadSide===1,'invalid prior road side');
   need(step>=previous.processedStep,'step moved backwards');
@@ -120,22 +122,24 @@ export function advanceRouteState(previous:RouteDriverState,camera:number,priorR
   const events:RouteEvent[]=[];let entry:RouteEntry|null=null;
   const playerRow=Math.floor((camera+oldData.playerOffsetZ)/oldData.segmentLength)%oldData.totalCount;
   if(!route.choiceLatched&&playerRow>oldData.swapLine){
-    const current=catalogEntry(content,route.mapId),next=priorRoadSide===0?current.links.left:current.links.right;
-    mapId(next);route={...route,choiceLatched:true,chosenSide:priorRoadSide,nextMapId:next};
-    events.push({...identity(route),kind:'choice',side:priorRoadSide,nextMapId:next,gradient:route.gradient});
+    const current=catalogEntry(content,route.mapId),side=mode===1?0:priorRoadSide;
+    const next=mode===1?route.mapId+1:side===0?current.links.left:current.links.right;
+    mapId(next);route={...route,choiceLatched:true,chosenSide:side,nextMapId:next};
+    events.push({...identity(route),kind:'choice',side,nextMapId:next,gradient:route.gradient});
   }
   if(playerRow>oldData.lastLine){
     need(route.choiceLatched&&route.nextMapId!==0,'exit has no latched destination');
-    const nextStage=route.stage+1;need(nextStage<=5,'route exceeds five ordinary stages');
-    const selected=nextStage===4?1:gradient(rng);
+    const nextStage=route.stage+1;need(nextStage<=(mode===1?15:5),'route exceeds ordinary stages');
+    const selected=mode===1?0:nextStage===4?1:gradient(rng);
     const destination=profile(content,route.nextMapId,selected),catalog=catalogEntry(content,destination.id);
-    need(catalog.stage===nextStage+1&&catalog.terminal===(nextStage===5),'invalid ORIGINAL graph stage');
+    if(mode===1)need(destination.id===nextStage+1&&catalog.terminal===(nextStage===15),'invalid CONTINUOUS graph stage');
+    else need(catalog.stage===nextStage+1&&catalog.terminal===(nextStage===5),'invalid ORIGINAL graph stage');
     const nextEpoch=increment(route.mapEpoch,'map epoch');
     entry={fromMapId:route.mapId,oldMapEpoch:route.mapEpoch,mapId:destination.id,mapEpoch:nextEpoch,
       stage:nextStage,gradient:selected,outgoingCamera:camera};
     route={...route,mapId:destination.id,mapEpoch:nextEpoch,stage:nextStage,gradient:selected,camera:0,previousCamera:0,
       choiceLatched:false,chosenSide:0,nextMapId:0,checkpointAwarded:false,entryCount:increment(route.entryCount,'entry count'),
-      rangeCalls:nextStage===4?route.rangeCalls:increment(route.rangeCalls,'range calls')};
+      rangeCalls:mode===1||nextStage===4?route.rangeCalls:increment(route.rangeCalls,'range calls')};
     events.push({...identity(route),kind:'entry',fromMapId:entry.fromMapId,gradient:selected});
     if(catalog.terminal){
       route={...route,goalEntered:true,arrivalCount:increment(route.arrivalCount,'arrival count'),arrivalStep:step};
@@ -144,8 +148,8 @@ export function advanceRouteState(previous:RouteDriverState,camera:number,priorR
   }
   const current=profile(content,route.mapId,route.gradient),catalog=catalogEntry(content,route.mapId);
   if(catalog.hasCheckpoint&&!route.checkpointAwarded&&Math.floor((route.camera+current.playerOffsetZ)/current.segmentLength)%current.totalCount>current.checkpointLine){
-    need(route.stage>=1&&route.stage<=4&&current.checkpointLine>=0,'invalid checkpoint stage');
-    const factor=[0,.53125,.5,.46875,.4375][route.stage]!;
+    need(route.stage>=1&&route.stage<=(mode===1?14:4)&&current.checkpointLine>=0,'invalid checkpoint stage');
+    const factor=mode===1?.52:[0,.53125,.5,.46875,.4375][route.stage]!;
     const bonus=Math.trunc(q(q(current.timeSeconds)*q(factor)));uint(bonus,'checkpoint bonus');
     route={...route,checkpointAwarded:true,checkpointCount:increment(route.checkpointCount,'checkpoint count'),
       checkpointStep:step,checkpointBonusSeconds:bonus};

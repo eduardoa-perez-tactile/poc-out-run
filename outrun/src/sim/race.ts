@@ -17,7 +17,7 @@ function flow(value:RaceStateValue):RaceFlow {
 function configuration(value:RaceStateValue):RaceConfiguration {
   if(value.difficulty!==0&&value.difficulty!==1&&value.difficulty!==2)throw new Error('Invalid race difficulty');
   if(value.population!==9&&value.population!==20&&value.population!==32)throw new Error('Invalid race population');
-  return {mapTimeSeconds:originalRouteSources().get(1,0).timeSeconds,difficulty:value.difficulty,population:value.population};
+  return {mapTimeSeconds:originalRouteSources(value.mode).get(1,0).timeSeconds,difficulty:value.difficulty,population:value.population};
 }
 function decodeMode(value:number):RaceControlMode {
   if(value===RaceControl.Locked)return 'locked';if(value===RaceControl.Player)return 'player';
@@ -78,7 +78,7 @@ export const FinishRace=defineSystem({
       const admission:RaceAdmission={state:flow(previous),step:ctx.step,mode:decodeMode(previous.controlMode),
         racingAdmitted:previous.racingAdmitted,activeTick:previous.activeTick,resetRoute:false};
       if(route.gradient!==-1&&route.gradient!==0&&route.gradient!==1)throw new Error('Invalid race route profile');
-      const data=originalRouteSources().get(route.mapId as SourceBiomeId,route.gradient);
+      const data=originalRouteSources(previous.mode).get(route.mapId as SourceBiomeId,route.gradient);
       const next=finishRaceTick(admission,{routeEpoch:route.routeEpoch,mapId:route.mapId,
         playerRow:Math.floor((route.camera+data.playerOffsetZ)/data.segmentLength)%data.totalCount,
         crashPhase:crash.phase,legacySpeed:driving.legacySpeed,leftEffect:terrain.leftEffect,rightEffect:terrain.rightEffect,

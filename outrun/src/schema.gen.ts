@@ -1128,6 +1128,12 @@ export const schemaIr = {
           "lanes": 1
         },
         {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
           "name": "difficulty",
           "kind": "u32",
           "scalar": "u32",
@@ -1223,6 +1229,12 @@ export const schemaIr = {
           "name": "bonusAwarded",
           "kind": "bool",
           "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
           "lanes": 1
         },
         {
@@ -4523,6 +4535,7 @@ export interface PreRaceSelectionViews {
   enabled: Uint8Array;
   page: Uint32Array;
   cursor: Uint32Array;
+  mode: Uint32Array;
   difficulty: Uint32Array;
   population: Uint32Array;
   manual: Uint8Array;
@@ -4534,6 +4547,7 @@ export interface PreRaceSelectionValue {
   enabled: boolean;
   page: number;
   cursor: number;
+  mode: number;
   difficulty: number;
   population: number;
   manual: boolean;
@@ -4542,7 +4556,7 @@ export interface PreRaceSelectionValue {
   held: number;
 }
 /** PreRaceSelection (resource, sim) */
-export const PreRaceSelection = typeToken<PreRaceSelectionViews, PreRaceSelectionValue>('PreRaceSelection', 'resource', { sig: 'enabled:bool:1,page:u32:1,cursor:u32:1,difficulty:u32:1,population:u32:1,manual:bool:1,car:u32:1,launch:bool:1,held:u32:1', read: (v: PreRaceSelectionViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.page = v.page[i]; o.cursor = v.cursor[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; o.car = v.car[i]; o.launch = v.launch[i] !== 0; o.held = v.held[i]; return o; } });
+export const PreRaceSelection = typeToken<PreRaceSelectionViews, PreRaceSelectionValue>('PreRaceSelection', 'resource', { sig: 'enabled:bool:1,page:u32:1,cursor:u32:1,mode:u32:1,difficulty:u32:1,population:u32:1,manual:bool:1,car:u32:1,launch:bool:1,held:u32:1', read: (v: PreRaceSelectionViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.page = v.page[i]; o.cursor = v.cursor[i]; o.mode = v.mode[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; o.car = v.car[i]; o.launch = v.launch[i] !== 0; o.held = v.held[i]; return o; } });
 
 export interface RaceOwnerViews {
   enabled: Uint8Array;
@@ -4564,6 +4578,7 @@ export interface RaceStateViews {
   activeTick: Uint8Array;
   racingAdmitted: Uint8Array;
   bonusAwarded: Uint8Array;
+  mode: Uint32Array;
   mapTimeSeconds: Uint32Array;
   difficulty: Uint32Array;
   population: Uint32Array;
@@ -4598,6 +4613,7 @@ export interface RaceStateValue {
   activeTick: boolean;
   racingAdmitted: boolean;
   bonusAwarded: boolean;
+  mode: number;
   mapTimeSeconds: number;
   difficulty: number;
   population: number;
@@ -4627,7 +4643,7 @@ export interface RaceStateValue {
   stage: number;
 }
 /** RaceState (resource, sim) */
-export const RaceState = typeToken<RaceStateViews, RaceStateValue>('RaceState', 'resource', { sig: 'initialized:bool:1,lastPublishedPlaying:bool:1,activeTick:bool:1,racingAdmitted:bool:1,bonusAwarded:bool:1,mapTimeSeconds:u32:1,difficulty:u32:1,population:u32:1,mapId:u32:1,raceEpoch:u32:1,routeEpoch:u32:1,phase:u32:1,resumePhase:u32:1,processedStep:u32:1,phaseTicks:u32:1,countdownTicks:u32:1,remainingTicks:u32:1,totalTicks:u32:1,stageTicks:u32:1,lastStageTicks:u32:1,score:u32:1,finishScore:u32:1,finishRemainingSeconds:u32:1,bonusDeciseconds:u32:1,resultsHoldTicks:u32:1,outcome:u32:1,consumedCheckpoints:u32:1,consumedPassBatches:u32:1,consumedArrivals:u32:1,controlMode:u32:1,admittedStep:u32:1,stage:u32:1', read: (v: RaceStateViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.lastPublishedPlaying = v.lastPublishedPlaying[i] !== 0; o.activeTick = v.activeTick[i] !== 0; o.racingAdmitted = v.racingAdmitted[i] !== 0; o.bonusAwarded = v.bonusAwarded[i] !== 0; o.mapTimeSeconds = v.mapTimeSeconds[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.mapId = v.mapId[i]; o.raceEpoch = v.raceEpoch[i]; o.routeEpoch = v.routeEpoch[i]; o.phase = v.phase[i]; o.resumePhase = v.resumePhase[i]; o.processedStep = v.processedStep[i]; o.phaseTicks = v.phaseTicks[i]; o.countdownTicks = v.countdownTicks[i]; o.remainingTicks = v.remainingTicks[i]; o.totalTicks = v.totalTicks[i]; o.stageTicks = v.stageTicks[i]; o.lastStageTicks = v.lastStageTicks[i]; o.score = v.score[i]; o.finishScore = v.finishScore[i]; o.finishRemainingSeconds = v.finishRemainingSeconds[i]; o.bonusDeciseconds = v.bonusDeciseconds[i]; o.resultsHoldTicks = v.resultsHoldTicks[i]; o.outcome = v.outcome[i]; o.consumedCheckpoints = v.consumedCheckpoints[i]; o.consumedPassBatches = v.consumedPassBatches[i]; o.consumedArrivals = v.consumedArrivals[i]; o.controlMode = v.controlMode[i]; o.admittedStep = v.admittedStep[i]; o.stage = v.stage[i]; return o; } });
+export const RaceState = typeToken<RaceStateViews, RaceStateValue>('RaceState', 'resource', { sig: 'initialized:bool:1,lastPublishedPlaying:bool:1,activeTick:bool:1,racingAdmitted:bool:1,bonusAwarded:bool:1,mode:u32:1,mapTimeSeconds:u32:1,difficulty:u32:1,population:u32:1,mapId:u32:1,raceEpoch:u32:1,routeEpoch:u32:1,phase:u32:1,resumePhase:u32:1,processedStep:u32:1,phaseTicks:u32:1,countdownTicks:u32:1,remainingTicks:u32:1,totalTicks:u32:1,stageTicks:u32:1,lastStageTicks:u32:1,score:u32:1,finishScore:u32:1,finishRemainingSeconds:u32:1,bonusDeciseconds:u32:1,resultsHoldTicks:u32:1,outcome:u32:1,consumedCheckpoints:u32:1,consumedPassBatches:u32:1,consumedArrivals:u32:1,controlMode:u32:1,admittedStep:u32:1,stage:u32:1', read: (v: RaceStateViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.lastPublishedPlaying = v.lastPublishedPlaying[i] !== 0; o.activeTick = v.activeTick[i] !== 0; o.racingAdmitted = v.racingAdmitted[i] !== 0; o.bonusAwarded = v.bonusAwarded[i] !== 0; o.mode = v.mode[i]; o.mapTimeSeconds = v.mapTimeSeconds[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.mapId = v.mapId[i]; o.raceEpoch = v.raceEpoch[i]; o.routeEpoch = v.routeEpoch[i]; o.phase = v.phase[i]; o.resumePhase = v.resumePhase[i]; o.processedStep = v.processedStep[i]; o.phaseTicks = v.phaseTicks[i]; o.countdownTicks = v.countdownTicks[i]; o.remainingTicks = v.remainingTicks[i]; o.totalTicks = v.totalTicks[i]; o.stageTicks = v.stageTicks[i]; o.lastStageTicks = v.lastStageTicks[i]; o.score = v.score[i]; o.finishScore = v.finishScore[i]; o.finishRemainingSeconds = v.finishRemainingSeconds[i]; o.bonusDeciseconds = v.bonusDeciseconds[i]; o.resultsHoldTicks = v.resultsHoldTicks[i]; o.outcome = v.outcome[i]; o.consumedCheckpoints = v.consumedCheckpoints[i]; o.consumedPassBatches = v.consumedPassBatches[i]; o.consumedArrivals = v.consumedArrivals[i]; o.controlMode = v.controlMode[i]; o.admittedStep = v.admittedStep[i]; o.stage = v.stage[i]; return o; } });
 
 export interface RadioSelectionInputViews {
   enabled: Uint8Array;

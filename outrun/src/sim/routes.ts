@@ -23,14 +23,14 @@ export const AdvanceRoute=defineSystem({
     if(owners.count!==1)throw new Error('Route requires one co-owned terrain/traffic/contact/crash/integer-coordinate entity');
     let request:import('../schema.gen.ts').RouteResetRequestedValue|undefined;
     for(const event of ctx.events.read(RouteResetRequested))request=event;
-    const driving=ctx.resource(DrivingState),held=ctx.resource(DrivingInput),content=originalRouteSources();
+    const driving=ctx.resource(DrivingState),held=ctx.resource(DrivingInput),raceMode=ctx.get(RaceState).mode,content=originalRouteSources(raceMode);
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
       const before=chunk.get(RouteDriver,row),terrain=chunk.get(TerrainDriver,row),crash=chunk.get(CrashDriver,row);
       const reset=!before.initialized||request!==undefined;
       if(reset){
         if(request&&![9,20,32].includes(request.population))throw new Error('Invalid recorded route population');
         const selection=ctx.get(PreRaceSelection);
-        const transition=resetRouteDriver(state(before),request??before,content,ctx.rng,ctx.step);
+        const transition=resetRouteDriver(state(before),request??before,content,ctx.rng,ctx.step,raceMode);
         // Full lifecycle cancellation is recorded; ordinary handoffs never clear holds.
         ctx.set(DrivingInput,{keyboard:0,ui:0,shiftUp:false,shiftDown:false,upHeld:false,downHeld:false,pauseHeld:false,modeHeld:false});
         // A fresh scene uses source auto mode; inherited resource defaults may
@@ -68,7 +68,7 @@ export const AdvanceRoute=defineSystem({
         {throttle:(bits&1)!==0,brake:(bits&2)!==0,left:(bits&4)!==0,right:(bits&8)!==0,
           up:held.shiftUp[0]!==0,down:held.shiftDown[0]!==0},ctx.dt,data);
       if(terrain.roadSide!==0&&terrain.roadSide!==1)throw new Error('Invalid prior canonical road side');
-      const transition=advanceRouteState(old,prepared.driving.distance,terrain.roadSide,true,content,ctx.rng,ctx.step);
+      const transition=advanceRouteState(old,prepared.driving.distance,terrain.roadSide,true,content,ctx.rng,ctx.step,raceMode);
       ctx.set(DrivingState,{previousDistance:old.camera,previousLateral:driving.lateral[0]!});
       chunk.set(RouteDriver,row,{...transition.route,pending:true,pendingStep:ctx.step,pendingReset:false,
         pendingHandoff:transition.entry!==null,pendingFromMapId:old.mapId,pendingFromGradient:old.gradient,

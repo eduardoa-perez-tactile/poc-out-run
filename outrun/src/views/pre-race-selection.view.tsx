@@ -16,10 +16,10 @@ export function preRaceSelectionModel(s:PreRaceSelectionValue):PreRaceSelectionM
     gearLeftImage:s.manual?GEAR_ART.automaticIdle:GEAR_ART.automaticSelected,gearRightImage:s.manual?GEAR_ART.manualSelected:GEAR_ART.manualIdle,
     heading:s.page===MenuPage.Home?'':s.page===MenuPage.Options?'OPTIONS':s.page===MenuPage.Mode?'SELECT MODE':s.page===MenuPage.Gears?'SELECT GEARS':'SELECT VEHICLE',
     primaryLabel:labels[0]!,secondaryLabel:labels[1]!,detailLabel:s.page===MenuPage.Mode?'SURVIVAL':'',
-    availabilityLabel:s.page===MenuPage.Mode&&s.cursor!==0?'NOT AVAILABLE IN THIS PORT':'',
+    availabilityLabel:s.page===MenuPage.Mode&&s.cursor===2?'NOT AVAILABLE IN THIS PORT':'',
     showLogo:s.page===MenuPage.Home||s.page===MenuPage.Mode,showCar:s.page===MenuPage.Car,showGears:s.page===MenuPage.Gears,selectedRow:s.cursor};
 }
-const sampleState:PreRaceSelectionValue={enabled:true,page:0,cursor:0,difficulty:1,population:20,manual:false,car:0,launch:false,held:0};
+const sampleState:PreRaceSelectionValue={enabled:true,page:0,cursor:0,mode:0,difficulty:1,population:20,manual:false,car:0,launch:false,held:0};
 export const PreRaceSelectionView=defineView<PreRaceSelectionModel>({
   name:'PreRaceSelection',layer:'overlay',blockInput:true,
   description:'Original main menu, options, mode, gears and vehicle selection.',

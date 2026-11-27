@@ -39,7 +39,7 @@ export const AdvanceTraffic=defineSystem({
           distance:state.distance[0]!,previousDistance:state.previousDistance[0]!,lateral:state.lateral[0]!,previousLateral:state.previousLateral[0]!,
           legacySpeed:state.legacySpeed[0]!,gear:state.gear[0]!,steering:state.steering[0]!}},
         {throttle:(bits&1)!==0,brake:(bits&2)!==0,left:(bits&4)!==0,right:(bits&8)!==0,
-          up:held.shiftUp[0]!==0,down:held.shiftDown[0]!==0},originalRouteSources(),ctx.dt,ctx.step,ctx.rng,
+          up:held.shiftUp[0]!==0,down:held.shiftDown[0]!==0},originalRouteSources(race.mode[0]),ctx.dt,ctx.step,ctx.rng,
         request?.population??t.col(TrafficPool).population[0]!,endingMode);
       r.set(RouteDriver,0,result.route);r.set(TerrainDriver,0,result.terrain);r.set(RouteTrafficCoordinates,0,result.coordinates);
       t.set(TrafficPool,0,result.pool);c.set(CollisionDriver,0,result.collision);k.set(CrashDriver,0,result.crash);
