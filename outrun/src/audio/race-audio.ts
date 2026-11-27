@@ -126,11 +126,11 @@ export class RaceAudioController {
       const count=Math.ceil(sample.countdownTicks/60),oldCount=previous?Math.ceil(previous.countdownTicks/60):4;
       if(count<oldCount&&(count===2||count===1))this.cue('semaphorePrepare',75,0.8);
     }
-    if(phase===1&&previousPhase===0){this.cue('semaphoreStart',80,0.9);this.cue(sample.mode===1?'continuousStart':'raceStart',65,0.75);this.cue('crowd',20,0.35);}
+    if(phase===1&&previousPhase===0){this.cue('semaphoreStart',80,0.9);this.cue(sample.mode===2?'survivalStart':sample.mode===1?'continuousStart':'raceStart',65,0.75);this.cue('crowd',20,0.35);}
     if(previous&&sample.checkpoints>previous.checkpoints){
       this.cue('checkpointAlarm',80,0.8);
       const names:RaceSoundName[]=['checkpointVoice1','checkpointVoice2','checkpointVoice3'];
-      this.cue(names[sample.mode===1?1:(sample.checkpoints-1)%3]!,75,0.9);
+      this.cue(names[sample.mode===2?2:sample.mode===1?1:(sample.checkpoints-1)%3]!,75,0.9);
     }
     if(previous&&sample.remainingTicks<=600&&sample.remainingTicks>0&&previous.remainingTicks>600)this.cue('tenSeconds',80,0.9);
     if(previous&&sample.gear!==previous.gear&&sample.speed>0&&sample.crashPhase===0)this.cue(sample.gear>previous.gear?'gearUp':'gearDown',35,0.4);
@@ -138,7 +138,7 @@ export class RaceAudioController {
       this.cue('crash',90,0.9);this.cue('womanCrash',75,0.7);
     }
     if(previous&&sample.passes>previous.passes)this.cue('horn1',25,0.25,sample.trafficPan);
-    if(phase>=2&&phase<=4&&previousPhase<2){this.cue(sample.mode===1?'continuousFinishFirst':'finishFirst',80,0.7);this.cue('showmanCongratulations',75,0.9);}
+    if(phase>=2&&phase<=4&&previousPhase<2){this.cue(sample.mode===2?(sample.raceEpoch%2===1?'survivalFinishFirst':'survivalFinishSecond'):sample.mode===1?'continuousFinishFirst':'finishFirst',80,0.7);this.cue('showmanCongratulations',75,0.9);}
     if(phase===6&&previousPhase!==6)this.cue('crowdCongratulations',60,0.5);
     if(phase===7&&previousPhase!==7){this.stopSounds();this.cue('womanDie',80,0.8);this.cue('gameOver',70,0.65);}
     const driving=phase>=1&&phase<=4&&sample.speed>0,crashing=sample.crashPhase!==0;

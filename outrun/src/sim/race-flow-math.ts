@@ -1,4 +1,4 @@
-// Deterministic ORIGINAL race clock, scoring and ending flow.
+// Deterministic source race clock, scoring and ending flow.
 import {math} from '@gameengine/runtime';
 const q=math.fround;
 
@@ -24,7 +24,7 @@ export interface RaceFlow {
   remainingTicks:number;totalTicks:number;stageTicks:number;lastStageTicks:number;
   score:number;finishScore:number;finishRemainingSeconds:number;
   bonusAwarded:boolean;bonusDeciseconds:number;resultsHoldTicks:number;
-  outcome:0|1|2; // none, source arrival/win, timeout
+  outcome:0|1|2|3; // none, source arrival/win, timeout, Survival crash stop
   consumedCheckpoints:number;consumedPassBatches:number;consumedArrivals:number;
 }
 export interface RaceIntent {step:number;pauseToggle:boolean;restart:boolean;}
@@ -121,7 +121,8 @@ function countBonus(state:RaceFlow):void {
  * racing tick gets its actual checkpoint BEFORE one tick expires; actual goal
  * entry on that tick wins expiration. The source timer thread supplied no total
  * order. Continuous deadline phase is NOT reset by lap/checkpoint clock resets. */
-export function finishRaceTick(admission:RaceAdmission,observation:RaceObservation):RaceFlow {
+export function finishRaceTick(admission:RaceAdmission,observation:RaceObservation,mode=0):RaceFlow {
+  require(mode===0||mode===1||mode===2,'unsupported game mode');
   const state={...admission.state};state.processedStep=admission.step;
   if(!admission.activeTick)return state;
   require(observation.routeEpoch===state.routeEpoch,'actor/reset epoch mismatch');
@@ -149,6 +150,11 @@ export function finishRaceTick(admission:RaceAdmission,observation:RaceObservati
       state.finishScore=state.score+state.finishRemainingSeconds*FINISH_POINTS_PER_SECOND;
       state.bonusDeciseconds=state.finishRemainingSeconds*10;state.phaseTicks=0;
       state.phase=observation.crashPhase!==0?RacePhase.EndingRecovery:RacePhase.EndingRoll;
+    }else if(mode===2&&observation.crashPhase>=2&&observation.legacySpeed<=0){
+      // Map.cpp720: the accepted crash spin has stopped. Ordinary braking or
+      // off-road stopping is phase0 and cannot end Survival. Genuine arrival
+      // above wins a same-tick crash stop, as in Game.cpp952.
+      state.phase=RacePhase.GameOver;state.outcome=3;state.phaseTicks=0;
     }else if(state.remainingTicks===0){state.phase=RacePhase.GameOver;state.outcome=2;state.phaseTicks=0;}
     return state;
   }

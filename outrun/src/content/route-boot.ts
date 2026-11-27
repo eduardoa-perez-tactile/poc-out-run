@@ -13,6 +13,7 @@ const sources=createRouteCohortSourceAccessor(cohort,loadSourceBiomeCatalog());
 /** Immutable lookup only: no first-use IO, parsing, geometry generation or RNG. */
 const continuous=createContinuousRouteSources(sources);
 export function originalRouteSources(mode=0){
-  if(mode!==0&&mode!==1)throw new Error("Unsupported route mode");
-  return mode===1?continuous:sources;
+  if(mode!==0&&mode!==1&&mode!==2)throw new Error("Unsupported route mode");
+  // Continuous and Survival share source geometry and the fifteen-map chain.
+  return mode!==0?continuous:sources;
 }
