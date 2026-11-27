@@ -11,7 +11,8 @@ export const DrivingInput = resource('DrivingInput', {
   keyboard: u32(), ui: u32(), shiftUp: bool(), shiftDown: bool(),
   upHeld: bool(), downHeld: bool(), pauseHeld: bool(), modeHeld: bool(),
 }, { sim: true });
-// control: 0 throttle, 1 brake, 2 left, 3 right; source: 0 keyboard, 1 UI.
+// control: 0 throttle, 1 brake, 2 left, 3 right; UI press pulses4 gear down,5 gear up.
+// source: 0 keyboard,1 UI. Shift pulses reuse the existing one-tick input flags.
 export const DrivingControlChanged = event('DrivingControlChanged', {
   control: u32(), source: u32(), down: bool(),
 }, { sim: true });

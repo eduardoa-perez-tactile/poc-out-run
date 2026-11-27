@@ -17,7 +17,8 @@
       "children": [
         "dc_left",
         "dc_right",
-        "dc_pause"
+        "dc_pause",
+        "dc_gears"
       ]
     },
     "dc_left": {
@@ -119,6 +120,49 @@
           32
         ]
       }
+    },
+    "dc_gears": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "dc_gear_down",
+        "dc_gear_up"
+      ],
+      "style": {
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          1,
+          1
+        ],
+        "offset": [
+          -32,
+          -232
+        ],
+        "dir": "row",
+        "gap": 24,
+        "w": 376,
+        "h": 176
+      },
+      "show": "manual"
+    },
+    "dc_gear_down": {
+      "type": "codeArea",
+      "name": "Code area",
+      "key": "gearDown",
+      "style": {
+        "w": 176,
+        "h": 176
+      }
+    },
+    "dc_gear_up": {
+      "type": "codeArea",
+      "name": "Code area",
+      "key": "gearUp",
+      "style": {
+        "w": 176,
+        "h": 176
+      }
     }
   },
   "view": {
@@ -127,5 +171,11 @@
   },
   "transition": {
     "type": "instant"
+  },
+  "properties": {
+    "manual": {
+      "type": "yesno",
+      "default": false
+    }
   }
 }

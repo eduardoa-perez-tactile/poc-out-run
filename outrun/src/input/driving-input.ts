@@ -3,6 +3,8 @@ import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCance
 
 import {loadMap01} from '../content/biome.ts';
 
+export const TouchShift={Down:4,Up:5} as const;
+
 export const CaptureDrivingInput = defineSystem({
   name: 'CaptureDrivingInput',
   queries:{sourceDrivers:query(read(TerrainDriver)),raceOwners:query(read(RaceOwner))},
@@ -62,6 +64,14 @@ export const CaptureDrivingInput = defineSystem({
       }
     }
     for (const input of ctx.events.read(DrivingControlChanged)) {
+      if(input.control===TouchShift.Down||input.control===TouchShift.Up){
+        // A touch press supplies the same one-tick request as Q/E. The existing
+        // driving kernel still decides throttle, speed and gear eligibility.
+        const racing=raceOwners.count!==1||race.initialized[0]===0||race.phase[0]===1;
+        if(input.source===1&&input.down&&state.manual[0]&&state.playing[0]&&racing)
+          ctx.setField(DrivingInput,input.control===TouchShift.Up?'shiftUp':'shiftDown',true);
+        continue;
+      }
       if (input.control > 3 || input.source > 1) continue;
       const field = input.source === 0 ? 'keyboard' : 'ui';
       const bits = input.source === 0 ? held.keyboard[0]! : held.ui[0]!;

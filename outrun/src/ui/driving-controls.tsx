@@ -1,3 +1,4 @@
+import {TouchShift} from '../input/driving-input.ts';
 import { app } from '@gameengine/runtime';
 import { createEffect, createSignal, defineUI, emit, onCleanup, untrack, useResource, views, type ViewHandle } from '@gameengine/ui';
 import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingPauseRequested, RaceState } from '../schema.gen.ts';
@@ -20,7 +21,8 @@ export const DrivingControlsOverlay = defineUI({
       setResetVersion((value) => value + 1);
       emit(DrivingControlsCancelled, {});
     };
-    const model = (): DrivingControlsModel => ({ enabled: state()?.playing === true || (race()?.initialized === true && race()?.phase === 0), heldMask: input()?.ui ?? 0, resetVersion: resetVersion() });
+    const model = (): DrivingControlsModel => ({ enabled: state()?.playing === true || (race()?.initialized === true && race()?.phase === 0), heldMask: input()?.ui ?? 0, resetVersion: resetVersion(), manual:state()?.manual===true,
+      shiftEnabled:state()?.playing===true&&(!race()?.initialized||race()?.phase===1) });
     onCleanup(app.onLifecycle((lifecycle) => { if (lifecycle === 'background') cancel(); }));
     createEffect(() => {
       const active = state()?.active === true;
@@ -35,6 +37,10 @@ export const DrivingControlsOverlay = defineUI({
         if (active && !controls) controls = views.push(DrivingControlsView, next, {
           onIntent(name, payload) {
             if (name === 'pause') emit(DrivingPauseRequested, { paused: true });
+            else if(name==='shift'&&payload&&typeof payload==='object'){
+              const value=payload as {up?:unknown};
+              if(typeof value.up==='boolean')emit(DrivingControlChanged,{control:value.up?TouchShift.Up:TouchShift.Down,source:1,down:true});
+            }
             else if (name === 'control' && payload && typeof payload === 'object') {
               const value = payload as { control?: unknown; down?: unknown };
               if (typeof value.control === 'number' && Number.isInteger(value.control) && value.control >= 0 && value.control <= 3 && typeof value.down === 'boolean') {
