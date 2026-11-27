@@ -39,7 +39,8 @@
         "pc_accept",
         "pc_previous",
         "pc_next",
-        "pc_rankings"
+        "pc_rankings",
+        "pc_help"
       ]
     },
     "pc_heading": {
@@ -345,6 +346,25 @@
       "props": {
         "label": "RANKINGS (R)"
       }
+    },
+    "pc_help": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "help",
+      "props": {
+        "label": "HELP (H)"
+      },
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.9
+        ],
+        "pivot": "centre",
+        "w": 900,
+        "h": 100,
+        "hide": true
+      }
     }
   },
   "view": {
@@ -416,6 +436,9 @@
               "hide": true
             },
             "pc_rankings": {
+              "hide": false
+            },
+            "pc_help": {
               "hide": false
             }
           }
