@@ -1,14 +1,25 @@
 import {defineSystem,query,read,write,KeyEvent,Keys} from '@gameengine/runtime';
+import type {GameSettings} from '../content/game-settings.ts';
 import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RaceMode,RouteDriver,TrafficPool,type PreRaceSelectionValue} from '../schema.gen.ts';
 
 export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6,Rankings:7} as const;
-export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8,Rankings:9,Home:10} as const;
+export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8,Rankings:9,Home:10,RestoreSettings:11} as const;
 const clamp=(n:number,max:number)=>Math.max(0,Math.min(max,n));
+/** One recorded payload: 3 difficulties ×3 traffic levels ×2 gears ×14 cars. */
+export function encodeGameSettings(settings:GameSettings):number {
+  return settings.difficulty+3*[9,20,32].indexOf(settings.population)+9*Number(settings.manual)+18*settings.car;
+}
 /** Pure recorded-input reducer. All three source race modes are playable. */
 export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0):PreRaceSelectionValue {
   const s={...before};
   if(action===MenuAction.Home)return {...s,enabled:true,page:MenuPage.Home,cursor:0,launch:false,held:0};
   if(!s.enabled||s.launch)return s;
+  if(action===MenuAction.RestoreSettings){
+    // Restoring can never move a page, start a race, or override menu input
+    // that has already left Home. Saves are read by presentation only.
+    if(s.page!==MenuPage.Home||!Number.isInteger(value)||value<0||value>=252)return s;
+    return {...s,difficulty:value%3,population:[9,20,32][Math.floor(value/3)%3]!,manual:Math.floor(value/9)%2===1,car:Math.floor(value/18)};
+  }
   if(action===MenuAction.Rankings&&s.page===MenuPage.Home){s.page=MenuPage.Rankings;s.held=0;return s;}
   if(action===MenuAction.Select){
     if(s.page===MenuPage.Home||s.page===MenuPage.Options||s.page===MenuPage.Mode)s.cursor=clamp(Math.trunc(value),s.page===MenuPage.Mode?2:1);
@@ -52,6 +63,8 @@ export const CapturePreRaceSelection=defineSystem({
     const bindings=[[Keys.ArrowLeft,1,MenuAction.Previous],[Keys.ArrowRight,2,MenuAction.Next],
       [Keys.ArrowUp,4,MenuAction.Up],[Keys.ArrowDown,8,MenuAction.Down],[Keys.Enter,16,MenuAction.Accept],[Keys.Escape,32,MenuAction.Back],[Keys.KeyR,64,MenuAction.Rankings]] as const;
     let changed=false;
+    // Apply a startup restore before fresh menu input from the same tick.
+    for(const event of ctx.events.read(PreRaceAction))if(event.action===MenuAction.RestoreSettings){state=reducePreRace(state,event.action,event.value);changed=true;}
     for(const key of ctx.events.read(KeyEvent)){
       if(state.page===MenuPage.Rankings)continue;
       const binding=bindings.find(entry=>entry[0]===key.code);if(!binding)continue;
@@ -62,7 +75,7 @@ export const CapturePreRaceSelection=defineSystem({
       // Radio owns Left/Right/Enter; Escape remains this recorded menu's Back.
       if(rising&&(state.page!==MenuPage.Radio||action===MenuAction.Back))state=reducePreRace(state,action);
     }
-    for(const event of ctx.events.read(PreRaceAction)){state=reducePreRace(state,event.action,event.value);changed=true;}
+    for(const event of ctx.events.read(PreRaceAction))if(event.action!==MenuAction.RestoreSettings){state=reducePreRace(state,event.action,event.value);changed=true;}
     if(changed)ctx.set(PreRaceSelection,state);
   }
 });
