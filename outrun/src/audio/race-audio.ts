@@ -19,7 +19,7 @@ export interface RaceAudioBackend {
 const defaults:RaceAudioSettings={radio:0,muted:false,musicVolume:0.65,sfxVolume:0.8};
 let settings:RaceAudioSettings={...defaults};
 const listeners=new Set<(settings:Readonly<RaceAudioSettings>)=>void>();
-const musicOwners=new WeakMap<RaceAudioBackend,object>();
+export const musicOwners=new WeakMap<RaceAudioBackend,object>();
 let activeController:RaceAudioController|null=null;
 const SETTINGS_KEY='outrun.audio.v1';
 const clamp=(value:number,min:number,max:number)=>Math.max(min,Math.min(max,value));
@@ -49,7 +49,7 @@ export function setVolumes(musicVolume:number,sfxVolume:number):void {setRaceAud
 const voices=new Set<RaceSoundName>(['showmanStart','showmanCongratulations','tenSeconds','hurryUp','womanCrash','womanDie','checkpointVoice1','checkpointVoice2','checkpointVoice3','crowd','crowdCongratulations']);
 type LoopName='engineRun'|'brake'|'skid'|'drift'|'offRoad'|'scoreBonus'|'trafficEngine1'|'trafficEngine2'|'trafficEngine3';
 interface HeldVoice {voice:AudioVoice;volume:number;pitch:number;}
-interface Shot {voice:AudioVoice;until:number;priority:number;ui:boolean;}
+interface Shot {name:RaceSoundName;voice:AudioVoice;until:number;priority:number;ui:boolean;}
 const MAX_SHOTS=6;
 const logicalPhase=(sample:RaceAudioSample)=>sample.phase===8?sample.resumePhase:sample.phase;
 
@@ -79,7 +79,7 @@ export class RaceAudioController {
       this.shots[oldest]!.voice.stop();this.shots.splice(oldest,1);
     }
     const voice=this.backend.voice(RACE_SOUNDS[name],{bus:name==='radioSelect'?'UI':voices.has(name)?'Voice':'SFX',volume:volume*level,priority,maxVoices:1,pan,loop:false});
-    this.shots.push({voice,priority,until:this.now+RACE_SOUND_DURATIONS[name]+0.1,ui:name==='radioSelect'});
+    this.shots.push({name,voice,priority,until:this.now+RACE_SOUND_DURATIONS[name]+0.1,ui:name==='radioSelect'});
   }
   private loop(name:LoopName,enabled:boolean,volume:number,pitch=1):void {
     const old=this.loops.get(name),level=this.level()*volume;
@@ -132,13 +132,28 @@ export class RaceAudioController {
       const names:RaceSoundName[]=['checkpointVoice1','checkpointVoice2','checkpointVoice3'];
       this.cue(names[sample.mode===2?2:sample.mode===1?1:(sample.checkpoints-1)%3]!,75,0.9);
     }
-    if(previous&&sample.remainingTicks<=600&&sample.remainingTicks>0&&previous.remainingTicks>600)this.cue('tenSeconds',80,0.9);
+    if(previous&&phase===1&&previousPhase===1&&sample.remainingTicks>0){
+      if(sample.remainingTicks<=600&&previous.remainingTicks>600)this.cue('tenSeconds',80,0.9);
+      if(sample.remainingTicks<=300&&previous.remainingTicks>300)this.cue('hurryUp',80,0.9);
+      const seconds=Math.ceil(sample.remainingTicks/60),previousSeconds=Math.ceil(previous.remainingTicks/60);
+      // Source updateTime cues once on each second below ten, without overlapping
+      // an unfinished countdown clip. Checkpoint extensions naturally rearm it.
+      if(seconds<10&&seconds<previousSeconds&&!this.shots.some(shot=>shot.name==='countdown'&&shot.until-0.1>this.now)){
+        this.cue('countdown',75,0.8);
+      }
+    }
     if(previous&&sample.gear!==previous.gear&&sample.speed>0&&sample.crashPhase===0)this.cue(sample.gear>previous.gear?'gearUp':'gearDown',35,0.4);
     if(sample.crashPhase!==0&&(!previous||previous.crashPhase===0||sample.impacts>previous.impacts)){
       this.cue('crash',90,0.9);this.cue('womanCrash',75,0.7);
     }
     if(previous&&sample.passes>previous.passes)this.cue('horn1',25,0.25,sample.trafficPan);
-    if(phase>=2&&phase<=4&&previousPhase<2){this.cue(sample.mode===2?(sample.raceEpoch%2===1?'survivalFinishFirst':'survivalFinishSecond'):sample.mode===1?'continuousFinishFirst':'finishFirst',80,0.7);this.cue('showmanCongratulations',75,0.9);}
+    if(phase>=2&&phase<=4&&previousPhase<2){
+      // Alternate the original recordings using race identity, without consuming
+      // simulation RNG or allowing audio to influence the result.
+      const endings:readonly RaceSoundName[]=sample.mode===2?['survivalFinishFirst','survivalFinishSecond']:
+        sample.mode===1?['continuousFinishFirst','continuousFinishSecond']:['finishFirst','finishSecond','finishThird'];
+      this.cue(endings[(sample.raceEpoch-1)%endings.length]!,80,0.7);this.cue('showmanCongratulations',75,0.9);
+    }
     if(phase===6&&previousPhase!==6)this.cue('crowdCongratulations',60,0.5);
     if(phase===7&&previousPhase!==7){this.stopSounds();this.cue('womanDie',80,0.8);this.cue('gameOver',70,0.65);}
     const driving=phase>=1&&phase<=4&&sample.speed>0,crashing=sample.crashPhase!==0;

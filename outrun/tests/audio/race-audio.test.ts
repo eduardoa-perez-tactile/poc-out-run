@@ -38,3 +38,42 @@ worldTest('audio.race cues once, holds bounded loops, pauses without repeating G
   controller.dispose();expect(controller.voiceCount).toBe(0);expect(started.every(x=>x.stopped)).toBe(true);
   expect(world.hash()).toBe(before);
 });
+
+worldTest('audio.race source hurry countdown and finish variants stay edge triggered and presentation only',({world})=>{
+  const before=world.hash(),started:string[]=[];
+  const backend:RaceAudioBackend={
+    voice(key){started.push(key);return {set(){},stop(){}} as AudioVoice;},music(){},stopMusic(){}
+  };
+  const prefs:RaceAudioSettings={radio:0,muted:false,musicVolume:0.6,sfxVolume:0.8};
+  const controller=new RaceAudioController(backend,()=>prefs);
+  const sample:RaceAudioSample={active:true,raceEpoch:1,phase:1,resumePhase:1,countdownTicks:0,remainingTicks:601,
+    checkpoints:0,passes:0,speed:0,gear:0,held:0,crashPhase:0,impacts:0,skidding:false,offRoad:false,traffic:0,trafficPan:0};
+  const count=(key:string)=>started.filter(x=>x===key).length;
+  controller.sample(sample,0);
+  controller.sample({...sample,remainingTicks:600},1);controller.sample({...sample,remainingTicks:599},1.01);
+  expect(count(RACE_SOUNDS.tenSeconds)).toBe(1);
+  controller.sample({...sample,remainingTicks:540},2);controller.sample({...sample,remainingTicks:539},2.01);
+  expect(count(RACE_SOUNDS.countdown)).toBe(1);
+  controller.sample({...sample,remainingTicks:480},3);expect(count(RACE_SOUNDS.countdown)).toBe(2);
+  controller.sample({...sample,remainingTicks:301},6.99);controller.sample({...sample,remainingTicks:300},7);
+  expect(count(RACE_SOUNDS.hurryUp)).toBe(1);
+  const countdowns=count(RACE_SOUNDS.countdown);
+  controller.sample({...sample,remainingTicks:300,phase:8},7.1);
+  controller.sample({...sample,remainingTicks:300},8);
+  expect(count(RACE_SOUNDS.hurryUp)).toBe(1);expect(count(RACE_SOUNDS.countdown)).toBe(countdowns);
+  prefs.muted=true;controller.settingsChanged();controller.sample({...sample,remainingTicks:240},9);
+  expect(count(RACE_SOUNDS.countdown)).toBe(countdowns);
+  prefs.muted=false;controller.settingsChanged();controller.sample({...sample,remainingTicks:180},10);
+  expect(count(RACE_SOUNDS.countdown)).toBe(countdowns+1);
+  controller.sample({...sample,phase:7,remainingTicks:0},13);
+  expect(count(RACE_SOUNDS.countdown)).toBe(countdowns+1);
+  for(const mode of [0,1])for(let raceEpoch=1;raceEpoch<=(mode===0?3:2);raceEpoch++){
+    controller.sample({...sample,active:false},20);
+    controller.sample({...sample,mode,raceEpoch},30+raceEpoch*10);
+    controller.sample({...sample,mode,raceEpoch,phase:3},31+raceEpoch*10);
+    controller.sample({...sample,mode,raceEpoch,phase:3},31.1+raceEpoch*10);
+  }
+  for(const key of [RACE_SOUNDS.finishFirst,RACE_SOUNDS.finishSecond,RACE_SOUNDS.finishThird,
+    RACE_SOUNDS.continuousFinishFirst,RACE_SOUNDS.continuousFinishSecond])expect(count(key)).toBe(1);
+  controller.dispose();expect(controller.voiceCount).toBe(0);expect(world.hash()).toBe(before);
+});

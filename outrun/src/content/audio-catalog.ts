@@ -1,8 +1,9 @@
 // Source audio: OutRun commit 6882721c99bc79365f815f68d389bf5078129e68.
 // Duration metadata is read from source Ogg/Vorbis sample counts. Music streams;
-// only short effects and the source stereo coastal ambience belong to the resident bank.
+// short effects and coastal ambience belong to the resident bank; wind streams.
 export const AUDIO_BANK_KEY='audio/race/core.bank';
 export const RACE_SOUNDS={
+  "countdown": "audio/race/sfx/countdown",
   "survivalStart": "audio/race/sfx/survival-start",
   "survivalFinishFirst": "audio/race/sfx/survival-finish-first",
   "survivalFinishSecond": "audio/race/sfx/survival-finish-second",
@@ -53,6 +54,7 @@ export const RACE_SOUNDS={
 } as const;
 export type RaceSoundName=keyof typeof RACE_SOUNDS;
 export const RACE_SOUND_DURATIONS={
+  "countdown": 0.467125,
   "survivalStart": 3.599977,
   "survivalFinishFirst": 4.16,
   "survivalFinishSecond": 6.8,
@@ -158,3 +160,24 @@ export const RADIO_TRACKS=[
   }
 ] as const;
 export const RESULT_MUSIC={finish:'audio/race/music/last-wave',gameOver:'audio/race/music/game-over'} as const;
+
+// General source menu feedback reuses the already imported choose/confirm/back clips.
+export const MENU_SOUNDS={
+  move:'audio/race/sfx/menu-move',
+  choose:RACE_SOUNDS.radioMove,
+  confirm:RACE_SOUNDS.radioConfirm,
+  back:RACE_SOUNDS.radioBack,
+  error:'audio/race/sfx/menu-error',
+  wind:'audio/race/sfx/wind',
+  hallOfFame:'audio/race/sfx/hall-of-fame',
+} as const;
+export type MenuSoundName=keyof typeof MENU_SOUNDS;
+export const MENU_SOUND_DURATIONS={
+  move:0.1,
+  choose:RACE_SOUND_DURATIONS.radioMove,
+  confirm:RACE_SOUND_DURATIONS.radioConfirm,
+  back:RACE_SOUND_DURATIONS.radioBack,
+  error:0.60059,
+  wind:30.293333,
+  hallOfFame:2,
+} as const;

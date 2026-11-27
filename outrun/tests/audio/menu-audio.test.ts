@@ -1,0 +1,35 @@
+import {worldTest,expect} from '@gameengine/test';
+import type {AudioVoice} from '@gameengine/runtime';
+import {MenuAudioController} from '../../src/audio/menu-audio.ts';
+import {musicOwners,type RaceAudioBackend,type RaceAudioSettings} from '../../src/audio/race-audio.ts';
+import {MENU_SOUNDS} from '../../src/content/audio-catalog.ts';
+import {BindingsEditor} from '../../src/ui/keyboard-bindings-flow.ts';
+import {DEFAULT_BINDINGS} from '../../src/content/keyboard-bindings.ts';
+import {Keys} from '@gameengine/runtime';
+import {MenuPage} from '../../src/sim/pre-race-selection.ts';
+
+worldTest('audio.menu observed changes, bindings feedback, settings and streamed ownership stay presentation only',({world})=>{
+  const hash=world.hash(),shots:{key:string;stopped:boolean;volume:number}[]=[],tracks:string[]=[];
+  let stops=0;
+  const backend:RaceAudioBackend={voice(key,options){const row={key,stopped:false,volume:options.volume??1};shots.push(row);
+    return {stop(){row.stopped=true;},set(value){if(value.volume!==undefined)row.volume=value.volume;}} as AudioVoice;
+  },music(key){tracks.push(key);},stopMusic(){stops++;}};
+  const prefs:RaceAudioSettings={radio:0,muted:false,musicVolume:0.6,sfxVolume:0.8};
+  const controller=new MenuAudioController(backend,()=>prefs);
+  const home={enabled:true,page:MenuPage.Home,cursor:0,difficulty:1,population:9,car:0,manual:false};
+  controller.observe(home);controller.observe({...home,difficulty:2});
+  expect(shots.length).toBe(0);expect(tracks.length).toBe(1);expect(tracks[0]).toBe(MENU_SOUNDS.wind);
+  controller.observe({...home,cursor:1});controller.observe({...home,cursor:1});
+  expect(shots.filter(x=>x.key===MENU_SOUNDS.move).length).toBe(1);
+  controller.observe({...home,page:MenuPage.Options});expect(stops).toBe(1);
+  const editor=new BindingsEditor({...DEFAULT_BINDINGS},()=>{},()=>{},cue=>controller.cue(cue));
+  editor.intent('bind-left');editor.key(DEFAULT_BINDINGS.right);editor.key(Keys.KeyA);
+  expect(shots.some(x=>x.key===MENU_SOUNDS.error)).toBe(true);
+  expect(shots.some(x=>x.key===MENU_SOUNDS.confirm)).toBe(true);
+  controller.cue('hallOfFame');controller.stopHall();expect(shots.at(-1)!.stopped).toBe(true);
+  controller.observe(home);const radioOwner={};musicOwners.set(backend,radioOwner);
+  controller.observe({...home,page:MenuPage.Radio});expect(stops).toBe(1);
+  prefs.muted=true;controller.settingsChanged();const count=shots.length;controller.cue('choose');expect(shots.length).toBe(count);
+  prefs.muted=false;controller.observe(home);controller.setForeground(false);expect(shots.every(x=>x.stopped)).toBe(true);
+  controller.dispose();expect(world.hash()).toBe(hash);
+});

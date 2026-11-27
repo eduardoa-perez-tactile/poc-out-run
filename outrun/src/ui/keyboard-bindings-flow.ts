@@ -1,3 +1,4 @@
+import type {MenuCue} from '../audio/menu-audio.ts';
 import {Keys} from '@gameengine/runtime';
 import {BINDING_ACTIONS,DEFAULT_BINDINGS,bindingProblem,keyLabel,KeyboardBindingsStore,type BindingAction,type KeyboardBindings} from '../content/keyboard-bindings.ts';
 import {MenuPage} from '../sim/pre-race-selection.ts';
@@ -9,7 +10,7 @@ export class BindingsEditor {
   private selected=0;
   private capturing=false;
   private status='ARROWS SELECT · ENTER OR TAP A CONTROL TO CHANGE ITS KEY';
-  constructor(private bindings:KeyboardBindings,private request:(bindings:KeyboardBindings)=>void,private back:()=>void){}
+  constructor(private bindings:KeyboardBindings,private request:(bindings:KeyboardBindings)=>void,private back:()=>void,private feedback:(cue:MenuCue)=>void=()=>{}){}
   update(bindings:KeyboardBindings):void {this.bindings={...bindings};}
   model():ControlsHelpModel {
     const rows={} as Record<BindingAction,string>;
@@ -17,24 +18,26 @@ export class BindingsEditor {
     return {...rows,status:this.status,selected:this.selected,capturing:this.capturing};
   }
   intent(name:string):void {
-    if(name==='back'){this.back();return;}
+    if(name==='back'){this.feedback('back');this.back();return;}
     if(name==='defaults'){
-      this.bindings={...DEFAULT_BINDINGS};this.request({...this.bindings});this.capturing=false;this.status='DEFAULT KEYS RESTORED';return;
+      this.bindings={...DEFAULT_BINDINGS};this.request({...this.bindings});this.capturing=false;this.status='DEFAULT KEYS RESTORED';this.feedback('confirm');return;
     }
     const action=name.replace(/^bind-/,'') as BindingAction;
     const index=BINDING_ACTIONS.indexOf(action);if(index<0)return;
-    this.selected=index;this.capturing=true;this.status=`PRESS A KEY FOR ${names[action]} · ESC GOES BACK`;
+    this.feedback('choose');this.selected=index;this.capturing=true;this.status=`PRESS A KEY FOR ${names[action]} · ESC GOES BACK`;
   }
   key(code:number):void {
-    if(code===Keys.Escape){this.back();return;}
+    if(code===Keys.Escape){this.feedback('back');this.back();return;}
     if(this.capturing){
       const action=BINDING_ACTIONS[this.selected]!,problem=bindingProblem(this.bindings,action,code);
-      if(problem){this.status=problem;return;}
-      this.bindings={...this.bindings,[action]:code};this.request({...this.bindings});this.capturing=false;this.status='BINDING UPDATED';return;
+      if(problem){this.status=problem;this.feedback('error');return;}
+      this.bindings={...this.bindings,[action]:code};this.request({...this.bindings});this.capturing=false;this.status='BINDING UPDATED';this.feedback('confirm');return;
     }
+    const previous=this.selected;
     if(code===Keys.ArrowUp)this.selected=Math.max(0,this.selected-1);
     else if(code===Keys.ArrowDown)this.selected=Math.min(5,this.selected+1);
     else if(code===Keys.Enter)this.intent(`bind-${BINDING_ACTIONS[this.selected]}`);
+    if(previous!==this.selected)this.feedback('move');
   }
 }
 /** Storage stays on the UI side; whole snapshots are recorded before Start. */
