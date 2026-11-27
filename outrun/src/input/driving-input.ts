@@ -1,6 +1,7 @@
 import { defineSystem, write, read, query, math, KeyEvent, Keys } from '@gameengine/runtime';
-import { DrivingState, DrivingInput, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested, TerrainDriver, RaceOwner, RaceState } from '../schema.gen.ts';
+import { DrivingState, DrivingInput, DrivingBindings, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested, TerrainDriver, RaceOwner, RaceState } from '../schema.gen.ts';
 
+import {resolveBindings} from '../content/keyboard-bindings.ts';
 import {loadMap01} from '../content/biome.ts';
 
 export const TouchShift={Down:4,Up:5} as const;
@@ -9,11 +10,12 @@ export const CaptureDrivingInput = defineSystem({
   name: 'CaptureDrivingInput',
   queries:{sourceDrivers:query(read(TerrainDriver)),raceOwners:query(read(RaceOwner))},
   events: [KeyEvent, DrivingControlChanged, DrivingControlsCancelled, DrivingResetRequested, DrivingPauseRequested],
-  resources: [write(DrivingState), write(DrivingInput), read(RaceState)],
+  resources: [write(DrivingState), write(DrivingInput), read(RaceState), read(DrivingBindings)],
   run(ctx,{sourceDrivers,raceOwners}) {
     const state = ctx.resource(DrivingState);
     if (!state.active[0]) return;
     const held = ctx.resource(DrivingInput);
+    const bindings=resolveBindings(ctx.get(DrivingBindings));
     const race = ctx.resource(RaceState);
     const countdown = raceOwners.count===1 && race.initialized[0]!==0 && race.phase[0]===0;
     const acceptsControls = () => state.playing[0]!==0 || countdown;
@@ -50,13 +52,13 @@ export const CaptureDrivingInput = defineSystem({
       } else if (key.code === Keys.KeyM) {
         if (key.down && !held.modeHeld[0] && acceptsControls()) ctx.setField(DrivingState, 'manual', !state.manual[0]);
         ctx.setField(DrivingInput, 'modeHeld', key.down);
-      } else if (key.code === Keys.KeyE || key.code === Keys.KeyQ) {
-        const up = key.code === Keys.KeyE;
+      } else if (key.code === bindings.up || key.code === bindings.down) {
+        const up = key.code === bindings.up;
         const wasHeld = up ? held.upHeld[0] : held.downHeld[0];
         if (key.down && !wasHeld && state.playing[0]) ctx.setField(DrivingInput, up ? 'shiftUp' : 'shiftDown', true);
         ctx.setField(DrivingInput, up ? 'upHeld' : 'downHeld', key.down);
       } else {
-        const control = key.code === Keys.ArrowUp ? 0 : key.code === Keys.ArrowDown ? 1 : key.code === Keys.ArrowLeft ? 2 : key.code === Keys.ArrowRight ? 3 : -1;
+        const control = key.code === bindings.throttle ? 0 : key.code === bindings.brake ? 1 : key.code === bindings.left ? 2 : key.code === bindings.right ? 3 : -1;
         if (control >= 0) {
           const bit = 1 << control;
           ctx.setField(DrivingInput, 'keyboard', key.down && acceptsControls() ? held.keyboard[0]! | bit : held.keyboard[0]! & ~bit);

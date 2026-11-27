@@ -36,3 +36,6 @@ export {CapturePreRaceSelection,ApplyPreRaceConfiguration} from './sim/pre-race-
 export {PreRaceSelectionOverlay} from './ui/pre-race-selection.tsx';
 
 export {RankingsOverlay,RankingsPresentation} from './ui/rankings.tsx';
+
+export {CaptureKeyboardBindings} from './input/keyboard-bindings.ts';
+export {KeyboardBindingsOverlay,KeyboardBindingsPresentation} from './ui/keyboard-bindings.tsx';

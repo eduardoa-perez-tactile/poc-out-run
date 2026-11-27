@@ -430,6 +430,50 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "DrivingBindings",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "left",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "right",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "throttle",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "brake",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "up",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "down",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "DrivingControlChanged",
       "kind": "event",
       "sim": true,
@@ -631,6 +675,50 @@ export const schemaIr = {
           "name": "previousLateral",
           "kind": "f32",
           "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "KeyboardBindingsRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "left",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "right",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "throttle",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "brake",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "up",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "down",
+          "kind": "u32",
+          "scalar": "u32",
           "lanes": 1
         }
       ],
@@ -4253,6 +4341,25 @@ export interface CrashDriverValue {
 /** CrashDriver (component, sim) */
 export const CrashDriver = typeToken<CrashDriverViews, CrashDriverValue>('CrashDriver', 'component', { sig: 'mapId:u32:1,phase:u32:1,consumedAcceptedCount:u32:1,pendingStep:u32:1,variant:u32:1,kind:u32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1,totalAdvances:u32:1,advances:u32:1,cadenceTick:u32:1,decrement:f32:1,reactionTick:u32:1,recenterTarget:f32:1', read: (v: CrashDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.phase = v.phase[i]; o.consumedAcceptedCount = v.consumedAcceptedCount[i]; o.pendingStep = v.pendingStep[i]; o.variant = v.variant[i]; o.kind = v.kind[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; o.totalAdvances = v.totalAdvances[i]; o.advances = v.advances[i]; o.cadenceTick = v.cadenceTick[i]; o.decrement = v.decrement[i]; o.reactionTick = v.reactionTick[i]; o.recenterTarget = v.recenterTarget[i]; return o; } });
 
+export interface DrivingBindingsViews {
+  left: Uint32Array;
+  right: Uint32Array;
+  throttle: Uint32Array;
+  brake: Uint32Array;
+  up: Uint32Array;
+  down: Uint32Array;
+}
+export interface DrivingBindingsValue {
+  left: number;
+  right: number;
+  throttle: number;
+  brake: number;
+  up: number;
+  down: number;
+}
+/** DrivingBindings (resource, sim) */
+export const DrivingBindings = typeToken<DrivingBindingsViews, DrivingBindingsValue>('DrivingBindings', 'resource', { sig: 'left:u32:1,right:u32:1,throttle:u32:1,brake:u32:1,up:u32:1,down:u32:1', read: (v: DrivingBindingsViews, i: number, o: Record<string, unknown>) => { o.left = v.left[i]; o.right = v.right[i]; o.throttle = v.throttle[i]; o.brake = v.brake[i]; o.up = v.up[i]; o.down = v.down[i]; return o; } });
+
 export interface DrivingControlChangedViews {
   control: Uint32Array;
   source: Uint32Array;
@@ -4344,6 +4451,25 @@ export interface DrivingStateValue {
 }
 /** DrivingState (resource, sim) */
 export const DrivingState = typeToken<DrivingStateViews, DrivingStateValue>('DrivingState', 'resource', { sig: 'active:bool:1,playing:bool:1,manual:bool:1,legacySpeed:f32:1,gear:u32:1,steering:f32:1,distance:f32:1,previousDistance:f32:1,lateral:f32:1,previousLateral:f32:1', read: (v: DrivingStateViews, i: number, o: Record<string, unknown>) => { o.active = v.active[i] !== 0; o.playing = v.playing[i] !== 0; o.manual = v.manual[i] !== 0; o.legacySpeed = v.legacySpeed[i]; o.gear = v.gear[i]; o.steering = v.steering[i]; o.distance = v.distance[i]; o.previousDistance = v.previousDistance[i]; o.lateral = v.lateral[i]; o.previousLateral = v.previousLateral[i]; return o; } });
+
+export interface KeyboardBindingsRequestedViews {
+  left: Uint32Array;
+  right: Uint32Array;
+  throttle: Uint32Array;
+  brake: Uint32Array;
+  up: Uint32Array;
+  down: Uint32Array;
+}
+export interface KeyboardBindingsRequestedValue {
+  left: number;
+  right: number;
+  throttle: number;
+  brake: number;
+  up: number;
+  down: number;
+}
+/** KeyboardBindingsRequested (event, sim) */
+export const KeyboardBindingsRequested = typeToken<KeyboardBindingsRequestedViews, KeyboardBindingsRequestedValue>('KeyboardBindingsRequested', 'event', { sig: 'left:u32:1,right:u32:1,throttle:u32:1,brake:u32:1,up:u32:1,down:u32:1', read: (v: KeyboardBindingsRequestedViews, i: number, o: Record<string, unknown>) => { o.left = v.left[i]; o.right = v.right[i]; o.throttle = v.throttle[i]; o.brake = v.brake[i]; o.up = v.up[i]; o.down = v.down[i]; return o; } });
 
 export interface EnvironmentResidencyViews {
   epoch: Uint32Array;

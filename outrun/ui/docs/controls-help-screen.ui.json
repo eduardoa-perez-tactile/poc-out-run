@@ -70,7 +70,7 @@
         "font": {
           "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
         },
-        "fontSize": 38,
+        "fontSize": 34,
         "h": 44,
         "w": "100%",
         "color": "#0ac9ebff",
@@ -79,7 +79,8 @@
         "shadowY": 2,
         "shadowColor": "#000000ff",
         "textAlign": "center"
-      }
+      },
+      "property": "status"
     },
     "hc_columns": {
       "type": "element",
@@ -107,12 +108,13 @@
         "hc_key_2",
         "hc_key_3",
         "hc_key_4",
-        "hc_key_5"
+        "hc_key_5",
+        "hc_selected"
       ],
       "style": {
         "pad": 0,
         "dir": "column",
-        "gap": 8,
+        "gap": 4,
         "w": 0,
         "grow": 1,
         "h": "100%"
@@ -151,114 +153,6 @@
         "h": 62,
         "w": "100%",
         "color": "#ffff00ff",
-        "fitMin": 26,
-        "shadowX": 2,
-        "shadowY": 2,
-        "shadowColor": "#000000ff"
-      }
-    },
-    "hc_key_0": {
-      "type": "label",
-      "name": "Label",
-      "text": "LEFT / RIGHT : STEER",
-      "style": {
-        "font": {
-          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
-        },
-        "fontSize": 44,
-        "h": 68,
-        "w": "100%",
-        "color": "#0ac9ebff",
-        "fitMin": 26,
-        "shadowX": 2,
-        "shadowY": 2,
-        "shadowColor": "#000000ff"
-      }
-    },
-    "hc_key_1": {
-      "type": "label",
-      "name": "Label",
-      "text": "UP : ACCELERATE",
-      "style": {
-        "font": {
-          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
-        },
-        "fontSize": 44,
-        "h": 68,
-        "w": "100%",
-        "color": "#0ac9ebff",
-        "fitMin": 26,
-        "shadowX": 2,
-        "shadowY": 2,
-        "shadowColor": "#000000ff"
-      }
-    },
-    "hc_key_2": {
-      "type": "label",
-      "name": "Label",
-      "text": "DOWN : BRAKE",
-      "style": {
-        "font": {
-          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
-        },
-        "fontSize": 44,
-        "h": 68,
-        "w": "100%",
-        "color": "#0ac9ebff",
-        "fitMin": 26,
-        "shadowX": 2,
-        "shadowY": 2,
-        "shadowColor": "#000000ff"
-      }
-    },
-    "hc_key_3": {
-      "type": "label",
-      "name": "Label",
-      "text": "Q / E : SHIFT DOWN / UP",
-      "style": {
-        "font": {
-          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
-        },
-        "fontSize": 44,
-        "h": 68,
-        "w": "100%",
-        "color": "#0ac9ebff",
-        "fitMin": 26,
-        "shadowX": 2,
-        "shadowY": 2,
-        "shadowColor": "#000000ff"
-      }
-    },
-    "hc_key_4": {
-      "type": "label",
-      "name": "Label",
-      "text": "M : AUTO / MANUAL",
-      "style": {
-        "font": {
-          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
-        },
-        "fontSize": 44,
-        "h": 68,
-        "w": "100%",
-        "color": "#0ac9ebff",
-        "fitMin": 26,
-        "shadowX": 2,
-        "shadowY": 2,
-        "shadowColor": "#000000ff"
-      }
-    },
-    "hc_key_5": {
-      "type": "label",
-      "name": "Label",
-      "text": "SPACE : PAUSE / RESUME",
-      "style": {
-        "font": {
-          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
-        },
-        "fontSize": 44,
-        "h": 68,
-        "w": "100%",
-        "color": "#0ac9ebff",
         "fitMin": 26,
         "shadowX": 2,
         "shadowY": 2,
@@ -376,12 +270,12 @@
     "hc_manual": {
       "type": "label",
       "name": "Label",
-      "text": "MANUAL: TOUCH GEARS OR Q / E",
+      "text": "M: AUTO / MANUAL   SPACE: PAUSE / RESUME",
       "style": {
         "font": {
           "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
         },
-        "fontSize": 32,
+        "fontSize": 30,
         "h": 52,
         "w": "100%",
         "color": "#0ac9ebff",
@@ -394,12 +288,12 @@
     "hc_menu": {
       "type": "label",
       "name": "Label",
-      "text": "MENU: ARROWS CHOOSE   ENTER CONFIRMS   ESC GOES BACK",
+      "text": "UP / DOWN: SELECT   ENTER: REBIND   ESC: BACK / CANCEL",
       "style": {
         "font": {
           "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
         },
-        "fontSize": 34,
+        "fontSize": 30,
         "h": 48,
         "w": "100%",
         "color": "#0ac9ebff",
@@ -421,9 +315,192 @@
         "w": 620,
         "h": 128
       }
+    },
+    "hc_key_0": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "bind-left",
+      "style": {
+        "w": "100%",
+        "h": 88
+      },
+      "props": {
+        "label": {
+          "property": "left"
+        }
+      }
+    },
+    "hc_key_1": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "bind-right",
+      "style": {
+        "w": "100%",
+        "h": 88
+      },
+      "props": {
+        "label": {
+          "property": "right"
+        }
+      }
+    },
+    "hc_key_2": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "bind-throttle",
+      "style": {
+        "w": "100%",
+        "h": 88
+      },
+      "props": {
+        "label": {
+          "property": "throttle"
+        }
+      }
+    },
+    "hc_key_3": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "bind-brake",
+      "style": {
+        "w": "100%",
+        "h": 88
+      },
+      "props": {
+        "label": {
+          "property": "brake"
+        }
+      }
+    },
+    "hc_key_4": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "bind-up",
+      "style": {
+        "w": "100%",
+        "h": 88
+      },
+      "props": {
+        "label": {
+          "property": "up"
+        }
+      }
+    },
+    "hc_key_5": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "bind-down",
+      "style": {
+        "w": "100%",
+        "h": 88
+      },
+      "props": {
+        "label": {
+          "property": "down"
+        }
+      }
+    },
+    "hc_selected": {
+      "type": "label",
+      "name": "Label",
+      "text": ">",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          1,
+          0
+        ],
+        "offset": [
+          -4,
+          66
+        ],
+        "w": 44,
+        "h": 88,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 64,
+        "color": "#ffff00ff",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
     }
   },
   "view": {
     "behaviour": "screen"
+  },
+  "properties": {
+    "left": {
+      "type": "text",
+      "default": "TURN LEFT : LEFT"
+    },
+    "right": {
+      "type": "text",
+      "default": "TURN RIGHT : RIGHT"
+    },
+    "throttle": {
+      "type": "text",
+      "default": "ACCELERATE : UP"
+    },
+    "brake": {
+      "type": "text",
+      "default": "BRAKE : DOWN"
+    },
+    "up": {
+      "type": "text",
+      "default": "GEAR UP : E"
+    },
+    "down": {
+      "type": "text",
+      "default": "GEAR DOWN : Q"
+    },
+    "status": {
+      "type": "text",
+      "default": "SELECT A CONTROL, PRESS ENTER, THEN PRESS A KEY"
+    },
+    "selected": {
+      "type": "number",
+      "default": 0,
+      "format": "value",
+      "drivers": [
+        {
+          "type": "range",
+          "min": 0,
+          "max": 5,
+          "empty": {
+            "set": {
+              "hc_selected": {
+                "ty": 0
+              }
+            }
+          },
+          "full": {
+            "set": {
+              "hc_selected": {
+                "ty": 460
+              }
+            }
+          }
+        }
+      ]
+    },
+    "capturing": {
+      "type": "yesno",
+      "default": false,
+      "poses": {
+        "yes": {
+          "set": {
+            "hc_intro": {
+              "color": "#ffff00ff"
+            }
+          }
+        }
+      }
+    }
   }
 }
