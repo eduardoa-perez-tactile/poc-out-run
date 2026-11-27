@@ -1,5 +1,7 @@
 import {createEffect,defineUI,emit,onCleanup,untrack,useResource,views,type ViewHandle} from '@gameengine/ui';
-import {gameengine} from '@gameengine/runtime';
+import {app,gameengine} from '@gameengine/runtime';
+import {MenuAudioController} from '../audio/menu-audio.ts';
+import {subscribeRaceAudioSettings} from '../audio/race-audio.ts';
 import {GameSettingsStore} from '../content/game-settings.ts';
 import {GameSettingsSync} from './game-settings-sync.ts';
 import {PreRaceSelection,PreRaceAction} from '../schema.gen.ts';
@@ -8,6 +10,9 @@ import {showRankings} from './rankings.tsx';
 import {PreRaceSelectionView,preRaceSelectionModel,type PreRaceSelectionModel} from '../views/pre-race-selection.view.tsx';
 const actions:Record<string,number>={previous:MenuAction.Previous,next:MenuAction.Next,up:MenuAction.Up,down:MenuAction.Down,accept:MenuAction.Accept,back:MenuAction.Back,options:MenuAction.Options,rankings:MenuAction.Rankings,help:MenuAction.Help};
 export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',root(){
+  const menuAudio=new MenuAudioController();menuAudio.activate();
+  const unsubscribeAudio=subscribeRaceAudioSettings(()=>menuAudio.settingsChanged());
+  const offAudio=app.onLifecycle(value=>menuAudio.setForeground(value==='foreground'));
   const preferences=new GameSettingsSync(new GameSettingsStore({
     get:(key,fallback)=>gameengine.kv.get(key,fallback),set:(key,value)=>gameengine.kv.set(key,value),
   }),value=>emit(PreRaceAction,{action:MenuAction.RestoreSettings,value}));
@@ -19,6 +24,7 @@ export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',ro
     const active=s?.enabled===true&&s.page<MenuPage.Radio;
     const model=active?preRaceSelectionModel({...s}):null;
     untrack(()=>{
+      if(s)menuAudio.observe({...s});
       if(s?.enabled&&s.page===MenuPage.Rankings&&!browserOpen){
         browserOpen=showRankings({mode:s.mode,difficulty:s.difficulty,population:s.population},undefined,()=>{
           browserOpen=false;emit(PreRaceAction,{action:MenuAction.Back,value:0});
@@ -33,5 +39,5 @@ export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',ro
       }});
     });
   });
-  onCleanup(close);return null;
+  onCleanup(()=>{close();offAudio();unsubscribeAudio();menuAudio.dispose();});return null;
 }});

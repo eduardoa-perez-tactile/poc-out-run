@@ -46,6 +46,10 @@
     "audio/race/sfx/continuous-finish-second",
     "audio/race/sfx/survival-start",
     "audio/race/sfx/survival-finish-first",
-    "audio/race/sfx/survival-finish-second"
+    "audio/race/sfx/survival-finish-second",
+    "audio/race/sfx/menu-move",
+    "audio/race/sfx/menu-error",
+    "audio/race/sfx/hall-of-fame",
+    "audio/race/sfx/countdown"
   ]
 }

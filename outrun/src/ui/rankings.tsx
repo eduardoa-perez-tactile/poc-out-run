@@ -1,3 +1,4 @@
+import {playMenuCue,stopHallOfFame} from '../audio/menu-audio.ts';
 import {defineSystem,KeyEvent,Keys,gameengine} from '@gameengine/runtime';
 import {defineUI,onCleanup,views,type ViewHandle} from '@gameengine/ui';
 import {RankingStore,type RankingBucket} from '../content/rankings.ts';
@@ -16,16 +17,24 @@ export const RankingsOverlay=defineUI({name:'RankingsOverlay',root(){
   const store=new RankingStore({get:(key,fallback)=>gameengine.kv.get(key,fallback),set:(key,value)=>gameengine.kv.set(key,value)});
   let view:ViewHandle<RankingsModel>|null=null,flow:RankingsFlow|null=null;
   const update=()=>{if(flow?.isOpen)view?.update(flow.model());};
-  const action=(name:string)=>{flow?.tick(gameengine.clock.wallNow());flow?.input(name);update();};
+  const action=(name:string)=>{
+    flow?.tick(gameengine.clock.wallNow());if(!flow?.isOpen)return;
+    const before=flow.model();flow.input(name);const after=flow?.model();
+    if(name==='close')playMenuCue('back');
+    else if(name==='confirm')playMenuCue(before.entry&&before.draft.slice(0,3).includes('_')?'error':'confirm');
+    else if(after&&(after.draft!==before.draft||after.subtitle!==before.subtitle))playMenuCue(name==='previousLetter'||name==='nextLetter'?'move':'choose');
+    update();
+  };
   const held=new Set<number>();
   const current:RankingsOwner={
     open(bucket,candidate,onClose){
       if(view)return;
       held.clear();
       flow=new RankingsFlow(store,bucket,candidate,gameengine.clock.wallNow(),()=>{
-        view?.close({immediate:true});view=null;flow=null;held.clear();onClose();
+        stopHallOfFame();view?.close({immediate:true});view=null;flow=null;held.clear();onClose();
       });
       view=views.push(RankingsView,flow.model(),{onIntent:action});
+      playMenuCue('hallOfFame');
     },
     frame(keys,now){
       if(!view||!flow)return;
@@ -45,7 +54,7 @@ export const RankingsOverlay=defineUI({name:'RankingsOverlay',root(){
     },
   };
   owner=current;
-  onCleanup(()=>{view?.close({immediate:true});view=null;flow=null;if(owner===current)owner=null;});
+  onCleanup(()=>{stopHallOfFame();view?.close({immediate:true});view=null;flow=null;if(owner===current)owner=null;});
   return null;
 }});
 export const RankingsPresentation=defineSystem({

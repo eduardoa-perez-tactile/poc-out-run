@@ -1,0 +1,6 @@
+guid = "dde247db-69cb-5ec5-8030-752da04feb68"
+importer = "audio"
+[settings]
+codec = "adpcm"
+mono = true
+cooldown = 0.12

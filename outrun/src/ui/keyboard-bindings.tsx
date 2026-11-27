@@ -1,3 +1,4 @@
+import {playMenuCue} from '../audio/menu-audio.ts';
 import {defineSystem,KeyEvent,gameengine} from '@gameengine/runtime';
 import {createEffect,defineUI,emit,onCleanup,untrack,useResource,views,type ViewHandle} from '@gameengine/ui';
 import {DrivingBindings,KeyboardBindingsRequested,PreRaceSelection,PreRaceAction} from '../schema.gen.ts';
@@ -29,7 +30,7 @@ export const KeyboardBindingsOverlay=defineUI({name:'KeyboardBindingsOverlay',ro
       if(bindings)sync.observe(enabled,page,bindings);
       if(enabled&&page===MenuPage.Help&&bindings){
         if(!view){
-          held.clear();editor=new BindingsEditor(bindings,request,back);
+          held.clear();editor=new BindingsEditor(bindings,request,back,playMenuCue);
           view=views.push(ControlsHelpView,editor.model(),{onIntent:name=>{editor?.intent(name);update();}});
         }else editor?.update(bindings);
         update();
