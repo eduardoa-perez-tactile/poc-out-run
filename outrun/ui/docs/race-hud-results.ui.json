@@ -28,7 +28,7 @@
         "rh_result_score_title",
         "rh_result_score",
         "rh_result_summary",
-        "rh_restart"
+        "rh_actions"
       ],
       "style": {
         "pad": [
@@ -107,7 +107,52 @@
     "rh_restart": {
       "type": "use",
       "doc": "race-hud-action",
-      "key": "restart"
+      "key": "restart",
+      "style": {
+        "w": "32%",
+        "h": 150
+      }
+    },
+    "rh_actions": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rh_restart",
+        "rh_rankings",
+        "rh_home"
+      ],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": 150,
+        "dir": "row",
+        "gap": 12,
+        "justify": "center"
+      }
+    },
+    "rh_rankings": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "rankings",
+      "style": {
+        "w": "32%",
+        "h": 150
+      },
+      "props": {
+        "label": "RANKINGS"
+      }
+    },
+    "rh_home": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "home",
+      "style": {
+        "w": "32%",
+        "h": 150
+      },
+      "props": {
+        "label": "MAIN MENU"
+      }
     }
   },
   "view": {

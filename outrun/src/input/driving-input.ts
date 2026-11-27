@@ -46,7 +46,7 @@ export const CaptureDrivingInput = defineSystem({
         }
         ctx.setField(DrivingInput, 'pauseHeld', key.down);
       } else if (key.code === Keys.KeyM) {
-        if (key.down && !held.modeHeld[0]) ctx.setField(DrivingState, 'manual', !state.manual[0]);
+        if (key.down && !held.modeHeld[0] && acceptsControls()) ctx.setField(DrivingState, 'manual', !state.manual[0]);
         ctx.setField(DrivingInput, 'modeHeld', key.down);
       } else if (key.code === Keys.KeyE || key.code === Keys.KeyQ) {
         const up = key.code === Keys.KeyE;

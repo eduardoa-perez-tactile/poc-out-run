@@ -126,14 +126,14 @@ declare module '@gameengine/ui' {
      *   - `detailLabel`: text, default ""
      *   - `availabilityLabel`: text, default ""
      *   - `selectedRow`: number, default 0
-     * Events: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`
+     * Events: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`, `rankings`
      * Code areas: none
-     * Refs: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`
+     * Refs: `primary`, `secondary`, `tertiary`, `back`, `accept`, `previous`, `next`, `rankings`
      */
     'pre-race-controls': {
       props: { screen: 'home' | 'options' | 'mode' | 'gears' | 'car'; heading: string | { loc: string } | LocText; primaryLabel: string | { loc: string } | LocText; secondaryLabel: string | { loc: string } | LocText; detailLabel: string | { loc: string } | LocText; availabilityLabel: string | { loc: string } | LocText; selectedRow: number };
       areas: never;
-      refs: 'primary' | 'secondary' | 'tertiary' | 'back' | 'accept' | 'previous' | 'next';
+      refs: 'primary' | 'secondary' | 'tertiary' | 'back' | 'accept' | 'previous' | 'next' | 'rankings';
     };
     /**
      * Live race HUD: a view (ui/docs/race-hud.ui.json)
@@ -180,14 +180,14 @@ declare module '@gameengine/ui' {
      *   - `title`: text, default "FINISH!"
      *   - `score`: text, default "148,360,000"
      *   - `summary`: text, default "TIME BONUS 42 S"
-     * Events: `restart`
+     * Events: `restart`, `rankings`, `home`
      * Code areas: none
-     * Refs: `restart`
+     * Refs: `restart`, `rankings`, `home`
      */
     'race-hud-results': {
       props: { title: string | { loc: string } | LocText; score: string | { loc: string } | LocText; summary: string | { loc: string } | LocText };
       areas: never;
-      refs: 'restart';
+      refs: 'restart' | 'rankings' | 'home';
     };
     /**
      * Radio controls: a view, screen (ui/docs/radio-controls.ui.json)
@@ -217,6 +217,69 @@ declare module '@gameengine/ui' {
       props: { titleImage: string; dialImage: string; handImage: string };
       areas: never;
       refs: never;
+    };
+    /**
+     * Rankings action: a widget, button (ui/docs/rankings-action.ui.json)
+     *
+     * Properties:
+     *   - `label`: text, default "CONTINUE"
+     * Events: `<id>`
+     * Code areas: none
+     * Refs: none
+     */
+    'rankings-action': {
+      props: { label: string | { loc: string } | LocText };
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Rankings backdrop: a view, screen (ui/docs/rankings-backdrop.ui.json)
+     *
+     * Properties: none
+     * Events: none
+     * Code areas: none
+     * Refs: none
+     */
+    'rankings-backdrop': {
+      props: {};
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Rankings row: a widget (ui/docs/rankings-row.ui.json)
+     *
+     * Properties:
+     *   - `rank`: text, default ""
+     *   - `score`: text, default ""
+     *   - `name`: text, default ""
+     *   - `time`: text, default ""
+     * Events: none
+     * Code areas: none
+     * Refs: none
+     */
+    'rankings-row': {
+      props: { rank: string | { loc: string } | LocText; score: string | { loc: string } | LocText; name: string | { loc: string } | LocText; time: string | { loc: string } | LocText };
+      areas: never;
+      refs: never;
+    };
+    /**
+     * Rankings screen: a view, screen (ui/docs/rankings-screen.ui.json)
+     *
+     * Properties:
+     *   - `subtitle`: text, default "ORIGINAL / NORMAL / MEDIUM"
+     *   - `draft`: text, default "INITIALS ___  LETTER A"
+     *   - `status`: text, default ""
+     *   - `countdown`: text, default "28"
+     *   - `entry`: yesno, default false
+     *   - `rows`: list of rankings-row
+     * Events: `previous-letter`, `next-letter`, `add-letter`, `erase`, `confirm`, `next-mode`, `next-difficulty`, `next-traffic`, `close`
+     * Code areas: none
+     * Refs: `previous-letter`, `next-letter`, `add-letter`, `erase`, `confirm`, `next-mode`, `next-difficulty`, `next-traffic`, `close`
+     */
+    'rankings-screen': {
+      props: { subtitle: string | { loc: string } | LocText; draft: string | { loc: string } | LocText; status: string | { loc: string } | LocText; countdown: string | { loc: string } | LocText; entry: boolean; rows: readonly { key: string; rank?: string | { loc: string } | LocText; score?: string | { loc: string } | LocText; name?: string | { loc: string } | LocText; time?: string | { loc: string } | LocText }[] };
+      areas: never;
+      refs: 'previous-letter' | 'next-letter' | 'add-letter' | 'erase' | 'confirm' | 'next-mode' | 'next-difficulty' | 'next-traffic' | 'close';
     };
   }
 }

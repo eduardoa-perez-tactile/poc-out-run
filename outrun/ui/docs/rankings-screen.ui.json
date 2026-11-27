@@ -1,0 +1,450 @@
+{
+  "$schemaVersion": 1,
+  "guid": "ee8fba4e-284d-4496-b741-888b530865b0",
+  "name": "rankings-screen",
+  "title": "Rankings screen",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Rankings screen",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": [
+          26,
+          66,
+          26,
+          66
+        ],
+        "dir": "column",
+        "gap": 6,
+        "align": "center",
+        "fit": "cover"
+      },
+      "children": [
+        "rs_title",
+        "rs_subtitle",
+        "rs_header",
+        "rs_table",
+        "rs_draft",
+        "rs_entry",
+        "rs_filters",
+        "rs_bottom"
+      ]
+    },
+    "rs_title": {
+      "type": "label",
+      "name": "Label",
+      "text": "BEST OUTRUNNERS",
+      "style": {
+        "w": "100%",
+        "h": 84,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 76,
+        "fitMin": 48,
+        "color": "#ffff00ff",
+        "textAlign": "center",
+        "shadowX": 3,
+        "shadowY": 3,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "rs_subtitle": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "100%",
+        "h": 46,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 38,
+        "fitMin": 28,
+        "color": "#ffffffff",
+        "textAlign": "center"
+      },
+      "property": "subtitle"
+    },
+    "rs_header": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rs_head_rank",
+        "rs_head_score",
+        "rs_head_name",
+        "rs_head_record"
+      ],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": 50,
+        "dir": "row",
+        "gap": 16
+      }
+    },
+    "rs_head_rank": {
+      "type": "label",
+      "name": "Label",
+      "text": "RANK",
+      "style": {
+        "w": "9%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 46,
+        "fitMin": 28,
+        "color": "#92c2baff",
+        "textAlign": "center",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "rs_head_score": {
+      "type": "label",
+      "name": "Label",
+      "text": "SCORE",
+      "style": {
+        "w": "37%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 46,
+        "fitMin": 28,
+        "color": "#92c2baff",
+        "textAlign": "center",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "rs_head_name": {
+      "type": "label",
+      "name": "Label",
+      "text": "NAME",
+      "style": {
+        "w": "20%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 46,
+        "fitMin": 28,
+        "color": "#92c2baff",
+        "textAlign": "center",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "rs_head_record": {
+      "type": "label",
+      "name": "Label",
+      "text": "RECORD",
+      "style": {
+        "w": "34%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 46,
+        "fitMin": 28,
+        "color": "#92c2baff",
+        "textAlign": "center",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      }
+    },
+    "rs_table": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rs_rows"
+      ],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": 0,
+        "grow": 1,
+        "minH": 434,
+        "dir": "column",
+        "gap": 0
+      }
+    },
+    "rs_rows": {
+      "type": "repeat",
+      "doc": "rankings-row",
+      "property": "rows",
+      "style": {
+        "gap": 0
+      }
+    },
+    "rs_draft": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "100%",
+        "h": 54,
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 46,
+        "fitMin": 30,
+        "color": "#ffff00ff",
+        "textAlign": "center",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      },
+      "show": "entry",
+      "property": "draft"
+    },
+    "rs_entry": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rs_previousLetter",
+        "rs_nextLetter",
+        "rs_addLetter",
+        "rs_erase",
+        "rs_confirm"
+      ],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": 108,
+        "dir": "row",
+        "gap": 10,
+        "align": "center",
+        "justify": "center"
+      },
+      "show": "entry"
+    },
+    "rs_previousLetter": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "previous-letter",
+      "style": {
+        "w": "19%",
+        "h": 108
+      },
+      "props": {
+        "label": "<"
+      }
+    },
+    "rs_nextLetter": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "next-letter",
+      "style": {
+        "w": "19%",
+        "h": 108
+      },
+      "props": {
+        "label": ">"
+      }
+    },
+    "rs_addLetter": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "add-letter",
+      "style": {
+        "w": "19%",
+        "h": 108
+      },
+      "props": {
+        "label": "ADD"
+      }
+    },
+    "rs_erase": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "erase",
+      "style": {
+        "w": "19%",
+        "h": 108
+      },
+      "props": {
+        "label": "DELETE"
+      }
+    },
+    "rs_confirm": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "confirm",
+      "style": {
+        "w": "19%",
+        "h": 108
+      },
+      "props": {
+        "label": "SAVE"
+      }
+    },
+    "rs_filters": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rs_nextMode",
+        "rs_nextDifficulty",
+        "rs_nextTraffic"
+      ],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": 108,
+        "dir": "row",
+        "gap": 12,
+        "justify": "center"
+      }
+    },
+    "rs_nextMode": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "next-mode",
+      "style": {
+        "w": "31%",
+        "h": 108
+      },
+      "props": {
+        "label": "MODE >"
+      }
+    },
+    "rs_nextDifficulty": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "next-difficulty",
+      "style": {
+        "w": "31%",
+        "h": 108
+      },
+      "props": {
+        "label": "DIFFICULTY >"
+      }
+    },
+    "rs_nextTraffic": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "next-traffic",
+      "style": {
+        "w": "31%",
+        "h": 108
+      },
+      "props": {
+        "label": "TRAFFIC >"
+      }
+    },
+    "rs_bottom": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "rs_status",
+        "rs_countdown",
+        "rs_close"
+      ],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": 100,
+        "dir": "row",
+        "align": "center",
+        "gap": 20
+      }
+    },
+    "rs_status": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": 0,
+        "grow": 1,
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 34,
+        "fitMin": 24,
+        "color": "#ffffffff",
+        "textAlign": "center"
+      },
+      "property": "status"
+    },
+    "rs_countdown": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": 90,
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 48,
+        "fitMin": 32,
+        "color": "#ff5555ff",
+        "textAlign": "center"
+      },
+      "property": "countdown"
+    },
+    "rs_close": {
+      "type": "use",
+      "doc": "rankings-action",
+      "key": "close",
+      "style": {
+        "w": 260,
+        "h": 100
+      },
+      "props": {
+        "label": "BACK"
+      }
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": true
+  },
+  "properties": {
+    "subtitle": {
+      "type": "text",
+      "default": "ORIGINAL / NORMAL / MEDIUM"
+    },
+    "draft": {
+      "type": "text",
+      "default": "INITIALS ___  LETTER A"
+    },
+    "status": {
+      "type": "text",
+      "default": ""
+    },
+    "countdown": {
+      "type": "text",
+      "default": "28"
+    },
+    "entry": {
+      "type": "yesno",
+      "default": false,
+      "poses": {
+        "yes": {
+          "set": {
+            "rs_filters": {
+              "hide": true
+            }
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "list",
+      "of": "rankings-row",
+      "default": []
+    }
+  }
+}
