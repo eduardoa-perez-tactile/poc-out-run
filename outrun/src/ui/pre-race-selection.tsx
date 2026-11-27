@@ -1,14 +1,22 @@
 import {createEffect,defineUI,emit,onCleanup,untrack,useResource,views,type ViewHandle} from '@gameengine/ui';
+import {gameengine} from '@gameengine/runtime';
+import {GameSettingsStore} from '../content/game-settings.ts';
+import {GameSettingsSync} from './game-settings-sync.ts';
 import {PreRaceSelection,PreRaceAction} from '../schema.gen.ts';
 import {MenuAction,MenuPage} from '../sim/pre-race-selection.ts';
 import {showRankings} from './rankings.tsx';
 import {PreRaceSelectionView,preRaceSelectionModel,type PreRaceSelectionModel} from '../views/pre-race-selection.view.tsx';
 const actions:Record<string,number>={previous:MenuAction.Previous,next:MenuAction.Next,up:MenuAction.Up,down:MenuAction.Down,accept:MenuAction.Accept,back:MenuAction.Back,options:MenuAction.Options,rankings:MenuAction.Rankings};
 export const PreRaceSelectionOverlay=defineUI({name:'PreRaceSelectionOverlay',root(){
+  const preferences=new GameSettingsSync(new GameSettingsStore({
+    get:(key,fallback)=>gameengine.kv.get(key,fallback),set:(key,value)=>gameengine.kv.set(key,value),
+  }),value=>emit(PreRaceAction,{action:MenuAction.RestoreSettings,value}));
   const state=useResource(PreRaceSelection);let browserOpen=false;let view:ViewHandle<PreRaceSelectionModel>|null=null;
   const close=()=>{view?.close({immediate:true});view=null;};
   createEffect(()=>{
-    const s=state(),active=s?.enabled===true&&s.page<MenuPage.Radio;
+    const s=state();
+    if(s){const snapshot={enabled:s.enabled,page:s.page,launch:s.launch,difficulty:s.difficulty,population:s.population,manual:s.manual,car:s.car};untrack(()=>preferences.observe(snapshot));}
+    const active=s?.enabled===true&&s.page<MenuPage.Radio;
     const model=active?preRaceSelectionModel({...s}):null;
     untrack(()=>{
       if(s?.enabled&&s.page===MenuPage.Rankings&&!browserOpen){
