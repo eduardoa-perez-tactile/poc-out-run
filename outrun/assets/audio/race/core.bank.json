@@ -40,6 +40,9 @@
     "audio/race/sfx/radio-move",
     "audio/race/sfx/radio-confirm",
     "audio/race/sfx/radio-back",
-    "audio/race/sfx/wave"
+    "audio/race/sfx/wave",
+    "audio/race/sfx/continuous-start",
+    "audio/race/sfx/continuous-finish-first",
+    "audio/race/sfx/continuous-finish-second"
   ]
 }

@@ -1128,6 +1128,12 @@ export const schemaIr = {
           "lanes": 1
         },
         {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
           "name": "difficulty",
           "kind": "u32",
           "scalar": "u32",
@@ -1161,6 +1167,20 @@ export const schemaIr = {
         },
         {
           "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceMode",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "value",
           "kind": "u32",
           "scalar": "u32",
           "lanes": 1
@@ -4523,6 +4543,7 @@ export interface PreRaceSelectionViews {
   enabled: Uint8Array;
   page: Uint32Array;
   cursor: Uint32Array;
+  mode: Uint32Array;
   difficulty: Uint32Array;
   population: Uint32Array;
   manual: Uint8Array;
@@ -4534,6 +4555,7 @@ export interface PreRaceSelectionValue {
   enabled: boolean;
   page: number;
   cursor: number;
+  mode: number;
   difficulty: number;
   population: number;
   manual: boolean;
@@ -4542,7 +4564,16 @@ export interface PreRaceSelectionValue {
   held: number;
 }
 /** PreRaceSelection (resource, sim) */
-export const PreRaceSelection = typeToken<PreRaceSelectionViews, PreRaceSelectionValue>('PreRaceSelection', 'resource', { sig: 'enabled:bool:1,page:u32:1,cursor:u32:1,difficulty:u32:1,population:u32:1,manual:bool:1,car:u32:1,launch:bool:1,held:u32:1', read: (v: PreRaceSelectionViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.page = v.page[i]; o.cursor = v.cursor[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; o.car = v.car[i]; o.launch = v.launch[i] !== 0; o.held = v.held[i]; return o; } });
+export const PreRaceSelection = typeToken<PreRaceSelectionViews, PreRaceSelectionValue>('PreRaceSelection', 'resource', { sig: 'enabled:bool:1,page:u32:1,cursor:u32:1,mode:u32:1,difficulty:u32:1,population:u32:1,manual:bool:1,car:u32:1,launch:bool:1,held:u32:1', read: (v: PreRaceSelectionViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.page = v.page[i]; o.cursor = v.cursor[i]; o.mode = v.mode[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; o.car = v.car[i]; o.launch = v.launch[i] !== 0; o.held = v.held[i]; return o; } });
+
+export interface RaceModeViews {
+  value: Uint32Array;
+}
+export interface RaceModeValue {
+  value: number;
+}
+/** RaceMode (resource, sim) */
+export const RaceMode = typeToken<RaceModeViews, RaceModeValue>('RaceMode', 'resource', { sig: 'value:u32:1', read: (v: RaceModeViews, i: number, o: Record<string, unknown>) => { o.value = v.value[i]; return o; } });
 
 export interface RaceOwnerViews {
   enabled: Uint8Array;

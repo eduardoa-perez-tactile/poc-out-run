@@ -1,6 +1,6 @@
 import {defineSystem,query,read,write,math,pcg32} from '@gameengine/runtime';
 import {DrivingState,DrivingInput,RoadProofState,DrivingResetRequested,TrafficPool,TrafficResetRequested,TrafficRebaseRequested,TrafficPassed,CollisionDriver,CrashDriver,ContactAccepted,
-  RouteDriver,RouteTrafficCoordinates,TerrainDriver,RouteResetRequested,RouteTrafficPassed,RouteContactAccepted,RaceOwner,RaceState,type TrafficResetRequestedValue} from '../schema.gen.ts';
+  RouteDriver,RouteTrafficCoordinates,TerrainDriver,RouteResetRequested,RouteTrafficPassed,RouteContactAccepted,RaceOwner,RaceState,RaceMode,type TrafficResetRequestedValue} from '../schema.gen.ts';
 import {loadMap01,sourcePlayerSample} from '../content/biome.ts';
 import {nearestTerrainRoad} from './terrain-math.ts';
 import {resetTrafficPool,rebaseTrafficPool,advanceTrafficPool,finalizeTrafficPool,type TrafficPlayerSample} from './traffic-math.ts';
@@ -14,7 +14,7 @@ export const AdvanceTraffic=defineSystem({
   name:'AdvanceTraffic',after:['AdvanceDriving'],
   runIf:{query:query(read(TrafficPool))},queries:{owners:query(write(TrafficPool)),collisions:query(write(CollisionDriver)),crashes:query(write(CrashDriver)),
     routes:query(write(RouteDriver),write(TerrainDriver),write(RouteTrafficCoordinates)),raceOwners:query(read(RaceOwner))},
-  resources:[write(DrivingState),read(DrivingInput),write(RoadProofState),read(RaceState)],events:[TrafficResetRequested,TrafficRebaseRequested,DrivingResetRequested,RouteResetRequested],
+  resources:[write(DrivingState),read(DrivingInput),write(RoadProofState),read(RaceState),read(RaceMode)],events:[TrafficResetRequested,TrafficRebaseRequested,DrivingResetRequested,RouteResetRequested],
   run(ctx,{owners,collisions,crashes,routes,raceOwners}){
     if(owners.count!==1)throw new Error('Source traffic requires exactly one TrafficPool');
     if(collisions.count>1)throw new Error('Source traffic supports one collision owner');
@@ -39,7 +39,7 @@ export const AdvanceTraffic=defineSystem({
           distance:state.distance[0]!,previousDistance:state.previousDistance[0]!,lateral:state.lateral[0]!,previousLateral:state.previousLateral[0]!,
           legacySpeed:state.legacySpeed[0]!,gear:state.gear[0]!,steering:state.steering[0]!}},
         {throttle:(bits&1)!==0,brake:(bits&2)!==0,left:(bits&4)!==0,right:(bits&8)!==0,
-          up:held.shiftUp[0]!==0,down:held.shiftDown[0]!==0},originalRouteSources(),ctx.dt,ctx.step,ctx.rng,
+          up:held.shiftUp[0]!==0,down:held.shiftDown[0]!==0},originalRouteSources(ctx.get(RaceMode).value),ctx.dt,ctx.step,ctx.rng,
         request?.population??t.col(TrafficPool).population[0]!,endingMode);
       r.set(RouteDriver,0,result.route);r.set(TerrainDriver,0,result.terrain);r.set(RouteTrafficCoordinates,0,result.coordinates);
       t.set(TrafficPool,0,result.pool);c.set(CollisionDriver,0,result.collision);k.set(CrashDriver,0,result.crash);

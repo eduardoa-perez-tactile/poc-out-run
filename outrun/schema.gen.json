@@ -1121,6 +1121,12 @@
           "lanes": 1
         },
         {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
           "name": "difficulty",
           "kind": "u32",
           "scalar": "u32",
@@ -1154,6 +1160,20 @@
         },
         {
           "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceMode",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "value",
           "kind": "u32",
           "scalar": "u32",
           "lanes": 1

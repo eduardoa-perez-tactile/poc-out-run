@@ -2,6 +2,8 @@ import {component,resource,event,bool,u32} from '@gameengine/schema';
 
 export const RaceOwner=component('RaceOwner',{enabled:bool({default:true})},{sim:true});
 export const RaceRestartRequested=event('RaceRestartRequested',{},{sim:true});
+// Separate default-inert configuration preserves Original race recording layout.
+export const RaceMode=resource('RaceMode',{value:u32()},{sim:true});
 export const RaceState=resource('RaceState',{
   initialized:bool(),lastPublishedPlaying:bool(),activeTick:bool(),racingAdmitted:bool(),bonusAwarded:bool(),
   mapTimeSeconds:u32({default:160}),difficulty:u32({default:1}),population:u32({default:20}),mapId:u32({default:1}),
