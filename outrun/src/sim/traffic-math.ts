@@ -51,13 +51,16 @@ function sectionLimit(data:ReadonlySourceBiomeData,route?:TrafficRouteDomain):nu
 function sameMap(mapId:number,data:ReadonlySourceBiomeData):void {
   if(mapId!==data.id)throw new Error(`Traffic map ${mapId} does not match data ${data.id}`);
 }
-function clonePool(pool:TrafficPoolValue):TrafficPoolValue {
+function validatePool(pool:TrafficPoolValue):void {
   population(pool.population);
-  const next={...pool};
   for(const name of ARRAY_FIELDS){
     if(pool[name].length!==32||!pool[name].every(Number.isFinite))throw new Error(`Traffic ${name} needs32 finite lanes`);
-    next[name]=pool[name].slice();
   }
+}
+function clonePool(pool:TrafficPoolValue):TrafficPoolValue {
+  validatePool(pool);
+  const next={...pool};
+  for(const name of ARRAY_FIELDS)next[name]=pool[name].slice();
   return next;
 }
 export function trafficSegment(z:number,data:ReadonlySourceBiomeData,route?:TrafficRouteDomain):number {
@@ -220,8 +223,19 @@ export function advanceTrafficPool(pool:TrafficPoolValue,player:TrafficPlayerSam
   return result;
 }
 
+/** Pure finalization: callers may retain or finalize the same pending step again. */
 export function finalizeTrafficPool(step:TrafficStep,eligibilityMask:number,rng:TrafficRandom):{pool:TrafficPoolValue;awards:TrafficPassCandidate[]} {
-  const next=clonePool(step.pool),awards:TrafficPassCandidate[]=[];
+  return finishTrafficPool(step,eligibilityMask,rng,clonePool(step.pool));
+}
+/** Consumes an exclusively owned advance result after all old-life queries have
+ * finished. Mutates step.pool; the caller must not retain or reuse that snapshot.
+ * The input to advanceTrafficPool stays untouched because advance clones it. */
+export function finalizeOwnedTrafficPool(step:TrafficStep,eligibilityMask:number,rng:TrafficRandom):{pool:TrafficPoolValue;awards:TrafficPassCandidate[]} {
+  validatePool(step.pool);
+  return finishTrafficPool(step,eligibilityMask,rng,step.pool);
+}
+function finishTrafficPool(step:TrafficStep,eligibilityMask:number,rng:TrafficRandom,next:TrafficPoolValue):{pool:TrafficPoolValue;awards:TrafficPassCandidate[]} {
+  const awards:TrafficPassCandidate[]=[];
   if(step.route)validateTrafficRouteDomain(step.route);
   // Consume a candidate even when collision eligibility rejects its award.
   // All old poses remain available in step.pool until this phase starts.

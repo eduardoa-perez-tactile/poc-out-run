@@ -8,7 +8,7 @@ import {prepareGoalPlayerTick,finishGoalPlayerTick} from './goal-driving.ts';
 import {resetTerrainDriver,nearestTerrainRoad,terrainWheelContact} from './terrain-math.ts';
 import {resetRouteCrashRecovery} from './crash-recovery-math.ts';
 import {sampleRouteZ} from './route-space.ts';
-import {resetTrafficPool,advanceTrafficPool,finalizeTrafficPool,rebaseTrafficPool,type TrafficRandom,type TrafficPassCandidate} from './traffic-math.ts';
+import {resetTrafficPool,advanceTrafficPool,finalizeOwnedTrafficPool,rebaseTrafficPool,type TrafficRandom,type TrafficPassCandidate} from './traffic-math.ts';
 import {hydrateRouteTrafficPool,packRouteTrafficPool} from './route-traffic-state.ts';
 import {evaluateRouteCollisionDriver,queryRouteCollisionContacts} from './route-collision-contacts.ts';
 import {readCollisionLedger} from './collision-state.ts';
@@ -53,7 +53,7 @@ export function commitRouteActors(before:RouteActorSnapshot,controls:DrivingCont
     const player={previousZ:45702,z:45702,previousLateral:0,lateral:0,previousSide:terrain.roadSide,side:terrain.roadSide,playing:before.driving.playing};
     const raw=resetTrafficPool(before.pool,{mapId:1,population,seedLo:route.seedLo,seedHi:route.seedHi,originZ:0},player,outgoing,rng,domain);
     const advanced=advanceTrafficPool(raw,player,outgoing,dt,rng,{suppressPass:true,route:domain});
-    const final=finalizeTrafficPool(advanced,0,rng),packed=packRouteTrafficPool(final.pool,identity,destination);
+    const final=finalizeOwnedTrafficPool(advanced,0,rng),packed=packRouteTrafficPool(final.pool,identity,destination);
     return {route:{...route,pending:false},...packed,driving:{...before.driving,distance:45000,previousDistance:45000,
       lateral:0,previousLateral:0,legacySpeed:0,gear:0,steering:0},terrain,crash:resetRouteCrashRecovery(1),
       collision:resetCollision(before.collision,step),hit:null,awards:final.awards};
@@ -108,8 +108,9 @@ export function commitRouteActors(before:RouteActorSnapshot,controls:DrivingCont
     crash={...crash,pendingStep:step,kind:hit.kind,impactSpeed:hit.impactSpeed,handlingCap:hit.handlingCap,
       collisionDir:hit.collisionDir,curve:hit.curve};
   }
-  // Finalize ORIGINAL old lives exactly once, then transfer the finalized pool.
-  const final=finalizeTrafficPool(advanced,(outgoingMask&evaluation.eligibilityMask)>>>0,rng);
+  // Both outgoing and destination collision reads are complete. Consume the
+  // exclusively owned advance result, then transfer finalized ORIGINAL old lives.
+  const final=finalizeOwnedTrafficPool(advanced,(outgoingMask&evaluation.eligibilityMask)>>>0,rng);
   const finalRaw=route.pendingHandoff
     ?rebaseTrafficPool(final.pool,destination.id,route.pendingOutgoingCamera,destination,identityDomain(identity))
     :final.pool;
