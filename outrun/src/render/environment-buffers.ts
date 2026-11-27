@@ -1,3 +1,4 @@
+import type {SceneSpriteFrames} from './scene-sprite-frames.ts';
 import type {MeshArrays} from '@gameengine/runtime';
 import type {ReadonlySourceBiomeData} from '../schema.gen.ts';
 import type {EnvironmentArtManifest,EnvironmentAtlasImage} from '../content/environments/environment-art.ts';
@@ -84,7 +85,7 @@ export function createEnvironmentBuffers(){
     samples.objectId[q]=objectId;samples.frame[q]=frame;samples.fraction[q]=fraction;samples.fullHeight[q]=height;
   }
   const result={arrays,stats,samples,road:EMPTY_MESH as MeshArrays,
-    build(data:ReadonlySourceBiomeData,view:EnvironmentView,manifest:EnvironmentArtManifest,traffic:readonly EnvironmentTrafficSnapshot[],paletteOverride?:readonly number[]|Uint32Array):MeshArrays{
+    build(data:ReadonlySourceBiomeData,view:EnvironmentView,manifest:EnvironmentArtManifest,traffic:readonly EnvironmentTrafficSnapshot[],paletteOverride?:readonly number[]|Uint32Array,sceneFrames?:SceneSpriteFrames):MeshArrays{
       if(data!==previousData||manifest!==previousManifest)validate(data,manifest);
       require(Number.isFinite(view.cameraOriginZ)&&view.cameraOriginZ>=0&&Number.isFinite(view.lateral)&&Number.isFinite(view.viewWidth)&&view.viewWidth>0&&Number.isFinite(view.aspect)&&view.aspect>0,'Environment view invalid');
       require(traffic.length<=32,'Environment traffic exceeds32 slots');
@@ -122,7 +123,9 @@ export function createEnvironmentBuffers(){
         const n=segment-base,s=b.scale[n]!;
         if(segment>=first&&s>0){
           for(let i=data.objectOffsets[segment]!;i<data.objectOffsets[segment+1]!;i++){
-            stats.visited++;const placement=data.placements[i]!,definition=data.definitions[placement.definition]!,object=data.objects[definition.objectId-1]!,image=byId[object.id]!,page=manifest.pages[image.page]!;
+            stats.visited++;const placement=data.placements[i]!,definition=data.definitions[placement.definition]!;
+            const animated=sceneFrames!==undefined&&data.id===16&&placement.id===2521;
+            const object=data.objects[(animated?sceneFrames.flagger:definition.objectId)-1]!,image=byId[object.id]!,page=manifest.pages[image.page]!;
             const pivot=definition.offsetX>=0?object.pivotRight:object.pivotLeft;
             const center=(definition.side?b.right[n]!:b.left[n]!)+definition.offsetX*ROAD_HALF_WIDTH*view.aspect*s;
             const offsetY=definition.viewportYFactor!==0?definition.viewportYFactor*view.viewWidth/data.referenceWidth:definition.offsetY;
@@ -132,7 +135,7 @@ export function createEnvironmentBuffers(){
             const clipped=map01ClippedQuad(x,bottom,width,height,b.clip[n]!,image.atlasRectPx,page.sizePx);
             if(clipped.fraction===0){stats.hidden++;continue;}
             if(x+width<=-view.aspect||x>=view.aspect||top<=-1||bottom>=1){stats.outside++;continue;}
-            emit(clipped.left,clipped.right,clipped.bottom,clipped.top,.02+(VISIBLE_SEGMENTS-n)*.0001,clipped.u0,clipped.u1,clipped.v0,clipped.v1,image.page,segment,-1,placement.id,object.id,0,clipped.fraction,height);
+            emit(clipped.left,clipped.right,clipped.bottom,clipped.top,.02+(VISIBLE_SEGMENTS-n)*.0001,clipped.u0,clipped.u1,clipped.v0,clipped.v1,image.page,segment,-1,placement.id,object.id,animated?object.id:0,clipped.fraction,height);
             stats.props++;if(clipped.fraction<1)stats.partial++;
           }
         }

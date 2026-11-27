@@ -5,9 +5,11 @@ import {RouteDriver,RouteTrafficCoordinates,TerrainDriver,TrafficPool,CrashDrive
   RouteLiveSlot,RouteLiveVisual,VehiclePreview,RaceState,RaceMode} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import type {SourceBiomeId} from '../content/biome.ts';
+import {SceneSpriteClock} from './scene-sprite-clock.ts';
 import {buildSourceRoad,sourceProjectionStats} from './source-projection.ts';
 import {buildTrafficComposite} from './traffic-buffers.ts';
 import {map01AtlasLookup} from './map01-art-buffers.ts';
+import {GOAL_ART} from '../content/environments/goal.manifest.ts';
 import {MAP01_ART} from '../content/environments/map01.manifest.ts';
 import {createEnvironmentBuffers} from './environment-buffers.ts';
 import {buildMap01Panorama} from './map01-art-backgrounds.ts';
@@ -19,10 +21,10 @@ import {resolveRouteEnvironment,createRouteTrafficAdapter,interpolateRouteView,r
 const names=['route-live-road','route-live-composite','route-live-back','route-live-front','route-live-sky','route-live-incoming-back','route-live-incoming-front'] as const;
 const SHARED='route-live-shared',MAP1='route-live-map01';
 const buffers=createEnvironmentBuffers(),traffic=createRouteTrafficAdapter();
-const atlas={sizePx:MAP01_ART.atlas.sizePx,byObjectId:map01AtlasLookup(MAP01_ART.images)};
+const atlas={sizePx:MAP01_ART.atlas.sizePx,byObjectId:map01AtlasLookup(MAP01_ART.images),scene:{sizePx:GOAL_ART.pages[0].sizePx,byObjectId:map01AtlasLookup(GOAL_ART.images)}};
 const sky=new ProjectionBuffers(1),white=new Uint8Array([255,255,255]),targetPalette=new Array<number>(33).fill(0);
 const readiness=createEnvironmentReadiness();let readinessInitialized=false;
-export const routePresentationStats={mapId:0,backgroundMapId:0,incomingMapId:0,ready:false,failed:false,error:'',
+export const routePresentationStats={sceneFlagger:0,sceneSemaphore:0,mapId:0,backgroundMapId:0,incomingMapId:0,ready:false,failed:false,error:'',
   uploads:0,submittedBytes:0,frameUploadCalls:0,frameSubmittedBytes:0,geometry:buffers.stats};
 const group=(mapId:number)=>mapId===1?MAP1:'route-live-'+resolveRouteEnvironment(mapId).group;
 const privateGroups=Object.freeze([SHARED,...Array.from({length:16},(_,index)=>group(index+1))]);
@@ -62,6 +64,7 @@ export const RoutePresentation=defineSystem({
   resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(RaceState),read(RaceMode),read(ViewInfo),read(RenderTime),read(RenderStatus)],
   run(ctx,{actors,slots}){
     const source=originalRouteSources(ctx.get(RaceMode).value);
+    const sceneClock=ctx.local(()=>new SceneSpriteClock());
     // Validate authored slots even when their actor is absent. An inactive
     // optional presenter must still report malformed/duplicate slot ownership.
     let slotMask=0;
@@ -180,14 +183,16 @@ export const RoutePresentation=defineSystem({
       if(driving.playing&&!terrain.recentering&&!reset&&ctx.step>oldStep)state.animationTicks+=ctx.step-oldStep;
       const vehicle=ctx.get(VehiclePreview);
       ctx.set(VehiclePreview,{...routeVehiclePreview(data,terrain,crash,driving,held.keyboard|held.ui,state.animationTicks,vehicle.pose,reset,ctx.dt,ctx.get(RaceState))});
+      const sceneFrames=sceneClock.sample(route.mapId,ctx.get(RaceState));
+      routePresentationStats.sceneFlagger=sceneFrames?.flagger??0;routePresentationStats.sceneSemaphore=sceneFrames?.semaphore??0;
       const trafficSamples=traffic.sample(data,pool,coordinates,time.alpha,driving.playing);
       let composite:MeshArrays;
       if(environment.kind==='map1'){
         // Root-owned optional palette override preserves the old default API.
         upload(0,buildSourceRoad(data,currentView.cameraOriginZ,currentView.lateral,aspect,state.palette));
-        composite=buildTrafficComposite(data,width,aspect,atlas,traffic.map01Pool,1,false);
+        composite=buildTrafficComposite(data,width,aspect,atlas,traffic.map01Pool,1,false,sceneFrames);
       }else{
-        composite=buffers.build(data,{...currentView,viewWidth:width,aspect},environment.manifest,trafficSamples,state.palette);
+        composite=buffers.build(data,{...currentView,viewWidth:width,aspect},environment.manifest,trafficSamples,state.palette,sceneFrames);
         upload(0,buffers.road);
       }
       const stats=assets.stats(),required=[group(route.mapId),SHARED];
@@ -213,7 +218,7 @@ export const RoutePresentation=defineSystem({
         const slot=meshChunk.col(RouteLiveSlot).slot[meshRow]!;let material='',values='';
         if(slot===1){
           material=environment.kind==='map1'?'materials/traffic-composite.material.ts':'materials/environment-composite.material.ts';
-          if(environment.kind==='map1')values=`propsAtlas=${MAP01_ART.atlas.image};trafficAtlas=textures/traffic-source.png;propsSize=${MAP01_ART.atlas.sizePx.join(' ')};trafficSize=1024 1280`;
+          if(environment.kind==='map1')values=`propsAtlas=${MAP01_ART.atlas.image};trafficAtlas=textures/traffic-source.png;sceneAtlas=${GOAL_ART.pages[0].image};sceneSize=${GOAL_ART.pages[0].sizePx.join(' ')};propsSize=${MAP01_ART.atlas.sizePx.join(' ')};trafficSize=1024 1280`;
           else{const page0=environment.manifest.pages[0]!,page1=environment.manifest.pages[1]??page0;values=`page0=${page0.image};page1=${page1.image};traffic=textures/traffic-source.png;trafficSize=1024 1280`;}
         }else if(slot===2||slot===3||slot===5||slot===6){
           material='materials/map01-panorama.material.ts';const family=slot>=5?(incoming??background):background,front=slot===3||slot===6;
