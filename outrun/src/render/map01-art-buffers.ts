@@ -1,3 +1,4 @@
+import type {SceneSpriteFrames} from './scene-sprite-frames.ts';
 import type {ReadonlySourceBiomeData} from '../schema.gen.ts';
 import {ProjectionBuffers} from './projection-buffers.ts';
 import {sourceProjectionBuffers,sourceProjectionStats} from './source-projection.ts';
@@ -6,12 +7,13 @@ import {visibleFraction} from './hill-objects.ts';
 
 export const MAP01_PROP_CAPACITY=256;
 export interface Map01AtlasImage {readonly objectId:number;readonly atlasRectPx:readonly number[];readonly sourceSizePx:readonly number[];}
-export interface Map01Atlas {readonly sizePx:readonly number[];readonly byObjectId:readonly (Map01AtlasImage|undefined)[];}
+export interface Map01AtlasPage {readonly sizePx:readonly number[];readonly byObjectId:readonly (Map01AtlasImage|undefined)[];}
+export interface Map01Atlas extends Map01AtlasPage {readonly scene?:Map01AtlasPage;}
 const props=new ProjectionBuffers(MAP01_PROP_CAPACITY);
 const white=new Uint8Array([255,255,255]);
 // Per-quad diagnostics retain painter order without allocating per frame.
 export const map01PropSamples={
-  placementId:new Int32Array(MAP01_PROP_CAPACITY),segment:new Int32Array(MAP01_PROP_CAPACITY),objectId:new Uint8Array(MAP01_PROP_CAPACITY),
+  placementId:new Int32Array(MAP01_PROP_CAPACITY),segment:new Int32Array(MAP01_PROP_CAPACITY),objectId:new Uint8Array(MAP01_PROP_CAPACITY),atlasKind:new Uint8Array(MAP01_PROP_CAPACITY),
   fullHeight:new Float32Array(MAP01_PROP_CAPACITY),fraction:new Float32Array(MAP01_PROP_CAPACITY),
 };
 export const map01ArtStats={
@@ -46,8 +48,8 @@ export function map01ClippedQuad(left:number,bottom:number,width:number,height:n
 
 // Consumes the immediately preceding buildSourceRoad sample. The compiled
 // prefix table bounds work to the visible200 lines; never scans all1475 props.
-export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number,aspect:number,atlas:Map01Atlas){
-  props.reset();map01PropSamples.placementId.fill(-1);map01PropSamples.segment.fill(-1);map01PropSamples.objectId.fill(0);
+export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number,aspect:number,atlas:Map01Atlas,sceneFrames?:SceneSpriteFrames){
+  props.reset();map01PropSamples.placementId.fill(-1);map01PropSamples.segment.fill(-1);map01PropSamples.objectId.fill(0);map01PropSamples.atlasKind.fill(0);
   map01PropSamples.fullHeight.fill(0);map01PropSamples.fraction.fill(0);
   map01ArtStats.visited=0;map01ArtStats.drawn=0;map01ArtStats.partial=0;map01ArtStats.hidden=0;map01ArtStats.outside=0;
   const {scale,left,right,ground,clip}=sourceProjectionBuffers;
@@ -56,8 +58,12 @@ export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number
     const n=segment-base,s=scale[n]!;if(s===0)continue;
     for(let i=data.objectOffsets[segment]!;i<data.objectOffsets[segment+1]!;i++){
       map01ArtStats.visited++;
-      const placement=data.placements[i]!,definition=data.definitions[placement.definition]!,object=data.objects[definition.objectId-1]!;
-      const image=atlas.byObjectId[object.id];if(!image)throw new Error(`Map1 object${object.id} is missing imported art`);
+      const placement=data.placements[i]!,definition=data.definitions[placement.definition]!;
+      const objectId=sceneFrames&&placement.id===1531?sceneFrames.flagger:sceneFrames&&placement.id===1556?sceneFrames.semaphore:definition.objectId;
+      const object=data.objects[objectId-1]!;
+      const animated=sceneFrames!==undefined&&(placement.id===1531||placement.id===1556);
+      const selectedAtlas=animated&&atlas.scene?atlas.scene:atlas;
+      const image=selectedAtlas.byObjectId[object.id];if(!image)throw new Error(`Map1 object${object.id} is missing imported art`);
       if(image.sourceSizePx[0]!==object.sourceSizePx[0]||image.sourceSizePx[1]!==object.sourceSizePx[1])throw new Error(`Map1 object${object.id} source dimensions disagree`);
       // Offset sign, independently of selected road arm, selects the visual pivot.
       const pivot=definition.offsetX>=0?object.pivotRight:object.pivotLeft;
@@ -67,7 +73,7 @@ export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number
       const unit=s*aspect*(.3/170*ROAD_HALF_WIDTH)*object.scale;
       const width=object.sourceSizePx[0]!*unit*3.2,height=object.sourceSizePx[1]!*unit*3.43;
       const top=anchor+pivot[1]!*height,bottom=top-height,x=center-pivot[0]!*width;
-      const clipped=map01ClippedQuad(x,bottom,width,height,clip[n]!,image.atlasRectPx,atlas.sizePx),fraction=clipped.fraction;
+      const clipped=map01ClippedQuad(x,bottom,width,height,clip[n]!,image.atlasRectPx,selectedAtlas.sizePx),fraction=clipped.fraction;
       if(fraction===0){map01ArtStats.hidden++;continue;}
       if(x+width<=-aspect||x>=aspect||top<=-1||bottom>=1){map01ArtStats.outside++;continue;}
       const q=props.count;
@@ -75,7 +81,7 @@ export function buildMap01ArtProps(data:ReadonlySourceBiomeData,viewWidth:number
       const u=q*8;
       props.uvs[u]=clipped.u0;props.uvs[u+1]=clipped.v1;props.uvs[u+2]=clipped.u1;props.uvs[u+3]=clipped.v1;
       props.uvs[u+4]=clipped.u1;props.uvs[u+5]=clipped.v0;props.uvs[u+6]=clipped.u0;props.uvs[u+7]=clipped.v0;
-      map01PropSamples.placementId[q]=placement.id;map01PropSamples.segment[q]=segment;map01PropSamples.objectId[q]=object.id;
+      map01PropSamples.placementId[q]=placement.id;map01PropSamples.segment[q]=segment;map01PropSamples.objectId[q]=object.id;map01PropSamples.atlasKind[q]=animated&&atlas.scene?2:0;
       map01PropSamples.fullHeight[q]=height;map01PropSamples.fraction[q]=fraction;
       if(fraction<1)map01ArtStats.partial++;
       map01ArtStats.drawn++;

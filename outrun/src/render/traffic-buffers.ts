@@ -1,3 +1,4 @@
+import type {SceneSpriteFrames} from './scene-sprite-frames.ts';
 import type {MeshArrays} from '@gameengine/runtime';
 import type {ReadonlySourceBiomeData,TrafficPoolValue} from '../schema.gen.ts';
 import {TRAFFIC_SOURCE} from '../content/vehicles/traffic-source.manifest.ts';
@@ -37,14 +38,14 @@ function appendQuad(source:MeshArrays,q:number,kind:number,segment:number,slot:n
   composite.indices[k]=v;composite.indices[k+1]=v+1;composite.indices[k+2]=v+2;
   composite.indices[k+3]=v;composite.indices[k+4]=v+2;composite.indices[k+5]=v+3;
   for(let vertex=0;vertex<4;vertex++)uvs1[dest*8+vertex*2]=kind;
-  trafficCompositeSamples.kind[dest]=kind;trafficCompositeSamples.segment[dest]=segment;trafficCompositeSamples.slot[dest]=slot;
+  trafficCompositeSamples.kind[dest]=kind===1?1:0;trafficCompositeSamples.segment[dest]=segment;trafficCompositeSamples.slot[dest]=slot;
 }
 
 // The sole Map1 presenter calls this immediately after buildSourceRoad. All
 // storage is fixed presentation scratch; no supplied SIM array is mutated/kept.
-export function buildTrafficComposite(data:ReadonlySourceBiomeData,viewWidth:number,aspect:number,propAtlas:Map01Atlas,pool:TrafficPoolValue,alpha:number,playing:boolean):MeshArrays{
+export function buildTrafficComposite(data:ReadonlySourceBiomeData,viewWidth:number,aspect:number,propAtlas:Map01Atlas,pool:TrafficPoolValue,alpha:number,playing:boolean,sceneFrames?:SceneSpriteFrames):MeshArrays{
   if(pool.mapId!==1||!pool.initialized||![9,20,32].includes(pool.population))throw new Error('Traffic compositor requires initialized Map1 pool');
-  const props=buildMap01ArtProps(data,viewWidth,aspect,propAtlas),propCount=map01ArtStats.drawn;
+  const props=buildMap01ArtProps(data,viewWidth,aspect,propAtlas,sceneFrames),propCount=map01ArtStats.drawn;
   composite.reset();cars.reset();uvs1.fill(0);heads.fill(-1);tails.fill(-1);links.fill(-1);quadBySlot.fill(-1);
   trafficCompositeSamples.kind.fill(0);trafficCompositeSamples.segment.fill(-1);trafficCompositeSamples.slot.fill(-1);
   trafficCompositeSamples.frame.fill(0);trafficCompositeSamples.fraction.fill(0);
@@ -87,7 +88,7 @@ export function buildTrafficComposite(data:ReadonlySourceBiomeData,viewWidth:num
     while(prop<propCount){
       const propSegment=map01PropSamples.segment[prop]!;
       if(propSegment!==segment)break;
-      appendQuad(props,prop,0,segment,-1);prop++;
+      appendQuad(props,prop,map01PropSamples.atlasKind[prop]!,segment,-1);prop++;
     }
     for(let slot=heads[n]!;slot>=0;slot=links[slot]!)appendQuad(cars.arrays,quadBySlot[slot]!,1,segment,slot);
   }

@@ -271,6 +271,7 @@
       "route-live-map01": {
         "include": [
           "assets/textures/map01-*.png",
+          "assets/textures/environments/goal-props-0.png",
           "assets/materials/map01-*.material.ts",
           "assets/materials/map01-*-draw.mat.json"
         ]
