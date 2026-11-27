@@ -1,5 +1,5 @@
 import {createEffect,defineUI,defineView,emit,onCleanup,untrack,useResource,views,Widget,type ViewHandle} from '@gameengine/ui';
-import {RaceState,DrivingState,RaceRestartRequested} from '../schema.gen.ts';
+import {RaceState,RaceMode,DrivingState,RaceRestartRequested} from '../schema.gen.ts';
 import {raceHudModel,raceResultsModel,type RaceHudModel,type RaceResultsModel} from './race-hud-model.ts';
 
 const starting:RaceHudModel={time:'155',score:'0',lap:'00:00.00',speed:'0',gear:'AUTO · LOW',stage:'STAGE 1/5',notice:'READY',bonus:'',showNotice:true,showBonus:false,urgent:false};
@@ -24,12 +24,12 @@ export const RaceResultsView=defineView<RaceResultsModel>({
 export const RaceHudOverlay=defineUI({
   name:'RaceHudOverlay',
   root(){
-    const race=useResource(RaceState),driving=useResource(DrivingState);
+    const mode=useResource(RaceMode),race=useResource(RaceState),driving=useResource(DrivingState);
     let hud:ViewHandle<RaceHudModel>|null=null,results:ViewHandle<RaceResultsModel>|null=null;
     createEffect(()=>{
       const current=race(),driver=driving(),active=current?.initialized===true;
-      const model=active&&driver?raceHudModel(current,driver):null;
-      const terminal=active&&(current.phase===6||current.phase===7),result=terminal?raceResultsModel(current):null;
+      const model=active&&driver?raceHudModel(current,driver,mode()?.value??0):null;
+      const terminal=active&&(current.phase===6||current.phase===7),result=terminal?raceResultsModel(current,mode()?.value??0):null;
       untrack(()=>{
         if(model&&!hud)hud=views.push(RaceHudView,model);else if(!model&&hud){hud.close({immediate:true});hud=null;}
         if(model)hud?.update(model);

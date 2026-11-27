@@ -1,5 +1,5 @@
 import {defineSystem,query,read,write,KeyEvent,Keys} from '@gameengine/runtime';
-import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RouteDriver,TrafficPool,type PreRaceSelectionValue} from '../schema.gen.ts';
+import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RaceMode,RouteDriver,TrafficPool,type PreRaceSelectionValue} from '../schema.gen.ts';
 
 export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6} as const;
 export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8} as const;
@@ -67,11 +67,12 @@ export const CapturePreRaceSelection=defineSystem({
 export const ApplyPreRaceConfiguration=defineSystem({
   name:'ApplyPreRaceConfiguration',before:['AdmitRace','AdvanceRoute'],
   runIf:{query:query(read(RaceOwner))},query:query(read(RaceOwner),read(RouteDriver),write(TrafficPool)),
-  resources:[read(PreRaceSelection),write(RaceState)],
+  resources:[read(PreRaceSelection),write(RaceState),write(RaceMode)],
   run(ctx,owners){const selection=ctx.get(PreRaceSelection),race=ctx.get(RaceState);
     if(!selection.launch||race.initialized)return;
     if(selection.mode!==0&&selection.mode!==1)throw new Error("Unsupported race mode");
-    ctx.set(RaceState,{mode:selection.mode,difficulty:selection.difficulty,population:selection.population});
+    ctx.set(RaceMode,{value:selection.mode});
+    ctx.set(RaceState,{difficulty:selection.difficulty,population:selection.population});
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
       if(chunk.col(RaceOwner).enabled[row]!==0&&!chunk.get(RouteDriver,row).initialized)chunk.set(TrafficPool,row,{population:selection.population});
     }

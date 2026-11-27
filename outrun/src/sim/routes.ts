@@ -1,7 +1,7 @@
 import {defineSystem,query,read,write} from '@gameengine/runtime';
 import {RouteDriver,RouteTrafficCoordinates,RouteResetRequested,RouteForkChosen,RouteBiomeEntered,
   RouteCheckpointPassed,RouteGoalEntered,TerrainDriver,CrashDriver,TrafficPool,CollisionDriver,DrivingState,DrivingInput,
-  RaceOwner,RaceState,PreRaceSelection,type RouteDriverValue} from '../schema.gen.ts';
+  RaceOwner,RaceState,RaceMode,PreRaceSelection,type RouteDriverValue} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import {resetRouteDriver,advanceRouteState,type RouteDriverState,type RouteGradient} from './route-math.ts';
 import {prepareRoutePlayerTick} from './route-driving-math.ts';
@@ -18,12 +18,12 @@ export const AdvanceRoute=defineSystem({
   name:'AdvanceRoute',after:['AdvanceDriving'],before:['AdvanceTraffic'],
   runIf:{query:query(read(RouteDriver))},
   queries:{owners:query(write(RouteDriver),read(TerrainDriver),read(CrashDriver),read(TrafficPool),read(CollisionDriver),read(RouteTrafficCoordinates)),raceOwners:query(read(RaceOwner))},
-  resources:[write(DrivingState),write(DrivingInput),read(RaceState),read(PreRaceSelection)],events:[RouteResetRequested],
+  resources:[write(DrivingState),write(DrivingInput),read(RaceState),read(RaceMode),read(PreRaceSelection)],events:[RouteResetRequested],
   run(ctx,{owners,raceOwners}){
     if(owners.count!==1)throw new Error('Route requires one co-owned terrain/traffic/contact/crash/integer-coordinate entity');
     let request:import('../schema.gen.ts').RouteResetRequestedValue|undefined;
     for(const event of ctx.events.read(RouteResetRequested))request=event;
-    const driving=ctx.resource(DrivingState),held=ctx.resource(DrivingInput),raceMode=ctx.get(RaceState).mode,content=originalRouteSources(raceMode);
+    const driving=ctx.resource(DrivingState),held=ctx.resource(DrivingInput),raceMode=ctx.get(RaceMode).value,content=originalRouteSources(raceMode);
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
       const before=chunk.get(RouteDriver,row),terrain=chunk.get(TerrainDriver,row),crash=chunk.get(CrashDriver,row);
       const reset=!before.initialized||request!==undefined;

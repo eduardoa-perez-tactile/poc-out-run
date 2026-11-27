@@ -1,6 +1,6 @@
 import {app,audio,gameengine,defineSystem,query,read,type AudioVoice,type SoundOptions} from '@gameengine/runtime';
 import {createEffect,defineUI,onCleanup,useResource} from '@gameengine/ui';
-import {RaceState,DrivingState,DrivingInput,RouteDriver,RouteTrafficCoordinates,TerrainDriver,CrashDriver,TrafficPool} from '../schema.gen.ts';
+import {RaceState,RaceMode,DrivingState,DrivingInput,RouteDriver,RouteTrafficCoordinates,TerrainDriver,CrashDriver,TrafficPool} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import type {SourceBiomeId} from '../content/biome.ts';
 import {RADIO_TRACKS,RESULT_MUSIC,RACE_SOUNDS,RACE_SOUND_DURATIONS,type RaceSoundName} from '../content/audio-catalog.ts';
@@ -228,10 +228,10 @@ export const RaceAudioPresentation=defineSystem({
   name:'RaceAudioPresentation',stage:'LateUpdate',after:['RaceAudioLifecycle'],
   query:query(read(RouteDriver),read(RouteTrafficCoordinates),read(TerrainDriver),read(CrashDriver),read(TrafficPool)),
   runIf:{any:[{query:query(read(RouteDriver))},{resource:RaceState,field:'initialized',value:true}]},
-  resources:[read(RaceState),read(DrivingState),read(DrivingInput)],
+  resources:[read(RaceState),read(RaceMode),read(DrivingState),read(DrivingInput)],
   run(ctx,q){
     if(!activeController||ctx.step===0)return;
-    const race=ctx.get(RaceState),driving=ctx.get(DrivingState),held=ctx.get(DrivingInput),source=originalRouteSources(race.mode);
+    const race=ctx.get(RaceState),driving=ctx.get(DrivingState),held=ctx.get(DrivingInput),source=originalRouteSources(ctx.get(RaceMode).value);
     if(!race.initialized||q.count!==1){activeController.deactivate();return;}
     for(const chunk of q.chunks())for(let row=0;row<chunk.length;row++){
       const route=chunk.get(RouteDriver,row),coordinates=chunk.get(RouteTrafficCoordinates,row),terrain=chunk.get(TerrainDriver,row),crash=chunk.get(CrashDriver,row),pool=chunk.get(TrafficPool,row);
@@ -240,7 +240,7 @@ export const RaceAudioPresentation=defineSystem({
       for(let slot=0;slot<pool.population;slot++)if(pool.active[slot]&&pool.moving[slot]){
         const distance=Math.abs(coordinates.rawZ[slot]!-playerZ);if(distance<gap){gap=distance;nearest=slot;}
       }
-      activeController.sample({active:route.initialized,mode:race.mode,raceEpoch:race.raceEpoch,phase:race.phase,resumePhase:race.resumePhase,
+      activeController.sample({active:route.initialized,mode:ctx.get(RaceMode).value,raceEpoch:race.raceEpoch,phase:race.phase,resumePhase:race.resumePhase,
         countdownTicks:race.countdownTicks,remainingTicks:race.remainingTicks,checkpoints:race.consumedCheckpoints,passes:route.passAwardCount,
         speed:driving.legacySpeed,gear:driving.gear,held:held.keyboard|held.ui,crashPhase:crash.phase,impacts:crash.consumedAcceptedCount,
         skidding:terrain.skidding,offRoad:terrain.leftOutside||terrain.rightOutside,traffic:nearest<0?0:nearest+1,

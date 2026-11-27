@@ -1,5 +1,5 @@
 import {defineSystem,query,read,write} from '@gameengine/runtime';
-import {RaceOwner,RaceState,RaceRestartRequested,RouteDriver,RouteResetRequested,TerrainDriver,CrashDriver,
+import {RaceOwner,RaceState,RaceMode,RaceRestartRequested,RouteDriver,RouteResetRequested,TerrainDriver,CrashDriver,
   DrivingState,DrivingPauseRequested,type RaceStateValue} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import type {SourceBiomeId} from '../content/biome.ts';
@@ -17,7 +17,7 @@ function flow(value:RaceStateValue):RaceFlow {
 function configuration(value:RaceStateValue):RaceConfiguration {
   if(value.difficulty!==0&&value.difficulty!==1&&value.difficulty!==2)throw new Error('Invalid race difficulty');
   if(value.population!==9&&value.population!==20&&value.population!==32)throw new Error('Invalid race population');
-  return {mapTimeSeconds:originalRouteSources(value.mode).get(1,0).timeSeconds,difficulty:value.difficulty,population:value.population};
+  return {mapTimeSeconds:originalRouteSources().get(1,0).timeSeconds,difficulty:value.difficulty,population:value.population};
 }
 function decodeMode(value:number):RaceControlMode {
   if(value===RaceControl.Locked)return 'locked';if(value===RaceControl.Player)return 'player';
@@ -31,7 +31,7 @@ export const AdmitRace=defineSystem({
   name:'AdmitRace',after:['CaptureDrivingInput'],before:['AdvanceDriving','AdvanceRoute'],
   runIf:{query:query(read(RaceOwner))},
   query:query(read(RaceOwner),read(RouteDriver)),
-  resources:[write(RaceState),write(DrivingState)],events:[RaceRestartRequested,RouteResetRequested,DrivingPauseRequested],
+  resources:[write(RaceState),write(DrivingState),read(RaceMode)],events:[RaceRestartRequested,RouteResetRequested,DrivingPauseRequested],
   run(ctx,owners){
     if(owners.count!==1)throw new Error('Race requires one co-owned route authority');
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
@@ -68,7 +68,7 @@ export const FinishRace=defineSystem({
   name:'FinishRace',after:['AdvanceTraffic','BeginCrashRecovery'],
   runIf:{query:query(read(RaceOwner))},
   query:query(read(RaceOwner),read(RouteDriver),read(TerrainDriver),read(CrashDriver)),
-  resources:[write(RaceState),write(DrivingState)],
+  resources:[write(RaceState),write(DrivingState),read(RaceMode)],
   run(ctx,owners){
     if(owners.count!==1)throw new Error('Race finish requires one complete actor owner');
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
@@ -78,7 +78,7 @@ export const FinishRace=defineSystem({
       const admission:RaceAdmission={state:flow(previous),step:ctx.step,mode:decodeMode(previous.controlMode),
         racingAdmitted:previous.racingAdmitted,activeTick:previous.activeTick,resetRoute:false};
       if(route.gradient!==-1&&route.gradient!==0&&route.gradient!==1)throw new Error('Invalid race route profile');
-      const data=originalRouteSources(previous.mode).get(route.mapId as SourceBiomeId,route.gradient);
+      const data=originalRouteSources(ctx.get(RaceMode).value).get(route.mapId as SourceBiomeId,route.gradient);
       const next=finishRaceTick(admission,{routeEpoch:route.routeEpoch,mapId:route.mapId,
         playerRow:Math.floor((route.camera+data.playerOffsetZ)/data.segmentLength)%data.totalCount,
         crashPhase:crash.phase,legacySpeed:driving.legacySpeed,leftEffect:terrain.leftEffect,rightEffect:terrain.rightEffect,

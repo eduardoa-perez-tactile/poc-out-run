@@ -1,6 +1,6 @@
 import {query,read,write,math} from '@gameengine/runtime';
 import {defineCheat} from '@gameengine/runtime/cheats';
-import {RouteDriver,RouteTrafficCoordinates,TerrainDriver,TrafficPool,CollisionDriver,CrashDriver,DrivingState,RoadProofState,RaceState} from '../schema.gen.ts';
+import {RouteDriver,RouteTrafficCoordinates,TerrainDriver,TrafficPool,CollisionDriver,CrashDriver,DrivingState,RoadProofState,RaceState,RaceMode} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import type {SourceBiomeId} from '../content/biome.ts';
 import {sampleRouteZ} from './route-space.ts';
@@ -21,7 +21,7 @@ export const RouteLandmark=defineCheat({
     recovery:{type:'enum',values:['preserve','spin-fixture'],default:'preserve',doc:'spin-fixture is synthetic captured physics, not a natural collision or native variant draw.'},
   },
   query:query(write(RouteDriver),write(RouteTrafficCoordinates),write(TerrainDriver),write(TrafficPool),write(CollisionDriver),write(CrashDriver)),
-  resources:[write(DrivingState),write(RoadProofState),read(RaceState)],
+  resources:[write(DrivingState),write(RoadProofState),read(RaceState),read(RaceMode)],
   run(ctx,{landmark,side,speed,quietTraffic,recovery,passFixture},owners){
     if(owners.count!==1)throw new Error('Route landmark requires one co-owned initialized route actor');
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
@@ -37,7 +37,7 @@ export const RouteLandmark=defineCheat({
       const initialPool=chunk.get(TrafficPool,row);
       if(passFixture!=='none'&&(!initialPool.initialized||initialPool.generation[0]===0||initialPool.passed[0]!==0))
         throw new Error('Synthetic pass fixture requires an unconsumed initialized old slot0 life');
-      const data=originalRouteSources(ctx.get(RaceState).mode).get(route.mapId as SourceBiomeId,route.gradient);
+      const data=originalRouteSources(ctx.get(RaceMode).value).get(route.mapId as SourceBiomeId,route.gradient);
       let index:number;
       if(landmark==='fork-at'||landmark==='fork-after')index=data.swapLine+(landmark==='fork-after'?1:0);
       else if(landmark==='exit-at')index=data.lastLine;

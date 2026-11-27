@@ -2,7 +2,7 @@
 import {defineSystem,query,read,write,meshes,assets,MaterialOverrides,MeshRenderer,ViewInfo,RenderTime,RenderStatus,
   entityIndex,entityGen,type MeshArrays} from '@gameengine/runtime';
 import {RouteDriver,RouteTrafficCoordinates,TerrainDriver,TrafficPool,CrashDriver,DrivingState,DrivingInput,
-  RouteLiveSlot,RouteLiveVisual,VehiclePreview,RaceState} from '../schema.gen.ts';
+  RouteLiveSlot,RouteLiveVisual,VehiclePreview,RaceState,RaceMode} from '../schema.gen.ts';
 import {originalRouteSources} from '../content/route-boot.ts';
 import type {SourceBiomeId} from '../content/biome.ts';
 import {buildSourceRoad,sourceProjectionStats} from './source-projection.ts';
@@ -59,9 +59,9 @@ export const RoutePresentation=defineSystem({
   ]},
   queries:{actors:query(read(RouteDriver),read(RouteTrafficCoordinates),read(TerrainDriver),read(TrafficPool),read(CrashDriver)),
     slots:query(read(RouteLiveSlot),write(MeshRenderer),write(MaterialOverrides))},
-  resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(RaceState),read(ViewInfo),read(RenderTime),read(RenderStatus)],
+  resources:[write(RouteLiveVisual),write(VehiclePreview),read(DrivingState),read(DrivingInput),read(RaceState),read(RaceMode),read(ViewInfo),read(RenderTime),read(RenderStatus)],
   run(ctx,{actors,slots}){
-    const source=originalRouteSources(ctx.get(RaceState).mode);
+    const source=originalRouteSources(ctx.get(RaceMode).value);
     // Validate authored slots even when their actor is absent. An inactive
     // optional presenter must still report malformed/duplicate slot ownership.
     let slotMask=0;

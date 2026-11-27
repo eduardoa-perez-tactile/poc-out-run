@@ -1168,6 +1168,20 @@
       "package": "OutRun"
     },
     {
+      "name": "RaceMode",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "value",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "RaceOwner",
       "kind": "component",
       "sim": true,
@@ -1222,12 +1236,6 @@
           "name": "bonusAwarded",
           "kind": "bool",
           "scalar": "u8",
-          "lanes": 1
-        },
-        {
-          "name": "mode",
-          "kind": "u32",
-          "scalar": "u32",
           "lanes": 1
         },
         {
