@@ -186,12 +186,15 @@ declare module '@gameengine/ui' {
      *   - `showNotice`: yesno, default true
      *   - `showBonus`: yesno, default false
      *   - `urgent`: yesno, default false
+     *   - `routeTree`: image, default {"guid":"271b8a1d-9c98-55a9-a3ff-897996f69f73"}
+     *   - `checkpointLap`: text, default "00 '42 ''36"
+     *   - `showCheckpoint`: yesno, default false
      * Events: none
      * Code areas: none
      * Refs: none
      */
     'race-hud': {
-      props: { time: string | { loc: string } | LocText; score: string | { loc: string } | LocText; lap: string | { loc: string } | LocText; speed: string | { loc: string } | LocText; gear: string | { loc: string } | LocText; stage: string | { loc: string } | LocText; notice: string | { loc: string } | LocText; bonus: string | { loc: string } | LocText; showNotice: boolean; showBonus: boolean; urgent: boolean };
+      props: { time: string | { loc: string } | LocText; score: string | { loc: string } | LocText; lap: string | { loc: string } | LocText; speed: string | { loc: string } | LocText; gear: string | { loc: string } | LocText; stage: string | { loc: string } | LocText; notice: string | { loc: string } | LocText; bonus: string | { loc: string } | LocText; showNotice: boolean; showBonus: boolean; urgent: boolean; routeTree: string; checkpointLap: string | { loc: string } | LocText; showCheckpoint: boolean };
       areas: never;
       refs: never;
     };
