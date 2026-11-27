@@ -1,12 +1,15 @@
 import {defineSystem,query,read,write,KeyEvent,Keys} from '@gameengine/runtime';
 import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RaceMode,RouteDriver,TrafficPool,type PreRaceSelectionValue} from '../schema.gen.ts';
 
-export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6} as const;
-export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8} as const;
+export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6,Rankings:7} as const;
+export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8,Rankings:9,Home:10} as const;
 const clamp=(n:number,max:number)=>Math.max(0,Math.min(max,n));
 /** Pure recorded-input reducer. All three source race modes are playable. */
 export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0):PreRaceSelectionValue {
-  const s={...before};if(!s.enabled||s.launch)return s;
+  const s={...before};
+  if(action===MenuAction.Home)return {...s,enabled:true,page:MenuPage.Home,cursor:0,launch:false,held:0};
+  if(!s.enabled||s.launch)return s;
+  if(action===MenuAction.Rankings&&s.page===MenuPage.Home){s.page=MenuPage.Rankings;s.held=0;return s;}
   if(action===MenuAction.Select){
     if(s.page===MenuPage.Home||s.page===MenuPage.Options||s.page===MenuPage.Mode)s.cursor=clamp(Math.trunc(value),s.page===MenuPage.Mode?2:1);
     return s;
@@ -47,9 +50,10 @@ export const CapturePreRaceSelection=defineSystem({
   run(ctx){
     let state=ctx.get(PreRaceSelection);if(!state.enabled)return;
     const bindings=[[Keys.ArrowLeft,1,MenuAction.Previous],[Keys.ArrowRight,2,MenuAction.Next],
-      [Keys.ArrowUp,4,MenuAction.Up],[Keys.ArrowDown,8,MenuAction.Down],[Keys.Enter,16,MenuAction.Accept],[Keys.Escape,32,MenuAction.Back]] as const;
+      [Keys.ArrowUp,4,MenuAction.Up],[Keys.ArrowDown,8,MenuAction.Down],[Keys.Enter,16,MenuAction.Accept],[Keys.Escape,32,MenuAction.Back],[Keys.KeyR,64,MenuAction.Rankings]] as const;
     let changed=false;
     for(const key of ctx.events.read(KeyEvent)){
+      if(state.page===MenuPage.Rankings)continue;
       const binding=bindings.find(entry=>entry[0]===key.code);if(!binding)continue;
       const [,bit,action]=binding;
       if(state.page===MenuPage.Radio&&action!==MenuAction.Back){if(!key.down){state.held&=~bit;changed=true;}continue;}
@@ -69,10 +73,13 @@ export const ApplyPreRaceConfiguration=defineSystem({
   runIf:{query:query(read(RaceOwner))},query:query(read(RaceOwner),read(RouteDriver),write(TrafficPool)),
   resources:[read(PreRaceSelection),write(RaceState),write(RaceMode)],
   run(ctx,owners){const selection=ctx.get(PreRaceSelection),race=ctx.get(RaceState);
-    if(!selection.launch||race.initialized)return;
+    if(!selection.launch)return;
+    let fresh=false;
+    for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++)if(chunk.col(RaceOwner).enabled[row]!==0&&!chunk.get(RouteDriver,row).initialized)fresh=true;
+    if(!fresh)return;
     if(selection.mode!==0&&selection.mode!==1&&selection.mode!==2)throw new Error("Unsupported race mode");
     ctx.set(RaceMode,{value:selection.mode});
-    ctx.set(RaceState,{difficulty:selection.difficulty,population:selection.population});
+    ctx.set(RaceState,{initialized:false,difficulty:selection.difficulty,population:selection.population});
     for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
       if(chunk.col(RaceOwner).enabled[row]!==0&&!chunk.get(RouteDriver,row).initialized)chunk.set(TrafficPool,row,{population:selection.population});
     }

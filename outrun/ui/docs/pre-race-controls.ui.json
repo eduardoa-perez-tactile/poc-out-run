@@ -38,7 +38,8 @@
         "pc_back",
         "pc_accept",
         "pc_previous",
-        "pc_next"
+        "pc_next",
+        "pc_rankings"
       ]
     },
     "pc_heading": {
@@ -321,6 +322,29 @@
       "props": {
         "label": ">"
       }
+    },
+    "pc_rankings": {
+      "type": "use",
+      "doc": "menu-choice",
+      "key": "rankings",
+      "style": {
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.79
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": 900,
+        "h": 100,
+        "hide": true
+      },
+      "props": {
+        "label": "RANKINGS (R)"
+      }
     }
   },
   "view": {
@@ -390,6 +414,9 @@
             },
             "pc_next": {
               "hide": true
+            },
+            "pc_rankings": {
+              "hide": false
             }
           }
         },

@@ -1,5 +1,8 @@
 import {createEffect,defineUI,defineView,emit,onCleanup,untrack,useResource,views,Widget,type ViewHandle} from '@gameengine/ui';
-import {RaceState,RaceMode,DrivingState,RaceRestartRequested} from '../schema.gen.ts';
+import {scenes,gameengine} from '@gameengine/runtime';
+import {showRankings} from './rankings.tsx';
+import {MenuAction} from '../sim/pre-race-selection.ts';
+import {RaceState,RaceMode,DrivingState,RaceRestartRequested,PreRaceAction} from '../schema.gen.ts';
 import {raceHudModel,raceResultsModel,type RaceHudModel,type RaceResultsModel} from './race-hud-model.ts';
 
 const starting:RaceHudModel={time:'155',score:'0',lap:'00:00.00',speed:'0',gear:'AUTO · LOW',stage:'STAGE 1/5',notice:'READY',bonus:'',showNotice:true,showBonus:false,urgent:false};
@@ -19,23 +22,34 @@ export const RaceResultsView=defineView<RaceResultsModel>({
   description:'Final race score and a recorded restart action. Intent: restart.',
   samples:{win:{title:'FINISH!',score:'148,360,000',summary:'TIME BONUS 42 S'},timeout:{title:'TIME UP',score:'26,250,000',summary:'STAGE 3 · TRY AGAIN'}},
   render:(model,{intent})=><Widget id="race-results" doc="race-hud-results" props={{title:()=>model().title,score:()=>model().score,summary:()=>model().summary}}
-    onIntent={(_,event)=>{if(event.path.at(-1)==='restart')intent('restart');}}/>,
+    onIntent={(_,event)=>{const name=event.path.at(-1);if(name)intent(name);}}/>,
 });
 export const RaceHudOverlay=defineUI({
   name:'RaceHudOverlay',
   root(){
     const mode=useResource(RaceMode),race=useResource(RaceState),driving=useResource(DrivingState);
+    let handledWin=0;
+    const home=()=>{emit(PreRaceAction,{action:MenuAction.Home,value:0});scenes.enter('scenes/pre-race.scene.json');};
     let hud:ViewHandle<RaceHudModel>|null=null,results:ViewHandle<RaceResultsModel>|null=null;
     createEffect(()=>{
-      const current=race(),driver=driving(),active=current?.initialized===true;
+      const current=race(),driver=driving(),active=current?.initialized===true&&driver?.active===true;
       const model=active&&driver?raceHudModel(current,driver,mode()?.value??0):null;
       const terminal=active&&(current.phase===6||current.phase===7),result=terminal?raceResultsModel(current,mode()?.value??0):null;
       untrack(()=>{
         if(model&&!hud)hud=views.push(RaceHudView,model);else if(!model&&hud){hud.close({immediate:true});hud=null;}
         if(model)hud?.update(model);
-        if(result&&!results)results=views.push(RaceResultsView,result,{onIntent:name=>{if(name==='restart')emit(RaceRestartRequested,{});}});
+        if(result&&!results)results=views.push(RaceResultsView,result,{onIntent:name=>{
+          if(name==='restart')emit(RaceRestartRequested,{});
+          else if(name==='home')home();
+          else if(name==='rankings')showRankings({mode:mode()?.value??0,difficulty:current.difficulty,population:current.population});
+        }});
         else if(!result&&results){results.close({immediate:true});results=null;}
         if(result)results?.update(result);
+        if(result&&current.outcome===1&&current.raceEpoch!==handledWin){
+          const opened=showRankings({mode:mode()?.value??0,difficulty:current.difficulty,population:current.population},
+            {score:current.score,totalTicks:current.totalTicks,submissionId:`${gameengine.clock.wallNow()}:${current.raceEpoch}:${current.score}`},home);
+          if(opened)handledWin=current.raceEpoch;
+        }
       });
     });
     onCleanup(()=>{hud?.close({immediate:true});results?.close({immediate:true});});
