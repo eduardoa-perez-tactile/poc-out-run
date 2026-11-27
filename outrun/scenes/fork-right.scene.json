@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "6e33345f-c9ec-4236-8823-88de677fdda4",
   "id": "fork-right",
   "resources": {
     "ForkPreviewState": { "active": true, "side": 1, "previousTick": 0, "tick": 0, "durationTicks": 180 },

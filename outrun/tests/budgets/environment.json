@@ -1,0 +1,10 @@
+{
+  "replay": "tests/replays/environment_profile_canonical_recorded_dense_travel.greplay",
+  "structural": {
+    "drawCallsMax": 5,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 32,
+    "repeat": 1
+  }
+}

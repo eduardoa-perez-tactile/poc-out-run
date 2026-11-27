@@ -1,5 +1,5 @@
-import { defineSystem, read, write, meshes, ViewInfo, RenderTime } from '@gameengine/runtime';
-import { RoadProofState, RoadProofVisualCache, ForkPreviewState, ForkVisualCache } from '../schema.gen.ts';
+import { defineSystem, read, write, query, meshes, ViewInfo, RenderTime } from '@gameengine/runtime';
+import { RoadProofState, RoadProofVisualCache, ForkPreviewState, ForkVisualCache, TerrainDriver } from '../schema.gen.ts';
 import { buildRoadBuffers } from './road-projection.ts';
 import { buildObjectBuffers } from './hill-objects.ts';
 import { buildBackdropBuffers } from './hill-backdrop.ts';
@@ -13,8 +13,11 @@ const TRACK_LENGTH = 180000;
 export const RoadPresentation = defineSystem({
   name: 'RoadPresentation',
   stage: 'LateUpdate',
+  query: query(read(TerrainDriver)),
   resources: [read(RoadProofState), read(ViewInfo), read(RenderTime), write(RoadProofVisualCache), read(ForkPreviewState), write(ForkVisualCache)],
-  run(ctx) {
+  run(ctx,sourceDrivers) {
+    // The source scene owns its road mesh; do not rebuild unused synthetic meshes.
+    if(sourceDrivers.count!==0)return;
     // Native can present before its first fixed step. The host's initial viewport
     // is queued recorded input, so ViewInfo still holds schema defaults then.
     // Wait for that input instead of projecting a guessed or stale aspect ratio.

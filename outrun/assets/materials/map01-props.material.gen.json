@@ -1,0 +1,54 @@
+{
+  "format": 1,
+  "name": "Map01ProjectedProps",
+  "model": "unlit",
+  "blend": "blend",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 16,
+  "params": [
+    {
+      "name": "atlasSize",
+      "type": "vec2f",
+      "offset": 0,
+      "default": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "filtered",
+      "type": "f32",
+      "offset": 8,
+      "default": [
+        1
+      ],
+      "ui": {
+        "min": 0,
+        "max": 1,
+        "step": 1
+      }
+    },
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 12,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "binding": 1,
+      "default": "white",
+      "srgb": true
+    }
+  ],
+  "samplerBinding": 2,
+  "wgsl": "// Material Map01ProjectedProps (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_atlasSize: vec2f,\n  p_filtered: f32,\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var tex_atlas: texture_2d<f32>;\n@group(2) @binding(2) var material_sampler: sampler;\n\nfn map01_props_base(atlas: texture_2d<f32>, atlasSampler: sampler, coord: vec2f) -> vec4f {\n  return textureSampleLevel(atlas, atlasSampler, coord, 0.0);\n}\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec2f = (in.uv * material.p_atlasSize);\n  let v1: vec2f = floor(v0);\n  let v2: vec2f = (v1 + 0.5);\n  let v3: vec2f = (v2 / material.p_atlasSize);\n  let v4: vec2f = vec2f(material.p_filtered);\n  let v5: vec2f = mix(v3, in.uv, v4);\n  let v6: vec4f = map01_props_base(tex_atlas, material_sampler, v5);\n  let v7: vec3f = v6.xyz;\n  let v8: f32 = v6.w;\n  out.base_color = v7;\n  out.alpha = v8;\n  return out;\n}\n",
+  "hash": "1fcd1d6d213331eb",
+  "sourceHash": "231ef35113fc4c72"
+}

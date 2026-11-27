@@ -1,0 +1,19 @@
+{
+  "$schemaVersion": 2,
+  "guid": "df09b49e-6234-47c2-9b42-e18555851e2f",
+  "id": "pre-race",
+  "resources": {
+    "DrivingState": { "active": false, "playing": false },
+    "PreRaceSelection": { "enabled": true },
+    "RoadProofState": { "playing": false },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Original pre-race menu camera",
+      "id": "camera",
+      "Camera": { "space": "Space2D", "clearColor": "#0094ffff" },
+      "LocalTransform": {}
+    }
+  ]
+}

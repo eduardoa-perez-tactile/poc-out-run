@@ -1,0 +1,1198 @@
+{
+  "scope": "Full-row extracted C++ arithmetic diagnostic, not an original game run. Independent source operands; exact declared differences only, no runtime tolerance.",
+  "sourceCommit": "6882721c99bc79365f815f68d389bf5078129e68",
+  "kernel": "scripts/content/numeric-oracle.cpp",
+  "kernelSha256": "73c2445aa92703b63c9e2e0fb7841f4d0aa4bfe5918d200e2da15f439f1a7683",
+  "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+  "buildFlags": [
+    "-std=c++17",
+    "-O0",
+    "-ffp-contract=off"
+  ],
+  "reproduce": [
+    "clang++ -std=c++17 -O0 -ffp-contract=off scripts/content/numeric-oracle.cpp -o /tmp/outrun-catalog-numeric-oracle",
+    "python3 scripts/content/check-numeric-oracle.py --binary /tmp/outrun-catalog-numeric-oracle --map ID"
+  ],
+  "maps": {
+    "4": {
+      "totalRows": 6380,
+      "comparedFields": 25520,
+      "differingFields": 1,
+      "differingRows": 1,
+      "commandStreamSha256": "fcc62cee372cea98cb00fde5f4ef2b33fb23670a75e0ee100a5ffc9b61720bc4",
+      "rawSourceRowsSha256": "5b7dbce9a483c1d6ebf5d96e914d9c05f21688bba38dc81b6b8078afc55de964",
+      "fieldCounts": {
+        "y0": 0,
+        "y1": 0,
+        "curve": 1,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 5.960464477539063e-08,
+      "maxUlp": 1,
+      "differences": [
+        {
+          "map": 4,
+          "row": 3452,
+          "field": "curve",
+          "ported": -0.8905358910560608,
+          "source": -0.8905359506607056
+        }
+      ],
+      "sourceMapSha256": "33793e5f988101a8d09166364c9578f0cc15534ad111eaefd86377d742f1cd3b"
+    },
+    "5": {
+      "totalRows": 6180,
+      "comparedFields": 24720,
+      "differingFields": 16,
+      "differingRows": 16,
+      "commandStreamSha256": "53dfca69fdfe59194f5a6c5375d7b7a17c2af63680e96d8c9c0b66d2f3d1450a",
+      "rawSourceRowsSha256": "c3987d80ffbf1e375e0878d5abb29052c9778958905540aa1dab348ba08d0418",
+      "fieldCounts": {
+        "y0": 8,
+        "y1": 8,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.0009765625,
+      "maxUlp": 3,
+      "differences": [
+        {
+          "map": 5,
+          "row": 2045,
+          "field": "y1",
+          "ported": 1515.3443603515625,
+          "source": 1515.343994140625
+        },
+        {
+          "map": 5,
+          "row": 2046,
+          "field": "y0",
+          "ported": 1515.3443603515625,
+          "source": 1515.343994140625
+        },
+        {
+          "map": 5,
+          "row": 2436,
+          "field": "y1",
+          "ported": 15944.3994140625,
+          "source": 15944.400390625
+        },
+        {
+          "map": 5,
+          "row": 2437,
+          "field": "y0",
+          "ported": 15944.3994140625,
+          "source": 15944.400390625
+        },
+        {
+          "map": 5,
+          "row": 2523,
+          "field": "y1",
+          "ported": 10465.5400390625,
+          "source": 10465.5390625
+        },
+        {
+          "map": 5,
+          "row": 2524,
+          "field": "y0",
+          "ported": 10465.5400390625,
+          "source": 10465.5390625
+        },
+        {
+          "map": 5,
+          "row": 2544,
+          "field": "y1",
+          "ported": 9153.5546875,
+          "source": 9153.5556640625
+        },
+        {
+          "map": 5,
+          "row": 2545,
+          "field": "y0",
+          "ported": 9153.5546875,
+          "source": 9153.5556640625
+        },
+        {
+          "map": 5,
+          "row": 2567,
+          "field": "y1",
+          "ported": 7899.310546875,
+          "source": 7899.3095703125
+        },
+        {
+          "map": 5,
+          "row": 2568,
+          "field": "y0",
+          "ported": 7899.310546875,
+          "source": 7899.3095703125
+        },
+        {
+          "map": 5,
+          "row": 2675,
+          "field": "y1",
+          "ported": 7765.751953125,
+          "source": 7765.75146484375
+        },
+        {
+          "map": 5,
+          "row": 2676,
+          "field": "y0",
+          "ported": 7765.751953125,
+          "source": 7765.75146484375
+        },
+        {
+          "map": 5,
+          "row": 2935,
+          "field": "y1",
+          "ported": 8018.4091796875,
+          "source": 8018.40869140625
+        },
+        {
+          "map": 5,
+          "row": 2936,
+          "field": "y0",
+          "ported": 8018.4091796875,
+          "source": 8018.40869140625
+        },
+        {
+          "map": 5,
+          "row": 3065,
+          "field": "y1",
+          "ported": 15974.1279296875,
+          "source": 15974.12890625
+        },
+        {
+          "map": 5,
+          "row": 3066,
+          "field": "y0",
+          "ported": 15974.1279296875,
+          "source": 15974.12890625
+        }
+      ],
+      "sourceMapSha256": "efa70b4a4694af25491627edcc74a490b7a1f115de86212eecf2c8c239108220"
+    },
+    "6": {
+      "totalRows": 6150,
+      "comparedFields": 24600,
+      "differingFields": 11,
+      "differingRows": 11,
+      "commandStreamSha256": "49d28165b50d6b6cd4d8afdef7d83d2c91b32b191b47ccb69c63434d38013de5",
+      "rawSourceRowsSha256": "de9573db167516c7f9a260afc2dd69cdaf763f595140c5d11a9f6fd8461f16ee",
+      "fieldCounts": {
+        "y0": 4,
+        "y1": 4,
+        "curve": 3,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.0009765625,
+      "maxUlp": 4,
+      "differences": [
+        {
+          "map": 6,
+          "row": 445,
+          "field": "y1",
+          "ported": 1010.6322021484375,
+          "source": 1010.6320190429688
+        },
+        {
+          "map": 6,
+          "row": 446,
+          "field": "y0",
+          "ported": 1010.6322021484375,
+          "source": 1010.6320190429688
+        },
+        {
+          "map": 6,
+          "row": 578,
+          "field": "y1",
+          "ported": 4972.93994140625,
+          "source": 4972.9404296875
+        },
+        {
+          "map": 6,
+          "row": 579,
+          "field": "y0",
+          "ported": 4972.93994140625,
+          "source": 4972.9404296875
+        },
+        {
+          "map": 6,
+          "row": 632,
+          "field": "y1",
+          "ported": 1577.517578125,
+          "source": 1577.51806640625
+        },
+        {
+          "map": 6,
+          "row": 633,
+          "field": "y0",
+          "ported": 1577.517578125,
+          "source": 1577.51806640625
+        },
+        {
+          "map": 6,
+          "row": 652,
+          "field": "curve",
+          "ported": -1.4842264652252197,
+          "source": -1.4842265844345093
+        },
+        {
+          "map": 6,
+          "row": 1108,
+          "field": "y1",
+          "ported": 8525.423828125,
+          "source": 8525.4228515625
+        },
+        {
+          "map": 6,
+          "row": 1109,
+          "field": "y0",
+          "ported": 8525.423828125,
+          "source": 8525.4228515625
+        },
+        {
+          "map": 6,
+          "row": 3652,
+          "field": "curve",
+          "ported": -1.7810717821121216,
+          "source": -1.7810719013214111
+        },
+        {
+          "map": 6,
+          "row": 3872,
+          "field": "curve",
+          "ported": 1.7810717821121216,
+          "source": 1.7810719013214111
+        }
+      ],
+      "sourceMapSha256": "cc98e434fc3552bb796bef7119b21aefadd2c3a19316548fa022f50eb3e8c2f0"
+    },
+    "7": {
+      "totalRows": 6480,
+      "comparedFields": 25920,
+      "differingFields": 6,
+      "differingRows": 6,
+      "commandStreamSha256": "36205f7ec64a7ee5e810e1879ddec1f952fa9fcc3d13aab6668cf4a61a0a7301",
+      "rawSourceRowsSha256": "859972b14ab4345e77fba0f9f14206877910edfae3523c3813b02f3e1b2acd82",
+      "fieldCounts": {
+        "y0": 3,
+        "y1": 3,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.001953125,
+      "maxUlp": 1,
+      "differences": [
+        {
+          "map": 7,
+          "row": 4003,
+          "field": "y1",
+          "ported": 20845.30859375,
+          "source": 20845.306640625
+        },
+        {
+          "map": 7,
+          "row": 4004,
+          "field": "y0",
+          "ported": 20845.30859375,
+          "source": 20845.306640625
+        },
+        {
+          "map": 7,
+          "row": 4010,
+          "field": "y1",
+          "ported": 21194.1328125,
+          "source": 21194.134765625
+        },
+        {
+          "map": 7,
+          "row": 4011,
+          "field": "y0",
+          "ported": 21194.1328125,
+          "source": 21194.134765625
+        },
+        {
+          "map": 7,
+          "row": 4206,
+          "field": "y1",
+          "ported": 23337.892578125,
+          "source": 23337.89453125
+        },
+        {
+          "map": 7,
+          "row": 4207,
+          "field": "y0",
+          "ported": 23337.892578125,
+          "source": 23337.89453125
+        }
+      ],
+      "sourceMapSha256": "7f415cdaddcfa09e169449afbcd39e5ba0dfa19ae10835a9fe903eb2b3664032"
+    },
+    "8": {
+      "totalRows": 5890,
+      "comparedFields": 23560,
+      "differingFields": 8,
+      "differingRows": 8,
+      "commandStreamSha256": "0ba856e1ddbfb01d06a9104c5e3c3b34c6470821e9af4f5fbc0c026ff7f9ccdf",
+      "rawSourceRowsSha256": "ad95c5c455124121023b679507614387302f582341c150b6543e7c75b818de52",
+      "fieldCounts": {
+        "y0": 4,
+        "y1": 4,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.000244140625,
+      "maxUlp": 3,
+      "differences": [
+        {
+          "map": 8,
+          "row": 365,
+          "field": "y1",
+          "ported": -505.31610107421875,
+          "source": -505.3160095214844
+        },
+        {
+          "map": 8,
+          "row": 366,
+          "field": "y0",
+          "ported": -505.31610107421875,
+          "source": -505.3160095214844
+        },
+        {
+          "map": 8,
+          "row": 1694,
+          "field": "y1",
+          "ported": 1334.1683349609375,
+          "source": 1334.16845703125
+        },
+        {
+          "map": 8,
+          "row": 1695,
+          "field": "y0",
+          "ported": 1334.1683349609375,
+          "source": 1334.16845703125
+        },
+        {
+          "map": 8,
+          "row": 1794,
+          "field": "y1",
+          "ported": 913.1158447265625,
+          "source": 913.11572265625
+        },
+        {
+          "map": 8,
+          "row": 1795,
+          "field": "y0",
+          "ported": 913.1158447265625,
+          "source": 913.11572265625
+        },
+        {
+          "map": 8,
+          "row": 3099,
+          "field": "y1",
+          "ported": 2402.36572265625,
+          "source": 2402.365478515625
+        },
+        {
+          "map": 8,
+          "row": 3100,
+          "field": "y0",
+          "ported": 2402.36572265625,
+          "source": 2402.365478515625
+        }
+      ],
+      "sourceMapSha256": "4217aa4e18ee91607a40dde6fe411f7afe162cba9193ca2fb0d0e76157833e82"
+    },
+    "9": {
+      "totalRows": 6210,
+      "comparedFields": 24840,
+      "differingFields": 6,
+      "differingRows": 6,
+      "commandStreamSha256": "0bbebed483587bc72f68969cf8b2acc16c27ccfc2622afe9932eb7bf36ea578d",
+      "rawSourceRowsSha256": "5f1585b06b0a782acd544f953760a09e86423d02054e8cbf73758a40fa165d43",
+      "fieldCounts": {
+        "y0": 3,
+        "y1": 3,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.001953125,
+      "maxUlp": 1,
+      "differences": [
+        {
+          "map": 9,
+          "row": 734,
+          "field": "y1",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 9,
+          "row": 735,
+          "field": "y0",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 9,
+          "row": 887,
+          "field": "y1",
+          "ported": 7096.06787109375,
+          "source": 7096.068359375
+        },
+        {
+          "map": 9,
+          "row": 888,
+          "field": "y0",
+          "ported": 7096.06787109375,
+          "source": 7096.068359375
+        },
+        {
+          "map": 9,
+          "row": 1207,
+          "field": "y1",
+          "ported": 19032.26171875,
+          "source": 19032.259765625
+        },
+        {
+          "map": 9,
+          "row": 1208,
+          "field": "y0",
+          "ported": 19032.26171875,
+          "source": 19032.259765625
+        }
+      ],
+      "sourceMapSha256": "c3b0f0714f61c8ea139681cf1505ac610bf3f622af9fe8f355e1f7f17c975734"
+    },
+    "10": {
+      "totalRows": 6040,
+      "comparedFields": 24160,
+      "differingFields": 20,
+      "differingRows": 20,
+      "commandStreamSha256": "9fd7aa52e2600fab595363f252c24963362440e76b0d51da3fcac3b2e274091a",
+      "rawSourceRowsSha256": "181e2c393ea7948595de4b19c38cc146cf076ccd208bb94c07459a44ef319a5f",
+      "fieldCounts": {
+        "y0": 10,
+        "y1": 10,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.00048828125,
+      "maxUlp": 8,
+      "differences": [
+        {
+          "map": 10,
+          "row": 274,
+          "field": "y1",
+          "ported": 1828.392333984375,
+          "source": 1828.39208984375
+        },
+        {
+          "map": 10,
+          "row": 275,
+          "field": "y0",
+          "ported": 1828.392333984375,
+          "source": 1828.39208984375
+        },
+        {
+          "map": 10,
+          "row": 374,
+          "field": "y1",
+          "ported": 2670.497314453125,
+          "source": 2670.49755859375
+        },
+        {
+          "map": 10,
+          "row": 375,
+          "field": "y0",
+          "ported": 2670.497314453125,
+          "source": 2670.49755859375
+        },
+        {
+          "map": 10,
+          "row": 2044,
+          "field": "y1",
+          "ported": 1828.392333984375,
+          "source": 1828.39208984375
+        },
+        {
+          "map": 10,
+          "row": 2045,
+          "field": "y0",
+          "ported": 1828.392333984375,
+          "source": 1828.39208984375
+        },
+        {
+          "map": 10,
+          "row": 2144,
+          "field": "y1",
+          "ported": 2670.497314453125,
+          "source": 2670.49755859375
+        },
+        {
+          "map": 10,
+          "row": 2145,
+          "field": "y0",
+          "ported": 2670.497314453125,
+          "source": 2670.49755859375
+        },
+        {
+          "map": 10,
+          "row": 2244,
+          "field": "y1",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 10,
+          "row": 2245,
+          "field": "y0",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 10,
+          "row": 2934,
+          "field": "y1",
+          "ported": 1170.867431640625,
+          "source": 1170.86767578125
+        },
+        {
+          "map": 10,
+          "row": 2935,
+          "field": "y0",
+          "ported": 1170.867431640625,
+          "source": 1170.86767578125
+        },
+        {
+          "map": 10,
+          "row": 3034,
+          "field": "y1",
+          "ported": 328.762451171875,
+          "source": 328.76220703125
+        },
+        {
+          "map": 10,
+          "row": 3035,
+          "field": "y0",
+          "ported": 328.762451171875,
+          "source": 328.76220703125
+        },
+        {
+          "map": 10,
+          "row": 3134,
+          "field": "y1",
+          "ported": 4827.65234375,
+          "source": 4827.65185546875
+        },
+        {
+          "map": 10,
+          "row": 3135,
+          "field": "y0",
+          "ported": 4827.65234375,
+          "source": 4827.65185546875
+        },
+        {
+          "map": 10,
+          "row": 3234,
+          "field": "y1",
+          "ported": 5669.7568359375,
+          "source": 5669.75732421875
+        },
+        {
+          "map": 10,
+          "row": 3235,
+          "field": "y0",
+          "ported": 5669.7568359375,
+          "source": 5669.75732421875
+        },
+        {
+          "map": 10,
+          "row": 3334,
+          "field": "y1",
+          "ported": 1170.867431640625,
+          "source": 1170.86767578125
+        },
+        {
+          "map": 10,
+          "row": 3335,
+          "field": "y0",
+          "ported": 1170.867431640625,
+          "source": 1170.86767578125
+        }
+      ],
+      "sourceMapSha256": "9278abe969160f9fcc5b6c73970a109180dd340edd57fb43599e449a6f34d6c6"
+    },
+    "11": {
+      "totalRows": 6220,
+      "comparedFields": 24880,
+      "differingFields": 12,
+      "differingRows": 12,
+      "commandStreamSha256": "517ad235a785901750ca3f86601149f1710f8e249f16fb12f46167699d4c5232",
+      "rawSourceRowsSha256": "50fbcf64905e9e76619ba97b98e9781943e12d5eee4c092eadfa840e51cfaa55",
+      "fieldCounts": {
+        "y0": 6,
+        "y1": 6,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.00048828125,
+      "maxUlp": 2,
+      "differences": [
+        {
+          "map": 11,
+          "row": 284,
+          "field": "y1",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 11,
+          "row": 285,
+          "field": "y0",
+          "ported": 1218.92822265625,
+          "source": 1218.9281005859375
+        },
+        {
+          "map": 11,
+          "row": 384,
+          "field": "y1",
+          "ported": 1780.33154296875,
+          "source": 1780.3316650390625
+        },
+        {
+          "map": 11,
+          "row": 385,
+          "field": "y0",
+          "ported": 1780.33154296875,
+          "source": 1780.3316650390625
+        },
+        {
+          "map": 11,
+          "row": 484,
+          "field": "y1",
+          "ported": 1828.392333984375,
+          "source": 1828.39208984375
+        },
+        {
+          "map": 11,
+          "row": 485,
+          "field": "y0",
+          "ported": 1828.392333984375,
+          "source": 1828.39208984375
+        },
+        {
+          "map": 11,
+          "row": 684,
+          "field": "y1",
+          "ported": 6327.2822265625,
+          "source": 6327.28173828125
+        },
+        {
+          "map": 11,
+          "row": 685,
+          "field": "y0",
+          "ported": 6327.2822265625,
+          "source": 6327.28173828125
+        },
+        {
+          "map": 11,
+          "row": 1434,
+          "field": "y1",
+          "ported": 7169.38671875,
+          "source": 7169.38720703125
+        },
+        {
+          "map": 11,
+          "row": 1435,
+          "field": "y0",
+          "ported": 7169.38671875,
+          "source": 7169.38720703125
+        },
+        {
+          "map": 11,
+          "row": 1578,
+          "field": "y1",
+          "ported": 8155.67431640625,
+          "source": 8155.673828125
+        },
+        {
+          "map": 11,
+          "row": 1579,
+          "field": "y0",
+          "ported": 8155.67431640625,
+          "source": 8155.673828125
+        }
+      ],
+      "sourceMapSha256": "97a440d5736e0d99638c8641cc26f7c9ce06c0e0941e935aeef5e38475cb12d1"
+    },
+    "12": {
+      "totalRows": 6260,
+      "comparedFields": 25040,
+      "differingFields": 20,
+      "differingRows": 20,
+      "commandStreamSha256": "2f61f7be48fc3fbd65cdd975a68e63cb8babc8f661970f89dfadc8fdf47ab281",
+      "rawSourceRowsSha256": "7f0e6ef302f6fa3842998d8cd67f19e1b90db637843d4d96b4e64ae224111de3",
+      "fieldCounts": {
+        "y0": 10,
+        "y1": 10,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.001953125,
+      "maxUlp": 2,
+      "differences": [
+        {
+          "map": 12,
+          "row": 3256,
+          "field": "y1",
+          "ported": 3078.552001953125,
+          "source": 3078.551513671875
+        },
+        {
+          "map": 12,
+          "row": 3257,
+          "field": "y0",
+          "ported": 3078.552001953125,
+          "source": 3078.551513671875
+        },
+        {
+          "map": 12,
+          "row": 3343,
+          "field": "y1",
+          "ported": 11296.8408203125,
+          "source": 11296.841796875
+        },
+        {
+          "map": 12,
+          "row": 3344,
+          "field": "y0",
+          "ported": 11296.8408203125,
+          "source": 11296.841796875
+        },
+        {
+          "map": 12,
+          "row": 3364,
+          "field": "y1",
+          "ported": 13264.8193359375,
+          "source": 13264.818359375
+        },
+        {
+          "map": 12,
+          "row": 3365,
+          "field": "y0",
+          "ported": 13264.8193359375,
+          "source": 13264.818359375
+        },
+        {
+          "map": 12,
+          "row": 3387,
+          "field": "y1",
+          "ported": 15146.185546875,
+          "source": 15146.1865234375
+        },
+        {
+          "map": 12,
+          "row": 3388,
+          "field": "y0",
+          "ported": 15146.185546875,
+          "source": 15146.1865234375
+        },
+        {
+          "map": 12,
+          "row": 3536,
+          "field": "y1",
+          "ported": 15947.0654296875,
+          "source": 15947.06640625
+        },
+        {
+          "map": 12,
+          "row": 3537,
+          "field": "y0",
+          "ported": 15947.0654296875,
+          "source": 15947.06640625
+        },
+        {
+          "map": 12,
+          "row": 3623,
+          "field": "y1",
+          "ported": 10468.2060546875,
+          "source": 10468.205078125
+        },
+        {
+          "map": 12,
+          "row": 3624,
+          "field": "y0",
+          "ported": 10468.2060546875,
+          "source": 10468.205078125
+        },
+        {
+          "map": 12,
+          "row": 3644,
+          "field": "y1",
+          "ported": 9156.220703125,
+          "source": 9156.2216796875
+        },
+        {
+          "map": 12,
+          "row": 3645,
+          "field": "y0",
+          "ported": 9156.220703125,
+          "source": 9156.2216796875
+        },
+        {
+          "map": 12,
+          "row": 3667,
+          "field": "y1",
+          "ported": 7901.9765625,
+          "source": 7901.9755859375
+        },
+        {
+          "map": 12,
+          "row": 3668,
+          "field": "y0",
+          "ported": 7901.9765625,
+          "source": 7901.9755859375
+        },
+        {
+          "map": 12,
+          "row": 3924,
+          "field": "y1",
+          "ported": 19264.630859375,
+          "source": 19264.62890625
+        },
+        {
+          "map": 12,
+          "row": 3925,
+          "field": "y0",
+          "ported": 19264.630859375,
+          "source": 19264.62890625
+        },
+        {
+          "map": 12,
+          "row": 3947,
+          "field": "y1",
+          "ported": 21145.99609375,
+          "source": 21145.998046875
+        },
+        {
+          "map": 12,
+          "row": 3948,
+          "field": "y0",
+          "ported": 21145.99609375,
+          "source": 21145.998046875
+        }
+      ],
+      "sourceMapSha256": "6e79076e44e7630ce09e73f66fababaaeceede2e82577f174f9759033ddbcf35"
+    },
+    "13": {
+      "totalRows": 6030,
+      "comparedFields": 24120,
+      "differingFields": 18,
+      "differingRows": 18,
+      "commandStreamSha256": "dacf91ddc2e25ead3941003be90aa7b48147d50527472ecf82c5188283e20582",
+      "rawSourceRowsSha256": "4250c5cfbe5731ab55bb294cd776e508b58f6c31fea7d5f89402cb81e52e7e71",
+      "fieldCounts": {
+        "y0": 6,
+        "y1": 6,
+        "curve": 6,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.001953125,
+      "maxUlp": 2,
+      "differences": [
+        {
+          "map": 13,
+          "row": 856,
+          "field": "y1",
+          "ported": 2565.4599609375,
+          "source": 2565.459716796875
+        },
+        {
+          "map": 13,
+          "row": 857,
+          "field": "y0",
+          "ported": 2565.4599609375,
+          "source": 2565.459716796875
+        },
+        {
+          "map": 13,
+          "row": 943,
+          "field": "y1",
+          "ported": 9414.0341796875,
+          "source": 9414.03515625
+        },
+        {
+          "map": 13,
+          "row": 944,
+          "field": "y0",
+          "ported": 9414.0341796875,
+          "source": 9414.03515625
+        },
+        {
+          "map": 13,
+          "row": 964,
+          "field": "y1",
+          "ported": 11054.0166015625,
+          "source": 11054.015625
+        },
+        {
+          "map": 13,
+          "row": 965,
+          "field": "y0",
+          "ported": 11054.0166015625,
+          "source": 11054.015625
+        },
+        {
+          "map": 13,
+          "row": 987,
+          "field": "y1",
+          "ported": 12621.8212890625,
+          "source": 12621.822265625
+        },
+        {
+          "map": 13,
+          "row": 988,
+          "field": "y0",
+          "ported": 12621.8212890625,
+          "source": 12621.822265625
+        },
+        {
+          "map": 13,
+          "row": 1342,
+          "field": "y1",
+          "ported": 20259.912109375,
+          "source": 20259.91015625
+        },
+        {
+          "map": 13,
+          "row": 1343,
+          "field": "y0",
+          "ported": 20259.912109375,
+          "source": 20259.91015625
+        },
+        {
+          "map": 13,
+          "row": 1487,
+          "field": "y1",
+          "ported": 22931.7421875,
+          "source": 22931.744140625
+        },
+        {
+          "map": 13,
+          "row": 1488,
+          "field": "y0",
+          "ported": 22931.7421875,
+          "source": 22931.744140625
+        },
+        {
+          "map": 13,
+          "row": 2726,
+          "field": "curve",
+          "ported": 0.6576639413833618,
+          "source": 0.6576640605926514
+        },
+        {
+          "map": 13,
+          "row": 2926,
+          "field": "curve",
+          "ported": 0.6576639413833618,
+          "source": 0.6576640605926514
+        },
+        {
+          "map": 13,
+          "row": 3126,
+          "field": "curve",
+          "ported": 0.6576639413833618,
+          "source": 0.6576640605926514
+        },
+        {
+          "map": 13,
+          "row": 3326,
+          "field": "curve",
+          "ported": -0.6576639413833618,
+          "source": -0.6576640605926514
+        },
+        {
+          "map": 13,
+          "row": 3526,
+          "field": "curve",
+          "ported": -0.6576639413833618,
+          "source": -0.6576640605926514
+        },
+        {
+          "map": 13,
+          "row": 3726,
+          "field": "curve",
+          "ported": -0.6576639413833618,
+          "source": -0.6576640605926514
+        }
+      ],
+      "sourceMapSha256": "2b88b9eae2bb691fc0d0072b7c62eb9bb7d273e2b8f9ee4f80ceae9c710d3017"
+    },
+    "14": {
+      "totalRows": 6680,
+      "comparedFields": 26720,
+      "differingFields": 12,
+      "differingRows": 12,
+      "commandStreamSha256": "9f720e6edf0408139307300ca1a523f82a26632f54d689d880c90ccf19128d96",
+      "rawSourceRowsSha256": "43f30889f9e18711a8550a5c69dc94acf4fbe7de95e6fdb42b028d90ba58dcf5",
+      "fieldCounts": {
+        "y0": 6,
+        "y1": 6,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.00390625,
+      "maxUlp": 2,
+      "differences": [
+        {
+          "map": 14,
+          "row": 485,
+          "field": "y1",
+          "ported": 3040.814208984375,
+          "source": 3040.814697265625
+        },
+        {
+          "map": 14,
+          "row": 486,
+          "field": "y0",
+          "ported": 3040.814208984375,
+          "source": 3040.814697265625
+        },
+        {
+          "map": 14,
+          "row": 1025,
+          "field": "y1",
+          "ported": 3040.814208984375,
+          "source": 3040.814697265625
+        },
+        {
+          "map": 14,
+          "row": 1026,
+          "field": "y0",
+          "ported": 3040.814208984375,
+          "source": 3040.814697265625
+        },
+        {
+          "map": 14,
+          "row": 2246,
+          "field": "y1",
+          "ported": 24551.2265625,
+          "source": 24551.224609375
+        },
+        {
+          "map": 14,
+          "row": 2247,
+          "field": "y0",
+          "ported": 24551.2265625,
+          "source": 24551.224609375
+        },
+        {
+          "map": 14,
+          "row": 2354,
+          "field": "y1",
+          "ported": 31342.072265625,
+          "source": 31342.0703125
+        },
+        {
+          "map": 14,
+          "row": 2355,
+          "field": "y0",
+          "ported": 31342.072265625,
+          "source": 31342.0703125
+        },
+        {
+          "map": 14,
+          "row": 4045,
+          "field": "y1",
+          "ported": 38288.13671875,
+          "source": 38288.140625
+        },
+        {
+          "map": 14,
+          "row": 4046,
+          "field": "y0",
+          "ported": 38288.13671875,
+          "source": 38288.140625
+        },
+        {
+          "map": 14,
+          "row": 4315,
+          "field": "y1",
+          "ported": 45706.0546875,
+          "source": 45706.05078125
+        },
+        {
+          "map": 14,
+          "row": 4316,
+          "field": "y0",
+          "ported": 45706.0546875,
+          "source": 45706.05078125
+        }
+      ],
+      "sourceMapSha256": "62949c0d3c9fec646d11513f156bf7e6a1a3fafc2fc726dfc2e39754b8e1b79c"
+    },
+    "15": {
+      "totalRows": 6330,
+      "comparedFields": 25320,
+      "differingFields": 3,
+      "differingRows": 3,
+      "commandStreamSha256": "c1690a7dbb5be2275bfcd2be697bd97eac86c3b39e779ca73a9874c9697fb539",
+      "rawSourceRowsSha256": "8802af1ebd530b75b85ff0ff13e39deffd43b2737a4befb6413bdf3e8feb0640",
+      "fieldCounts": {
+        "y0": 1,
+        "y1": 1,
+        "curve": 1,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0.0009765625,
+      "maxUlp": 2,
+      "differences": [
+        {
+          "map": 15,
+          "row": 2581,
+          "field": "y1",
+          "ported": -10107.4013671875,
+          "source": -10107.40234375
+        },
+        {
+          "map": 15,
+          "row": 2582,
+          "field": "y0",
+          "ported": -10107.4013671875,
+          "source": -10107.40234375
+        },
+        {
+          "map": 15,
+          "row": 3256,
+          "field": "curve",
+          "ported": 0.6576639413833618,
+          "source": 0.6576640605926514
+        }
+      ],
+      "sourceMapSha256": "68dfbed09b5628459758503e069990a05a78de9274c965fb081932f17357ec6d"
+    },
+    "16": {
+      "totalRows": 3010,
+      "comparedFields": 12040,
+      "differingFields": 0,
+      "differingRows": 0,
+      "commandStreamSha256": "04ddbf9d8f1a56d8bf43c7e291f774600ee173292ba0e4ab07672590a4623cb2",
+      "rawSourceRowsSha256": "529e6d9aa9126ab0df70810ecb33907e673a2c1705802edee19f838a3c519c7a",
+      "fieldCounts": {
+        "y0": 0,
+        "y1": 0,
+        "curve": 0,
+        "gap": 0
+      },
+      "maxAbsoluteDifference": 0,
+      "maxUlp": 0,
+      "differences": [],
+      "sourceRecipeSha256": {
+        "logger": "749399930f43b3bda093e040450fb27caf987a756d07e90f547638bee841cb3a",
+        "biome": "58231e8cb94128f36eb4e05906cfd469c19fbae3dbebb07594bf199f641a5313"
+      }
+    }
+  }
+}

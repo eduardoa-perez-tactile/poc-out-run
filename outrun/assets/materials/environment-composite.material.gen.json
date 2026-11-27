@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "name": "DestinationEnvironmentComposite",
+  "model": "unlit",
+  "blend": "blend",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 16,
+  "params": [
+    {
+      "name": "trafficSize",
+      "type": "vec2f",
+      "offset": 0,
+      "default": [
+        1024,
+        1280
+      ]
+    },
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 8,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "page0",
+      "binding": 1,
+      "default": "white",
+      "srgb": true
+    },
+    {
+      "name": "page1",
+      "binding": 2,
+      "default": "white",
+      "srgb": true
+    },
+    {
+      "name": "traffic",
+      "binding": 3,
+      "default": "white",
+      "srgb": true
+    }
+  ],
+  "samplerBinding": 4,
+  "wgsl": "// Material DestinationEnvironmentComposite (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_trafficSize: vec2f,\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var tex_page0: texture_2d<f32>;\n@group(2) @binding(2) var tex_page1: texture_2d<f32>;\n@group(2) @binding(3) var tex_traffic: texture_2d<f32>;\n@group(2) @binding(4) var material_sampler: sampler;\n\nfn environment_composite_texel(page0: texture_2d<f32>, sampler0: sampler,\n  page1: texture_2d<f32>, sampler1: sampler,\n  traffic: texture_2d<f32>, trafficSampler: sampler,\n  coord: vec2f, kind: f32, trafficSize: vec2f) -> vec4f {\n  if (kind > 1.5) {\n    let point = (floor(coord * trafficSize) + vec2f(0.5)) / trafficSize;\n    return textureSampleLevel(traffic, trafficSampler, point, 0.0);\n  }\n  if (kind > 0.5) {\n    return textureSampleLevel(page1, sampler1, coord, 0.0);\n  }\n  return textureSampleLevel(page0, sampler0, coord, 0.0);\n}\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: f32 = in.uv1.x;\n  let v1: vec4f = environment_composite_texel(tex_page0, material_sampler, tex_page1, material_sampler, tex_traffic, material_sampler, in.uv, v0, material.p_trafficSize);\n  let v2: vec3f = v1.xyz;\n  let v3: f32 = v1.w;\n  out.base_color = v2;\n  out.alpha = v3;\n  return out;\n}\n",
+  "hash": "3207e5d4e433a542",
+  "sourceHash": "ed63ca3ea0bbe3f5"
+}

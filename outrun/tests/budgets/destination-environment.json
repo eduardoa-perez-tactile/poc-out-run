@@ -1,0 +1,11 @@
+{
+  "replay": "tests/replays/environment_profile_canonical_recorded_destination_art_workload.greplay",
+  "structural": {
+    "drawCallsMax": 6,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 288,
+    "repeat": 1
+  },
+  "activeReplay": true
+}

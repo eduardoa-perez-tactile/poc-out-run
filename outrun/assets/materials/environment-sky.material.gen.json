@@ -1,0 +1,39 @@
+{
+  "format": 1,
+  "name": "DestinationSourceSky",
+  "model": "unlit",
+  "blend": "opaque",
+  "alphaCutoff": 0.5,
+  "doubleSided": false,
+  "cull": "back",
+  "uniformSize": 32,
+  "params": [
+    {
+      "name": "sky",
+      "type": "vec4f",
+      "offset": 0,
+      "default": [
+        0,
+        0.2158605009317398,
+        0.9215818643569946,
+        1
+      ],
+      "ui": {
+        "color": true
+      }
+    },
+    {
+      "name": "alphaCutoff",
+      "type": "f32",
+      "offset": 16,
+      "default": [
+        0.5
+      ]
+    }
+  ],
+  "textures": [],
+  "samplerBinding": 1,
+  "wgsl": "// Material DestinationSourceSky (@gameengine/materials, compiled; do not edit).\nstruct MaterialParams {\n  p_sky: vec4f,\n  p_alphaCutoff: f32,\n};\n@group(2) @binding(0) var<uniform> material: MaterialParams;\n@group(2) @binding(1) var material_sampler: sampler;\nconst MATERIAL_MODEL: u32 = 1u;\nconst MATERIAL_FOG: bool = false;\nfn material_surface(in: SurfaceInput) -> SurfaceOutput {\n  var out = surface_defaults();\n  let v0: vec3f = material.p_sky.xyz;\n  let v1: f32 = material.p_sky.w;\n  out.base_color = v0;\n  out.alpha = v1;\n  return out;\n}\n",
+  "hash": "98ffd3a879c7decd",
+  "sourceHash": "e17de711a7ca724a"
+}

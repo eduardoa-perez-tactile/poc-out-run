@@ -1,0 +1,63 @@
+{
+  "$schemaVersion": 1,
+  "guid": "6a63bc38-1dcc-4013-91e5-d9bb222b49be",
+  "name": "rankings-action",
+  "title": "Rankings action",
+  "kind": "widget",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Rankings action",
+      "style": {
+        "dir": "row",
+        "pad": 4,
+        "align": "center",
+        "bg": "#00000099",
+        "radius": 12,
+        "w": 260,
+        "h": 108,
+        "justify": "center"
+      },
+      "children": [
+        "ra_label"
+      ]
+    },
+    "ra_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 42,
+        "fitMin": 24,
+        "color": "#00ff00ff",
+        "textAlign": "center",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff"
+      },
+      "property": "label"
+    }
+  },
+  "behaviour": "button",
+  "properties": {
+    "label": {
+      "type": "text",
+      "default": "CONTINUE"
+    }
+  },
+  "states": {
+    "pressed": {
+      "set": {
+        "root": {
+          "bg": "#ffffff33"
+        }
+      }
+    }
+  }
+}

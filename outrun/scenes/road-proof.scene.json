@@ -1,5 +1,6 @@
 {
   "$schemaVersion": 2,
+  "guid": "46fb3127-c780-4216-abc4-41c062089cec",
   "id": "road-proof",
   "resources": { "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 } },
   "entities": [

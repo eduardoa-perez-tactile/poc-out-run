@@ -1,0 +1,17 @@
+{
+  "material": "materials/traffic-composite.material.ts",
+  "params": {
+    "propsAtlas": "textures/traffic-catalog-reference.png",
+    "trafficAtlas": "textures/traffic-source.png",
+    "propsSize": [
+      32,
+      16
+    ],
+    "trafficSize": [
+      1024,
+      1280
+    ],
+    "propsFiltered": 0,
+    "trafficFiltered": 0
+  }
+}

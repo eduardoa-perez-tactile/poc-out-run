@@ -1,0 +1,127 @@
+{
+  "$schemaVersion": 1,
+  "guid": "a649c0ea-9757-458b-8292-2fbd363a2058",
+  "name": "rankings-row",
+  "title": "Rankings row",
+  "kind": "widget",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Rankings row",
+      "style": {
+        "dir": "row",
+        "pad": 0,
+        "align": "center",
+        "radius": 0,
+        "w": "100%",
+        "h": 62,
+        "gap": 16
+      },
+      "children": [
+        "rr_rank",
+        "rr_score",
+        "rr_name",
+        "rr_time"
+      ]
+    },
+    "rr_rank": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "9%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 50,
+        "fitMin": 32,
+        "color": "#b482d3ff",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      },
+      "property": "rank"
+    },
+    "rr_score": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "37%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 50,
+        "fitMin": 32,
+        "color": "#92c2baff",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      },
+      "property": "score"
+    },
+    "rr_name": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "20%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 50,
+        "fitMin": 32,
+        "color": "#92c2baff",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      },
+      "property": "name"
+    },
+    "rr_time": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "w": "34%",
+        "h": "100%",
+        "font": {
+          "guid": "59c873c7-5e2e-5253-aa4e-4fff3441f607"
+        },
+        "fontSize": 50,
+        "fitMin": 32,
+        "color": "#92c2baff",
+        "shadowX": 2,
+        "shadowY": 2,
+        "shadowColor": "#000000ff",
+        "textAlign": "center"
+      },
+      "property": "time"
+    }
+  },
+  "properties": {
+    "rank": {
+      "type": "text",
+      "default": ""
+    },
+    "score": {
+      "type": "text",
+      "default": ""
+    },
+    "name": {
+      "type": "text",
+      "default": ""
+    },
+    "time": {
+      "type": "text",
+      "default": ""
+    }
+  }
+}

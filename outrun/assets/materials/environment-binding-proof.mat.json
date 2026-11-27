@@ -1,0 +1,9 @@
+{
+  "material":"materials/environment-composite.material.ts",
+  "params":{
+    "page0":"dynamic:environment-proof-page0",
+    "page1":"dynamic:environment-proof-page1",
+    "traffic":"dynamic:environment-proof-traffic",
+    "trafficSize":[1,1]
+  }
+}

@@ -1,0 +1,6 @@
+guid = "5ebfc594-e5bb-5f68-a18c-59c4a476c6f4"
+importer = "audio"
+[settings]
+codec = "opus"
+mono = false
+cooldown = 0.12

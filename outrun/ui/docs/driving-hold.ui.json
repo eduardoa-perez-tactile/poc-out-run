@@ -1,0 +1,60 @@
+{
+  "$schemaVersion": 1,
+  "guid": "a32d48a5-ef76-42c8-add0-dbddd82e593f",
+  "name": "driving-hold",
+  "title": "Driving hold",
+  "kind": "widget",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Driving hold",
+      "style": {
+        "dir": "row",
+        "pad": 0,
+        "align": "center",
+        "bg": "#15283ddd",
+        "radius": 24,
+        "w": "100%",
+        "h": "100%",
+        "justify": "center"
+      },
+      "children": [
+        "dh_label"
+      ]
+    },
+    "dh_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "{label}",
+      "style": {
+        "fontSize": 36,
+        "weight": 800,
+        "color": "#ffffffff"
+      }
+    }
+  },
+  "properties": {
+    "label": {
+      "type": "text",
+      "default": "LEFT"
+    },
+    "held": {
+      "type": "yesno",
+      "default": false,
+      "poses": {
+        "yes": {
+          "set": {
+            "root": {
+              "bg": "#eaa847ee",
+              "scale": 0.92
+            },
+            "dh_label": {
+              "color": "#15283dff"
+            }
+          }
+        }
+      }
+    }
+  }
+}

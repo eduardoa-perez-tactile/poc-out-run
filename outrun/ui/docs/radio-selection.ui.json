@@ -1,0 +1,162 @@
+{
+  "$schemaVersion": 1,
+  "guid": "1dad5cd6-447e-4499-b3c1-5877cfef193b",
+  "name": "radio-selection",
+  "title": "Radio selection",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Radio selection",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0,
+        "bg": "#0094ffff",
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "children": [
+        "rs_background",
+        "rs_title",
+        "rs_dial",
+        "rs_hand"
+      ]
+    },
+    "rs_background": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "textures/radio/radioBackground",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "w": "100%",
+        "h": "100%",
+        "fit": "fill",
+        "attach": true
+      }
+    },
+    "rs_title": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "1255e1f0-6921-56ea-8fad-6d38b8fb40f0"
+      },
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": 1094,
+        "h": 100,
+        "fit": "contain",
+        "attach": true
+      },
+      "property": "titleImage"
+    },
+    "rs_dial": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "4d2a70bb-4167-5695-b26e-b257eb460a85"
+      },
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.39739414,
+          0.8725
+        ],
+        "pivot": [
+          0,
+          1
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "w": "41.042345%",
+        "h": "13.0246%",
+        "fit": "fill",
+        "attach": true
+      },
+      "property": "dialImage"
+    },
+    "rs_hand": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "2e998e77-d306-5184-81c6-6965ca3eef1f"
+      },
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.35703583,
+          1
+        ],
+        "pivot": [
+          0,
+          1
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "w": "43.322475%",
+        "h": "25.61505%",
+        "fit": "fill",
+        "attach": true
+      },
+      "property": "handImage"
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": false
+  },
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "titleImage": {
+      "type": "image",
+      "default": "textures/radio/soundtrack1"
+    },
+    "dialImage": {
+      "type": "image",
+      "default": "textures/radio/radio1"
+    },
+    "handImage": {
+      "type": "image",
+      "default": "textures/radio/hand1"
+    }
+  }
+}

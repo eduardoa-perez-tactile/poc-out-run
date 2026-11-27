@@ -1,0 +1,101 @@
+import {defineSystem,query,read,write,KeyEvent,Keys} from '@gameengine/runtime';
+import type {GameSettings} from '../content/game-settings.ts';
+import {PreRaceSelection,PreRaceAction,RaceOwner,RaceState,RaceMode,RouteDriver,TrafficPool,type PreRaceSelectionValue} from '../schema.gen.ts';
+
+export const MenuPage={Home:0,Options:1,Mode:2,Gears:3,Car:4,Radio:5,Race:6,Rankings:7,Help:8} as const;
+export const MenuAction={Previous:0,Next:1,Up:2,Down:3,Accept:4,Back:5,Options:6,Launch:7,Select:8,Rankings:9,Home:10,RestoreSettings:11,Help:12} as const;
+const clamp=(n:number,max:number)=>Math.max(0,Math.min(max,n));
+/** One recorded payload: 3 difficulties ×3 traffic levels ×2 gears ×14 cars. */
+export function encodeGameSettings(settings:GameSettings):number {
+  return settings.difficulty+3*[9,20,32].indexOf(settings.population)+9*Number(settings.manual)+18*settings.car;
+}
+/** Pure recorded-input reducer. All three source race modes are playable. */
+export function reducePreRace(before:PreRaceSelectionValue,action:number,value=0):PreRaceSelectionValue {
+  const s={...before};
+  if(action===MenuAction.Home)return {...s,enabled:true,page:MenuPage.Home,cursor:0,launch:false,held:0};
+  if(!s.enabled||s.launch)return s;
+  if(action===MenuAction.RestoreSettings){
+    // Restoring can never move a page, start a race, or override menu input
+    // that has already left Home. Saves are read by presentation only.
+    if(s.page!==MenuPage.Home||!Number.isInteger(value)||value<0||value>=252)return s;
+    return {...s,difficulty:value%3,population:[9,20,32][Math.floor(value/3)%3]!,manual:Math.floor(value/9)%2===1,car:Math.floor(value/18)};
+  }
+  if(action===MenuAction.Help&&s.page===MenuPage.Home){s.page=MenuPage.Help;s.cursor=0;s.held=0;return s;}
+  if(action===MenuAction.Rankings&&s.page===MenuPage.Home){s.page=MenuPage.Rankings;s.held=0;return s;}
+  if(action===MenuAction.Select){
+    if(s.page===MenuPage.Home||s.page===MenuPage.Options||s.page===MenuPage.Mode)s.cursor=clamp(Math.trunc(value),s.page===MenuPage.Mode?2:1);
+    return s;
+  }
+  const direction=action===MenuAction.Previous?-1:action===MenuAction.Next?1:0;
+  if(action===MenuAction.Back){
+    s.page=s.page===MenuPage.Radio?MenuPage.Car:s.page===MenuPage.Car?MenuPage.Gears:s.page===MenuPage.Gears?MenuPage.Mode:MenuPage.Home;
+    s.cursor=s.page===MenuPage.Car?s.car:s.page===MenuPage.Gears?Number(s.manual):s.page===MenuPage.Mode?s.mode:0;return s;
+  }
+  if(s.page===MenuPage.Radio){if(action===MenuAction.Launch){s.launch=true;s.enabled=false;s.page=MenuPage.Race;s.held=0;}return s;}
+  if(action===MenuAction.Options&&s.page===MenuPage.Home){s.page=MenuPage.Options;s.cursor=0;return s;}
+  if(s.page===MenuPage.Home){
+    if(direction||action===MenuAction.Up||action===MenuAction.Down)s.cursor=1-s.cursor;
+    if(action===MenuAction.Accept){s.page=s.cursor===1?MenuPage.Options:MenuPage.Mode;s.cursor=0;}
+  }else if(s.page===MenuPage.Options){
+    if(action===MenuAction.Up||action===MenuAction.Down)s.cursor=1-s.cursor;
+    if(direction||action===MenuAction.Accept){const step=direction||1;
+      if(s.cursor===0)s.difficulty=clamp(s.difficulty+step,2);
+      else {const choices=[9,20,32];s.population=choices[clamp(choices.indexOf(s.population)+step,2)]!;}
+    }
+  }else if(s.page===MenuPage.Mode){
+    const step=direction||(action===MenuAction.Up?-1:action===MenuAction.Down?1:0);
+    if(step)s.cursor=clamp(s.cursor+step,2);
+    if(action===MenuAction.Accept){s.mode=s.cursor;s.page=MenuPage.Gears;s.cursor=Number(s.manual);}
+  }else if(s.page===MenuPage.Gears){
+    if(direction){s.cursor=clamp(s.cursor+direction,1);s.manual=s.cursor===1;}
+    if(action===MenuAction.Accept){s.manual=s.cursor===1;s.page=MenuPage.Car;s.cursor=s.car;}
+  }else if(s.page===MenuPage.Car){
+    if(direction){s.car=clamp(s.car+direction,13);s.cursor=s.car;}
+    if(action===MenuAction.Accept){s.page=MenuPage.Radio;s.cursor=0;}
+  }
+  return s;
+}
+
+export const CapturePreRaceSelection=defineSystem({
+  name:'CapturePreRaceSelection',stage:'PreUpdate',skipUnchanged:true,
+  resources:[write(PreRaceSelection)],events:[KeyEvent,PreRaceAction],
+  run(ctx){
+    let state=ctx.get(PreRaceSelection);if(!state.enabled)return;
+    const bindings=[[Keys.ArrowLeft,1,MenuAction.Previous],[Keys.ArrowRight,2,MenuAction.Next],
+      [Keys.ArrowUp,4,MenuAction.Up],[Keys.ArrowDown,8,MenuAction.Down],[Keys.Enter,16,MenuAction.Accept],[Keys.Escape,32,MenuAction.Back],[Keys.KeyR,64,MenuAction.Rankings],[Keys.KeyH,128,MenuAction.Help]] as const;
+    let changed=false;
+    // Apply a startup restore before fresh menu input from the same tick.
+    for(const event of ctx.events.read(PreRaceAction))if(event.action===MenuAction.RestoreSettings){state=reducePreRace(state,event.action,event.value);changed=true;}
+    for(const key of ctx.events.read(KeyEvent)){
+      if(state.page===MenuPage.Rankings||state.page===MenuPage.Help)continue;
+      const binding=bindings.find(entry=>entry[0]===key.code);if(!binding)continue;
+      const [,bit,action]=binding;
+      if(state.page===MenuPage.Radio&&action!==MenuAction.Back){if(!key.down){state.held&=~bit;changed=true;}continue;}
+      const rising=key.down&&(state.held&bit)===0;
+      state.held=key.down?state.held|bit:state.held&~bit;changed=true;
+      // Radio owns Left/Right/Enter; Escape remains this recorded menu's Back.
+      if(rising&&(state.page!==MenuPage.Radio||action===MenuAction.Back))state=reducePreRace(state,action);
+    }
+    for(const event of ctx.events.read(PreRaceAction))if(event.action!==MenuAction.RestoreSettings){state=reducePreRace(state,event.action,event.value);changed=true;}
+    if(changed)ctx.set(PreRaceSelection,state);
+  }
+});
+
+/** Apply the recorded selection only to a newly admitted connected race. */
+export const ApplyPreRaceConfiguration=defineSystem({
+  name:'ApplyPreRaceConfiguration',before:['AdmitRace','AdvanceRoute'],
+  runIf:{query:query(read(RaceOwner))},query:query(read(RaceOwner),read(RouteDriver),write(TrafficPool)),
+  resources:[read(PreRaceSelection),write(RaceState),write(RaceMode)],
+  run(ctx,owners){const selection=ctx.get(PreRaceSelection),race=ctx.get(RaceState);
+    if(!selection.launch)return;
+    let fresh=false;
+    for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++)if(chunk.col(RaceOwner).enabled[row]!==0&&!chunk.get(RouteDriver,row).initialized)fresh=true;
+    if(!fresh)return;
+    if(selection.mode!==0&&selection.mode!==1&&selection.mode!==2)throw new Error("Unsupported race mode");
+    ctx.set(RaceMode,{value:selection.mode});
+    ctx.set(RaceState,{initialized:false,difficulty:selection.difficulty,population:selection.population});
+    for(const chunk of owners.chunks())for(let row=0;row<chunk.length;row++){
+      if(chunk.col(RaceOwner).enabled[row]!==0&&!chunk.get(RouteDriver,row).initialized)chunk.set(TrafficPool,row,{population:selection.population});
+    }
+  }
+});

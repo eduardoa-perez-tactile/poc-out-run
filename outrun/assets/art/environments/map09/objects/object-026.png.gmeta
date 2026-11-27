@@ -1,0 +1,9 @@
+guid = "f77c3ee8-f106-4978-a5be-4ff7ce58215b"
+importer = "texture"
+[settings]
+kind = "texture"
+atlas = "none"
+trim = false
+compression = "none"
+mipmaps = false
+max_size = 4096

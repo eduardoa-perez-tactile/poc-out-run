@@ -1,0 +1,67 @@
+{
+  "$schemaVersion": 1,
+  "guid": "4796c6a1-92a1-462a-b653-c709c9a6968e",
+  "name": "race-hud-action",
+  "title": "Race restart action",
+  "kind": "widget",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Race hud action",
+      "style": {
+        "dir": "row",
+        "pad": 20,
+        "align": "center",
+        "bg": "#f7f700ff",
+        "radius": 4,
+        "w": 560,
+        "h": 184,
+        "justify": "center"
+      },
+      "children": [
+        "rh_action_label"
+      ]
+    },
+    "rh_action_label": {
+      "type": "label",
+      "name": "Label",
+      "text": "Label",
+      "style": {
+        "fontSize": 52,
+        "fitMin": 38,
+        "weight": 800,
+        "color": "#101820ff",
+        "textAlign": "center"
+      },
+      "property": "label"
+    }
+  },
+  "behaviour": "button",
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "label": {
+      "type": "text",
+      "default": "RACE AGAIN"
+    }
+  },
+  "states": {
+    "pressed": {
+      "set": {
+        "root": {
+          "bg": "#00c594ff",
+          "scale": 0.97
+        }
+      }
+    },
+    "disabled": {
+      "set": {
+        "root": {
+          "opacity": 0.5
+        }
+      }
+    }
+  }
+}

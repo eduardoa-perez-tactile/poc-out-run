@@ -1,0 +1,76 @@
+{
+  "$schemaVersion": 2,
+  "guid": "e8c4f4bf-cfbc-4da6-abd1-ddccbee19d0a",
+  "id": "vehicle-preview",
+  "resources": {
+    "RoadProofState": {
+      "fixtureId": 3,
+      "distance": 33000,
+      "previousDistance": 33000,
+      "lateral": 0,
+      "speed": 7200,
+      "playing": false,
+      "spaceHeld": false
+    },
+    "VehiclePreview": {
+      "enabled": true,
+      "pose": 0,
+      "sample": 0,
+      "effect": 0,
+      "scale": 3.2,
+      "placeholder": false,
+      "autoplay": false,
+      "loaded": false,
+      "reconciled": false,
+      "useWheelEffects": false,
+      "leftEffect": 0,
+      "rightEffect": 0,
+      "hidden": false
+    },
+    "WorldView": { "orthoSize": 1, "center": [0, 0], "fit": "Height", "designAspect": 1.7777777777777777 }
+  },
+  "entities": [
+    {
+      "name": "Projected Road Camera",
+      "id": "camera",
+      "Camera": { "space": "Space3D", "near": 0.1, "far": 20, "clearColor": "#0094ffff" },
+      "LocalTransform": { "position": [0, 0, 10] }
+    },
+    {
+      "name": "Road Proof Mesh",
+      "id": "road",
+      "LocalTransform": {},
+      "MeshRenderer": {
+        "mesh": "dynamic:road-proof",
+        "material": "materials/road.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Hill Background Order Diagnostic",
+      "id": "hill-backdrop",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/hill-proof.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:hill-backdrop",
+        "material": "materials/hill-objects.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      }
+    },
+    {
+      "name": "Selected Player Car: Three Fixed Quad Slots",
+      "id": "vehicle-preview",
+      "LocalTransform": {},
+      "MaterialOverrides": { "values": "atlas=textures/player-ferrari1.png" },
+      "MeshRenderer": {
+        "mesh": "dynamic:player-car",
+        "material": "materials/player-car.material.ts",
+        "castShadows": false,
+        "receiveShadows": false
+      },
+      "VehicleVisualSlot": {}
+    }
+  ]
+}

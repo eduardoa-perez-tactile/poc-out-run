@@ -11,11 +11,54 @@ specific guidance.
 ## The game
 
 Internal personal OutRun prototype on Game Engine, targeting mobile and web in landscape.
-The current code is the engine starter; OutRun gameplay is migrated in small playable slices.
+The game includes the connected ORIGINAL race; remaining selections, audio and modes are tracked separately.
 Fast desktop iteration is the priority. Physical-phone testing is excluded unless the user
 later requests it; do not use connected phones for installs, runs, profiling or screenshots.
 Use simulated mobile viewports/safe areas, desktop phone-low residency and structural checks,
 native/web parity and targeted real-browser checks. Hardware budgets remain design targets.
+
+Real-browser checks must launch Chrome in the background without interrupting the user's
+work or stealing focus. Use a dedicated owned test session, reusing it when possible;
+on macOS launch with `open -g` and use CDP `focus:false` where supported. Never launch in
+the foreground, call `bringToFront`, activate the browser or minimize/restore its windows.
+Verify focus preservation and actual rendered pixels/behavior; stop and report the blocked
+lane if background behavior cannot be preserved. Clean up only that session's owned test
+windows/processes.
+
+## Current delivery priority
+
+Finish the complete playable game as quickly as possible. The unit of progress is a working
+player-facing feature. Follow the delivery-first policy in ../AGENTS.md and ../docs/workflow.md:
+
+- During implementation, use build/type checks or hot reload plus one short changed-flow smoke.
+  Add/run focused automated tests only for meaningful behavior or a concrete regression. No
+  full suite, browser session or new test is required for each edit/save/checkpoint commit.
+- Run the existing required PR gate once on the finished candidate through exact-head CI.
+  A local full gate is only for a concrete CI diagnostic, never a routine prerequisite. Reuse
+  CI results instead of duplicating them locally or repeating their render/web/cooked lanes.
+  A material candidate/base change or unresolved failure requires the affected checks and
+  protected CI to pass again; unchanged behavior can reuse its existing evidence.
+- Use the matrix to select affected behavior only. Fixing a text box needs a focused preview,
+  not a repeated full race. Full race/mode acceptance belongs to relevant outcome changes and
+  completed milestones. Run the milestone gate at those milestones/main promotion, not per feature.
+- Do not start optimization/profiling passes unless explicitly requested by the user. Expand
+  coverage or validation infrastructure only when requested or necessary for the smallest fix
+  to a concrete delivery blocker; use minimal diagnosis. After two failed attempts at the same
+  validation blockage, preserve/report it and move to independent ready
+  feature work where possible; leave its merge blocked rather than expanding the harness.
+- Keep PR evidence short and reuse harness output. Docs-only work uses policy/harness CI,
+  without an engine build or browser check. Existing tests/budgets and protected checks stay intact.
+
+Chrome stays in the background and physical-phone testing remains excluded.
+
+## Play
+
+Run `npm run play` from the repository root to open the original radio selection screen.
+Choose with Left/Right or the touch buttons, then Enter or START launches the connected
+ORIGINAL race in `scenes/original-race.scene.json`. The browser follows the same flow.
+The harness runs legacy recordings in an owned copy
+with the proof bootstrap; only that copy's startScene differs. Production checks and exports
+use the actual race startup.
 
 ## Conventions
 
@@ -47,9 +90,10 @@ require gate:milestone plus applicable real-browser evidence. Required tooling o
 that is unavailable blocks integration/promotion; a green hosted repo-policy check alone does
 not prove game validation. The bootstrap wasm-host gap is resolved; reproduce the native/web
 and headed-browser setup through ../docs/engine-setup.md. Physical-phone evidence is not a gate.
-During edits run focused V8 tests; at handoff run the root gate:pr harness against the PR base.
-The harness adds visual, web and cooked checks based on changed paths. See the test matrix for
-targeted browser evidence. Missing required tooling is a blocked lane, never a pass.
+During edits follow the minimum checks above; a focused V8 test is selected when meaningful.
+Run the root gate:pr once at the finished PR boundary through required CI. Its selected visual,
+web and cooked lanes do not need separate reruns. Use the matrix for relevant browser evidence;
+reuse unchanged observations. Missing required tooling blocks that lane, never counts as a pass.
 
 This is a personal internal project. Do not import upstream README or legal documents, and do
 not add store/public deployment work. Native and browser validation still matter.

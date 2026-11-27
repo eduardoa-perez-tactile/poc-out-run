@@ -1,0 +1,344 @@
+{
+  "$schemaVersion": 1,
+  "guid": "f64c9907-f8ab-4c92-a6b6-eb545e2ea7ca",
+  "name": "pre-race-art",
+  "title": "Pre race art",
+  "kind": "view",
+  "root": "root",
+  "nodes": {
+    "root": {
+      "type": "element",
+      "name": "Pre race art",
+      "style": {
+        "w": "100%",
+        "h": "100%",
+        "pad": 0,
+        "position": "anchored",
+        "anchor": [
+          0,
+          0
+        ],
+        "pivot": [
+          0,
+          0
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "children": [
+        "pa_background",
+        "pa_logo",
+        "pa_panel",
+        "pa_gear_left",
+        "pa_gear_right",
+        "pa_garage",
+        "pa_shadow",
+        "pa_car"
+      ]
+    },
+    "pa_background": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "ui/sprites/star",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "100%",
+        "h": "100%",
+        "fit": "fill",
+        "attach": true
+      },
+      "property": "backgroundImage"
+    },
+    "pa_logo": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "ui/sprites/star",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.4957,
+          0.3379
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "38.2193%",
+        "h": "25.4703%",
+        "fit": "fill",
+        "attach": true
+      },
+      "property": "logoImage",
+      "show": "showLogo"
+    },
+    "pa_panel": {
+      "type": "element",
+      "name": "Element",
+      "children": [
+        "pa_inner"
+      ],
+      "style": {
+        "pad": 6,
+        "position": "anchored",
+        "anchor": [
+          0.5054,
+          0.5
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "77.09%",
+        "h": "72.36%",
+        "bg": "#f7f700ff",
+        "hide": true,
+        "attach": true
+      }
+    },
+    "pa_inner": {
+      "type": "element",
+      "name": "Element",
+      "children": [],
+      "style": {
+        "pad": 0,
+        "w": "100%",
+        "h": "100%",
+        "bg": "#000000ef"
+      }
+    },
+    "pa_gear_left": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "ui/sprites/star",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.3271,
+          0.61
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "26.2215%",
+        "h": "40.81%",
+        "fit": "fill",
+        "attach": true
+      },
+      "show": "showGears",
+      "property": "gearLeftImage"
+    },
+    "pa_gear_right": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "ui/sprites/star",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.6854,
+          0.61
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "26.2215%",
+        "h": "40.81%",
+        "fit": "fill",
+        "attach": true
+      },
+      "show": "showGears",
+      "property": "gearRightImage"
+    },
+    "pa_garage": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "bdcfe8a7-fddc-5e04-afed-24a1ac2fe96b"
+      },
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.575
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "40%",
+        "h": "48%",
+        "fit": "contain",
+        "attach": true
+      },
+      "show": "showCar"
+    },
+    "pa_shadow": {
+      "type": "icon",
+      "name": "Icon",
+      "image": {
+        "guid": "5e3d2091-7be4-5371-a7c4-89ba3032c368"
+      },
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.775
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "26%",
+        "h": "5%",
+        "fit": "contain",
+        "attach": true,
+        "opacity": 0.65
+      },
+      "show": "showCar"
+    },
+    "pa_car": {
+      "type": "icon",
+      "name": "Icon",
+      "image": "ui/sprites/star",
+      "style": {
+        "size": 32,
+        "position": "anchored",
+        "anchor": [
+          0.5,
+          0.712
+        ],
+        "pivot": "centre",
+        "offset": [
+          0,
+          0
+        ],
+        "w": "26%",
+        "h": "18%",
+        "fit": "contain",
+        "attach": true
+      },
+      "show": "showCar",
+      "property": "carImage"
+    }
+  },
+  "view": {
+    "behaviour": "screen",
+    "safe": false
+  },
+  "transition": {
+    "type": "instant"
+  },
+  "properties": {
+    "screen": {
+      "type": "enum",
+      "values": [
+        "home",
+        "options",
+        "mode",
+        "gears",
+        "car"
+      ],
+      "default": "home",
+      "poses": {
+        "gears": {
+          "set": {
+            "pa_panel": {
+              "hide": false,
+              "bg": "#00ff00ff"
+            }
+          }
+        },
+        "car": {
+          "set": {
+            "pa_panel": {
+              "hide": false,
+              "bg": "#f7f700ff"
+            },
+            "pa_inner": {
+              "bg": "#000000ff"
+            }
+          }
+        },
+        "options": {
+          "set": {
+            "pa_panel": {
+              "hide": false,
+              "bg": "#13bafbff"
+            },
+            "pa_inner": {
+              "image": {
+                "guid": "8456429f-a6bb-5fc1-85af-192a7b034c6c"
+              }
+            }
+          }
+        }
+      }
+    },
+    "backgroundImage": {
+      "type": "image",
+      "default": {
+        "guid": "92a936c8-c393-55b4-99fa-1577809ea30a"
+      }
+    },
+    "logoImage": {
+      "type": "image",
+      "default": {
+        "guid": "bb996565-daa0-5c2e-a839-98aa54e5afc1"
+      }
+    },
+    "carImage": {
+      "type": "image",
+      "default": {
+        "guid": "ea2af638-351f-5fc8-9336-ea546c30f216"
+      }
+    },
+    "gearLeftImage": {
+      "type": "image",
+      "default": {
+        "guid": "2fe74eb6-149a-58a2-bc45-71dd8be04c0b"
+      }
+    },
+    "gearRightImage": {
+      "type": "image",
+      "default": {
+        "guid": "f8c832b0-274e-558e-ab03-f42e31b70f84"
+      }
+    },
+    "showLogo": {
+      "type": "yesno",
+      "default": true
+    },
+    "showCar": {
+      "type": "yesno",
+      "default": false
+    },
+    "showGears": {
+      "type": "yesno",
+      "default": false
+    }
+  }
+}

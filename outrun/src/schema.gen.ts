@@ -1,5 +1,6 @@
 // @generated — do not edit. Regenerate with `pnpm gen` (tools/bindgen).
-import { typeToken, registerSchema, type EntityId } from '@gameengine/runtime';
+import { typeToken, rowRead as $r, registerSchema, dataToken, type DataRecord, type EntityId } from '@gameengine/runtime';
+import './content.gen.ts';
 
 export type { EntityId };
 
@@ -9,6 +10,469 @@ export const schemaIr = {
   "package": "OutRun",
   "enums": [],
   "types": [
+    {
+      "name": "Map01Preview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01VisualCache",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aspect",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": -1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01VisualSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "CollisionDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "motionValid",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "motionStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "locked",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "acceptedCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "z0",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "z1",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "l0",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "ls",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lc",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lr",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "lf",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "drift",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "previousGap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "carryApplied",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "ledgerCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ledgerKind",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerId",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerEpoch",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        },
+        {
+          "name": "ledgerGeneration",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 64
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "ContactAccepted",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "id",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "toi",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "playerX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playerZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "CrashDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "phase",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedAcceptedCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "variant",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "totalAdvances",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "advances",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cadenceTick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "decrement",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "reactionTick",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "recenterTarget",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "DrivingBindings",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "left",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "right",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "throttle",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "brake",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "up",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "down",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
     {
       "name": "DrivingControlChanged",
       "kind": "event",
@@ -91,6 +555,20 @@ export const schemaIr = {
         },
         {
           "name": "modeHeld",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "DrivingPauseRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "paused",
           "kind": "bool",
           "scalar": "u8",
           "lanes": 1
@@ -203,6 +681,266 @@ export const schemaIr = {
       "package": "OutRun"
     },
     {
+      "name": "KeyboardBindingsRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "left",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "right",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "throttle",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "brake",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "up",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "down",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentResidency",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "incoming",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "active",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ownsIncoming",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsActive",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsTraffic",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ioReady",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "renderSettled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "failed",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwnerIndex",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwnerGeneration",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "inputOwned",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "appliedMapSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "appliedModeSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "batch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "trafficCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReviewIsolation",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "sequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "modeSequence",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "EnvironmentReviewSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
       "name": "ForkPreviewRequested",
       "kind": "event",
       "sim": true,
@@ -304,6 +1042,500 @@ export const schemaIr = {
           "scalar": "f32",
           "lanes": 1,
           "default": -1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01ArtPreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "playing",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "followDriving",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "cameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousCameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "lateral",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "speed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 7200
+        },
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "controlHeld",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastCameraOriginZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "previousBackOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "previousFrontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "Map01ArtSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "PreRaceAction",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "action",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "value",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "PreRaceSelection",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "page",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "cursor",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "difficulty",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "car",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "launch",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceMode",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "value",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceOwner",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1,
+          "default": true
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceRestartRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [],
+      "package": "OutRun"
+    },
+    {
+      "name": "RaceState",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "lastPublishedPlaying",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "activeTick",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "racingAdmitted",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "bonusAwarded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "mapTimeSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 160
+        },
+        {
+          "name": "difficulty",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "raceEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "phase",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "resumePhase",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "processedStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "phaseTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "countdownTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "remainingTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "totalTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stageTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastStageTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "score",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "finishScore",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "finishRemainingSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "bonusDeciseconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "resultsHoldTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "outcome",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedCheckpoints",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedPassBatches",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "consumedArrivals",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "controlMode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "admittedStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RadioSelectionInput",
+      "kind": "resource",
+      "sim": true,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "left",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "right",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "confirm",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "held",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
         }
       ],
       "package": "OutRun"
@@ -437,13 +1669,2696 @@ export const schemaIr = {
         }
       ],
       "package": "OutRun"
+    },
+    {
+      "name": "RouteLiveSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteLiveVisual",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownerValid",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsActive",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsIncoming",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownsShared",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "failed",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ioReady",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "renderSettled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "swapping",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "transitionComplete",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "ownerIndex",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "ownerGeneration",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "active",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "incoming",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastFrame",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "animationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "transitionTarget",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "backgroundMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slidePx",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "nominalRemainder",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "backOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "frontOffset",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "parallaxAnchorCamera",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "parallaxBaseBack",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "parallaxBaseFront",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 1000
+        },
+        {
+          "name": "palette",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 33
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteBiomeEntered",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "fromMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "outgoingCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteCheckpointPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointLine",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "bonusSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteContactAccepted",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "routeStage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "kind",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "id",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "toi",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "playerX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "playerZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherX",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "otherZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "impactSpeed",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "handlingCap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "collisionDir",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "curve",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "camera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "previousCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1,
+          "default": 45000
+        },
+        {
+          "name": "choiceLatched",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "chosenSide",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "nextMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointAwarded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "goalEntered",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "rangeCalls",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "entryCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "checkpointBonusSeconds",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "arrivalCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "arrivalStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardCount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardAmount",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "passAwardOldMapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "processedStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pending",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pendingStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingReset",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pendingHandoff",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pendingFromMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingFromGradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingOldMapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingPreviousCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingOutgoingCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "pendingRawCamera",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteForkChosen",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "side",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "nextMapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteGoalEntered",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "gradient",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteResetRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "manual",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteTrafficCoordinates",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "originZ",
+          "kind": "i32",
+          "scalar": "i32",
+          "lanes": 1
+        },
+        {
+          "name": "rawZ",
+          "kind": "array",
+          "scalar": "i32",
+          "lanes": 32
+        },
+        {
+          "name": "previousRawZ",
+          "kind": "array",
+          "scalar": "i32",
+          "lanes": 32
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "RouteTrafficPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "routeEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "stage",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "poolEpoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "points",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TerrainDriver",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "segment",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "roadSide",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "previousGap",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftOutside",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "rightOutside",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "rightEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "skidding",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "recentering",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "recenterTarget",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "sectionEnd",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TerrainVisualState",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "lastStep",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "animationTicks",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficArtPreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "mode",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "frame",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "caseId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficArtResidency",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "catalogLoaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "catalogReconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficPassed",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "generation",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "points",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficPool",
+      "kind": "component",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "initialized",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "originZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        },
+        {
+          "name": "aiCursor",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "epoch",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "z",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "previousZ",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "offset",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "previousOffset",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "speed",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "target",
+          "kind": "array",
+          "scalar": "f32",
+          "lanes": 32
+        },
+        {
+          "name": "side",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "ai",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "active",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "generation",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "passed",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "moving",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "cooldown",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "parked",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        },
+        {
+          "name": "motionTicks",
+          "kind": "array",
+          "scalar": "u32",
+          "lanes": 32
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficRebaseRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "shift",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "TrafficResetRequested",
+      "kind": "event",
+      "sim": true,
+      "fields": [
+        {
+          "name": "mapId",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 1
+        },
+        {
+          "name": "population",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 20
+        },
+        {
+          "name": "seedLo",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 305419896
+        },
+        {
+          "name": "seedHi",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1,
+          "default": 2596069104
+        },
+        {
+          "name": "originZ",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "VehiclePreview",
+      "kind": "resource",
+      "sim": false,
+      "fields": [
+        {
+          "name": "enabled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "pose",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "sample",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "effect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "scale",
+          "kind": "f32",
+          "scalar": "f32",
+          "lanes": 1,
+          "default": 3.2
+        },
+        {
+          "name": "placeholder",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "autoplay",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "loaded",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "reconciled",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "useWheelEffects",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "leftEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "rightEffect",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        },
+        {
+          "name": "hidden",
+          "kind": "bool",
+          "scalar": "u8",
+          "lanes": 1
+        },
+        {
+          "name": "loadedCar",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
+    },
+    {
+      "name": "VehicleVisualSlot",
+      "kind": "component",
+      "sim": false,
+      "fields": [
+        {
+          "name": "slot",
+          "kind": "u32",
+          "scalar": "u32",
+          "lanes": 1
+        }
+      ],
+      "package": "OutRun"
     }
   ],
   "commands": [],
   "protocol": [],
-  "services": []
+  "services": [],
+  "data": [
+    {
+      "name": "SourceBiome",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "sourceCommit": {
+            "type": "string"
+          },
+          "inputSha256": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "profile": {
+            "const": "sourceCompatibility-original"
+          },
+          "forkGradient": {
+            "type": "integer"
+          },
+          "segmentLength": {
+            "type": "integer"
+          },
+          "playerOffsetZ": {
+            "type": "integer"
+          },
+          "cameraHeight": {
+            "type": "integer"
+          },
+          "referenceWidth": {
+            "type": "integer"
+          },
+          "authoredCount": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "swapLine": {
+            "type": "integer"
+          },
+          "lastLine": {
+            "type": "integer"
+          },
+          "checkpointLine": {
+            "type": "integer"
+          },
+          "timeSeconds": {
+            "type": "integer"
+          },
+          "terrain": {
+            "type": "integer"
+          },
+          "roadTerrain": {
+            "type": "integer"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "left": {
+                "type": "integer"
+              },
+              "right": {
+                "type": "integer"
+              },
+              "sequential": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "left",
+              "right",
+              "sequential"
+            ],
+            "additionalProperties": false
+          },
+          "palette": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sourceLine": {
+                  "type": "integer"
+                },
+                "command": {
+                  "type": "string"
+                },
+                "arguments": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "firstSegment": {
+                  "type": "integer"
+                },
+                "count": {
+                  "type": "integer"
+                },
+                "effective": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "required": [
+                "sourceLine",
+                "command",
+                "arguments",
+                "firstSegment",
+                "count",
+                "effective"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "sourcePath": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "propertiesSha256": {
+                  "type": "string"
+                },
+                "hasProperties": {
+                  "type": "boolean"
+                },
+                "sourceSizePx": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "collision": {
+                  "type": "boolean"
+                },
+                "scale": {
+                  "type": "number"
+                },
+                "collisionWidthSourcePx": {
+                  "type": "number"
+                },
+                "showTerrain": {
+                  "type": "integer"
+                },
+                "pivotLeft": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "pivotRight": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "collisionPivotLeft": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "collisionPivotRight": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "sourcePath",
+                "sha256",
+                "propertiesSha256",
+                "hasProperties",
+                "sourceSizePx",
+                "collision",
+                "scale",
+                "collisionWidthSourcePx",
+                "showTerrain",
+                "pivotLeft",
+                "pivotRight",
+                "collisionPivotLeft",
+                "collisionPivotRight"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "definitions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "kind": {
+                  "enum": [
+                    "start",
+                    "authored",
+                    "goal"
+                  ]
+                },
+                "sourceLine": {
+                  "type": "integer"
+                },
+                "objectId": {
+                  "type": "integer"
+                },
+                "offsetX": {
+                  "type": "number"
+                },
+                "offsetY": {
+                  "type": "number"
+                },
+                "side": {
+                  "type": "boolean"
+                },
+                "viewportYFactor": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "sourceLine",
+                "objectId",
+                "offsetX",
+                "offsetY",
+                "side",
+                "viewportYFactor"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "placements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "segment": {
+                  "type": "integer"
+                },
+                "slot": {
+                  "type": "integer"
+                },
+                "definition": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "segment",
+                "slot",
+                "definition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "overwritten": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "segment": {
+                  "type": "integer"
+                },
+                "slot": {
+                  "type": "integer"
+                },
+                "previousDefinition": {
+                  "type": "integer"
+                },
+                "definition": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "segment",
+                "slot",
+                "previousDefinition",
+                "definition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "candidatePlacements": {
+            "type": "integer"
+          },
+          "maxWindowProps": {
+            "type": "integer"
+          },
+          "objectOffsets": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "segments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "y0": {
+                  "type": "number"
+                },
+                "y1": {
+                  "type": "number"
+                },
+                "curve": {
+                  "type": "number"
+                },
+                "gap": {
+                  "type": "number"
+                },
+                "mirror": {
+                  "type": "boolean"
+                },
+                "light": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "y0",
+                "y1",
+                "curve",
+                "gap",
+                "mirror",
+                "light"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "sourceCommit",
+          "inputSha256",
+          "sourceHashes",
+          "profile",
+          "forkGradient",
+          "segmentLength",
+          "playerOffsetZ",
+          "cameraHeight",
+          "referenceWidth",
+          "authoredCount",
+          "totalCount",
+          "swapLine",
+          "lastLine",
+          "checkpointLine",
+          "timeSeconds",
+          "terrain",
+          "roadTerrain",
+          "links",
+          "palette",
+          "commands",
+          "objects",
+          "definitions",
+          "placements",
+          "overwritten",
+          "candidatePlacements",
+          "maxWindowProps",
+          "objectOffsets",
+          "segments"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "Immutable source-compatible Map1 geometry/provenance. Source PNG paths are provenance, not runtime art references (child40)."
+    },
+    {
+      "name": "SourceBiomeCatalog",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "sourceCommit": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "profile": {
+            "const": "sourceCompatibility-original"
+          },
+          "forkGradient": {
+            "type": "integer"
+          },
+          "goalPolicy": {
+            "type": "object",
+            "properties": {
+              "randomProfile": {
+                "const": "goal-offsets-sha256-u24-v1"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "terrainProfile": {
+                "const": "goal-terrain-defaults-v1"
+              },
+              "terrain": {
+                "type": "integer"
+              },
+              "roadTerrain": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "randomProfile",
+              "seed",
+              "terrainProfile",
+              "terrain",
+              "roadTerrain"
+            ],
+            "additionalProperties": false
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "kind": {
+                  "enum": [
+                    "ordinary",
+                    "goal"
+                  ]
+                },
+                "stage": {
+                  "type": "integer"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "dataKey": {
+                  "type": "string",
+                  "x-ref": "SourceBiome"
+                },
+                "terminal": {
+                  "type": "boolean"
+                },
+                "hasCheckpoint": {
+                  "type": "boolean"
+                },
+                "checkpointLine": {
+                  "type": "integer"
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "left": {
+                      "type": "integer"
+                    },
+                    "right": {
+                      "type": "integer"
+                    },
+                    "sequential": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "left",
+                    "right",
+                    "sequential"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "stage",
+                "position",
+                "dataKey",
+                "terminal",
+                "hasCheckpoint",
+                "checkpointLine",
+                "links"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "sourceCommit",
+          "sourceHashes",
+          "profile",
+          "forkGradient",
+          "goalPolicy",
+          "entries"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "All fifteen ordinary source nodes and the genuine goal, ORIGINAL gradient0 realization. Goal randomness and uninitialized terrain are named deterministic port adaptations; other profiles and runtime handoff remain separate."
+    },
+    {
+      "name": "SourceBiomeTailProfiles",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "const": "sourceCompatibility-original-tail-y1-f32bits-v1"
+          },
+          "sourceCommit": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mapId": {
+                  "type": "integer"
+                },
+                "baseInputSha256": {
+                  "type": "string"
+                },
+                "baseAssetSha256": {
+                  "type": "string"
+                },
+                "authoredCount": {
+                  "type": "integer"
+                },
+                "totalCount": {
+                  "type": "integer"
+                },
+                "segmentLength": {
+                  "type": "integer"
+                },
+                "profiles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "gradient": {
+                        "type": "integer"
+                      },
+                      "swapLine": {
+                        "type": "integer"
+                      },
+                      "lastLine": {
+                        "type": "integer"
+                      },
+                      "y1Bits": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "required": [
+                      "gradient",
+                      "swapLine",
+                      "lastLine",
+                      "y1Bits"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "mapId",
+                "baseInputSha256",
+                "baseAssetSha256",
+                "authoredCount",
+                "totalCount",
+                "segmentLength",
+                "profiles"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "format",
+          "sourceCommit",
+          "sourceHashes",
+          "entries"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "Offline source-compiled minus/plus-one gradient tail heights as unsigned binary32 bit integers. Gradient zero retains the original SourceBiome record. Runtime composition validates all maps before route activation."
+    },
+    {
+      "name": "SourceRouteCohort",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "const": "sourceCompatibility-original-row-dictionary-v1"
+          },
+          "sourceCommit": {
+            "type": "string"
+          },
+          "sourceHashes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "y0": {
+                  "type": "number"
+                },
+                "y1": {
+                  "type": "number"
+                },
+                "curve": {
+                  "type": "number"
+                },
+                "gap": {
+                  "type": "number"
+                },
+                "mirror": {
+                  "type": "boolean"
+                },
+                "light": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "y0",
+                "y1",
+                "curve",
+                "gap",
+                "mirror",
+                "light"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "sourceCommit": {
+                      "type": "string"
+                    },
+                    "inputSha256": {
+                      "type": "string"
+                    },
+                    "sourceHashes": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "profile": {
+                      "const": "sourceCompatibility-original"
+                    },
+                    "forkGradient": {
+                      "type": "integer"
+                    },
+                    "segmentLength": {
+                      "type": "integer"
+                    },
+                    "playerOffsetZ": {
+                      "type": "integer"
+                    },
+                    "cameraHeight": {
+                      "type": "integer"
+                    },
+                    "referenceWidth": {
+                      "type": "integer"
+                    },
+                    "authoredCount": {
+                      "type": "integer"
+                    },
+                    "totalCount": {
+                      "type": "integer"
+                    },
+                    "swapLine": {
+                      "type": "integer"
+                    },
+                    "lastLine": {
+                      "type": "integer"
+                    },
+                    "checkpointLine": {
+                      "type": "integer"
+                    },
+                    "timeSeconds": {
+                      "type": "integer"
+                    },
+                    "terrain": {
+                      "type": "integer"
+                    },
+                    "roadTerrain": {
+                      "type": "integer"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "left": {
+                          "type": "integer"
+                        },
+                        "right": {
+                          "type": "integer"
+                        },
+                        "sequential": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "left",
+                        "right",
+                        "sequential"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "palette": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "commands": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sourceLine": {
+                            "type": "integer"
+                          },
+                          "command": {
+                            "type": "string"
+                          },
+                          "arguments": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "firstSegment": {
+                            "type": "integer"
+                          },
+                          "count": {
+                            "type": "integer"
+                          },
+                          "effective": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "required": [
+                          "sourceLine",
+                          "command",
+                          "arguments",
+                          "firstSegment",
+                          "count",
+                          "effective"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "sourcePath": {
+                            "type": "string"
+                          },
+                          "sha256": {
+                            "type": "string"
+                          },
+                          "propertiesSha256": {
+                            "type": "string"
+                          },
+                          "hasProperties": {
+                            "type": "boolean"
+                          },
+                          "sourceSizePx": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "collision": {
+                            "type": "boolean"
+                          },
+                          "scale": {
+                            "type": "number"
+                          },
+                          "collisionWidthSourcePx": {
+                            "type": "number"
+                          },
+                          "showTerrain": {
+                            "type": "integer"
+                          },
+                          "pivotLeft": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "pivotRight": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "collisionPivotLeft": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "collisionPivotRight": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sourcePath",
+                          "sha256",
+                          "propertiesSha256",
+                          "hasProperties",
+                          "sourceSizePx",
+                          "collision",
+                          "scale",
+                          "collisionWidthSourcePx",
+                          "showTerrain",
+                          "pivotLeft",
+                          "pivotRight",
+                          "collisionPivotLeft",
+                          "collisionPivotRight"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "definitions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "kind": {
+                            "enum": [
+                              "start",
+                              "authored",
+                              "goal"
+                            ]
+                          },
+                          "sourceLine": {
+                            "type": "integer"
+                          },
+                          "objectId": {
+                            "type": "integer"
+                          },
+                          "offsetX": {
+                            "type": "number"
+                          },
+                          "offsetY": {
+                            "type": "number"
+                          },
+                          "side": {
+                            "type": "boolean"
+                          },
+                          "viewportYFactor": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind",
+                          "sourceLine",
+                          "objectId",
+                          "offsetX",
+                          "offsetY",
+                          "side",
+                          "viewportYFactor"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "placements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "segment": {
+                            "type": "integer"
+                          },
+                          "slot": {
+                            "type": "integer"
+                          },
+                          "definition": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "segment",
+                          "slot",
+                          "definition"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "overwritten": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "segment": {
+                            "type": "integer"
+                          },
+                          "slot": {
+                            "type": "integer"
+                          },
+                          "previousDefinition": {
+                            "type": "integer"
+                          },
+                          "definition": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "segment",
+                          "slot",
+                          "previousDefinition",
+                          "definition"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "candidatePlacements": {
+                      "type": "integer"
+                    },
+                    "maxWindowProps": {
+                      "type": "integer"
+                    },
+                    "objectOffsets": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sourceCommit",
+                    "inputSha256",
+                    "sourceHashes",
+                    "profile",
+                    "forkGradient",
+                    "segmentLength",
+                    "playerOffsetZ",
+                    "cameraHeight",
+                    "referenceWidth",
+                    "authoredCount",
+                    "totalCount",
+                    "swapLine",
+                    "lastLine",
+                    "checkpointLine",
+                    "timeSeconds",
+                    "terrain",
+                    "roadTerrain",
+                    "links",
+                    "palette",
+                    "commands",
+                    "objects",
+                    "definitions",
+                    "placements",
+                    "overwritten",
+                    "candidatePlacements",
+                    "maxWindowProps",
+                    "objectOffsets"
+                  ],
+                  "additionalProperties": false
+                },
+                "baseAssetSha256": {
+                  "type": "string"
+                },
+                "baseRows": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "profiles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "gradient": {
+                        "type": "integer"
+                      },
+                      "tailRows": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "required": [
+                      "gradient",
+                      "tailRows"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "base",
+                "baseAssetSha256",
+                "baseRows",
+                "profiles"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "format",
+          "sourceCommit",
+          "sourceHashes",
+          "rows",
+          "entries"
+        ],
+        "additionalProperties": false
+      },
+      "package": "OutRun",
+      "doc": "All16 ORIGINAL map metadata plus a bit-exact shared dictionary for48 source profiles. Compiled offline without changing legacy biome/catalog/tail assets; composed once before simulation."
+    }
+  ]
 } as const;
 registerSchema(schemaIr);
+
+export interface Map01PreviewViews {
+  enabled: Uint8Array;
+  cameraOriginZ: Float32Array;
+  lateral: Float32Array;
+}
+export interface Map01PreviewValue {
+  enabled: boolean;
+  cameraOriginZ: number;
+  lateral: number;
+}
+/** Map01Preview (resource, presentation-only) */
+export const Map01Preview = typeToken<Map01PreviewViews, Map01PreviewValue>('Map01Preview', 'resource', { sig: 'enabled:bool:1,cameraOriginZ:f32:1,lateral:f32:1', read: (v: Map01PreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; return o; } });
+
+export interface Map01VisualCacheViews {
+  cameraOriginZ: Float32Array;
+  lateral: Float32Array;
+  aspect: Float32Array;
+}
+export interface Map01VisualCacheValue {
+  cameraOriginZ: number;
+  lateral: number;
+  aspect: number;
+}
+/** Map01VisualCache (resource, presentation-only) */
+export const Map01VisualCache = typeToken<Map01VisualCacheViews, Map01VisualCacheValue>('Map01VisualCache', 'resource', { sig: 'cameraOriginZ:f32:1,lateral:f32:1,aspect:f32:1', read: (v: Map01VisualCacheViews, i: number, o: Record<string, unknown>) => { o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
+
+export interface Map01VisualSlotViews {
+  slot: Uint32Array;
+}
+export interface Map01VisualSlotValue {
+  slot: number;
+}
+/** Map01VisualSlot (component, presentation-only) */
+export const Map01VisualSlot = typeToken<Map01VisualSlotViews, Map01VisualSlotValue>('Map01VisualSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01VisualSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+export interface CollisionDriverViews {
+  mapId: Uint32Array;
+  initialized: Uint8Array;
+  motionValid: Uint8Array;
+  motionStep: Uint32Array;
+  locked: Uint8Array;
+  acceptedCount: Uint32Array;
+  z0: Float32Array;
+  z1: Float32Array;
+  l0: Float32Array;
+  ls: Float32Array;
+  lc: Float32Array;
+  lr: Float32Array;
+  lf: Float32Array;
+  drift: Float32Array;
+  previousGap: Float32Array;
+  carryApplied: Uint8Array;
+  handlingCap: Float32Array;
+  ledgerCount: Uint32Array;
+  ledgerKind: Uint32Array;
+  ledgerId: Uint32Array;
+  ledgerEpoch: Uint32Array;
+  ledgerGeneration: Uint32Array;
+}
+export interface CollisionDriverValue {
+  mapId: number;
+  initialized: boolean;
+  motionValid: boolean;
+  motionStep: number;
+  locked: boolean;
+  acceptedCount: number;
+  z0: number;
+  z1: number;
+  l0: number;
+  ls: number;
+  lc: number;
+  lr: number;
+  lf: number;
+  drift: number;
+  previousGap: number;
+  carryApplied: boolean;
+  handlingCap: number;
+  ledgerCount: number;
+  ledgerKind: number[];
+  ledgerId: number[];
+  ledgerEpoch: number[];
+  ledgerGeneration: number[];
+}
+/** CollisionDriver (component, sim) */
+export const CollisionDriver = typeToken<CollisionDriverViews, CollisionDriverValue>('CollisionDriver', 'component', { sig: 'mapId:u32:1,initialized:bool:1,motionValid:bool:1,motionStep:u32:1,locked:bool:1,acceptedCount:u32:1,z0:f32:1,z1:f32:1,l0:f32:1,ls:f32:1,lc:f32:1,lr:f32:1,lf:f32:1,drift:f32:1,previousGap:f32:1,carryApplied:bool:1,handlingCap:f32:1,ledgerCount:u32:1,ledgerKind:array:64,ledgerId:array:64,ledgerEpoch:array:64,ledgerGeneration:array:64', read: (v: CollisionDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.initialized = v.initialized[i] !== 0; o.motionValid = v.motionValid[i] !== 0; o.motionStep = v.motionStep[i]; o.locked = v.locked[i] !== 0; o.acceptedCount = v.acceptedCount[i]; o.z0 = v.z0[i]; o.z1 = v.z1[i]; o.l0 = v.l0[i]; o.ls = v.ls[i]; o.lc = v.lc[i]; o.lr = v.lr[i]; o.lf = v.lf[i]; o.drift = v.drift[i]; o.previousGap = v.previousGap[i]; o.carryApplied = v.carryApplied[i] !== 0; o.handlingCap = v.handlingCap[i]; o.ledgerCount = v.ledgerCount[i]; o.ledgerKind = $r.lanes(v.ledgerKind, i, 64, o.ledgerKind); o.ledgerId = $r.lanes(v.ledgerId, i, 64, o.ledgerId); o.ledgerEpoch = $r.lanes(v.ledgerEpoch, i, 64, o.ledgerEpoch); o.ledgerGeneration = $r.lanes(v.ledgerGeneration, i, 64, o.ledgerGeneration); return o; } });
+
+export interface ContactAcceptedViews {
+  kind: Uint32Array;
+  mapId: Uint32Array;
+  id: Uint32Array;
+  epoch: Uint32Array;
+  generation: Uint32Array;
+  slot: Uint32Array;
+  toi: Float32Array;
+  stage: Uint32Array;
+  playerX: Float32Array;
+  playerZ: Float32Array;
+  otherX: Float32Array;
+  otherZ: Float32Array;
+  impactSpeed: Float32Array;
+  handlingCap: Float32Array;
+  collisionDir: Float32Array;
+  curve: Float32Array;
+}
+export interface ContactAcceptedValue {
+  kind: number;
+  mapId: number;
+  id: number;
+  epoch: number;
+  generation: number;
+  slot: number;
+  toi: number;
+  stage: number;
+  playerX: number;
+  playerZ: number;
+  otherX: number;
+  otherZ: number;
+  impactSpeed: number;
+  handlingCap: number;
+  collisionDir: number;
+  curve: number;
+}
+/** ContactAccepted (event, sim) */
+export const ContactAccepted = typeToken<ContactAcceptedViews, ContactAcceptedValue>('ContactAccepted', 'event', { sig: 'kind:u32:1,mapId:u32:1,id:u32:1,epoch:u32:1,generation:u32:1,slot:u32:1,toi:f32:1,stage:u32:1,playerX:f32:1,playerZ:f32:1,otherX:f32:1,otherZ:f32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1', read: (v: ContactAcceptedViews, i: number, o: Record<string, unknown>) => { o.kind = v.kind[i]; o.mapId = v.mapId[i]; o.id = v.id[i]; o.epoch = v.epoch[i]; o.generation = v.generation[i]; o.slot = v.slot[i]; o.toi = v.toi[i]; o.stage = v.stage[i]; o.playerX = v.playerX[i]; o.playerZ = v.playerZ[i]; o.otherX = v.otherX[i]; o.otherZ = v.otherZ[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; return o; } });
+
+export interface CrashDriverViews {
+  mapId: Uint32Array;
+  phase: Uint32Array;
+  consumedAcceptedCount: Uint32Array;
+  pendingStep: Uint32Array;
+  variant: Uint32Array;
+  kind: Uint32Array;
+  impactSpeed: Float32Array;
+  handlingCap: Float32Array;
+  collisionDir: Float32Array;
+  curve: Float32Array;
+  totalAdvances: Uint32Array;
+  advances: Uint32Array;
+  cadenceTick: Uint32Array;
+  decrement: Float32Array;
+  reactionTick: Uint32Array;
+  recenterTarget: Float32Array;
+}
+export interface CrashDriverValue {
+  mapId: number;
+  phase: number;
+  consumedAcceptedCount: number;
+  pendingStep: number;
+  variant: number;
+  kind: number;
+  impactSpeed: number;
+  handlingCap: number;
+  collisionDir: number;
+  curve: number;
+  totalAdvances: number;
+  advances: number;
+  cadenceTick: number;
+  decrement: number;
+  reactionTick: number;
+  recenterTarget: number;
+}
+/** CrashDriver (component, sim) */
+export const CrashDriver = typeToken<CrashDriverViews, CrashDriverValue>('CrashDriver', 'component', { sig: 'mapId:u32:1,phase:u32:1,consumedAcceptedCount:u32:1,pendingStep:u32:1,variant:u32:1,kind:u32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1,totalAdvances:u32:1,advances:u32:1,cadenceTick:u32:1,decrement:f32:1,reactionTick:u32:1,recenterTarget:f32:1', read: (v: CrashDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.phase = v.phase[i]; o.consumedAcceptedCount = v.consumedAcceptedCount[i]; o.pendingStep = v.pendingStep[i]; o.variant = v.variant[i]; o.kind = v.kind[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; o.totalAdvances = v.totalAdvances[i]; o.advances = v.advances[i]; o.cadenceTick = v.cadenceTick[i]; o.decrement = v.decrement[i]; o.reactionTick = v.reactionTick[i]; o.recenterTarget = v.recenterTarget[i]; return o; } });
+
+export interface DrivingBindingsViews {
+  left: Uint32Array;
+  right: Uint32Array;
+  throttle: Uint32Array;
+  brake: Uint32Array;
+  up: Uint32Array;
+  down: Uint32Array;
+}
+export interface DrivingBindingsValue {
+  left: number;
+  right: number;
+  throttle: number;
+  brake: number;
+  up: number;
+  down: number;
+}
+/** DrivingBindings (resource, sim) */
+export const DrivingBindings = typeToken<DrivingBindingsViews, DrivingBindingsValue>('DrivingBindings', 'resource', { sig: 'left:u32:1,right:u32:1,throttle:u32:1,brake:u32:1,up:u32:1,down:u32:1', read: (v: DrivingBindingsViews, i: number, o: Record<string, unknown>) => { o.left = v.left[i]; o.right = v.right[i]; o.throttle = v.throttle[i]; o.brake = v.brake[i]; o.up = v.up[i]; o.down = v.down[i]; return o; } });
 
 export interface DrivingControlChangedViews {
   control: Uint32Array;
@@ -486,6 +4401,15 @@ export interface DrivingInputValue {
 /** DrivingInput (resource, sim) */
 export const DrivingInput = typeToken<DrivingInputViews, DrivingInputValue>('DrivingInput', 'resource', { sig: 'keyboard:u32:1,ui:u32:1,shiftUp:bool:1,shiftDown:bool:1,upHeld:bool:1,downHeld:bool:1,pauseHeld:bool:1,modeHeld:bool:1', read: (v: DrivingInputViews, i: number, o: Record<string, unknown>) => { o.keyboard = v.keyboard[i]; o.ui = v.ui[i]; o.shiftUp = v.shiftUp[i] !== 0; o.shiftDown = v.shiftDown[i] !== 0; o.upHeld = v.upHeld[i] !== 0; o.downHeld = v.downHeld[i] !== 0; o.pauseHeld = v.pauseHeld[i] !== 0; o.modeHeld = v.modeHeld[i] !== 0; return o; } });
 
+export interface DrivingPauseRequestedViews {
+  paused: Uint8Array;
+}
+export interface DrivingPauseRequestedValue {
+  paused: boolean;
+}
+/** DrivingPauseRequested (event, sim) */
+export const DrivingPauseRequested = typeToken<DrivingPauseRequestedViews, DrivingPauseRequestedValue>('DrivingPauseRequested', 'event', { sig: 'paused:bool:1', read: (v: DrivingPauseRequestedViews, i: number, o: Record<string, unknown>) => { o.paused = v.paused[i] !== 0; return o; } });
+
 export interface DrivingResetRequestedViews {
   manual: Uint8Array;
   legacySpeed: Float32Array;
@@ -527,6 +4451,113 @@ export interface DrivingStateValue {
 }
 /** DrivingState (resource, sim) */
 export const DrivingState = typeToken<DrivingStateViews, DrivingStateValue>('DrivingState', 'resource', { sig: 'active:bool:1,playing:bool:1,manual:bool:1,legacySpeed:f32:1,gear:u32:1,steering:f32:1,distance:f32:1,previousDistance:f32:1,lateral:f32:1,previousLateral:f32:1', read: (v: DrivingStateViews, i: number, o: Record<string, unknown>) => { o.active = v.active[i] !== 0; o.playing = v.playing[i] !== 0; o.manual = v.manual[i] !== 0; o.legacySpeed = v.legacySpeed[i]; o.gear = v.gear[i]; o.steering = v.steering[i]; o.distance = v.distance[i]; o.previousDistance = v.previousDistance[i]; o.lateral = v.lateral[i]; o.previousLateral = v.previousLateral[i]; return o; } });
+
+export interface KeyboardBindingsRequestedViews {
+  left: Uint32Array;
+  right: Uint32Array;
+  throttle: Uint32Array;
+  brake: Uint32Array;
+  up: Uint32Array;
+  down: Uint32Array;
+}
+export interface KeyboardBindingsRequestedValue {
+  left: number;
+  right: number;
+  throttle: number;
+  brake: number;
+  up: number;
+  down: number;
+}
+/** KeyboardBindingsRequested (event, sim) */
+export const KeyboardBindingsRequested = typeToken<KeyboardBindingsRequestedViews, KeyboardBindingsRequestedValue>('KeyboardBindingsRequested', 'event', { sig: 'left:u32:1,right:u32:1,throttle:u32:1,brake:u32:1,up:u32:1,down:u32:1', read: (v: KeyboardBindingsRequestedViews, i: number, o: Record<string, unknown>) => { o.left = v.left[i]; o.right = v.right[i]; o.throttle = v.throttle[i]; o.brake = v.brake[i]; o.up = v.up[i]; o.down = v.down[i]; return o; } });
+
+export interface EnvironmentResidencyViews {
+  epoch: Uint32Array;
+  incoming: Uint32Array;
+  active: Uint32Array;
+  ownsIncoming: Uint8Array;
+  ownsActive: Uint8Array;
+  ownsTraffic: Uint8Array;
+  ioReady: Uint8Array;
+  renderSettled: Uint8Array;
+  failed: Uint8Array;
+  inputOwnerIndex: Uint32Array;
+  inputOwnerGeneration: Uint32Array;
+  inputOwned: Uint8Array;
+  appliedMapSequence: Uint32Array;
+  appliedModeSequence: Uint32Array;
+}
+export interface EnvironmentResidencyValue {
+  epoch: number;
+  incoming: number;
+  active: number;
+  ownsIncoming: boolean;
+  ownsActive: boolean;
+  ownsTraffic: boolean;
+  ioReady: boolean;
+  renderSettled: boolean;
+  failed: boolean;
+  inputOwnerIndex: number;
+  inputOwnerGeneration: number;
+  inputOwned: boolean;
+  appliedMapSequence: number;
+  appliedModeSequence: number;
+}
+/** EnvironmentResidency (resource, presentation-only) */
+export const EnvironmentResidency = typeToken<EnvironmentResidencyViews, EnvironmentResidencyValue>('EnvironmentResidency', 'resource', { sig: 'epoch:u32:1,incoming:u32:1,active:u32:1,ownsIncoming:bool:1,ownsActive:bool:1,ownsTraffic:bool:1,ioReady:bool:1,renderSettled:bool:1,failed:bool:1,inputOwnerIndex:u32:1,inputOwnerGeneration:u32:1,inputOwned:bool:1,appliedMapSequence:u32:1,appliedModeSequence:u32:1', read: (v: EnvironmentResidencyViews, i: number, o: Record<string, unknown>) => { o.epoch = v.epoch[i]; o.incoming = v.incoming[i]; o.active = v.active[i]; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsTraffic = v.ownsTraffic[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.failed = v.failed[i] !== 0; o.inputOwnerIndex = v.inputOwnerIndex[i]; o.inputOwnerGeneration = v.inputOwnerGeneration[i]; o.inputOwned = v.inputOwned[i] !== 0; o.appliedMapSequence = v.appliedMapSequence[i]; o.appliedModeSequence = v.appliedModeSequence[i]; return o; } });
+
+export interface EnvironmentReviewViews {
+  enabled: Uint8Array;
+  mapId: Uint32Array;
+  mode: Uint32Array;
+  batch: Uint32Array;
+  trafficCount: Uint32Array;
+  cameraOriginZ: Float32Array;
+  lateral: Float32Array;
+  backOffset: Float32Array;
+  frontOffset: Float32Array;
+}
+export interface EnvironmentReviewValue {
+  enabled: boolean;
+  mapId: number;
+  mode: number;
+  batch: number;
+  trafficCount: number;
+  cameraOriginZ: number;
+  lateral: number;
+  backOffset: number;
+  frontOffset: number;
+}
+/** EnvironmentReview (resource, presentation-only) */
+export const EnvironmentReview = typeToken<EnvironmentReviewViews, EnvironmentReviewValue>('EnvironmentReview', 'resource', { sig: 'enabled:bool:1,mapId:u32:1,mode:u32:1,batch:u32:1,trafficCount:u32:1,cameraOriginZ:f32:1,lateral:f32:1,backOffset:f32:1,frontOffset:f32:1', read: (v: EnvironmentReviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.mapId = v.mapId[i]; o.mode = v.mode[i]; o.batch = v.batch[i]; o.trafficCount = v.trafficCount[i]; o.cameraOriginZ = v.cameraOriginZ[i]; o.lateral = v.lateral[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; return o; } });
+
+export interface EnvironmentReviewIsolationViews {
+  held: Uint32Array;
+  sequence: Uint32Array;
+  mapId: Uint32Array;
+  mapSequence: Uint32Array;
+  mode: Uint32Array;
+  modeSequence: Uint32Array;
+}
+export interface EnvironmentReviewIsolationValue {
+  held: number;
+  sequence: number;
+  mapId: number;
+  mapSequence: number;
+  mode: number;
+  modeSequence: number;
+}
+/** EnvironmentReviewIsolation (component, sim) */
+export const EnvironmentReviewIsolation = typeToken<EnvironmentReviewIsolationViews, EnvironmentReviewIsolationValue>('EnvironmentReviewIsolation', 'component', { sig: 'held:u32:1,sequence:u32:1,mapId:u32:1,mapSequence:u32:1,mode:u32:1,modeSequence:u32:1', read: (v: EnvironmentReviewIsolationViews, i: number, o: Record<string, unknown>) => { o.held = v.held[i]; o.sequence = v.sequence[i]; o.mapId = v.mapId[i]; o.mapSequence = v.mapSequence[i]; o.mode = v.mode[i]; o.modeSequence = v.modeSequence[i]; return o; } });
+
+export interface EnvironmentReviewSlotViews {
+  slot: Uint32Array;
+}
+export interface EnvironmentReviewSlotValue {
+  slot: number;
+}
+/** EnvironmentReviewSlot (component, presentation-only) */
+export const EnvironmentReviewSlot = typeToken<EnvironmentReviewSlotViews, EnvironmentReviewSlotValue>('EnvironmentReviewSlot', 'component', { sig: 'slot:u32:1', read: (v: EnvironmentReviewSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
 
 export interface ForkPreviewRequestedViews {
   side: Uint32Array;
@@ -574,6 +4605,203 @@ export interface ForkVisualCacheValue {
 }
 /** ForkVisualCache (resource, presentation-only) */
 export const ForkVisualCache = typeToken<ForkVisualCacheViews, ForkVisualCacheValue>('ForkVisualCache', 'resource', { sig: 'active:bool:1,side:u32:1,progress:f32:1', read: (v: ForkVisualCacheViews, i: number, o: Record<string, unknown>) => { o.active = v.active[i] !== 0; o.side = v.side[i]; o.progress = v.progress[i]; return o; } });
+
+export interface Map01ArtPreviewViews {
+  enabled: Uint8Array;
+  playing: Uint8Array;
+  followDriving: Uint8Array;
+  cameraOriginZ: Float32Array;
+  previousCameraOriginZ: Float32Array;
+  lateral: Float32Array;
+  speed: Float32Array;
+  lastStep: Uint32Array;
+  controlHeld: Uint32Array;
+  lastCameraOriginZ: Float32Array;
+  backOffset: Float32Array;
+  frontOffset: Float32Array;
+  previousBackOffset: Float32Array;
+  previousFrontOffset: Float32Array;
+  loaded: Uint8Array;
+  reconciled: Uint8Array;
+}
+export interface Map01ArtPreviewValue {
+  enabled: boolean;
+  playing: boolean;
+  followDriving: boolean;
+  cameraOriginZ: number;
+  previousCameraOriginZ: number;
+  lateral: number;
+  speed: number;
+  lastStep: number;
+  controlHeld: number;
+  lastCameraOriginZ: number;
+  backOffset: number;
+  frontOffset: number;
+  previousBackOffset: number;
+  previousFrontOffset: number;
+  loaded: boolean;
+  reconciled: boolean;
+}
+/** Map01ArtPreview (resource, presentation-only) */
+export const Map01ArtPreview = typeToken<Map01ArtPreviewViews, Map01ArtPreviewValue>('Map01ArtPreview', 'resource', { sig: 'enabled:bool:1,playing:bool:1,followDriving:bool:1,cameraOriginZ:f32:1,previousCameraOriginZ:f32:1,lateral:f32:1,speed:f32:1,lastStep:u32:1,controlHeld:u32:1,lastCameraOriginZ:f32:1,backOffset:f32:1,frontOffset:f32:1,previousBackOffset:f32:1,previousFrontOffset:f32:1,loaded:bool:1,reconciled:bool:1', read: (v: Map01ArtPreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.playing = v.playing[i] !== 0; o.followDriving = v.followDriving[i] !== 0; o.cameraOriginZ = v.cameraOriginZ[i]; o.previousCameraOriginZ = v.previousCameraOriginZ[i]; o.lateral = v.lateral[i]; o.speed = v.speed[i]; o.lastStep = v.lastStep[i]; o.controlHeld = v.controlHeld[i]; o.lastCameraOriginZ = v.lastCameraOriginZ[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.previousBackOffset = v.previousBackOffset[i]; o.previousFrontOffset = v.previousFrontOffset[i]; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; return o; } });
+
+export interface Map01ArtSlotViews {
+  slot: Uint32Array;
+}
+export interface Map01ArtSlotValue {
+  slot: number;
+}
+/** Map01ArtSlot (component, presentation-only) */
+export const Map01ArtSlot = typeToken<Map01ArtSlotViews, Map01ArtSlotValue>('Map01ArtSlot', 'component', { sig: 'slot:u32:1', read: (v: Map01ArtSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+export interface PreRaceActionViews {
+  action: Uint32Array;
+  value: Int32Array;
+}
+export interface PreRaceActionValue {
+  action: number;
+  value: number;
+}
+/** PreRaceAction (event, sim) */
+export const PreRaceAction = typeToken<PreRaceActionViews, PreRaceActionValue>('PreRaceAction', 'event', { sig: 'action:u32:1,value:i32:1', read: (v: PreRaceActionViews, i: number, o: Record<string, unknown>) => { o.action = v.action[i]; o.value = v.value[i]; return o; } });
+
+export interface PreRaceSelectionViews {
+  enabled: Uint8Array;
+  page: Uint32Array;
+  cursor: Uint32Array;
+  mode: Uint32Array;
+  difficulty: Uint32Array;
+  population: Uint32Array;
+  manual: Uint8Array;
+  car: Uint32Array;
+  launch: Uint8Array;
+  held: Uint32Array;
+}
+export interface PreRaceSelectionValue {
+  enabled: boolean;
+  page: number;
+  cursor: number;
+  mode: number;
+  difficulty: number;
+  population: number;
+  manual: boolean;
+  car: number;
+  launch: boolean;
+  held: number;
+}
+/** PreRaceSelection (resource, sim) */
+export const PreRaceSelection = typeToken<PreRaceSelectionViews, PreRaceSelectionValue>('PreRaceSelection', 'resource', { sig: 'enabled:bool:1,page:u32:1,cursor:u32:1,mode:u32:1,difficulty:u32:1,population:u32:1,manual:bool:1,car:u32:1,launch:bool:1,held:u32:1', read: (v: PreRaceSelectionViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.page = v.page[i]; o.cursor = v.cursor[i]; o.mode = v.mode[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; o.car = v.car[i]; o.launch = v.launch[i] !== 0; o.held = v.held[i]; return o; } });
+
+export interface RaceModeViews {
+  value: Uint32Array;
+}
+export interface RaceModeValue {
+  value: number;
+}
+/** RaceMode (resource, sim) */
+export const RaceMode = typeToken<RaceModeViews, RaceModeValue>('RaceMode', 'resource', { sig: 'value:u32:1', read: (v: RaceModeViews, i: number, o: Record<string, unknown>) => { o.value = v.value[i]; return o; } });
+
+export interface RaceOwnerViews {
+  enabled: Uint8Array;
+}
+export interface RaceOwnerValue {
+  enabled: boolean;
+}
+/** RaceOwner (component, sim) */
+export const RaceOwner = typeToken<RaceOwnerViews, RaceOwnerValue>('RaceOwner', 'component', { sig: 'enabled:bool:1', read: (v: RaceOwnerViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; return o; } });
+
+export type RaceRestartRequestedViews = Record<string, never>;
+export type RaceRestartRequestedValue = Record<string, never>;
+/** RaceRestartRequested (event, sim) */
+export const RaceRestartRequested = typeToken<RaceRestartRequestedViews, RaceRestartRequestedValue>('RaceRestartRequested', 'event');
+
+export interface RaceStateViews {
+  initialized: Uint8Array;
+  lastPublishedPlaying: Uint8Array;
+  activeTick: Uint8Array;
+  racingAdmitted: Uint8Array;
+  bonusAwarded: Uint8Array;
+  mapTimeSeconds: Uint32Array;
+  difficulty: Uint32Array;
+  population: Uint32Array;
+  mapId: Uint32Array;
+  raceEpoch: Uint32Array;
+  routeEpoch: Uint32Array;
+  phase: Uint32Array;
+  resumePhase: Uint32Array;
+  processedStep: Uint32Array;
+  phaseTicks: Uint32Array;
+  countdownTicks: Uint32Array;
+  remainingTicks: Uint32Array;
+  totalTicks: Uint32Array;
+  stageTicks: Uint32Array;
+  lastStageTicks: Uint32Array;
+  score: Uint32Array;
+  finishScore: Uint32Array;
+  finishRemainingSeconds: Uint32Array;
+  bonusDeciseconds: Uint32Array;
+  resultsHoldTicks: Uint32Array;
+  outcome: Uint32Array;
+  consumedCheckpoints: Uint32Array;
+  consumedPassBatches: Uint32Array;
+  consumedArrivals: Uint32Array;
+  controlMode: Uint32Array;
+  admittedStep: Uint32Array;
+  stage: Uint32Array;
+}
+export interface RaceStateValue {
+  initialized: boolean;
+  lastPublishedPlaying: boolean;
+  activeTick: boolean;
+  racingAdmitted: boolean;
+  bonusAwarded: boolean;
+  mapTimeSeconds: number;
+  difficulty: number;
+  population: number;
+  mapId: number;
+  raceEpoch: number;
+  routeEpoch: number;
+  phase: number;
+  resumePhase: number;
+  processedStep: number;
+  phaseTicks: number;
+  countdownTicks: number;
+  remainingTicks: number;
+  totalTicks: number;
+  stageTicks: number;
+  lastStageTicks: number;
+  score: number;
+  finishScore: number;
+  finishRemainingSeconds: number;
+  bonusDeciseconds: number;
+  resultsHoldTicks: number;
+  outcome: number;
+  consumedCheckpoints: number;
+  consumedPassBatches: number;
+  consumedArrivals: number;
+  controlMode: number;
+  admittedStep: number;
+  stage: number;
+}
+/** RaceState (resource, sim) */
+export const RaceState = typeToken<RaceStateViews, RaceStateValue>('RaceState', 'resource', { sig: 'initialized:bool:1,lastPublishedPlaying:bool:1,activeTick:bool:1,racingAdmitted:bool:1,bonusAwarded:bool:1,mapTimeSeconds:u32:1,difficulty:u32:1,population:u32:1,mapId:u32:1,raceEpoch:u32:1,routeEpoch:u32:1,phase:u32:1,resumePhase:u32:1,processedStep:u32:1,phaseTicks:u32:1,countdownTicks:u32:1,remainingTicks:u32:1,totalTicks:u32:1,stageTicks:u32:1,lastStageTicks:u32:1,score:u32:1,finishScore:u32:1,finishRemainingSeconds:u32:1,bonusDeciseconds:u32:1,resultsHoldTicks:u32:1,outcome:u32:1,consumedCheckpoints:u32:1,consumedPassBatches:u32:1,consumedArrivals:u32:1,controlMode:u32:1,admittedStep:u32:1,stage:u32:1', read: (v: RaceStateViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.lastPublishedPlaying = v.lastPublishedPlaying[i] !== 0; o.activeTick = v.activeTick[i] !== 0; o.racingAdmitted = v.racingAdmitted[i] !== 0; o.bonusAwarded = v.bonusAwarded[i] !== 0; o.mapTimeSeconds = v.mapTimeSeconds[i]; o.difficulty = v.difficulty[i]; o.population = v.population[i]; o.mapId = v.mapId[i]; o.raceEpoch = v.raceEpoch[i]; o.routeEpoch = v.routeEpoch[i]; o.phase = v.phase[i]; o.resumePhase = v.resumePhase[i]; o.processedStep = v.processedStep[i]; o.phaseTicks = v.phaseTicks[i]; o.countdownTicks = v.countdownTicks[i]; o.remainingTicks = v.remainingTicks[i]; o.totalTicks = v.totalTicks[i]; o.stageTicks = v.stageTicks[i]; o.lastStageTicks = v.lastStageTicks[i]; o.score = v.score[i]; o.finishScore = v.finishScore[i]; o.finishRemainingSeconds = v.finishRemainingSeconds[i]; o.bonusDeciseconds = v.bonusDeciseconds[i]; o.resultsHoldTicks = v.resultsHoldTicks[i]; o.outcome = v.outcome[i]; o.consumedCheckpoints = v.consumedCheckpoints[i]; o.consumedPassBatches = v.consumedPassBatches[i]; o.consumedArrivals = v.consumedArrivals[i]; o.controlMode = v.controlMode[i]; o.admittedStep = v.admittedStep[i]; o.stage = v.stage[i]; return o; } });
+
+export interface RadioSelectionInputViews {
+  enabled: Uint8Array;
+  left: Uint32Array;
+  right: Uint32Array;
+  confirm: Uint32Array;
+  held: Uint32Array;
+}
+export interface RadioSelectionInputValue {
+  enabled: boolean;
+  left: number;
+  right: number;
+  confirm: number;
+  held: number;
+}
+/** RadioSelectionInput (resource, sim) */
+export const RadioSelectionInput = typeToken<RadioSelectionInputViews, RadioSelectionInputValue>('RadioSelectionInput', 'resource', { sig: 'enabled:bool:1,left:u32:1,right:u32:1,confirm:u32:1,held:u32:1', read: (v: RadioSelectionInputViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.left = v.left[i]; o.right = v.right[i]; o.confirm = v.confirm[i]; o.held = v.held[i]; return o; } });
 
 export interface RoadFixtureRequestedViews {
   fixtureId: Uint32Array;
@@ -627,3 +4855,800 @@ export interface RoadProofVisualCacheValue {
 }
 /** RoadProofVisualCache (resource, presentation-only) */
 export const RoadProofVisualCache = typeToken<RoadProofVisualCacheViews, RoadProofVisualCacheValue>('RoadProofVisualCache', 'resource', { sig: 'fixtureId:u32:1,distance:f32:1,lateral:f32:1,aspect:f32:1', read: (v: RoadProofVisualCacheViews, i: number, o: Record<string, unknown>) => { o.fixtureId = v.fixtureId[i]; o.distance = v.distance[i]; o.lateral = v.lateral[i]; o.aspect = v.aspect[i]; return o; } });
+
+export interface RouteLiveSlotViews {
+  slot: Uint32Array;
+}
+export interface RouteLiveSlotValue {
+  slot: number;
+}
+/** RouteLiveSlot (component, presentation-only) */
+export const RouteLiveSlot = typeToken<RouteLiveSlotViews, RouteLiveSlotValue>('RouteLiveSlot', 'component', { sig: 'slot:u32:1', read: (v: RouteLiveSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+export interface RouteLiveVisualViews {
+  reconciled: Uint8Array;
+  ownerValid: Uint8Array;
+  ownsActive: Uint8Array;
+  ownsIncoming: Uint8Array;
+  ownsShared: Uint8Array;
+  failed: Uint8Array;
+  ioReady: Uint8Array;
+  renderSettled: Uint8Array;
+  swapping: Uint8Array;
+  transitionComplete: Uint8Array;
+  ownerIndex: Uint32Array;
+  ownerGeneration: Uint32Array;
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  active: Uint32Array;
+  incoming: Uint32Array;
+  epoch: Uint32Array;
+  lastFrame: Uint32Array;
+  lastStep: Uint32Array;
+  animationTicks: Uint32Array;
+  transitionTarget: Uint32Array;
+  backgroundMapId: Uint32Array;
+  slidePx: Float32Array;
+  nominalRemainder: Float32Array;
+  backOffset: Float32Array;
+  frontOffset: Float32Array;
+  parallaxAnchorCamera: Float32Array;
+  parallaxBaseBack: Float32Array;
+  parallaxBaseFront: Float32Array;
+  palette: Uint32Array;
+}
+export interface RouteLiveVisualValue {
+  reconciled: boolean;
+  ownerValid: boolean;
+  ownsActive: boolean;
+  ownsIncoming: boolean;
+  ownsShared: boolean;
+  failed: boolean;
+  ioReady: boolean;
+  renderSettled: boolean;
+  swapping: boolean;
+  transitionComplete: boolean;
+  ownerIndex: number;
+  ownerGeneration: number;
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  active: number;
+  incoming: number;
+  epoch: number;
+  lastFrame: number;
+  lastStep: number;
+  animationTicks: number;
+  transitionTarget: number;
+  backgroundMapId: number;
+  slidePx: number;
+  nominalRemainder: number;
+  backOffset: number;
+  frontOffset: number;
+  parallaxAnchorCamera: number;
+  parallaxBaseBack: number;
+  parallaxBaseFront: number;
+  palette: number[];
+}
+/** RouteLiveVisual (resource, presentation-only) */
+export const RouteLiveVisual = typeToken<RouteLiveVisualViews, RouteLiveVisualValue>('RouteLiveVisual', 'resource', { sig: 'reconciled:bool:1,ownerValid:bool:1,ownsActive:bool:1,ownsIncoming:bool:1,ownsShared:bool:1,failed:bool:1,ioReady:bool:1,renderSettled:bool:1,swapping:bool:1,transitionComplete:bool:1,ownerIndex:u32:1,ownerGeneration:u32:1,routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,active:u32:1,incoming:u32:1,epoch:u32:1,lastFrame:u32:1,lastStep:u32:1,animationTicks:u32:1,transitionTarget:u32:1,backgroundMapId:u32:1,slidePx:f32:1,nominalRemainder:f32:1,backOffset:f32:1,frontOffset:f32:1,parallaxAnchorCamera:f32:1,parallaxBaseBack:f32:1,parallaxBaseFront:f32:1,palette:array:33', read: (v: RouteLiveVisualViews, i: number, o: Record<string, unknown>) => { o.reconciled = v.reconciled[i] !== 0; o.ownerValid = v.ownerValid[i] !== 0; o.ownsActive = v.ownsActive[i] !== 0; o.ownsIncoming = v.ownsIncoming[i] !== 0; o.ownsShared = v.ownsShared[i] !== 0; o.failed = v.failed[i] !== 0; o.ioReady = v.ioReady[i] !== 0; o.renderSettled = v.renderSettled[i] !== 0; o.swapping = v.swapping[i] !== 0; o.transitionComplete = v.transitionComplete[i] !== 0; o.ownerIndex = v.ownerIndex[i]; o.ownerGeneration = v.ownerGeneration[i]; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.active = v.active[i]; o.incoming = v.incoming[i]; o.epoch = v.epoch[i]; o.lastFrame = v.lastFrame[i]; o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; o.transitionTarget = v.transitionTarget[i]; o.backgroundMapId = v.backgroundMapId[i]; o.slidePx = v.slidePx[i]; o.nominalRemainder = v.nominalRemainder[i]; o.backOffset = v.backOffset[i]; o.frontOffset = v.frontOffset[i]; o.parallaxAnchorCamera = v.parallaxAnchorCamera[i]; o.parallaxBaseBack = v.parallaxBaseBack[i]; o.parallaxBaseFront = v.parallaxBaseFront[i]; o.palette = $r.lanes(v.palette, i, 33, o.palette); return o; } });
+
+export interface RouteBiomeEnteredViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  fromMapId: Uint32Array;
+  gradient: Int32Array;
+  outgoingCamera: Int32Array;
+}
+export interface RouteBiomeEnteredValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  fromMapId: number;
+  gradient: number;
+  outgoingCamera: number;
+}
+/** RouteBiomeEntered (event, sim) */
+export const RouteBiomeEntered = typeToken<RouteBiomeEnteredViews, RouteBiomeEnteredValue>('RouteBiomeEntered', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,fromMapId:u32:1,gradient:i32:1,outgoingCamera:i32:1', read: (v: RouteBiomeEnteredViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.fromMapId = v.fromMapId[i]; o.gradient = v.gradient[i]; o.outgoingCamera = v.outgoingCamera[i]; return o; } });
+
+export interface RouteCheckpointPassedViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  checkpointLine: Uint32Array;
+  bonusSeconds: Uint32Array;
+}
+export interface RouteCheckpointPassedValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  checkpointLine: number;
+  bonusSeconds: number;
+}
+/** RouteCheckpointPassed (event, sim) */
+export const RouteCheckpointPassed = typeToken<RouteCheckpointPassedViews, RouteCheckpointPassedValue>('RouteCheckpointPassed', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,checkpointLine:u32:1,bonusSeconds:u32:1', read: (v: RouteCheckpointPassedViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.checkpointLine = v.checkpointLine[i]; o.bonusSeconds = v.bonusSeconds[i]; return o; } });
+
+export interface RouteContactAcceptedViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  routeStage: Uint32Array;
+  kind: Uint32Array;
+  mapId: Uint32Array;
+  id: Uint32Array;
+  epoch: Uint32Array;
+  generation: Uint32Array;
+  slot: Uint32Array;
+  toi: Float32Array;
+  stage: Uint32Array;
+  playerX: Float32Array;
+  playerZ: Float32Array;
+  otherX: Float32Array;
+  otherZ: Float32Array;
+  impactSpeed: Float32Array;
+  handlingCap: Float32Array;
+  collisionDir: Float32Array;
+  curve: Float32Array;
+}
+export interface RouteContactAcceptedValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  routeStage: number;
+  kind: number;
+  mapId: number;
+  id: number;
+  epoch: number;
+  generation: number;
+  slot: number;
+  toi: number;
+  stage: number;
+  playerX: number;
+  playerZ: number;
+  otherX: number;
+  otherZ: number;
+  impactSpeed: number;
+  handlingCap: number;
+  collisionDir: number;
+  curve: number;
+}
+/** RouteContactAccepted (event, sim) */
+export const RouteContactAccepted = typeToken<RouteContactAcceptedViews, RouteContactAcceptedValue>('RouteContactAccepted', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,routeStage:u32:1,kind:u32:1,mapId:u32:1,id:u32:1,epoch:u32:1,generation:u32:1,slot:u32:1,toi:f32:1,stage:u32:1,playerX:f32:1,playerZ:f32:1,otherX:f32:1,otherZ:f32:1,impactSpeed:f32:1,handlingCap:f32:1,collisionDir:f32:1,curve:f32:1', read: (v: RouteContactAcceptedViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.routeStage = v.routeStage[i]; o.kind = v.kind[i]; o.mapId = v.mapId[i]; o.id = v.id[i]; o.epoch = v.epoch[i]; o.generation = v.generation[i]; o.slot = v.slot[i]; o.toi = v.toi[i]; o.stage = v.stage[i]; o.playerX = v.playerX[i]; o.playerZ = v.playerZ[i]; o.otherX = v.otherX[i]; o.otherZ = v.otherZ[i]; o.impactSpeed = v.impactSpeed[i]; o.handlingCap = v.handlingCap[i]; o.collisionDir = v.collisionDir[i]; o.curve = v.curve[i]; return o; } });
+
+export interface RouteDriverViews {
+  initialized: Uint8Array;
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  gradient: Int32Array;
+  camera: Int32Array;
+  previousCamera: Int32Array;
+  choiceLatched: Uint8Array;
+  chosenSide: Uint32Array;
+  nextMapId: Uint32Array;
+  checkpointAwarded: Uint8Array;
+  goalEntered: Uint8Array;
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  rangeCalls: Uint32Array;
+  entryCount: Uint32Array;
+  checkpointCount: Uint32Array;
+  checkpointStep: Uint32Array;
+  checkpointBonusSeconds: Uint32Array;
+  arrivalCount: Uint32Array;
+  arrivalStep: Uint32Array;
+  passAwardCount: Uint32Array;
+  passAwardStep: Uint32Array;
+  passAwardAmount: Uint32Array;
+  passAwardOldMapEpoch: Uint32Array;
+  processedStep: Uint32Array;
+  pending: Uint8Array;
+  pendingStep: Uint32Array;
+  pendingReset: Uint8Array;
+  pendingHandoff: Uint8Array;
+  pendingFromMapId: Uint32Array;
+  pendingFromGradient: Int32Array;
+  pendingOldMapEpoch: Uint32Array;
+  pendingPreviousCamera: Int32Array;
+  pendingOutgoingCamera: Int32Array;
+  pendingRawCamera: Int32Array;
+}
+export interface RouteDriverValue {
+  initialized: boolean;
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  gradient: number;
+  camera: number;
+  previousCamera: number;
+  choiceLatched: boolean;
+  chosenSide: number;
+  nextMapId: number;
+  checkpointAwarded: boolean;
+  goalEntered: boolean;
+  seedLo: number;
+  seedHi: number;
+  rangeCalls: number;
+  entryCount: number;
+  checkpointCount: number;
+  checkpointStep: number;
+  checkpointBonusSeconds: number;
+  arrivalCount: number;
+  arrivalStep: number;
+  passAwardCount: number;
+  passAwardStep: number;
+  passAwardAmount: number;
+  passAwardOldMapEpoch: number;
+  processedStep: number;
+  pending: boolean;
+  pendingStep: number;
+  pendingReset: boolean;
+  pendingHandoff: boolean;
+  pendingFromMapId: number;
+  pendingFromGradient: number;
+  pendingOldMapEpoch: number;
+  pendingPreviousCamera: number;
+  pendingOutgoingCamera: number;
+  pendingRawCamera: number;
+}
+/** RouteDriver (component, sim) */
+export const RouteDriver = typeToken<RouteDriverViews, RouteDriverValue>('RouteDriver', 'component', { sig: 'initialized:bool:1,routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,gradient:i32:1,camera:i32:1,previousCamera:i32:1,choiceLatched:bool:1,chosenSide:u32:1,nextMapId:u32:1,checkpointAwarded:bool:1,goalEntered:bool:1,seedLo:u32:1,seedHi:u32:1,rangeCalls:u32:1,entryCount:u32:1,checkpointCount:u32:1,checkpointStep:u32:1,checkpointBonusSeconds:u32:1,arrivalCount:u32:1,arrivalStep:u32:1,passAwardCount:u32:1,passAwardStep:u32:1,passAwardAmount:u32:1,passAwardOldMapEpoch:u32:1,processedStep:u32:1,pending:bool:1,pendingStep:u32:1,pendingReset:bool:1,pendingHandoff:bool:1,pendingFromMapId:u32:1,pendingFromGradient:i32:1,pendingOldMapEpoch:u32:1,pendingPreviousCamera:i32:1,pendingOutgoingCamera:i32:1,pendingRawCamera:i32:1', read: (v: RouteDriverViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.gradient = v.gradient[i]; o.camera = v.camera[i]; o.previousCamera = v.previousCamera[i]; o.choiceLatched = v.choiceLatched[i] !== 0; o.chosenSide = v.chosenSide[i]; o.nextMapId = v.nextMapId[i]; o.checkpointAwarded = v.checkpointAwarded[i] !== 0; o.goalEntered = v.goalEntered[i] !== 0; o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.rangeCalls = v.rangeCalls[i]; o.entryCount = v.entryCount[i]; o.checkpointCount = v.checkpointCount[i]; o.checkpointStep = v.checkpointStep[i]; o.checkpointBonusSeconds = v.checkpointBonusSeconds[i]; o.arrivalCount = v.arrivalCount[i]; o.arrivalStep = v.arrivalStep[i]; o.passAwardCount = v.passAwardCount[i]; o.passAwardStep = v.passAwardStep[i]; o.passAwardAmount = v.passAwardAmount[i]; o.passAwardOldMapEpoch = v.passAwardOldMapEpoch[i]; o.processedStep = v.processedStep[i]; o.pending = v.pending[i] !== 0; o.pendingStep = v.pendingStep[i]; o.pendingReset = v.pendingReset[i] !== 0; o.pendingHandoff = v.pendingHandoff[i] !== 0; o.pendingFromMapId = v.pendingFromMapId[i]; o.pendingFromGradient = v.pendingFromGradient[i]; o.pendingOldMapEpoch = v.pendingOldMapEpoch[i]; o.pendingPreviousCamera = v.pendingPreviousCamera[i]; o.pendingOutgoingCamera = v.pendingOutgoingCamera[i]; o.pendingRawCamera = v.pendingRawCamera[i]; return o; } });
+
+export interface RouteForkChosenViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  side: Uint32Array;
+  nextMapId: Uint32Array;
+  gradient: Int32Array;
+}
+export interface RouteForkChosenValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  side: number;
+  nextMapId: number;
+  gradient: number;
+}
+/** RouteForkChosen (event, sim) */
+export const RouteForkChosen = typeToken<RouteForkChosenViews, RouteForkChosenValue>('RouteForkChosen', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,side:u32:1,nextMapId:u32:1,gradient:i32:1', read: (v: RouteForkChosenViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.side = v.side[i]; o.nextMapId = v.nextMapId[i]; o.gradient = v.gradient[i]; return o; } });
+
+export interface RouteGoalEnteredViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  gradient: Int32Array;
+}
+export interface RouteGoalEnteredValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  gradient: number;
+}
+/** RouteGoalEntered (event, sim) */
+export const RouteGoalEntered = typeToken<RouteGoalEnteredViews, RouteGoalEnteredValue>('RouteGoalEntered', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,gradient:i32:1', read: (v: RouteGoalEnteredViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.gradient = v.gradient[i]; return o; } });
+
+export interface RouteResetRequestedViews {
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  population: Uint32Array;
+  manual: Uint8Array;
+}
+export interface RouteResetRequestedValue {
+  seedLo: number;
+  seedHi: number;
+  population: number;
+  manual: boolean;
+}
+/** RouteResetRequested (event, sim) */
+export const RouteResetRequested = typeToken<RouteResetRequestedViews, RouteResetRequestedValue>('RouteResetRequested', 'event', { sig: 'seedLo:u32:1,seedHi:u32:1,population:u32:1,manual:bool:1', read: (v: RouteResetRequestedViews, i: number, o: Record<string, unknown>) => { o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.population = v.population[i]; o.manual = v.manual[i] !== 0; return o; } });
+
+export interface RouteTrafficCoordinatesViews {
+  initialized: Uint8Array;
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  originZ: Int32Array;
+  rawZ: Int32Array;
+  previousRawZ: Int32Array;
+}
+export interface RouteTrafficCoordinatesValue {
+  initialized: boolean;
+  routeEpoch: number;
+  mapEpoch: number;
+  originZ: number;
+  rawZ: number[];
+  previousRawZ: number[];
+}
+/** RouteTrafficCoordinates (component, sim) */
+export const RouteTrafficCoordinates = typeToken<RouteTrafficCoordinatesViews, RouteTrafficCoordinatesValue>('RouteTrafficCoordinates', 'component', { sig: 'initialized:bool:1,routeEpoch:u32:1,mapEpoch:u32:1,originZ:i32:1,rawZ:array:32,previousRawZ:array:32', read: (v: RouteTrafficCoordinatesViews, i: number, o: Record<string, unknown>) => { o.initialized = v.initialized[i] !== 0; o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.originZ = v.originZ[i]; o.rawZ = $r.lanes(v.rawZ, i, 32, o.rawZ); o.previousRawZ = $r.lanes(v.previousRawZ, i, 32, o.previousRawZ); return o; } });
+
+export interface RouteTrafficPassedViews {
+  routeEpoch: Uint32Array;
+  mapEpoch: Uint32Array;
+  mapId: Uint32Array;
+  stage: Uint32Array;
+  poolEpoch: Uint32Array;
+  slot: Uint32Array;
+  generation: Uint32Array;
+  points: Uint32Array;
+}
+export interface RouteTrafficPassedValue {
+  routeEpoch: number;
+  mapEpoch: number;
+  mapId: number;
+  stage: number;
+  poolEpoch: number;
+  slot: number;
+  generation: number;
+  points: number;
+}
+/** RouteTrafficPassed (event, sim) */
+export const RouteTrafficPassed = typeToken<RouteTrafficPassedViews, RouteTrafficPassedValue>('RouteTrafficPassed', 'event', { sig: 'routeEpoch:u32:1,mapEpoch:u32:1,mapId:u32:1,stage:u32:1,poolEpoch:u32:1,slot:u32:1,generation:u32:1,points:u32:1', read: (v: RouteTrafficPassedViews, i: number, o: Record<string, unknown>) => { o.routeEpoch = v.routeEpoch[i]; o.mapEpoch = v.mapEpoch[i]; o.mapId = v.mapId[i]; o.stage = v.stage[i]; o.poolEpoch = v.poolEpoch[i]; o.slot = v.slot[i]; o.generation = v.generation[i]; o.points = v.points[i]; return o; } });
+
+export interface TerrainDriverViews {
+  mapId: Uint32Array;
+  segment: Uint32Array;
+  roadSide: Uint32Array;
+  previousGap: Float32Array;
+  initialized: Uint8Array;
+  leftOutside: Uint8Array;
+  rightOutside: Uint8Array;
+  leftEffect: Uint32Array;
+  rightEffect: Uint32Array;
+  skidding: Uint8Array;
+  recentering: Uint8Array;
+  recenterTarget: Float32Array;
+  sectionEnd: Uint8Array;
+}
+export interface TerrainDriverValue {
+  mapId: number;
+  segment: number;
+  roadSide: number;
+  previousGap: number;
+  initialized: boolean;
+  leftOutside: boolean;
+  rightOutside: boolean;
+  leftEffect: number;
+  rightEffect: number;
+  skidding: boolean;
+  recentering: boolean;
+  recenterTarget: number;
+  sectionEnd: boolean;
+}
+/** TerrainDriver (component, sim) */
+export const TerrainDriver = typeToken<TerrainDriverViews, TerrainDriverValue>('TerrainDriver', 'component', { sig: 'mapId:u32:1,segment:u32:1,roadSide:u32:1,previousGap:f32:1,initialized:bool:1,leftOutside:bool:1,rightOutside:bool:1,leftEffect:u32:1,rightEffect:u32:1,skidding:bool:1,recentering:bool:1,recenterTarget:f32:1,sectionEnd:bool:1', read: (v: TerrainDriverViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.segment = v.segment[i]; o.roadSide = v.roadSide[i]; o.previousGap = v.previousGap[i]; o.initialized = v.initialized[i] !== 0; o.leftOutside = v.leftOutside[i] !== 0; o.rightOutside = v.rightOutside[i] !== 0; o.leftEffect = v.leftEffect[i]; o.rightEffect = v.rightEffect[i]; o.skidding = v.skidding[i] !== 0; o.recentering = v.recentering[i] !== 0; o.recenterTarget = v.recenterTarget[i]; o.sectionEnd = v.sectionEnd[i] !== 0; return o; } });
+
+export interface TerrainVisualStateViews {
+  lastStep: Uint32Array;
+  animationTicks: Uint32Array;
+}
+export interface TerrainVisualStateValue {
+  lastStep: number;
+  animationTicks: number;
+}
+/** TerrainVisualState (component, presentation-only) */
+export const TerrainVisualState = typeToken<TerrainVisualStateViews, TerrainVisualStateValue>('TerrainVisualState', 'component', { sig: 'lastStep:u32:1,animationTicks:u32:1', read: (v: TerrainVisualStateViews, i: number, o: Record<string, unknown>) => { o.lastStep = v.lastStep[i]; o.animationTicks = v.animationTicks[i]; return o; } });
+
+export interface TrafficArtPreviewViews {
+  mode: Uint32Array;
+  frame: Uint32Array;
+  caseId: Uint32Array;
+}
+export interface TrafficArtPreviewValue {
+  mode: number;
+  frame: number;
+  caseId: number;
+}
+/** TrafficArtPreview (resource, presentation-only) */
+export const TrafficArtPreview = typeToken<TrafficArtPreviewViews, TrafficArtPreviewValue>('TrafficArtPreview', 'resource', { sig: 'mode:u32:1,frame:u32:1,caseId:u32:1', read: (v: TrafficArtPreviewViews, i: number, o: Record<string, unknown>) => { o.mode = v.mode[i]; o.frame = v.frame[i]; o.caseId = v.caseId[i]; return o; } });
+
+export interface TrafficArtResidencyViews {
+  loaded: Uint8Array;
+  reconciled: Uint8Array;
+  catalogLoaded: Uint8Array;
+  catalogReconciled: Uint8Array;
+}
+export interface TrafficArtResidencyValue {
+  loaded: boolean;
+  reconciled: boolean;
+  catalogLoaded: boolean;
+  catalogReconciled: boolean;
+}
+/** TrafficArtResidency (resource, presentation-only) */
+export const TrafficArtResidency = typeToken<TrafficArtResidencyViews, TrafficArtResidencyValue>('TrafficArtResidency', 'resource', { sig: 'loaded:bool:1,reconciled:bool:1,catalogLoaded:bool:1,catalogReconciled:bool:1', read: (v: TrafficArtResidencyViews, i: number, o: Record<string, unknown>) => { o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; o.catalogLoaded = v.catalogLoaded[i] !== 0; o.catalogReconciled = v.catalogReconciled[i] !== 0; return o; } });
+
+export interface TrafficPassedViews {
+  epoch: Uint32Array;
+  slot: Uint32Array;
+  generation: Uint32Array;
+  points: Uint32Array;
+}
+export interface TrafficPassedValue {
+  epoch: number;
+  slot: number;
+  generation: number;
+  points: number;
+}
+/** TrafficPassed (event, sim) */
+export const TrafficPassed = typeToken<TrafficPassedViews, TrafficPassedValue>('TrafficPassed', 'event', { sig: 'epoch:u32:1,slot:u32:1,generation:u32:1,points:u32:1', read: (v: TrafficPassedViews, i: number, o: Record<string, unknown>) => { o.epoch = v.epoch[i]; o.slot = v.slot[i]; o.generation = v.generation[i]; o.points = v.points[i]; return o; } });
+
+export interface TrafficPoolViews {
+  mapId: Uint32Array;
+  initialized: Uint8Array;
+  population: Uint32Array;
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  originZ: Float32Array;
+  aiCursor: Uint32Array;
+  epoch: Uint32Array;
+  z: Float32Array;
+  previousZ: Float32Array;
+  offset: Float32Array;
+  previousOffset: Float32Array;
+  speed: Float32Array;
+  target: Float32Array;
+  side: Uint32Array;
+  ai: Uint32Array;
+  active: Uint32Array;
+  generation: Uint32Array;
+  passed: Uint32Array;
+  moving: Uint32Array;
+  cooldown: Uint32Array;
+  parked: Uint32Array;
+  motionTicks: Uint32Array;
+}
+export interface TrafficPoolValue {
+  mapId: number;
+  initialized: boolean;
+  population: number;
+  seedLo: number;
+  seedHi: number;
+  originZ: number;
+  aiCursor: number;
+  epoch: number;
+  z: number[];
+  previousZ: number[];
+  offset: number[];
+  previousOffset: number[];
+  speed: number[];
+  target: number[];
+  side: number[];
+  ai: number[];
+  active: number[];
+  generation: number[];
+  passed: number[];
+  moving: number[];
+  cooldown: number[];
+  parked: number[];
+  motionTicks: number[];
+}
+/** TrafficPool (component, sim) */
+export const TrafficPool = typeToken<TrafficPoolViews, TrafficPoolValue>('TrafficPool', 'component', { sig: 'mapId:u32:1,initialized:bool:1,population:u32:1,seedLo:u32:1,seedHi:u32:1,originZ:f32:1,aiCursor:u32:1,epoch:u32:1,z:array:32,previousZ:array:32,offset:array:32,previousOffset:array:32,speed:array:32,target:array:32,side:array:32,ai:array:32,active:array:32,generation:array:32,passed:array:32,moving:array:32,cooldown:array:32,parked:array:32,motionTicks:array:32', read: (v: TrafficPoolViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.initialized = v.initialized[i] !== 0; o.population = v.population[i]; o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.originZ = v.originZ[i]; o.aiCursor = v.aiCursor[i]; o.epoch = v.epoch[i]; o.z = $r.lanes(v.z, i, 32, o.z); o.previousZ = $r.lanes(v.previousZ, i, 32, o.previousZ); o.offset = $r.lanes(v.offset, i, 32, o.offset); o.previousOffset = $r.lanes(v.previousOffset, i, 32, o.previousOffset); o.speed = $r.lanes(v.speed, i, 32, o.speed); o.target = $r.lanes(v.target, i, 32, o.target); o.side = $r.lanes(v.side, i, 32, o.side); o.ai = $r.lanes(v.ai, i, 32, o.ai); o.active = $r.lanes(v.active, i, 32, o.active); o.generation = $r.lanes(v.generation, i, 32, o.generation); o.passed = $r.lanes(v.passed, i, 32, o.passed); o.moving = $r.lanes(v.moving, i, 32, o.moving); o.cooldown = $r.lanes(v.cooldown, i, 32, o.cooldown); o.parked = $r.lanes(v.parked, i, 32, o.parked); o.motionTicks = $r.lanes(v.motionTicks, i, 32, o.motionTicks); return o; } });
+
+export interface TrafficRebaseRequestedViews {
+  mapId: Uint32Array;
+  shift: Float32Array;
+}
+export interface TrafficRebaseRequestedValue {
+  mapId: number;
+  shift: number;
+}
+/** TrafficRebaseRequested (event, sim) */
+export const TrafficRebaseRequested = typeToken<TrafficRebaseRequestedViews, TrafficRebaseRequestedValue>('TrafficRebaseRequested', 'event', { sig: 'mapId:u32:1,shift:f32:1', read: (v: TrafficRebaseRequestedViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.shift = v.shift[i]; return o; } });
+
+export interface TrafficResetRequestedViews {
+  mapId: Uint32Array;
+  population: Uint32Array;
+  seedLo: Uint32Array;
+  seedHi: Uint32Array;
+  originZ: Float32Array;
+}
+export interface TrafficResetRequestedValue {
+  mapId: number;
+  population: number;
+  seedLo: number;
+  seedHi: number;
+  originZ: number;
+}
+/** TrafficResetRequested (event, sim) */
+export const TrafficResetRequested = typeToken<TrafficResetRequestedViews, TrafficResetRequestedValue>('TrafficResetRequested', 'event', { sig: 'mapId:u32:1,population:u32:1,seedLo:u32:1,seedHi:u32:1,originZ:f32:1', read: (v: TrafficResetRequestedViews, i: number, o: Record<string, unknown>) => { o.mapId = v.mapId[i]; o.population = v.population[i]; o.seedLo = v.seedLo[i]; o.seedHi = v.seedHi[i]; o.originZ = v.originZ[i]; return o; } });
+
+export interface VehiclePreviewViews {
+  enabled: Uint8Array;
+  pose: Uint32Array;
+  sample: Uint32Array;
+  effect: Uint32Array;
+  scale: Float32Array;
+  placeholder: Uint8Array;
+  autoplay: Uint8Array;
+  loaded: Uint8Array;
+  reconciled: Uint8Array;
+  useWheelEffects: Uint8Array;
+  leftEffect: Uint32Array;
+  rightEffect: Uint32Array;
+  hidden: Uint8Array;
+  loadedCar: Uint32Array;
+}
+export interface VehiclePreviewValue {
+  enabled: boolean;
+  pose: number;
+  sample: number;
+  effect: number;
+  scale: number;
+  placeholder: boolean;
+  autoplay: boolean;
+  loaded: boolean;
+  reconciled: boolean;
+  useWheelEffects: boolean;
+  leftEffect: number;
+  rightEffect: number;
+  hidden: boolean;
+  loadedCar: number;
+}
+/** VehiclePreview (resource, presentation-only) */
+export const VehiclePreview = typeToken<VehiclePreviewViews, VehiclePreviewValue>('VehiclePreview', 'resource', { sig: 'enabled:bool:1,pose:u32:1,sample:u32:1,effect:u32:1,scale:f32:1,placeholder:bool:1,autoplay:bool:1,loaded:bool:1,reconciled:bool:1,useWheelEffects:bool:1,leftEffect:u32:1,rightEffect:u32:1,hidden:bool:1,loadedCar:u32:1', read: (v: VehiclePreviewViews, i: number, o: Record<string, unknown>) => { o.enabled = v.enabled[i] !== 0; o.pose = v.pose[i]; o.sample = v.sample[i]; o.effect = v.effect[i]; o.scale = v.scale[i]; o.placeholder = v.placeholder[i] !== 0; o.autoplay = v.autoplay[i] !== 0; o.loaded = v.loaded[i] !== 0; o.reconciled = v.reconciled[i] !== 0; o.useWheelEffects = v.useWheelEffects[i] !== 0; o.leftEffect = v.leftEffect[i]; o.rightEffect = v.rightEffect[i]; o.hidden = v.hidden[i] !== 0; o.loadedCar = v.loadedCar[i]; return o; } });
+
+export interface VehicleVisualSlotViews {
+  slot: Uint32Array;
+}
+export interface VehicleVisualSlotValue {
+  slot: number;
+}
+/** VehicleVisualSlot (component, presentation-only) */
+export const VehicleVisualSlot = typeToken<VehicleVisualSlotViews, VehicleVisualSlotValue>('VehicleVisualSlot', 'component', { sig: 'slot:u32:1', read: (v: VehicleVisualSlotViews, i: number, o: Record<string, unknown>) => { o.slot = v.slot[i]; return o; } });
+
+/** Immutable source-compatible Map1 geometry/provenance. Source PNG paths are provenance, not runtime art references (child40). */
+export type SourceBiomeData = {
+  id: number;
+  sourceCommit: string;
+  inputSha256: string;
+  sourceHashes: Record<string, string>;
+  profile: "sourceCompatibility-original";
+  forkGradient: number;
+  segmentLength: number;
+  playerOffsetZ: number;
+  cameraHeight: number;
+  referenceWidth: number;
+  authoredCount: number;
+  totalCount: number;
+  swapLine: number;
+  lastLine: number;
+  checkpointLine: number;
+  timeSeconds: number;
+  terrain: number;
+  roadTerrain: number;
+  links: {
+    left: number;
+    right: number;
+    sequential: number;
+  };
+  palette: number[][];
+  commands: {
+    sourceLine: number;
+    command: string;
+    arguments: number[];
+    firstSegment: number;
+    count: number;
+    effective: number[];
+  }[];
+  objects: {
+    id: number;
+    sourcePath: string;
+    sha256: string;
+    propertiesSha256: string;
+    hasProperties: boolean;
+    sourceSizePx: number[];
+    collision: boolean;
+    scale: number;
+    collisionWidthSourcePx: number;
+    showTerrain: number;
+    pivotLeft: number[];
+    pivotRight: number[];
+    collisionPivotLeft: number[];
+    collisionPivotRight: number[];
+  }[];
+  definitions: {
+    id: number;
+    kind: "start" | "authored" | "goal";
+    sourceLine: number;
+    objectId: number;
+    offsetX: number;
+    offsetY: number;
+    side: boolean;
+    viewportYFactor: number;
+  }[];
+  placements: {
+    id: number;
+    segment: number;
+    slot: number;
+    definition: number;
+  }[];
+  overwritten: {
+    segment: number;
+    slot: number;
+    previousDefinition: number;
+    definition: number;
+  }[];
+  candidatePlacements: number;
+  maxWindowProps: number;
+  objectOffsets: number[];
+  segments: {
+    y0: number;
+    y1: number;
+    curve: number;
+    gap: number;
+    mirror: boolean;
+    light: number;
+  }[];
+};
+/** A loaded SourceBiome as `loadData` returns it (frozen). */
+export type ReadonlySourceBiomeData = DataRecord<SourceBiomeData>;
+export const SourceBiome = dataToken<SourceBiomeData>('SourceBiome');
+
+/** All fifteen ordinary source nodes and the genuine goal, ORIGINAL gradient0 realization. Goal randomness and uninitialized terrain are named deterministic port adaptations; other profiles and runtime handoff remain separate. */
+export type SourceBiomeCatalogData = {
+  sourceCommit: string;
+  sourceHashes: Record<string, string>;
+  profile: "sourceCompatibility-original";
+  forkGradient: number;
+  goalPolicy: {
+    randomProfile: "goal-offsets-sha256-u24-v1";
+    seed: number;
+    terrainProfile: "goal-terrain-defaults-v1";
+    terrain: number;
+    roadTerrain: number;
+  };
+  entries: {
+    id: number;
+    kind: "ordinary" | "goal";
+    stage: number;
+    position: number;
+    dataKey: string;
+    terminal: boolean;
+    hasCheckpoint: boolean;
+    checkpointLine: number;
+    links: {
+      left: number;
+      right: number;
+      sequential: number;
+    };
+  }[];
+};
+/** A loaded SourceBiomeCatalog as `loadData` returns it (frozen). */
+export type ReadonlySourceBiomeCatalogData = DataRecord<SourceBiomeCatalogData>;
+export const SourceBiomeCatalog = dataToken<SourceBiomeCatalogData>('SourceBiomeCatalog');
+
+/** Offline source-compiled minus/plus-one gradient tail heights as unsigned binary32 bit integers. Gradient zero retains the original SourceBiome record. Runtime composition validates all maps before route activation. */
+export type SourceBiomeTailProfilesData = {
+  format: "sourceCompatibility-original-tail-y1-f32bits-v1";
+  sourceCommit: string;
+  sourceHashes: Record<string, string>;
+  entries: {
+    mapId: number;
+    baseInputSha256: string;
+    baseAssetSha256: string;
+    authoredCount: number;
+    totalCount: number;
+    segmentLength: number;
+    profiles: {
+      gradient: number;
+      swapLine: number;
+      lastLine: number;
+      y1Bits: number[];
+    }[];
+  }[];
+};
+/** A loaded SourceBiomeTailProfiles as `loadData` returns it (frozen). */
+export type ReadonlySourceBiomeTailProfilesData = DataRecord<SourceBiomeTailProfilesData>;
+export const SourceBiomeTailProfiles = dataToken<SourceBiomeTailProfilesData>('SourceBiomeTailProfiles');
+
+/** All16 ORIGINAL map metadata plus a bit-exact shared dictionary for48 source profiles. Compiled offline without changing legacy biome/catalog/tail assets; composed once before simulation. */
+export type SourceRouteCohortData = {
+  format: "sourceCompatibility-original-row-dictionary-v1";
+  sourceCommit: string;
+  sourceHashes: Record<string, string>;
+  rows: {
+    y0: number;
+    y1: number;
+    curve: number;
+    gap: number;
+    mirror: boolean;
+    light: number;
+  }[];
+  entries: {
+    base: {
+      id: number;
+      sourceCommit: string;
+      inputSha256: string;
+      sourceHashes: Record<string, string>;
+      profile: "sourceCompatibility-original";
+      forkGradient: number;
+      segmentLength: number;
+      playerOffsetZ: number;
+      cameraHeight: number;
+      referenceWidth: number;
+      authoredCount: number;
+      totalCount: number;
+      swapLine: number;
+      lastLine: number;
+      checkpointLine: number;
+      timeSeconds: number;
+      terrain: number;
+      roadTerrain: number;
+      links: {
+        left: number;
+        right: number;
+        sequential: number;
+      };
+      palette: number[][];
+      commands: {
+        sourceLine: number;
+        command: string;
+        arguments: number[];
+        firstSegment: number;
+        count: number;
+        effective: number[];
+      }[];
+      objects: {
+        id: number;
+        sourcePath: string;
+        sha256: string;
+        propertiesSha256: string;
+        hasProperties: boolean;
+        sourceSizePx: number[];
+        collision: boolean;
+        scale: number;
+        collisionWidthSourcePx: number;
+        showTerrain: number;
+        pivotLeft: number[];
+        pivotRight: number[];
+        collisionPivotLeft: number[];
+        collisionPivotRight: number[];
+      }[];
+      definitions: {
+        id: number;
+        kind: "start" | "authored" | "goal";
+        sourceLine: number;
+        objectId: number;
+        offsetX: number;
+        offsetY: number;
+        side: boolean;
+        viewportYFactor: number;
+      }[];
+      placements: {
+        id: number;
+        segment: number;
+        slot: number;
+        definition: number;
+      }[];
+      overwritten: {
+        segment: number;
+        slot: number;
+        previousDefinition: number;
+        definition: number;
+      }[];
+      candidatePlacements: number;
+      maxWindowProps: number;
+      objectOffsets: number[];
+    };
+    baseAssetSha256: string;
+    baseRows: number[];
+    profiles: {
+      gradient: number;
+      tailRows: number[];
+    }[];
+  }[];
+};
+/** A loaded SourceRouteCohort as `loadData` returns it (frozen). */
+export type ReadonlySourceRouteCohortData = DataRecord<SourceRouteCohortData>;
+export const SourceRouteCohort = dataToken<SourceRouteCohortData>('SourceRouteCohort');

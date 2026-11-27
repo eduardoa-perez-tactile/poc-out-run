@@ -11,7 +11,8 @@ export const DrivingInput = resource('DrivingInput', {
   keyboard: u32(), ui: u32(), shiftUp: bool(), shiftDown: bool(),
   upHeld: bool(), downHeld: bool(), pauseHeld: bool(), modeHeld: bool(),
 }, { sim: true });
-// control: 0 throttle, 1 brake, 2 left, 3 right; source: 0 keyboard, 1 UI.
+// control: 0 throttle, 1 brake, 2 left, 3 right; UI press pulses4 gear down,5 gear up.
+// source: 0 keyboard,1 UI. Shift pulses reuse the existing one-tick input flags.
 export const DrivingControlChanged = event('DrivingControlChanged', {
   control: u32(), source: u32(), down: bool(),
 }, { sim: true });
@@ -20,3 +21,12 @@ export const DrivingControlsCancelled = event('DrivingControlsCancelled', {}, { 
 export const DrivingResetRequested = event('DrivingResetRequested', {
   manual: bool(), legacySpeed: f32(), distance: f32({ default: 45000 }), lateral: f32(),
 }, { sim: true });
+// Explicit UI pause/resume intent; keyboard Space shares its authoritative reducer.
+export const DrivingPauseRequested = event('DrivingPauseRequested', { paused: bool() }, { sim: true });
+// Zero means the original binding; unchanged defaults remain inert in replays.
+export const DrivingBindings=resource('DrivingBindings',{
+  left:u32(),right:u32(),throttle:u32(),brake:u32(),up:u32(),down:u32(),
+},{sim:true});
+export const KeyboardBindingsRequested=event('KeyboardBindingsRequested',{
+  left:u32(),right:u32(),throttle:u32(),brake:u32(),up:u32(),down:u32(),
+},{sim:true});

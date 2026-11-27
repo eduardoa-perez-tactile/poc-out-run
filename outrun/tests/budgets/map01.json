@@ -1,0 +1,10 @@
+{
+  "replay": "tests/replays/content_map01_dense_canonical_recorded_startup.greplay",
+  "structural": {
+    "drawCallsMax": 4,
+    "pipelinesCreatedDuringPlay": 0,
+    "gcPausesOver4msMax": 0,
+    "jsAllocatedMBMax": 32,
+    "repeat": 1
+  }
+}

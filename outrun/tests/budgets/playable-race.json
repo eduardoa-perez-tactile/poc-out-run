@@ -1,0 +1,9 @@
+{
+  "replay": "tests/replays/race_profile_recorded_normal_traffic_countdown_drive_pause_and_resume.greplay",
+  "structural": {
+    "drawCallsMax": 16,
+    "pipelinesCreatedDuringPlay": 0,
+    "repeat": 1
+  },
+  "scope": "Launch/countdown, normal traffic20 drive, pause/resume UI only. Actual GPU assertions are in race.profile; this stock SDK budget does not prove allocation, GC, residency, a complete race or phone hardware performance."
+}

@@ -1,0 +1,6 @@
+guid = "31c561ed-1610-4dc0-9d56-6d0c941cf566"
+importer = "texture"
+[settings]
+atlas = "player-ferrari1"
+trim = true
+compression = "none"
